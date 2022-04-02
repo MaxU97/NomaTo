@@ -1,18 +1,22 @@
 {
+  "header": {
+    "FAQ": "FAQ",
+    "rent-item": "Rent an item",
+    "login-signup": "Login or Sign up"
+  },
   "home": {
-    "bechef": "ENGLISH",
-    "login": "Ielogoties",
-    "welcome": "Laipni lūdzam!",
-    "authorize": "Ienākt, lai piekļūtu savam kontam",
-    "basket": "Grozs",
-    "fresh": "Unikālas receptes ar svaigiem produktiem tiek piegādātas pie jūsu durvīm!",
-    "additional": "Papildus",
-    "menu": "Nedēļas ēdienkarte",
-    "delivery": "Mēs piegādāsim",
-    "or": "vai",
-    "terms": "Noklikšķiniet uz “Turpināt ar”, lai piekristu BChef pakalpojumu sniegšanas noteikumiem un atzītu, ka uz jums attiecas BChef konfidencialitātes politika.",
-    "continue": "Turpināt ar",
-    "description": "BСhef aicina cilvēkus pārvērst ēdiena gatavošanu aizraujošā un piepildītā stāstā.",
-    "menuEmpty": "Nākamās nedēļas izvēlnē bus vēlāk."
+    "test": "ENGLISH",
+    "search-title-p1": "Find",
+    "search-title-p2": "anything",
+    "search-title-p3": "in your city"
+  },
+  "search": {
+    "placeholder": "Bike, camera, drone...",
+    "button": "Search",
+    "checkout": "Or checkout our most popular items...",
+    "viewmore": "View More"
+  },
+  "item": {
+    "price-day": "day"
   }
 }

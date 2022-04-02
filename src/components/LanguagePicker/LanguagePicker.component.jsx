@@ -47,7 +47,7 @@ const LanguagePicker = () => {
   const getImageForLanguage = () => {
     const current = getCurrentLanguage();
     var currenttImage;
-    debugger;
+
     fullLang.forEach((l) => {
       if (l.key == current) {
         currenttImage = l.img;
@@ -57,7 +57,6 @@ const LanguagePicker = () => {
   };
 
   const toggleOpen = (open) => {
-    debugger;
     if (open == null) {
       setOpen(!isOpen);
     } else if (open != null) {

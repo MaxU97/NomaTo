@@ -7,6 +7,13 @@ a {
   color: inherit;
 }
 
-* {
+body {
   font-family: Gilroy-Regular;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 40px;
+  height: 100%;
 }

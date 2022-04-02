@@ -1,18 +1,22 @@
 {
+  "header": {
+    "FAQ": "ЧаВо",
+    "rent-item": "Арендовать",
+    "login-signup": "Вход или Регистрация"
+  },
   "home": {
-    "bechef": "РУССКИЙ",
-    "login": "Ielogoties",
-    "welcome": "Laipni lūdzam!",
-    "authorize": "Ienākt, lai piekļūtu savam kontam",
-    "basket": "Grozs",
-    "fresh": "Unikālas receptes ar svaigiem produktiem tiek piegādātas pie jūsu durvīm!",
-    "additional": "Papildus",
-    "menu": "Nedēļas ēdienkarte",
-    "delivery": "Mēs piegādāsim",
-    "or": "vai",
-    "terms": "Noklikšķiniet uz “Turpināt ar”, lai piekristu BChef pakalpojumu sniegšanas noteikumiem un atzītu, ka uz jums attiecas BChef konfidencialitātes politika.",
-    "continue": "Turpināt ar",
-    "description": "BСhef aicina cilvēkus pārvērst ēdiena gatavošanu aizraujošā un piepildītā stāstā.",
-    "menuEmpty": "Nākamās nedēļas izvēlnē bus vēlāk."
+    "test": "РУССКИЙ",
+    "search-title-p1": "Найдите что",
+    "search-title-p2": "угодно",
+    "search-title-p3": "в вашем городе"
+  },
+  "search": {
+    "placeholder": "Велосипед, камера, дрон...",
+    "button": "Поиск",
+    "checkout": "Или посмотрите на наши самые популярные вещи",
+    "viewmore": "Посмотреть Больше"
+  },
+  "item": {
+    "price-day": "день"
   }
 }
