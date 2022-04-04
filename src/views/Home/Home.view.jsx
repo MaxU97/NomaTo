@@ -39,6 +39,9 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <div className="container">
+        <div className="home-news"></div>
+      </div>
     </div>
   );
 };

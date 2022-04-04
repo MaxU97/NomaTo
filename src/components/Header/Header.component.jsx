@@ -4,9 +4,12 @@ import LanguagePicker from "../LanguagePicker/LanguagePicker.component";
 import "./header.scss";
 import Logo from "../../assets/Logo-1.png";
 import { useTranslation } from "react-i18next";
+import { useUserContext } from "../../context/user";
+import ProfileMenu from "../ProfileMenu/ProfileMenu.component";
 
 const Header = () => {
   const { t } = useTranslation();
+  const { state } = useUserContext();
   return (
     <div className="header">
       <div className="header-content">
@@ -28,9 +31,13 @@ const Header = () => {
             <LanguagePicker />
           </div>
           <div className="account-menu">
-            <Link to="/login">
-              <a className="loginButton">{t("header.login-signup")}</a>
-            </Link>
+            {localStorage.token ? (
+              <ProfileMenu></ProfileMenu>
+            ) : (
+              <Link to="/login">
+                <a className="login-button">{t("header.login-signup")}</a>
+              </Link>
+            )}
           </div>
         </div>
       </div>

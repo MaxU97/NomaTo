@@ -18,8 +18,6 @@ const Carousel = ({
   className = "",
   infinite = false,
 }) => {
-  debugger;
-
   return (
     <CarouselProvider
       naturalSlideHeight={300}

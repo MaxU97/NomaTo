@@ -73,7 +73,7 @@ const LanguagePicker = () => {
   return (
     <div className="lp-wrapper" ref={ref}>
       <div className={isOpen ? "lp-wrapper-active open" : "lp-wrapper-active"}>
-        <div className="lp-item" onClick={() => toggleOpen()}>
+        <div className="lp-header" onClick={() => toggleOpen()}>
           <img src={getImageForLanguage()} />
           <div className="lp-text">{getSelectedLanguage()}</div>
           <img src={downIcon}></img>

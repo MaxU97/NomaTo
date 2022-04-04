@@ -1,7 +1,8 @@
 .home {
   margin-top: 80px;
+
   &-search {
-    padding-top: 100px;
+    padding-top: 70px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -33,5 +34,8 @@
         cursor: pointer;
       }
     }
+  }
+
+  &-news {
   }
 }

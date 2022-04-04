@@ -18,5 +18,23 @@
   },
   "item": {
     "price-day": "day"
+  },
+  "login": {
+    "no-account": "Don't have an account?",
+    "have-account": "Already have an account?",
+    "click-here": "Click here!",
+    "message-1": "Login and rent",
+    "message-2": "anything",
+    "reg-message-1": "Register and rent",
+    "reg-message-2": "anything",
+    "login": "Login",
+    "signup": "Sign up"
+  },
+  "profile-menu": {
+    "profile": "Profile",
+    "inbox": "Inbox",
+    "rentals": "Rentals",
+    "myshop": "My Shop",
+    "admin": { "add-news": "Add News" }
   }
 }

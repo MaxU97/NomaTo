@@ -1,0 +1,41 @@
+.input {
+  &-container {
+    margin-top: 150px;
+  }
+  &-field {
+    margin-bottom: 20px;
+    &.m {
+      height: 100px;
+    }
+
+    &.l {
+      height: 300px;
+    }
+  }
+}
+
+.attached {
+  &-image {
+    border: 5px solid rgb(255, 255, 255);
+    &-active {
+      border: 5px solid red;
+    }
+  }
+}
+
+.upload-news-button {
+  align-self: center;
+  text-align: center;
+  margin: auto 10px;
+  background-color: #3299de;
+  color: white;
+  padding: 10px 30px;
+  border-radius: 10px;
+  transition: 0.3s;
+  width: 50%;
+  &:hover {
+    cursor: pointer;
+    background-color: #66aedf;
+    transition: 0.3s;
+  }
+}
