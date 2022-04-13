@@ -1,4 +1,5 @@
 export const $AUTH = "$AUTH";
+export const $SIGNUP = "$SIGNUP";
 export const $UNAUTH = "$UNAUTH";
 export const $FAIL_AUTH = "$FAIL_AUTH";
 export const $SET_USER = "$SET_USER";

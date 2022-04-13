@@ -4,6 +4,7 @@ import {
   $SET_ORDER_HISTORY,
   $SET_USER,
   $UNAUTH,
+  $SIGNUP,
 } from "./user.constants";
 
 export const UserBaseState = {
@@ -24,6 +25,12 @@ export const UserReducer = (state, action) => {
     }
     case $UNAUTH: {
       return UserBaseState;
+    }
+    case $SIGNUP: {
+      return {
+        ...state,
+        token: payload,
+      };
     }
     case $FAIL_AUTH: {
       return state;

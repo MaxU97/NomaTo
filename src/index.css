@@ -27,3 +27,32 @@ code {
   font-family: "Gilroy-Light";
   src: local("Gilroy-Light"), url(./fonts/Gilroy-Light.ttf) format("truetype");
 }
+
+@font-face {
+  font-family: "Gilroy-Regular";
+  src: local("Gilroy-Regular"),
+    url(./fonts/Gilroy-Regular.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Gilroy-LightItalic";
+  src: local("Gilroy-LightItalic"),
+    url(./fonts/Gilroy-LightItalic.ttf) format("truetype");
+}
+
+.fade-enter {
+  opacity: 0;
+}
+.fade-exit {
+  opacity: 1;
+}
+.fade-enter-active {
+  opacity: 1;
+}
+.fade-exit-active {
+  opacity: 0;
+}
+.fade-enter-active,
+.fade-exit-active {
+  transition: opacity 500ms;
+}

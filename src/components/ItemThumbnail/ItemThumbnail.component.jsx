@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import "./itemthumbnail.scss";
-import star from "../../assets/star.svg";
+import { StarIcon } from "../../assets/Icons";
 const ItemThumbnail = (item = {}, className = "") => {
   const { t } = useTranslation();
   console.log(item);
@@ -13,7 +13,7 @@ const ItemThumbnail = (item = {}, className = "") => {
           <div>{item.item.sellerName}</div>
           <div className="item-rating">
             {item.item.rating}
-            <img className="star" src={star}></img>
+            <StarIcon className="star" />
             <div>({item.item.ratingAmount})</div>
           </div>
           <div>{item.item.location}</div>

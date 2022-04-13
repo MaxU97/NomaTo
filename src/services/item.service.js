@@ -1,6 +1,6 @@
-import Camera from "../assets/ItemPictures/Camera.jpg";
-import Car from "../assets/ItemPictures/Car.jpg";
-import Bike from "../assets/ItemPictures/Bike.jpg";
+import Camera from "../assets/ItemPictures/neboskreeb.jpg";
+import Car from "../assets/ItemPictures/strelovoy-kran-1.jpg";
+import Bike from "../assets/ItemPictures/vr.jpg";
 import Drone from "../assets/ItemPictures/Drone.jpg";
 const items = [
   {

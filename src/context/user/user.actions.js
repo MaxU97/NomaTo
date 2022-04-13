@@ -3,14 +3,17 @@ import {
   $SET_USER,
   $UNAUTH,
   $SET_ORDER_HISTORY,
+  $SIGNUP,
 } from "./user.constants";
 import {
   logout,
   login,
   getUser,
+  signUp,
   //   getOrderHistory,
   //   updateUser,
 } from "../../api/auth";
+import { token } from "../../api/config";
 
 export const AUTHORIZE = (dispatch) => async (props) => {
   try {
@@ -43,4 +46,12 @@ export const GET_USER = (dispatch) => async () => {
 
     await logout();
   }
+};
+
+export const SIGNUP = (dispatch) => async (props) => {
+  const token = await signUp(props);
+  dispatch({
+    type: $SIGNUP,
+    payload: token,
+  });
 };

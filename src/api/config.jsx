@@ -17,7 +17,8 @@ import i18n from "../services/language.serivce";
 // }
 // dotenv.config({ path });
 
-export const apiUrl = "http://localhost:4000";
+export const apiUrl = process.env.REACT_APP_API_URL;
+export const googleApiKey = process.env.REACT_APP_GOOGLE_API_KEY;
 
 export let token = null;
 

@@ -35,3 +35,16 @@ export const getUser = async () => {
       throw err;
     });
 };
+
+export const signUp = async (props) => {
+  return await api
+    .post(`/auth/signup`, {
+      ...props,
+    })
+    .then(({ data }) => {
+      return data.accessToken;
+    })
+    .catch((err) => {
+      throw err.response.data;
+    });
+};

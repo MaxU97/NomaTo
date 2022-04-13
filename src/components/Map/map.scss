@@ -1,0 +1,12 @@
+.map {
+  &-container {
+    width: 100%;
+    height: 25vh;
+    position: relative;
+  }
+  &-dropdown {
+    position: absolute;
+    margin-top: 10px;
+    margin-left: 10px;
+  }
+}

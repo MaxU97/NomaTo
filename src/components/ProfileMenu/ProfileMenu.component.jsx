@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import profileIcon from "../../assets/profile-icon.svg";
+
 import { useUserContext } from "../../context/user";
 import { useTranslation } from "react-i18next";
 import "./profilemenu.scss";
@@ -54,6 +54,13 @@ const ProfileMenu = () => {
           <Link className="profile-item">{t("profile-menu.profile")}</Link>
           <Link className="profile-item">{t("profile-menu.inbox")}</Link>
           <Link className="profile-item">{t("profile-menu.rentals")}</Link>
+          <Link
+            to="/list-an-item"
+            onClick={() => toggleOpen()}
+            className="profile-item"
+          >
+            {t("profile-menu.list-item")}
+          </Link>
           <Link className="profile-item">{t("profile-menu.myshop")}</Link>
           {state.user.admin && (
             <>

@@ -10,7 +10,7 @@ import {
   ButtonNext,
 } from "pure-react-carousel";
 import ItemThumbnail from "../ItemThumbnail/ItemThumbnail.component";
-import moveIcon from "../../assets/move-icon.svg";
+import { MoveIcon } from "../../assets/Icons";
 
 const Carousel = ({
   items = [],
@@ -28,7 +28,7 @@ const Carousel = ({
       className="carousel-flex"
     >
       <ButtonBack className="button back">
-        <img src={moveIcon}></img>
+        <MoveIcon />
       </ButtonBack>
       <Slider className="slider-flex">
         <div className="slider-shadow"></div>
@@ -40,7 +40,7 @@ const Carousel = ({
       </Slider>
 
       <ButtonNext className="button">
-        <img src={moveIcon}></img>
+        <MoveIcon />
       </ButtonNext>
     </CarouselProvider>
   );

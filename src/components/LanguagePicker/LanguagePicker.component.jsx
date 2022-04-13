@@ -6,7 +6,7 @@ import {
   getLanguageList,
   getFullLanguageList,
 } from "../../services/language.serivce";
-import downIcon from "../../assets/down-icon.svg";
+import { DownIcon } from "../../assets/Icons";
 import i18n from "../../services/language.serivce";
 import { click } from "@testing-library/user-event/dist/click";
 
@@ -76,7 +76,7 @@ const LanguagePicker = () => {
         <div className="lp-header" onClick={() => toggleOpen()}>
           <img src={getImageForLanguage()} />
           <div className="lp-text">{getSelectedLanguage()}</div>
-          <img src={downIcon}></img>
+          <DownIcon />
         </div>
       </div>
       <div className="lp-wrapper-dropdown">

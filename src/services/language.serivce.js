@@ -2,25 +2,23 @@ import i18n from "i18next";
 import moment from "moment";
 import { initReactI18next } from "react-i18next";
 import resources from "../locales/resources.loc";
-import LV from "../assets/fl-lv.png";
-import RU from "../assets/fl-ru.png";
-import EN from "../assets/fl-en.png";
+import { LvFlagIcon, RuFlagIcon, EnFlagIcon } from "../assets/Icons";
 
 var languages = [
   {
     key: "lv",
     title: "LV",
-    img: LV,
+    img: LvFlagIcon,
   },
   {
     key: "en",
     title: "EN",
-    img: EN,
+    img: EnFlagIcon,
   },
   {
     key: "ru",
     title: "RU",
-    img: RU,
+    img: RuFlagIcon,
   },
 ];
 

@@ -1,0 +1,12 @@
+.dropdown-item {
+  position: relative;
+  padding: 10px 15px;
+  background-color: white;
+  width: auto;
+  height: 100%;
+  transition: 0.3s;
+  &:hover {
+    background-color: #e0e0e0;
+    transition: 0.3s;
+  }
+}

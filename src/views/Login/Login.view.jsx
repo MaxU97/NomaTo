@@ -7,13 +7,14 @@ import { login } from "../../api/auth";
 
 const Login = () => {
   const { t } = useTranslation();
-  const { AUTHORIZE } = useUserContext();
+  const { AUTHORIZE, SIGNUP } = useUserContext();
   const [error, setError] = useState("");
   const [isLogin, setLogin] = useState(true);
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPW, setConfirmPW] = useState("");
 
   useEffect(() => {
     setEmail(email);
@@ -21,13 +22,22 @@ const Login = () => {
   });
 
   const submitForm = async () => {
-    const err = await AUTHORIZE({
-      username: email,
-      password: password,
-    });
-    if (err) {
-      setError(err.message);
+    if (isLogin) {
+      const err = await AUTHORIZE({
+        email: email,
+        password: password,
+      });
+      if (err) {
+        setError(err.message);
+      } else {
+      }
     } else {
+      const err = await SIGNUP({
+        email: email,
+        name: name,
+        surname: surname,
+        password: password,
+      });
     }
   };
 
@@ -101,8 +111,8 @@ const Login = () => {
             ></Input>
             <Input
               placeholder="Confirm Password"
-              value={password}
-              setValue={setPassword}
+              value={confirmPW}
+              setValue={setConfirmPW}
               type="password"
               className="login-form-field"
             ></Input>

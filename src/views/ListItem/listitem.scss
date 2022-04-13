@@ -1,0 +1,84 @@
+.add-listing {
+  background-image: url("../../assets/home-background.png");
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  .no-cat {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    &-button {
+      background-color: #3299de;
+      padding: 15px 45px;
+      border-radius: 15px;
+      font-family: "Gilroy-Medium";
+      color: white;
+      transition: 0.3s;
+      &:hover {
+        background-color: #66aedf;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+    }
+  }
+}
+.container-m {
+  padding-top: 140px;
+}
+.listing {
+  &-form {
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 15px;
+    :not(h1) {
+      text-align: left;
+    }
+    h4 {
+      font-weight: 600;
+      color: rgb(61, 60, 60);
+    }
+    &-field {
+      margin-bottom: 10px;
+      transition: 0.3s;
+    }
+    .price-short {
+      width: 33%;
+      margin: 0 1.5px;
+    }
+    &-multi {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+    }
+    &-buttons {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      margin-top: 50px;
+      .listing-button {
+        font-size: 20px;
+        background-color: #3299de;
+        padding: 15px 45px;
+        border-radius: 15px;
+        transition: 0.3s;
+        font-family: "Gilroy-Medium";
+        color: white;
+        &.gray {
+          color: black;
+          background-color: #e0e0e0;
+
+          &:hover {
+            background-color: #bebebe;
+            transition: 0.3s;
+          }
+        }
+        &:hover {
+          background-color: #66aedf;
+        }
+      }
+    }
+  }
+}

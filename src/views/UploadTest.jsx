@@ -4,10 +4,18 @@ const UploadTest = () => {
   const [image, setImage] = useState();
   const uploaderHandler = (e) => {
     e.preventDefault();
+
     let data = new FormData();
-    data.append("file", e.target.files[0]);
+
+    data.append("files", e.target.files);
+    for (let i = 0; i < e.target.files.length; i++) {
+      data.append("files", e.target.files[i]);
+    }
+    console.log("UPLOAD TEST FILE");
+
+    console.log(e.target.files);
     api
-      .post("updateProfile", data)
+      .post("news/upload", data)
       .then((res) => {
         console.log(res.data.image);
         setImage(res);
@@ -22,6 +30,7 @@ const UploadTest = () => {
       <input
         type="file"
         name="file"
+        multiple
         onChange={(event) => {
           uploaderHandler(event);
         }}

@@ -12,6 +12,7 @@ import Header from "../Header/Header.component";
 import { useUserContext } from "../../context/user";
 import AddNews from "../../views/AddNews/AddNews.view";
 import UploadTest from "../../views/UploadTest";
+import ListItem from "../../views/ListItem/ListItem.view";
 export const AppRouter = () => {
   const { state } = useUserContext();
   return (
@@ -25,6 +26,9 @@ export const AppRouter = () => {
 
         <Route path={["/add-news"]} exact>
           {state.user.admin ? <AddNews /> : <NotFound />}
+        </Route>
+        <Route path={["/list-an-item"]} exact>
+          {state.user ? <ListItem /> : <NotFound />}
         </Route>
         <Route
           path={["/test-upload"]}

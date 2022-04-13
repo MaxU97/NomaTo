@@ -1,0 +1,38 @@
+.dropdown {
+  position: relative;
+
+  &-content {
+    position: absolute;
+    z-index: 9999;
+    background-color: white;
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top: none;
+    transform: translateY(-10px);
+    padding-top: 20px;
+    box-sizing: border-box;
+    max-height: 200px;
+    overflow-y: auto;
+    /* width */
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      background: #e2e2e2;
+      border-radius: 5px;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      border-radius: 5px;
+      background: #888;
+    }
+  }
+  &-input {
+    width: 100%;
+  }
+}

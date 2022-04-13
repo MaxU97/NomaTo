@@ -3,23 +3,25 @@ import { Image } from "pure-react-carousel";
 import React, { useState, useRef, useEffect } from "react";
 import Input from "../../components/Input/Input.component";
 import "./addnews.scss";
+import { newsUpload } from "../../api/news.api";
 export const AddNews = () => {
   const [title, setTitle] = useState("");
   const [shortText, setShortText] = useState("");
   const [news, setNews] = useState("");
   const [imageList, setImageList] = useState([]);
-  const [main, setMain] = useState(0);
+  const [mainImage, setMainImage] = useState(0);
   const ref = useRef();
 
   const displayImages = (e) => {
     e.preventDefault();
+
     var newImage;
-    if (e.target.files[0]) {
-      newImage = e.target.files[0];
+    if (e.target.files) {
+      newImage = e.target.files;
     } else {
       return;
     }
-    setImageList((imageList) => [...imageList, newImage]);
+    setImageList((imageList) => [...imageList, ...newImage]);
   };
 
   useEffect(() => {
@@ -27,10 +29,31 @@ export const AddNews = () => {
   }, [imageList]);
 
   const removeImage = (index) => {
-    debugger;
     const array = [...imageList];
     array.splice(index, 1);
     setImageList(array);
+  };
+
+  const handleUpload = async () => {
+    let data = new FormData();
+    //append files
+
+    for (let i = 0; i < imageList.length; i++) {
+      data.append("files", imageList[i]);
+    }
+
+    data.append("titleEN", title);
+    data.append("short_textEN", shortText);
+    data.append("textEN", news);
+    data.append("titleRU", title);
+    data.append("short_textRU", shortText);
+    data.append("textRU", news);
+    data.append("titleLV", title);
+    data.append("short_textLV", shortText);
+    data.append("textLV", news);
+    data.append("mainImageIndex", mainImage);
+    const response = newsUpload(data);
+    console.log(response);
   };
 
   return (
@@ -77,12 +100,12 @@ export const AddNews = () => {
               return (
                 <div
                   className={classNames(`attached-image`, {
-                    "attached-image-active": index == main,
+                    "attached-image-active": index == mainImage,
                   })}
                 >
                   <img
                     src={URL.createObjectURL(image)}
-                    onClick={() => setMain(index)}
+                    onClick={() => setMainImage(index)}
                   />
                   <a
                     onClick={() => {
@@ -95,7 +118,14 @@ export const AddNews = () => {
               );
             })}
           </div>
-          <a className="upload-news-button">Add</a>
+          <a
+            className="upload-news-button"
+            onClick={() => {
+              handleUpload();
+            }}
+          >
+            Add
+          </a>
         </div>
       </div>
     </div>

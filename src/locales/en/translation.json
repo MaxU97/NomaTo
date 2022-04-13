@@ -8,7 +8,10 @@
     "test": "ENGLISH",
     "search-title-p1": "Find",
     "search-title-p2": "anything",
-    "search-title-p3": "in your city"
+    "search-title-p3": "in your city",
+    "news": {
+      "title": "News"
+    }
   },
   "search": {
     "placeholder": "Bike, camera, drone...",
@@ -35,6 +38,26 @@
     "inbox": "Inbox",
     "rentals": "Rentals",
     "myshop": "My Shop",
+    "list-item": "List an item",
     "admin": { "add-news": "Add News" }
+  },
+  "list-item": {
+    "title": "List an Item",
+    "t1": "Name",
+    "t2": "Model",
+    "t3": "Make",
+    "set-title": "Title",
+    "category": "Category",
+    "desc": "Description",
+    "address": "Address",
+    "address-disclaimer": "*We will never show users your full address",
+    "item-value": "Item Value (€)",
+    "min-days": "Minimum rental days",
+    "price-per": "Rent price (€) per:",
+    "day": "Day",
+    "week": "Week",
+    "month": "Month",
+    "cancel": "Cancel",
+    "list-item": "List this item"
   }
 }

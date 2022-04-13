@@ -1,3 +1,9 @@
+//main colour : #3299de;
+//main colour hover: #66aedf;
+// grey accent: #e0e0e0;
+//grey accent hover: #a3a3a3;
+//
+
 .App {
   text-align: center;
 }
@@ -22,4 +28,24 @@ body {
     padding: 0 40px;
     height: 100%;
   }
+  &-m {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 40px;
+    height: 100%;
+  }
+  &-l {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 40px;
+    height: 100%;
+  }
+}
+
+.move-left-icon {
+  transform: rotateZ(180deg);
+}
+
+.note {
+  font-family: "Gilroy-LightItalic";
 }
