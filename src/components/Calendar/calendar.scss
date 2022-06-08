@@ -1,0 +1,51 @@
+.booked-date {
+  background-color: rgb(177, 115, 115) !important;
+}
+
+:root {
+  --rdp-cell-width: 50px;
+}
+.calendar {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid rgb(255, 255, 255);
+  border-width: 1px !important;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  &.error {
+    border: 1px solid rgb(180, 79, 79);
+    border-width: 1px !important;
+    border-color: rgb(180, 79, 79) !important;
+    border-radius: 10px;
+  }
+}
+.rdp {
+  &-months {
+    padding: 10px;
+  }
+  &-day {
+    &_range_end {
+      border-top-left-radius: 0px !important;
+      border-bottom-left-radius: 0px !important;
+    }
+    &_range_start {
+      border-top-right-radius: 0px !important;
+      border-bottom-right-radius: 0px !important;
+    }
+    &:focus:not([aria-disabled="true"]) {
+      border: 0px;
+    }
+    &_selected {
+      background-color: #3299de !important;
+    }
+  }
+}
+
+.rdp-day_range_end {
+  &.rdp-day_range_start {
+    border-radius: 50% !important;
+  }
+}

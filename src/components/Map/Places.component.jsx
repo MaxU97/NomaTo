@@ -23,7 +23,6 @@ const Places = ({ setPlace = () => {} }) => {
   console.log(status, data);
 
   const handleSelect = async (val) => {
-    debugger;
     setValue(val, false);
     clearSuggestions();
     const results = await getGeocode({ address: val });

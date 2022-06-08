@@ -2,18 +2,21 @@ import {
   $AUTH,
   $SET_USER,
   $UNAUTH,
-  $SET_ORDER_HISTORY,
+  $GET_BOOKING_HISTORY,
+  $GET_PAYMENT_METHODS,
   $SIGNUP,
+  $GET_CLIENT_SECRET,
+  $RESET_CLIENT_SECRET,
 } from "./user.constants";
 import {
   logout,
   login,
   getUser,
   signUp,
-  //   getOrderHistory,
-  //   updateUser,
+  getBookingHistory,
 } from "../../api/auth";
-import { token } from "../../api/config";
+
+import { getClientSecret, getPaymentMethods } from "../../api/booking";
 
 export const AUTHORIZE = (dispatch) => async (props) => {
   try {
@@ -43,15 +46,56 @@ export const GET_USER = (dispatch) => async () => {
     });
   } catch (err) {
     console.error(err);
-
     await logout();
   }
 };
 
 export const SIGNUP = (dispatch) => async (props) => {
-  const token = await signUp(props);
+  try {
+    const token = await signUp(props);
+    dispatch({
+      type: $SIGNUP,
+      payload: token,
+    });
+    return true;
+  } catch (err) {
+    return err;
+  }
+};
+
+export const GET_BOOKING_HISTORY = (dispatch) => async () => {
+  try {
+    const bookingHistory = await getBookingHistory();
+    dispatch({
+      type: $GET_BOOKING_HISTORY,
+      payload: { bookingHistory, bookingHistoryLoaded: true },
+    });
+  } catch (err) {
+    dispatch({
+      type: $GET_BOOKING_HISTORY,
+      payload: { bookingHistory: [], bookingHistoryLoaded: false },
+    });
+  }
+};
+
+export const GET_CLIENT_SECRET = (dispatch) => async (data) => {
+  const clientSecret = await getClientSecret(data);
   dispatch({
-    type: $SIGNUP,
-    payload: token,
+    type: $GET_CLIENT_SECRET,
+    payload: { clientSecret },
+  });
+};
+
+export const GET_PAYMENT_METHODS = (dispatch) => async () => {
+  const paymentMethods = await getPaymentMethods();
+  dispatch({
+    type: $GET_PAYMENT_METHODS,
+    payload: paymentMethods,
+  });
+};
+
+export const RESET_CLIENT_SECRET = (dispatch) => () => {
+  dispatch({
+    type: $RESET_CLIENT_SECRET,
   });
 };

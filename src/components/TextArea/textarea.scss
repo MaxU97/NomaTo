@@ -1,0 +1,83 @@
+.text-area {
+  border: 0.5px solid rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  border-radius: 10px;
+  height: 150px;
+  position: relative;
+  background-color: white;
+  overflow: hidden;
+  z-index: 10;
+  display: flex;
+  align-items: flex-start;
+  cursor: text;
+  &.disabled {
+    textarea {
+      color: rgb(161, 161, 161);
+    }
+  }
+  &.error {
+    border-color: rgb(180, 79, 79);
+  }
+  &-placeholder {
+    display: flex;
+    color: rgba(0, 0, 0, 0.4);
+    font-size: 16px;
+    height: 10px;
+    position: absolute;
+    left: 0;
+    top: 15px;
+    align-items: center;
+    margin: 0 12px;
+    padding: 0 2px;
+    z-index: -1;
+    textarea:focus ~ &,
+    textarea:not(:placeholder-shown) ~ & {
+      font-size: 12px;
+      line-height: 17px;
+      color: rgba(0, 0, 0, 0.7);
+      transform: translateY(-28px);
+      background-color: white;
+    }
+  }
+  textarea {
+    background: transparent;
+    width: 100%;
+    margin-top: 10px;
+    padding: 0 14px;
+    color: #000000;
+    font-size: 16px;
+    height: 100%;
+    outline: none;
+    border: none;
+    resize: none;
+  }
+}
+
+.text-error {
+  background-color: rgb(180, 79, 79);
+  border-radius: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  color: white;
+  padding: 10px 10px 10px 10px;
+  transform: translateY(-7px);
+}
+
+.text-error-enter {
+  opacity: 0;
+  transform: translateY(-30px);
+}
+.text-error-enter-active {
+  opacity: 1;
+  transform: translateY(-7px);
+  transition: opacity 300ms, transform 300ms;
+}
+.text-error-exit {
+  opacity: 1;
+  transform: translateY(-7px);
+}
+.text-error-exit-active {
+  opacity: 0;
+  transform: translateY(-30px);
+  transition: opacity 300ms, transform 300ms;
+}

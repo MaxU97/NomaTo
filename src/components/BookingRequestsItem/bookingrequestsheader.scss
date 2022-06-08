@@ -1,0 +1,52 @@
+.booking-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0px 20px;
+
+  &-title {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 20px;
+    font-family: Gilroy-Medium;
+    color: #3299de;
+    text-align: left;
+    width: 100px;
+  }
+  &-status {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 220px;
+    text-align: left;
+    strong {
+      &[aria-label="approved"] {
+        color: green;
+      }
+      &[aria-label="approval_required"] {
+        color: #3299de;
+      }
+      &[aria-label="with_customer"] {
+        color: #3299de;
+      }
+      &[aria-label="canceled"] {
+        color: #ffa600;
+      }
+      &[aria-label="refused"] {
+        color: red;
+      }
+      &[aria-label="returned"] {
+        color: green;
+      }
+    }
+  }
+  &-dates {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: left;
+    width: 250px;
+  }
+}

@@ -1,6 +1,5 @@
 import React from "react";
 import "./carousel.scss";
-import classNames from "classnames";
 import "pure-react-carousel/dist/react-carousel.es.css";
 import {
   CarouselProvider,
@@ -20,10 +19,10 @@ const Carousel = ({
 }) => {
   return (
     <CarouselProvider
-      naturalSlideHeight={300}
-      naturalSlideWidth={250}
+      naturalSlideWidth={200}
+      naturalSlideHeight={225}
       totalSlides={items.length}
-      visibleSlides={4}
+      visibleSlides={5}
       infinite={infinite}
       className="carousel-flex"
     >

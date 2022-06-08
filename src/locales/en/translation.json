@@ -33,13 +33,20 @@
     "login": "Login",
     "signup": "Sign up"
   },
+  "register": {
+    "fill-code": "Please enter a code",
+    "email-code-1": "We have sent an email to",
+    "email-code-2": "containing a confirmation code, please enter it below to confirm the email",
+    "resend-code": "Resend code"
+  },
   "profile-menu": {
     "profile": "Profile",
     "inbox": "Inbox",
-    "rentals": "Rentals",
+    "my-bookings": "My Bookings",
     "myshop": "My Shop",
     "list-item": "List an item",
-    "admin": { "add-news": "Add News" }
+    "booking-requests": "Booking Requests",
+    "admin": { "add-news": "Add News", "add-categories": "Edit Categories" }
   },
   "list-item": {
     "title": "List an Item",
@@ -48,16 +55,105 @@
     "t3": "Make",
     "set-title": "Title",
     "category": "Category",
-    "desc": "Description",
+    "desc": "Description (800 characters max)",
     "address": "Address",
-    "address-disclaimer": "*We will never show users your full address",
+    "address-disclaimer": "We will never show users your full address",
+    "description-disclaimer": "You must enter at least one description, it will be translated automatically (errors maybe present)",
     "item-value": "Item Value (€)",
     "min-days": "Minimum rental days",
     "price-per": "Rent price (€) per:",
+    "qty": "Quantity",
     "day": "Day",
     "week": "Week",
     "month": "Month",
     "cancel": "Cancel",
-    "list-item": "List this item"
+    "list-item": "List this item",
+    "image-controls": {
+      "main-tooltip": "Make main image",
+      "delete-tooltip": "Delete image",
+      "main-image": "Main Image"
+    }
+  },
+  "item-page": {
+    "prices": "Pricelist:",
+    "location": "Location",
+    "desc": "Description",
+    "price-daily": "Daily",
+    "price-weekly": "7+ days",
+    "price-monthly": "30+ days",
+    "day": "day",
+    "make-a-booking": "Make a booking",
+    "item-oos": "Out of Stock",
+    "item-booked": "Item already booked",
+    "owner": "Owner",
+    "recent-review": "Most recent review",
+    "recommended": "Recommended",
+    "not-recommended": "Not recommended",
+    "you-are-owner": "You are the owner"
+  },
+  "booking-modal": {
+    "quantity": "Quantity Needed",
+    "comment": "Message for the owner (optional)",
+    "price-breakdown": "Price Breakdown",
+    "day-single": "Day",
+    "day-multiple": "Days"
+  },
+
+  "booking-requests": {
+    "title": "Booking Requests",
+    "all": "All",
+    "approval-required": "Approval Required",
+    "approved": "Approved",
+    "with-customer": "With Customer",
+    "canceled": "Canceled by Customer",
+    "declined": "Refused",
+    "returned": "Returned",
+    "approve": "Approve",
+    "approving": "Approving...",
+    "refuse": "Refuse",
+    "refusing": "Refusing...",
+    "refusal-reason": "Reason",
+    "refusal-reason-optional": "Refusal Reason (Optional)",
+    "view-details": "Contact Details",
+    "user-details": "User Details",
+    "email": "Email:",
+    "number": "Number:",
+    "language-advise": "Please respect the user's prefered languages",
+    "prefered-languages": "Prefered Languages:",
+    "confirm-pickup": "Confirm Pick-up",
+    "drop-off-qr": "Drop-off QR"
+  },
+  "my-bookings": {
+    "all": "All",
+    "approval-required": "Awaiting Confirmation",
+    "approved": "Awaiting Pick Up",
+    "with-customer": "Currently Renting",
+    "canceled": "Canceled",
+    "declined": "Refused",
+    "returned": "Returned",
+    "view-qr": "Pick-up QR",
+    "confirm-dropoff": "Confirm Drop-off"
+  },
+  "qr": {
+    "show-owner": "Show this to the owner on pick up",
+    "fees": "Fees may apply if not shown!",
+    "processing": "Processing QR Code"
+  },
+  "add-category": {
+    "add-category": "Add Category",
+    "edit-category": "Edit Category",
+    "edit-categories": "Edit Categories",
+    "title-EN": "Title EN",
+    "title-RU": "Title RU",
+    "title-LV": "Title LV",
+    "subcats": "Subcategories",
+    "add": "Add Category",
+    "loading": "Adding",
+    "fill-in": "Please fill all titles",
+    "exists": "Category already Exists",
+    "fill-highlighted": "Please fill in highlighted fields",
+    "include-an-image": "Please attach an image",
+    "new-cat": "Add New",
+    "save-changes": "Save Changes"
   }
 }

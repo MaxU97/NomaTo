@@ -6,10 +6,11 @@ import Input from "../../components/Input/Input.component";
 import Carousel from "../../components/Carousel/Carousel.component";
 import NewsBlock from "../../components/NewsBlock/NewsBlock.component";
 import { getPopularItems } from "../../services/item.service";
+import { useItemContext } from "../../context/item";
 
 const Home = () => {
-  const popularItems = getPopularItems();
-
+  const { state: itemState } = useItemContext();
+  const popularItems = itemState.popularItems;
   const [searchTerm, setSearchTerm] = useState("");
   const { t } = useTranslation();
 

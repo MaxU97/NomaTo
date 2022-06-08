@@ -1,17 +1,22 @@
 import {
   $AUTH,
   $FAIL_AUTH,
-  $SET_ORDER_HISTORY,
+  $GET_BOOKING_HISTORY,
   $SET_USER,
   $UNAUTH,
   $SIGNUP,
+  $GET_CLIENT_SECRET,
+  $GET_PAYMENT_METHODS,
+  $RESET_CLIENT_SECRET,
 } from "./user.constants";
 
 export const UserBaseState = {
   user: false,
   token: false,
-  orderHistory: [],
-  orderHistoryLoading: true,
+  bookingHistory: [],
+  bookingHistoryLoaded: false,
+  clientSecret: "",
+  paymentMethods: false,
 };
 
 export const UserReducer = (state, action) => {
@@ -41,11 +46,26 @@ export const UserReducer = (state, action) => {
         user: payload,
       };
     }
-    case $SET_ORDER_HISTORY: {
+    case $GET_BOOKING_HISTORY: {
       return {
         ...state,
         ...payload,
       };
+    }
+    case $GET_PAYMENT_METHODS: {
+      return {
+        ...state,
+        paymentMethods: payload,
+      };
+    }
+    case $GET_CLIENT_SECRET: {
+      return {
+        ...state,
+        ...payload,
+      };
+    }
+    case $RESET_CLIENT_SECRET: {
+      return { ...state, clientSecret: "" };
     }
     default: {
       return state;

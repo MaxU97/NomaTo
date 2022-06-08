@@ -10,7 +10,7 @@
   height: 56px;
   position: relative;
   background-color: white;
-
+  width: 100%;
   z-index: 10;
   display: flex;
   align-items: flex-start;
@@ -164,20 +164,20 @@
   }
 }
 
-.input-tooltip-enter {
+.input-tooltip-anim-enter {
   opacity: 0;
   transform: translateY(-30px);
 }
-.input-tooltip-enter-active {
+.input-tooltip-anim-enter-active {
   opacity: 1;
   transform: translateY(0px);
   transition: opacity 300ms, transform 300ms;
 }
-.input-tooltip-exit {
+.input-tooltip-anim-exit {
   opacity: 1;
   transform: translateY(0px);
 }
-.input-tooltip-exit-active {
+.input-tooltip-anim-exit-active {
   opacity: 0;
   transform: translateY(-30px);
   transition: opacity 300ms, transform 300ms;

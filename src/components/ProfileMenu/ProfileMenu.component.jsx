@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { useUserContext } from "../../context/user";
 import { useTranslation } from "react-i18next";
 import "./profilemenu.scss";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { Link } from "react-router-dom/";
 import { apiUrl } from "../../api/config";
 const ProfileMenu = () => {
   const { t } = useTranslation();
@@ -52,8 +52,20 @@ const ProfileMenu = () => {
       {isOpen && (
         <div className="profile-wrapper-dropdown">
           <Link className="profile-item">{t("profile-menu.profile")}</Link>
-          <Link className="profile-item">{t("profile-menu.inbox")}</Link>
-          <Link className="profile-item">{t("profile-menu.rentals")}</Link>
+          <Link
+            to="/bookings"
+            onClick={() => toggleOpen()}
+            className="profile-item"
+          >
+            {t("profile-menu.my-bookings")}
+          </Link>
+          <Link
+            to="/requests"
+            onClick={() => toggleOpen()}
+            className="profile-item"
+          >
+            {t("profile-menu.booking-requests")}
+          </Link>
           <Link
             to="/list-an-item"
             onClick={() => toggleOpen()}
@@ -68,6 +80,9 @@ const ProfileMenu = () => {
               <Link to="/add-news" className="profile-item">
                 {t("profile-menu.admin.add-news")}
               </Link>
+              <Link to="/add-categories" className="profile-item">
+                {t("profile-menu.admin.add-categories")}
+              </Link>
             </>
           )}
           <hr />
@@ -75,6 +90,7 @@ const ProfileMenu = () => {
             className="profile-item"
             onClick={() => {
               LOGOUT();
+              window.location.reload();
             }}
           >
             Logout

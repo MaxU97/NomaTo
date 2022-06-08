@@ -22,6 +22,10 @@ var languages = [
   },
 ];
 
+export const getLanguageArray = () => {
+  return languages.map(({ title }) => title);
+};
+
 const setLanguage = () => {
   const saved = localStorage.getItem("language");
   if (saved) {

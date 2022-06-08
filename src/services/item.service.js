@@ -5,7 +5,7 @@ import Drone from "../assets/ItemPictures/Drone.jpg";
 const items = [
   {
     name: "Camera",
-    sellerName: "Seller Name",
+    sellerName: "Seller",
     rating: 5,
     ratingAmount: 20,
     location: "Riga",
@@ -15,7 +15,7 @@ const items = [
   },
   {
     name: "Drone",
-    sellerName: "Seller Name",
+    sellerName: "Seller",
     rating: 5,
     ratingAmount: 20,
     location: "Riga",
@@ -25,7 +25,7 @@ const items = [
   },
   {
     name: "Bike",
-    sellerName: "Seller Name",
+    sellerName: "Seller ",
     rating: 5,
     ratingAmount: 20,
     location: "Riga",
@@ -35,7 +35,7 @@ const items = [
   },
   {
     name: "Car",
-    sellerName: "Seller Name",
+    sellerName: "Seller ",
     rating: 5,
     ratingAmount: 20,
     location: "Riga",
@@ -45,7 +45,7 @@ const items = [
   },
   {
     name: "Camera",
-    sellerName: "Seller Name",
+    sellerName: "Seller ",
     rating: 5,
     ratingAmount: 20,
     location: "Riga",
@@ -55,7 +55,7 @@ const items = [
   },
   {
     name: "Car",
-    sellerName: "Seller Name",
+    sellerName: "Seller ",
     rating: 5,
     ratingAmount: 20,
     location: "Riga",
@@ -65,7 +65,7 @@ const items = [
   },
   {
     name: "Bike",
-    sellerName: "Seller Name",
+    sellerName: "Seller ",
     rating: 5,
     ratingAmount: 20,
     location: "Riga",
@@ -75,7 +75,7 @@ const items = [
   },
   {
     name: "Drone",
-    sellerName: "Seller Name",
+    sellerName: "Seller ",
     rating: 5,
     ratingAmount: 20,
     location: "Riga",

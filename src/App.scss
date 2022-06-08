@@ -2,8 +2,8 @@
 //main colour hover: #66aedf;
 // grey accent: #e0e0e0;
 //grey accent hover: #a3a3a3;
-//
-
+//error color rgb(180, 79, 79)
+//error hover rgb(180, 79, 79);
 .App {
   text-align: center;
 }
@@ -35,6 +35,12 @@ body {
     height: 100%;
   }
   &-l {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+    height: 100%;
+  }
+  &-xl {
     max-width: 1600px;
     margin: 0 auto;
     padding: 0 40px;
@@ -48,4 +54,41 @@ body {
 
 .note {
   font-family: "Gilroy-LightItalic";
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+@-moz-keyframes spin {
+  from {
+    -moz-transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

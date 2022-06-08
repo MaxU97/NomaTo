@@ -40,6 +40,10 @@ code {
     url(./fonts/Gilroy-LightItalic.ttf) format("truetype");
 }
 
+@font-face {
+  font-family: "Gilroy-Black";
+  src: local("Gilroy-Black"), url(./fonts/Gilroy-Black.ttf) format("truetype");
+}
 .fade-enter {
   opacity: 0;
 }

@@ -17,9 +17,16 @@ import i18n from "../services/language.serivce";
 // }
 // dotenv.config({ path });
 
-export const apiUrl = process.env.REACT_APP_API_URL;
+export const apiUrl =
+  process.env.NODE_ENV === "development"
+    ? process.env.REACT_APP_API_URL_DEV
+    : process.env.REACT_APP_API_URL_PROD;
+export const websitUrl =
+  process.env.NODE_ENV === "development"
+    ? process.env.REACT_APP_WEB_URL_DEV
+    : process.env.REACT_APP_WEB_URL_PROD;
 export const googleApiKey = process.env.REACT_APP_GOOGLE_API_KEY;
-
+export const stripeKey = process.env.REACT_APP_STRIPE_API_KEY;
 export let token = null;
 
 export const setToken = (currentToken) => {

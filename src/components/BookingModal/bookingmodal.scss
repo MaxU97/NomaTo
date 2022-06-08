@@ -1,0 +1,179 @@
+.booking-modal {
+  .error {
+    border: 1px solid rgb(180, 79, 79);
+    border-width: 1px !important;
+    border-color: rgb(180, 79, 79) !important;
+    border-radius: 10px;
+  }
+  .tc-error {
+    font-weight: bold;
+    color: rgb(180, 79, 79);
+  }
+  .hover-error {
+    position: absolute;
+    color: rgb(180, 79, 79);
+    pointer-events: none;
+    &-content {
+      width: 60px;
+      text-align: end;
+      font-size: 15px;
+      left: 0;
+      transform: translateX(-140%);
+      background-color: white;
+      border-radius: 10px;
+      padding: 10px;
+
+      &.m {
+        transform: translateX(-120%) translateY(100%);
+        width: 150px;
+      }
+      &.l {
+        transform: translateX(-180%) translateY(100%);
+        width: 150px;
+      }
+    }
+    .arrow-right {
+      position: absolute;
+      right: 0;
+      top: 0;
+      transform: translateX(6px) translateY(24px);
+      width: 0;
+      height: 0;
+      border-top: 6px solid transparent;
+      border-bottom: 6px solid transparent;
+      border-left: 6px solid rgb(255, 255, 255);
+    }
+  }
+  &-contents {
+    display: flex;
+    width: 800px;
+    &-left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 50%;
+      border-right: 1px solid #ebebeb;
+      padding-right: 20px;
+      &-top {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: space-between;
+        width: 100%;
+        margin-bottom: 10px;
+        .quantity-available {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          width: 50%;
+          height: 100%;
+          font-weight: bold;
+          font-size: 20px;
+          color: #3299de;
+          padding-bottom: 10px;
+        }
+      }
+    }
+    &-right {
+      display: flex;
+      flex-direction: column;
+      width: 50%;
+      padding-left: 20px;
+
+      .price-summary {
+        background-color: #f1f1f1;
+        border-radius: 10px;
+        height: fit-content;
+        margin-bottom: 15px;
+        padding: 20px;
+        &-dates {
+          font-family: Gilroy-Medium;
+          display: flex;
+          border-bottom: 1px solid #dadada;
+          padding-bottom: 10px;
+          justify-content: space-between;
+          min-height: 20px;
+          &-count {
+            color: #3299de;
+          }
+        }
+        &-prices {
+          font-family: Gilroy-Medium;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          padding-top: 10px;
+          width: 100%;
+          .summary {
+            width: 100%;
+            .entry {
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: 10px;
+              .result {
+                color: #3299de;
+              }
+            }
+          }
+          .total {
+            margin-top: 15px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            .result {
+              color: #3299de;
+              font-weight: bold;
+            }
+          }
+        }
+      }
+
+      .terms-and-conditions {
+        display: flex;
+        margin-bottom: 10px;
+        input {
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+  &-button {
+    background-color: #3299de;
+    transition: 0.3s;
+    font-family: "Gilroy-Medium";
+    font-size: 20px;
+    color: white;
+    width: 100%;
+    text-align: center;
+    padding: 15px 0;
+    border-radius: 10px;
+  }
+  h1 {
+    margin-top: 0;
+    padding: 0 100px;
+  }
+  &-input {
+    width: 50%;
+
+    text-align: left;
+    &-100 {
+      width: 100%;
+      text-align: left;
+    }
+  }
+
+  .error-container-enter {
+    opacity: 0;
+  }
+  .error-container-enter-active {
+    opacity: 1;
+    transition: opacity 300ms, transform 300ms;
+  }
+  .error-container-exit {
+    opacity: 1;
+  }
+  .error-container-exit-active {
+    opacity: 0;
+    transition: opacity 0, transform 0;
+  }
+}

@@ -1,0 +1,37 @@
+.lang-desc {
+  position: relative;
+  margin-top: 25px;
+  &-chooser {
+    position: absolute;
+    top: -19px;
+    width: fit-content;
+    background-color: white;
+    margin-bottom: 10px;
+    z-index: 100;
+    &-item {
+      margin: 0 0.5px;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      border-bottom: 0px;
+      border-bottom-left-radius: 0px;
+      border-bottom-right-radius: 0px;
+      font-family: Gilroy-Medium;
+      padding: 0 20px;
+      transition: 0.3s;
+      background-color: #e0e0e000;
+      &.active {
+        padding-bottom: 1px;
+        background-color: #e0e0e0;
+        transition: 0.3s;
+      }
+      &:hover {
+        transition: 0.3s;
+        background-color: #e0e0e0;
+        cursor: pointer;
+      }
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
+}

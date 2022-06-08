@@ -1,0 +1,16 @@
+.multi-image-picker {
+  display: flex;
+  flex-direction: column;
+  height: 100px;
+}
+
+.secondary-images {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  gap: 2px;
+  &-button {
+    height: 100%;
+    width: 100%;
+  }
+}

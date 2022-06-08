@@ -1,0 +1,105 @@
+.booking-requests {
+  margin-top: 100px;
+  background-image: url("../../assets/home-background.png");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  height: calc(100vh - 100px);
+  &-content {
+    background-color: white;
+    min-height: 750px;
+    border: 1px solid #e0e0e0;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    h1 {
+      margin-bottom: 0px;
+    }
+    &-container {
+      padding: 30px;
+      background-color: white;
+      height: 690px;
+      display: flex;
+      flex-direction: row;
+    }
+    &-scroll {
+      width: 80%;
+      border-radius: 15px;
+      border-top-left-radius: 0px;
+      height: 100%;
+      overflow: hidden;
+      border: 1px solid #a3a3a3;
+    }
+    &-left {
+      width: 20%;
+      .menu-list {
+        display: flex;
+        flex-direction: column;
+        transform: translateX(1px);
+        &-item {
+          border-radius: 10px;
+          padding: 10px;
+          border: 1px solid #a3a3a3;
+          border-right: none;
+          border-top-right-radius: 0px;
+          border-bottom-right-radius: 0px;
+
+          &.active {
+            font-weight: bold;
+            border-top-right-radius: 0px;
+            border-bottom-right-radius: 0px;
+            background-color: white;
+            &:hover {
+              cursor: default;
+              background-color: white;
+              transition: 0.3s;
+            }
+          }
+          transition: 0.3s;
+          &:hover {
+            cursor: pointer;
+            background-color: #ebebeb;
+            transition: 0.3s;
+          }
+          &:not(:last-child) {
+            margin-bottom: 1px;
+          }
+        }
+      }
+    }
+
+    &-right {
+      width: 100%;
+      border-radius: 15px;
+      border-top-left-radius: 0px;
+      height: 100%;
+      overflow-y: scroll;
+
+      &-container {
+        padding: 20px;
+        display: grid;
+        grid-template-columns: auto;
+        .booking-item {
+          height: 200px;
+        }
+      }
+
+      &::-webkit-scrollbar {
+        width: 10px;
+      }
+
+      /* Track */
+      &::-webkit-scrollbar-track {
+        background: #ffffff00;
+        border-radius: 5px;
+      }
+
+      /* Handle */
+      &::-webkit-scrollbar-thumb {
+        border-radius: 5px;
+        background: #ebebeb;
+      }
+    }
+  }
+}

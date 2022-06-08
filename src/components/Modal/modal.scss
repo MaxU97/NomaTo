@@ -19,9 +19,7 @@
     opacity: 100%;
     transition: 0.3s;
   }
-  &-container {
-    overflow-y: auto;
-  }
+
   &-content {
     background-color: white;
     padding: 20px;
@@ -34,6 +32,7 @@
     right: 20px;
     top: 30px;
     transition: 0.3s;
+    z-index: 99;
     &:hover {
       cursor: pointer;
       fill: rgba(104, 104, 104, 0.541);

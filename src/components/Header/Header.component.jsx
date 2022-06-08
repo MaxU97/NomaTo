@@ -31,7 +31,7 @@ const Header = () => {
             <LanguagePicker />
           </div>
           <div className="account-menu">
-            {localStorage.token ? (
+            {localStorage.token && state.user ? (
               <ProfileMenu></ProfileMenu>
             ) : (
               <Link to="/login">

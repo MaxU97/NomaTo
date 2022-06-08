@@ -18,6 +18,15 @@
   &-form-field {
     margin-top: 20px;
     width: 70%;
+    .password-tooltip {
+      display: flex;
+      align-items: left;
+      span {
+        color: rgb(180, 79, 79);
+        width: 100%;
+        text-align: left;
+      }
+    }
   }
 
   &-container {
@@ -28,6 +37,8 @@
   }
 
   &-error {
+    border-color: rgb(180, 79, 79);
+    transition: 0.3s;
     color: red;
   }
 

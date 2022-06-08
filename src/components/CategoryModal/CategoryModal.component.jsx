@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import Modal from "../Modal/Modal.component";
-import categories from "../../services/categories.service";
+import { useUtilityContext } from "../../context/utility";
 import { useTranslation } from "react-i18next";
 import { MoveIcon } from "../../assets/Icons";
+import { apiUrl } from "../../api/config";
 import "./catmodal.scss";
+import { getCurrentLanguage } from "../../services/language.serivce";
 const CategoryModal = ({
   modalOpen,
   toggleModal,
@@ -12,8 +14,14 @@ const CategoryModal = ({
   setCategory = () => {},
   setSubCategory = () => {},
 }) => {
+  const { state } = useUtilityContext();
+  const categories = state.categories;
+
+  const titleLanguage = `title${getCurrentLanguage().toUpperCase()}`;
+
   const { t } = useTranslation();
   const [selectedCat, setSelectedCat] = useState(false);
+
   return (
     <Modal modalOpen={modalOpen} toggleModal={toggleModal} style={style}>
       <div className="cat-modal">
@@ -29,7 +37,7 @@ const CategoryModal = ({
               <MoveIcon className="move-left-icon" />
             </a>
             <hr></hr>
-            {selectedCat.subcat.map((sub) => (
+            {selectedCat.subcats.map((sub) => (
               <>
                 <div
                   className="categories-sub-cat"
@@ -40,8 +48,8 @@ const CategoryModal = ({
                     toggleModal(false);
                   }}
                 >
-                  <img src={selectedCat.icon}></img>
-                  <h4>{sub.name}</h4>
+                  <img src={`${apiUrl + "/" + selectedCat.imageURL}`}></img>
+                  <h4>{sub[titleLanguage]}</h4>
                 </div>
                 <hr></hr>
               </>
@@ -53,11 +61,18 @@ const CategoryModal = ({
               <div
                 className="category"
                 onClick={() => {
+                  debugger;
                   setSelectedCat(cat);
+                  if (cat.subcats.length == 0) {
+                    setSelectedCat(false);
+                    setCategory(cat);
+                    setSubCategory("");
+                    toggleModal(false);
+                  }
                 }}
               >
-                <img src={cat.icon}></img>
-                <h3>{cat.name}</h3>
+                <img src={`${apiUrl + "/" + cat.imageURL}`}></img>
+                <h3>{cat[titleLanguage]}</h3>
               </div>
             ))}
           </div>

@@ -1,0 +1,58 @@
+.wrapper {
+  width: 100%;
+  height: 10px;
+
+  .progress-bar {
+    &-background {
+      background-color: #e3e3e3;
+      border-radius: 10px;
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+    }
+    &-foreground {
+      &.p0 {
+        background-color: red;
+        width: 100%;
+        max-width: 0%;
+        height: 100%;
+        transition: all 0.3s;
+      }
+      &.p20 {
+        background-color: orange;
+        width: 100%;
+        max-width: 20%;
+        height: 100%;
+        transition: all 0.3s;
+      }
+      &.p40 {
+        background-color: yellow;
+        width: 100%;
+        max-width: 40%;
+        height: 100%;
+        transition: all 0.3s;
+      }
+      &.p60 {
+        background-color: yellowgreen;
+        width: 100%;
+        max-width: 60%;
+        height: 100%;
+        transition: all 0.3s;
+      }
+      &.p80 {
+        background-color: green;
+        width: 100%;
+        max-width: 80%;
+        height: 100%;
+        transition: all 0.3s;
+      }
+      &.p100 {
+        background-color: black;
+        width: 100%;
+        max-width: 100%;
+        height: 100%;
+        transition: all 0.3s;
+      }
+    }
+  }
+}

@@ -3,8 +3,7 @@ import { useState, useRef } from "react";
 import classNames from "classnames";
 import "./input.scss";
 import { CSSTransition } from "react-transition-group";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
-import _, { delay } from "lodash";
+import _ from "lodash";
 const Input = ({
   value = "",
   placeholder = "",
@@ -17,16 +16,14 @@ const Input = ({
   disabled = false,
   tooltipMessage = "",
   animatePlaceholder = true,
+  containerClass = "",
+  children,
   ...props
 }) => {
   const [focus, setFocus] = useState(false);
   const [focusDebounced, setFocusDebounced] = useState(false);
   const input = useRef();
   const delayedFocus = _.debounce((focus) => setFocusDebounced(focus), 200);
-
-  const followTooltipLink = (e) => {
-    console.log(e);
-  };
 
   return (
     <div
@@ -36,7 +33,7 @@ const Input = ({
       )}
     >
       <div
-        className={classNames("input", disabled && "disabled")}
+        className={classNames("input", disabled && "disabled", containerClass)}
         onClick={() => input?.current.focus()}
       >
         {textarea ? (
@@ -63,9 +60,11 @@ const Input = ({
             value={value}
             onChange={(e) => setValue(e.target.value)}
             disabled={disabled}
+            autoComplete="nope"
             {...props}
           ></input>
         )}
+        {children}
         {animatePlaceholder
           ? placeholder && (
               <div className="input-placeholder">{placeholder}</div>
@@ -83,10 +82,10 @@ const Input = ({
       </div>
       {tooltipMessage && (
         <CSSTransition
-          in={focus}
+          in={focus && tooltipMessage}
           timeout={200}
           unmountOnExit
-          classNames="input-tooltip"
+          classNames="input-tooltip-anim"
         >
           <div className="input-tooltip">
             <div className="input-tooltip-container">{tooltipMessage}</div>

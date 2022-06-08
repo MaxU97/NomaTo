@@ -11,7 +11,7 @@
   &-dropdown {
     display: flex;
     flex-direction: column;
-    width: 10vh;
+
     padding: 10px;
     position: absolute;
     bottom: -5px;
@@ -34,6 +34,7 @@
   text-align: left;
   margin-bottom: 5px;
   transition: 0.3s;
+  white-space: nowrap;
 
   &:hover {
     cursor: pointer;

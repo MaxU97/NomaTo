@@ -1,0 +1,116 @@
+.booking-item {
+  width: 100%;
+  background-color: #ebebeb;
+  display: flex;
+  flex-direction: row;
+  border-radius: 15px;
+  justify-content: space-between;
+  &-left {
+    display: flex;
+    flex-direction: row;
+  }
+  &-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 15px;
+  }
+  img {
+    border-radius: 15px;
+    width: 250px;
+  }
+
+  &-details {
+    font-size: 16px;
+    font-family: Gilroy-Medium;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin-left: 30px;
+    &-title {
+      font-size: 18px;
+      color: #3299de;
+      font-family: Gilroy-Medium;
+      margin-bottom: 5px;
+    }
+    &-dates {
+      margin-bottom: 5px;
+    }
+    &-price {
+      color: #3299de;
+      margin-bottom: 5px;
+    }
+    &-comment {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      text-align: left;
+      &-container {
+        height: 40px;
+        max-height: 50px;
+        max-width: 250px;
+        overflow-y: auto;
+        font-size: 16px;
+        font-family: Gilroy-Regular;
+        background-color: white;
+        padding: 2px;
+        border-radius: 10px;
+
+        &::-webkit-scrollbar {
+          width: 10px;
+        }
+
+        /* Track */
+        &::-webkit-scrollbar-track {
+          background: #ffffff00;
+          border-radius: 5px;
+        }
+
+        /* Handle */
+        &::-webkit-scrollbar-thumb {
+          border-radius: 5px;
+          background: #bebebe;
+        }
+      }
+      strong {
+        margin-bottom: 5px;
+      }
+    }
+    strong {
+      color: #000000;
+      font-family: Gilroy-Regular;
+    }
+  }
+
+  &-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: 40px;
+    &-button {
+      background-color: #3299de;
+      color: white;
+      font-family: Gilroy-Medium;
+      padding: 15px 35px;
+      border-radius: 10px;
+      transition: 0.2s;
+      &:not(:last-child) {
+        margin-bottom: 10px;
+      }
+      &.cancel {
+        background-color: #a3a3a3;
+        color: white;
+        &:hover {
+          background-color: #8d8d8d;
+          transition: 0.2s;
+        }
+      }
+
+      &:hover {
+        background-color: #467a9c;
+        cursor: pointer;
+      }
+    }
+  }
+}

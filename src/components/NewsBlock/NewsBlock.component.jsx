@@ -36,12 +36,6 @@ const NewsBlock = ({ display }) => {
       });
     }
 
-    // mapped_data = data.data.doc.map((item, i) => {
-    //   if (item._id === mapped_data.newsID) {
-    //     return Object.assign({}, item, mapped_data[i]);
-    //   }
-    // });
-
     setNews(mapped_data);
   }, []);
   return (
