@@ -15,7 +15,6 @@ export const CheckoutPageContents = ({ clientSecret, intentID }) => {
       if (!paymentIntent) {
         if (stripe && clientSecret) {
           stripe.retrievePaymentIntent(clientSecret).then((result) => {
-            debugger;
             console.log();
             setPaymentIntent(result.paymentIntent);
           });
@@ -31,7 +30,6 @@ export const CheckoutPageContents = ({ clientSecret, intentID }) => {
 
   useEffect(() => {
     async function send() {
-      debugger;
       if (
         paymentIntent &&
         paymentIntent.status === "requires_capture" &&

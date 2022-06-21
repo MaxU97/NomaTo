@@ -51,7 +51,13 @@ const ProfileMenu = () => {
 
       {isOpen && (
         <div className="profile-wrapper-dropdown">
-          <Link className="profile-item">{t("profile-menu.profile")}</Link>
+          <Link
+            className="profile-item"
+            to="/profile"
+            onClick={() => toggleOpen()}
+          >
+            {t("profile-menu.profile")}
+          </Link>
           <Link
             to="/bookings"
             onClick={() => toggleOpen()}

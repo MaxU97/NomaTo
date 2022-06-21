@@ -13,7 +13,6 @@ const ImagePicker = ({
   showLegend = true,
   children,
 }) => {
-  debugger;
   const { t } = useTranslation();
   const removeImage = () => {
     var newList = [...imageList];

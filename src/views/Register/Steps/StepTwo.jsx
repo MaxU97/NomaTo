@@ -23,7 +23,7 @@ const StepTwo = ({ nextStep = () => {}, email }) => {
       }
     } else {
       setError(true);
-      debugger;
+
       setErrorText(t("register.fill-code"));
     }
   };

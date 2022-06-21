@@ -1,0 +1,33 @@
+.notification {
+  position: fixed;
+  top: 9.75%;
+  background-color: rgb(123, 243, 141);
+  padding: 20px 200px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 85;
+  border-radius: 15px;
+  font-family: Gilroy-Medium;
+  &.error {
+    background-color: rgb(180, 79, 79);
+    color: white;
+  }
+}
+.notification-container-enter {
+  opacity: 0;
+  transform: translateY(-100%) translateX(-50%);
+}
+.notification-container-enter-active {
+  opacity: 1;
+  transform: translateY(0%) translateX(-50%);
+  transition: opacity 300ms, transform 300ms;
+}
+.notification-container-exit {
+  transform: translateY(0%) translateX(-50%);
+  opacity: 1;
+}
+.notification-container-exit-active {
+  transform: translateY(-100%) translateX(-50%);
+  opacity: 0;
+  transition: opacity 300ms, transform 300ms;
+}

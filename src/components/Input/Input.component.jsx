@@ -12,6 +12,9 @@ const Input = ({
   button = false,
   buttonText = "Null",
   inputButton = () => {},
+  onMouseOver = () => {},
+  onMouseOut = () => {},
+  onClick = () => {},
   textarea = false,
   disabled = false,
   tooltipMessage = "",
@@ -34,7 +37,12 @@ const Input = ({
     >
       <div
         className={classNames("input", disabled && "disabled", containerClass)}
-        onClick={() => input?.current.focus()}
+        onClick={() => {
+          input?.current.focus();
+          onClick();
+        }}
+        onMouseOver={onMouseOver}
+        onMouseOut={onMouseOut}
       >
         {textarea ? (
           <textarea
@@ -55,6 +63,11 @@ const Input = ({
             onBlur={() => {
               setFocus(false);
               delayedFocus(false);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && button) {
+                inputButton();
+              }
             }}
             placeholder=" "
             value={value}

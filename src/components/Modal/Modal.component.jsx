@@ -7,10 +7,12 @@ import { CSSTransition } from "react-transition-group";
 const Modal = ({ children, modalOpen, style, toggleModal = () => {} }) => {
   const ref = useRef();
   const clickOutside = (e) => {
-    if (ref.current.contains(e.target)) {
-      return;
-    } else {
-      toggleModal(false);
+    if (modalOpen) {
+      if (ref.current.contains(e.target)) {
+        return;
+      } else {
+        toggleModal(false);
+      }
     }
   };
   useEffect(() => {

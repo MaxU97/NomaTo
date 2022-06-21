@@ -32,7 +32,7 @@ const Carousel = ({
       <Slider className="slider-flex">
         <div className="slider-shadow"></div>
         {items.map((item, index) => (
-          <Slide index={index} className="thumbnail">
+          <Slide key={index} index={index} className="thumbnail">
             <ItemThumbnail item={item}></ItemThumbnail>
           </Slide>
         ))}

@@ -1,0 +1,80 @@
+.image-picker {
+  &-image {
+    position: relative;
+    overflow: hidden;
+    img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+    }
+    &-overlay {
+      position: absolute;
+      top: 0;
+      background-color: black;
+      z-index: 20;
+      width: 100%;
+      height: 100%;
+      transition: 0.3s;
+      opacity: 0;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Gilroy-Black;
+      &:hover {
+        cursor: pointer;
+        opacity: 0.5;
+        transition: 0.3s;
+      }
+    }
+  }
+
+  &-button {
+    display: flex;
+    flex-direction: column;
+    background-color: #a3a3a3;
+    width: auto;
+    height: auto;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s;
+    &-text {
+      font-family: "Gilroy-Black";
+      color: #e0e0e0;
+      padding-bottom: 5px;
+      transition: 0.3s;
+    }
+    svg {
+      fill: #e0e0e0;
+      transition: 0.3s;
+    }
+    &:hover {
+      background-color: #d4d4d4;
+      cursor: pointer;
+      transition: 0.3s;
+      svg {
+        fill: #f1f1f1;
+        transition: 0.3s;
+      }
+    }
+    &:hover &-text {
+      color: #f1f1f1;
+      transition: 0.3s;
+    }
+  }
+}
+
+.main-image-text {
+  background-color: #3299de;
+  border-radius: 7px;
+  padding: 5px;
+  margin-top: 5px;
+  white-space: nowrap;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  font-family: Gilroy-Medium;
+  color: white;
+}

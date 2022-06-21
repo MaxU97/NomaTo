@@ -22,7 +22,7 @@ import "./icons.scss";
 
 export const SpinnerAnimationIcon = ({ scale }) => {
   return (
-    <div class="lds-default" style={{ transform: `scale(${scale})` }}>
+    <div className="lds-default" style={{ transform: `scale(${scale})` }}>
       <div></div>
       <div></div>
       <div></div>

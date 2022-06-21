@@ -9,9 +9,10 @@ const MultiInput = ({ children, languages, className }) => {
   return (
     <div className="lang-desc">
       <div className="lang-desc-chooser">
-        {languages.map((lang) => {
+        {languages.map((lang, index) => {
           return (
             <a
+              key={index}
               className={classNames(
                 "lang-desc-chooser-item",
                 className,

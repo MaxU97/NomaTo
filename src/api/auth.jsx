@@ -23,11 +23,33 @@ export const logout = async () => {
   }
 };
 
+export const patchUser = async (props) => {
+  return await api
+    .patch(`/auth/patchUser`, props)
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => {
+      throw err;
+    });
+};
+
+export const patchImage = async (props) => {
+  return await api
+    .patch(`/auth/patchImage`, props)
+    .then(({ data }) => {
+      localStorage.setItem("avatarUrl", data.profileImage);
+      return data;
+    })
+    .catch((err) => {
+      throw err;
+    });
+};
+
 export const getUser = async () => {
   return await api
     .get(`/auth/me`)
     .then(({ data }) => {
-      debugger;
       localStorage.setItem("avatarUrl", data.profileImage);
       console.log(data);
       return data;
@@ -38,7 +60,6 @@ export const getUser = async () => {
 };
 
 export const signUp = async (props) => {
-  debugger;
   return await api
     .post(`/auth/signup`, {
       ...props,
@@ -98,11 +119,9 @@ export const sendEmailCode = async (props) => {
   return await api
     .post(`/auth/confirmEmail`, { ...props })
     .then(({ data }) => {
-      debugger;
       return data.message;
     })
     .catch((err) => {
-      debugger;
       throw err.response.data;
     });
 };
@@ -110,11 +129,9 @@ export const sendPhoneCode = async (props) => {
   return await api
     .post(`/auth/confirmPhone`, { ...props })
     .then(({ data }) => {
-      debugger;
       return data._id;
     })
     .catch((err) => {
-      debugger;
       throw err.response.data;
     });
 };
@@ -134,6 +151,49 @@ export const getBookingRequests = async () => {
     .get("/booking/getRequests")
     .then(({ data }) => {
       return data.bookingRequests;
+    })
+    .catch((err) => {
+      throw err.response.data;
+    });
+};
+
+export const sendForgetEmail = async (props) => {
+  return await api
+    .post("/auth/sendForgetEmail", props)
+    .then(({ data }) => {
+      return data.returnMessage;
+    })
+    .catch((err) => {
+      throw err.response.data;
+    });
+};
+
+export const sendForgotCode = async (props) => {
+  return await api
+    .post("/auth/sendForgotCode", props)
+    .then(({ data }) => {
+      return data.returnMessage;
+    })
+    .catch((err) => {
+      throw err.response.data;
+    });
+};
+export const resendForgotPassword = async (props) => {
+  return await api
+    .post(`/auth/resendForgotPassword`, { ...props })
+    .then(({ data }) => {
+      return data.message;
+    })
+    .catch((err) => {
+      throw err.response.data;
+    });
+};
+
+export const sendResetPassword = async (props) => {
+  return await api
+    .post(`/auth/sendResetPassword`, { ...props })
+    .then(({ data }) => {
+      return data.message;
     })
     .catch((err) => {
       throw err.response.data;

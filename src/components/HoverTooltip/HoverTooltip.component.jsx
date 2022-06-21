@@ -1,7 +1,13 @@
 import React from "react";
 import "./hovertooltip.scss";
 import { CSSTransition } from "react-transition-group";
-const HoverTooltip = ({ content = "in", inVar = "", style }) => {
+import classNames from "classnames";
+const HoverTooltip = ({
+  content = "in",
+  inVar = "",
+  style,
+  type = "right",
+}) => {
   return (
     <CSSTransition
       in={inVar}
@@ -10,9 +16,9 @@ const HoverTooltip = ({ content = "in", inVar = "", style }) => {
       classNames="hover-container"
     >
       <div className="hover-error" style={{ ...style }}>
-        <div className="hover-error-content m">
+        <div className={classNames("hover-error-content m", type)}>
           {content}
-          <div class="arrow-right"></div>
+          <div class={`arrow-${type}`}></div>
         </div>
       </div>
     </CSSTransition>

@@ -14,20 +14,41 @@
     padding: 10px;
     white-space: nowrap;
     &.m {
-      transform: translateX(calc(-100% - 10px));
-      min-width: fit-content;
+      &.left {
+        transform: translateX(calc(-100% - 10px));
+        min-width: fit-content;
+      }
+
+      &.above {
+        top: 100%;
+        transform: translateY(-100%) translateX(-5%);
+        min-width: fit-content;
+      }
     }
   }
-  .arrow-right {
-    position: absolute;
-    right: 0;
-    top: 0;
-    transform: translateX(5px) translateY(100%);
-    width: 0;
-    height: 0;
-    border-top: 6px solid transparent;
-    border-bottom: 6px solid transparent;
-    border-left: 6px solid #ebebeb;
+  .arrow {
+    &-right {
+      position: absolute;
+      right: 0;
+      top: 0;
+      transform: translateX(5px) translateY(100%);
+      width: 0;
+      height: 0;
+      border-top: 6px solid transparent;
+      border-bottom: 6px solid transparent;
+      border-left: 6px solid #ebebeb;
+    }
+
+    &-above {
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-right: 6px solid transparent;
+      border-top: 6px solid #ebebeb;
+      border-left: 6px solid transparent;
+    }
   }
 }
 .hover-container-enter {

@@ -31,6 +31,7 @@ export const BookingModal = ({
   itemQty,
   itemID,
   euroLocale,
+  bookedDates,
 }) => {
   // var today = new Date();
   // // var tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000);
@@ -39,11 +40,6 @@ export const BookingModal = ({
   // var week = new Date(today.getTime() + 24 * 60 * 60 * 1000 * 7);
   let disabledDates = [];
 
-  const bookedDates = [
-    new Date(2022, 4, 25),
-    new Date(2022, 5, 20),
-    new Date(2022, 5, 11),
-  ];
   const tcCheck = useRef();
   const { state: utilityState } = useUtilityContext();
   const [dataToSend, setDataToSend] = useState();
@@ -62,59 +58,6 @@ export const BookingModal = ({
   const { t } = useTranslation();
 
   const [fieldsValidated, setFieldsValidated] = useState(false);
-
-  // const validateFields = () => {
-  //   let validated = true;
-  //   //validate calendar
-  //   validated = validated && validateCalendar() && validateQtyWant();
-  //   return validated;
-  // };
-
-  // const validateCalendar = () => {
-  //   if (dates) {
-  //     let disabledDateInRange = false;
-  //     disabledDates.forEach((dDate) => {
-  //       if (
-  //         isWithinInterval(dDate, { start: dates["from"], end: dates["to"] })
-  //       ) {
-  //         disabledDateInRange = true;
-  //       }
-  //     });
-  //     if (disabledDateInRange) {
-  //       setCalendarError(
-  //         "Please make sure no disabled dates are in your range"
-  //       );
-  //       return false;
-  //     }
-
-  //     if (dayCount < minRent) {
-  //       setCalendarError(
-  //         "The minimum rent duration for this item is: " + minRent
-  //       );
-  //       return false;
-  //     } else {
-  //       setCalendarError("");
-  //       return true;
-  //     }
-  //   } else {
-  //     setCalendarError("Please select dates on the calendar");
-  //     return false;
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   if ("from" in dateRange && "to" in dateRange) {
-  //     const start = moment(dateRange.from);
-  //     const end = moment(dateRange.to);
-  //     setDayCount(end.diff(start, "days"));
-  //     setDates(dateRange);
-  //   }
-  // }, [dateRange]);
-
-  // useEffect(() => {
-  //   const validated = validateFields();
-  //   setFieldsValidated(validated);
-  // }, [dates, qtyWant]);
 
   const defaultSummary = {
     day: { range: "", total: "0 Days" },
@@ -156,7 +99,7 @@ export const BookingModal = ({
       totalPrice,
       utilityState.serviceCharge
     );
-    debugger;
+
     price = {
       title:
         qtyWant +
@@ -353,7 +296,7 @@ export const BookingModal = ({
                   containerClass={classNames(qtyError && "error")}
                 >
                   <CSSTransition
-                    in={qtyError}
+                    in={!!qtyError}
                     timeout={500}
                     unmountOnExit
                     classNames="error-container"

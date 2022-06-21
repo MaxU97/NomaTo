@@ -15,8 +15,6 @@ const QRRead = ({ showHeader = () => {} }) => {
   const [qrError, setQrError] = useState();
   const [options, setOptions] = useState();
   useEffect(() => {
-    debugger;
-
     if (data) {
       const parsedData = JSON.parse(data);
       if (parsedData.type && parsedData.booking) {
@@ -31,7 +29,6 @@ const QRRead = ({ showHeader = () => {} }) => {
   }, [data]);
 
   useEffect(() => {
-    debugger;
     showHeader(false);
     const getScanned = async () => {
       const response = await qrCodeScan(options);

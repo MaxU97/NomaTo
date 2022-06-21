@@ -1,0 +1,56 @@
+.side-menu {
+  &-background {
+    z-index: 100;
+    position: absolute;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    pointer-events: none;
+    transition: background-color 0.3s;
+    &.active {
+      background-color: rgba(0, 0, 0, 0.4);
+      transition: background-color 0.3s;
+      pointer-events: all;
+    }
+  }
+  position: absolute;
+  z-index: 101;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 400px;
+  background-color: white;
+  transform: translateX(100%);
+  overflow: hidden;
+  transition: transform 300ms ease;
+  &.active {
+    transform: translateX(0);
+    transition: transform 300ms ease;
+  }
+
+  &-close {
+    height: 30px;
+    width: auto;
+    transform: rotateZ(180deg);
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 10px;
+    transition: 0.2s;
+    &:hover {
+      cursor: pointer;
+      fill: #a3a3a3;
+      transition: 0.2s;
+    }
+  }
+  &-title {
+    h1 {
+      margin: 0;
+      margin-top: 10px;
+      min-width: 100%;
+    }
+  }
+  &-content {
+    padding: 30px;
+  }
+}

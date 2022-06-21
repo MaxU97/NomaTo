@@ -21,6 +21,9 @@ import QRPage from "../../views/QRPage/QRPage.view";
 import QRRead from "../../views/QRRead/QRRead.view";
 import AddCategories from "../../views/AddCategories/AddCategories.view";
 import Register from "../../views/Register/Register.component";
+import Profile from "../../views/Profile/Profile.view";
+import SearchPage from "../../views/SearchPage/SearchPage.component";
+import ForgotPassword from "../../views/ForgotPassword/ForgotPassword.view";
 
 export const AppRouter = () => {
   const { state } = useUserContext();
@@ -54,6 +57,16 @@ export const AppRouter = () => {
         <Route path={["/item/:id"]} exact>
           <ItemPage />
         </Route>
+        <Route path={["/search"]} exact>
+          <SearchPage />
+        </Route>
+        <Route
+          path={["/forgot-password"]}
+          exact
+          component={() => <ForgotPassword></ForgotPassword>}
+        >
+          {state.user && <Redirect to="/"></Redirect>}
+        </Route>
         <Route path={["/bookings"]} exact>
           {state.user ? <MyBookings /> : <NotFound />}
         </Route>
@@ -65,11 +78,20 @@ export const AppRouter = () => {
           )}
         </Route>
         <Route path={["/qr-reader/:booking?"]} exact>
-          <QRRead showHeader={showHeader} />
+          {state.user ? (
+            <QRRead showHeader={showHeader} />
+          ) : (
+            <NotFound></NotFound>
+          )}
+        </Route>
+
+        <Route path={["/profile"]} exact>
+          {state.user ? <Profile /> : <NotFound />}
         </Route>
         <Route path={["/checkout"]} exact>
           <CheckoutPage />
         </Route>
+
         <Route
           path={["/test-upload"]}
           exact

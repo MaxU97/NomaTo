@@ -27,6 +27,7 @@ export const websitUrl =
     : process.env.REACT_APP_WEB_URL_PROD;
 export const googleApiKey = process.env.REACT_APP_GOOGLE_API_KEY;
 export const stripeKey = process.env.REACT_APP_STRIPE_API_KEY;
+export const googleLibraries = ["places"];
 export let token = null;
 
 export const setToken = (currentToken) => {

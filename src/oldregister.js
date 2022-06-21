@@ -63,12 +63,12 @@
 		  
 		 
   const CheckAndSetPhone = (event) => {
-    debugger;
+     
     setPhone(event);
     const validate = validator.isMobilePhone(event, "lv-LV", {
       strictMode: false,
     });
-    debugger;
+     
     if (validate) {
       setPhoneConds(validate);
     } else {

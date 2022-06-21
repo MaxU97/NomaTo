@@ -25,13 +25,14 @@
   "login": {
     "no-account": "Don't have an account?",
     "have-account": "Already have an account?",
-    "click-here": "Click here!",
+    "register": "Register now",
     "message-1": "Login and rent",
     "message-2": "anything",
     "reg-message-1": "Register and rent",
     "reg-message-2": "anything",
     "login": "Login",
-    "signup": "Sign up"
+    "signup": "Sign up",
+    "forgot-password": "Forgot Password"
   },
   "register": {
     "fill-code": "Please enter a code",
@@ -49,6 +50,7 @@
     "admin": { "add-news": "Add News", "add-categories": "Edit Categories" }
   },
   "list-item": {
+    "uploading": "Listing",
     "title": "List an Item",
     "t1": "Name",
     "t2": "Model",
@@ -89,7 +91,8 @@
     "recent-review": "Most recent review",
     "recommended": "Recommended",
     "not-recommended": "Not recommended",
-    "you-are-owner": "You are the owner"
+    "you-are-owner": "You are the owner",
+    "need-completed-profile": "You need to fill your profile before booking"
   },
   "booking-modal": {
     "quantity": "Quantity Needed",
@@ -155,5 +158,31 @@
     "include-an-image": "Please attach an image",
     "new-cat": "Add New",
     "save-changes": "Save Changes"
+  },
+
+  "profile": {
+    "title": "Your Profile",
+    "name": "Name",
+    "surname": "Surname",
+    "email": "Email",
+    "phone": "Phone",
+    "languages": "Languages",
+    "address": "Address",
+    "submit-error": "Please fill all the fields correctly"
+  },
+  "search-page": {
+    "location": "Location",
+    "category": "Category",
+    "price": "Price",
+    "other-filters": "Other Filters",
+    "price-from": "Price (from)",
+    "price-to": "Price (to)"
+  },
+  "forgot-pw": {
+    "title": "Reset your password",
+    "fill-code": "Please enter a code",
+    "email-code-1": "We have sent an email to",
+    "email-code-2": "containing a confirmation code, please enter it below",
+    "resend-code": "Resend code"
   }
 }

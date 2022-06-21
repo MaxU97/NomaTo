@@ -64,6 +64,57 @@ export const ItemPage = () => {
     });
   }, [userState.bookingHistory]);
 
+  const getBookingButton = () => {
+    var returnedA;
+
+    if (itemOwner) {
+      returnedA = (
+        <a className="availablity-button booked">
+          {t("item-page.you-are-owner")}
+        </a>
+      );
+    }
+
+    if (itemBooked) {
+      returnedA = (
+        <a className="availablity-button booked">
+          {t("item-page.item-booked")}
+        </a>
+      );
+    }
+    if (userState.user) {
+      if (userState.user.completionStatus) {
+        returnedA = (
+          <a
+            className="availablity-button"
+            onClick={() => {
+              toggleBooking(true);
+            }}
+          >
+            {t("item-page.make-a-booking")}
+          </a>
+        );
+      } else {
+        returnedA = (
+          <a className="availablity-button booked">
+            {t("item-page.need-completed-profile")}
+          </a>
+        );
+      }
+    } else {
+      returnedA = (
+        <a
+          className="availablity-button"
+          onClick={() => {
+            window.location.href = "/login";
+          }}
+        >
+          {t("item-page.make-a-booking")}
+        </a>
+      );
+    }
+    return returnedA;
+  };
   return item ? (
     <div className="item-page-background">
       <div className="container-l background">
@@ -127,28 +178,7 @@ export const ItemPage = () => {
                 </div>
               </div>
             </div>
-            {itemOwner ? (
-              <a className="availablity-button booked">
-                {t("item-page.you-are-owner")}
-              </a>
-            ) : itemBooked ? (
-              <a className="availablity-button booked">
-                {t("item-page.item-booked")}
-              </a>
-            ) : (
-              <a
-                className="availablity-button"
-                onClick={() => {
-                  if (userState.user) {
-                    toggleBooking(true);
-                  } else {
-                    window.location.href = `/login`;
-                  }
-                }}
-              >
-                {t("item-page.make-a-booking")}
-              </a>
-            )}
+            {getBookingButton()}
 
             <div className="item-page-right-field">
               <div className="title-margin">{t("item-page.desc")}</div>
@@ -226,6 +256,7 @@ export const ItemPage = () => {
           rentPriceMonth={item.rentPriceMonth}
           euroLocale={euroLocale}
           itemID={id}
+          bookedDates={bookedDates}
         ></BookingModal>
       </div>
     </div>

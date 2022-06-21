@@ -108,11 +108,20 @@ export const qrCodeScan = async (options) => {
   return await api
     .post(`/booking/scanQR`, options)
     .then(({ data }) => {
-      debugger;
       return data;
     })
     .catch((err) => {
-      debugger;
+      return err.response.data;
+    });
+};
+
+export const getBookedDates = async (props) => {
+  return await api
+    .post(`/booking/getBookedDates`, props)
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => {
       return err.response.data;
     });
 };

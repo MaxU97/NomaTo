@@ -1,0 +1,63 @@
+.profile {
+  background-image: url("../../assets/home-background.png");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh;
+  &-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 15px;
+    &-error {
+      color: rgb(180, 79, 79);
+      font-family: Gilroy-Medium;
+      font-size: 18px;
+    }
+    &-field {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+
+      &-input {
+        width: 50%;
+        margin: 10px 20px;
+        &-error {
+          border-color: rgb(180, 79, 79);
+        }
+      }
+    }
+  }
+
+  &-button {
+    margin-top: 10px;
+    background-color: #3299de;
+    color: white;
+    font-family: Gilroy-Medium;
+    padding: 15px 40px;
+    border-radius: 10px;
+
+    &-update {
+      background-color: #a3a3a3;
+    }
+  }
+
+  &-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    &-container {
+      border: 5px solid rgb(255, 255, 255);
+      border-radius: 100px;
+      height: 125px;
+      width: 125px;
+      -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.57);
+      box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.57);
+    }
+  }
+}

@@ -93,6 +93,10 @@
             transition: 0.3s;
           }
         }
+        &.disabled {
+          background-color: #bebebe;
+          pointer-events: none;
+        }
         &:hover {
           background-color: #66aedf;
         }

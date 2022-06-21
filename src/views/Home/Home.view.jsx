@@ -7,19 +7,19 @@ import Carousel from "../../components/Carousel/Carousel.component";
 import NewsBlock from "../../components/NewsBlock/NewsBlock.component";
 import { getPopularItems } from "../../services/item.service";
 import { useItemContext } from "../../context/item";
+import { useNotificationHandler } from "../../components/NotificationHandler/NotificationHandler.component";
 
 const Home = () => {
   const { state: itemState } = useItemContext();
   const popularItems = itemState.popularItems;
   const [searchTerm, setSearchTerm] = useState("");
   const { t } = useTranslation();
-
+  const { notification } = useNotificationHandler();
   return (
     <>
       <div className="home">
         <div className="container">
           <div className="home-search">
-            <img src={image} />
             <div className="home-search-title">
               <h1>{t("home.search-title-p1")}&nbsp;</h1>
               <h1 className="accent">{t("home.search-title-p2")}&nbsp;</h1>
@@ -32,6 +32,9 @@ const Home = () => {
               setValue={setSearchTerm}
               button={true}
               buttonText={t("search.button")}
+              inputButton={() => {
+                window.location.href = `/search/?term=${searchTerm}`;
+              }}
             />
             <h2>{t("search.checkout")}</h2>
             <div className="home-search-carousel">

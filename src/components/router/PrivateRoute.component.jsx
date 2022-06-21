@@ -7,7 +7,6 @@ export const PrivateRoute = ({ children, ...props }) => {
     <Route
       {...props}
       render={({ location }) => {
-        debugger;
         return state.user ? (
           children
         ) : (

@@ -1,6 +1,6 @@
 import {
   $UPLOAD_ITEM,
-  $GET_ITEMS,
+  $SEARCH_ITEMS,
   $GET_ITEM,
   $GET_POPULAR,
 } from "./item.constants";
@@ -9,7 +9,8 @@ export const ItemBaseState = {
   cachedItems: [],
   searchedItems: [],
   popularItems: [],
-  searchTerms: {},
+  searchItemCount: 0,
+  searchCity: "",
 };
 
 export const ItemReducer = (state, action) => {
@@ -19,8 +20,12 @@ export const ItemReducer = (state, action) => {
       return state;
     }
 
-    case $GET_ITEMS: {
-      return { ...state, searchedItems: payload };
+    case $SEARCH_ITEMS: {
+      return {
+        ...state,
+        searchedItems: payload.searchItems,
+        searchItemCount: payload.searchItemCount,
+      };
     }
 
     case $GET_ITEM: {

@@ -12,8 +12,12 @@ import { getCurrentLanguage } from "../../services/language.serivce";
 import ImageEditorModal from "../../components/ImagePicker/ImageEditorModal.component";
 import classNames from "classnames";
 import { useItemContext } from "../../context/item";
+import { useNotificationHandler } from "../../components/NotificationHandler/NotificationHandler.component";
 
 const ListItem = () => {
+  const [isUploading, setIsUploading] = useState(false);
+
+  const { notification } = useNotificationHandler();
   const { state: items, UPLOAD_ITEM } = useItemContext();
 
   const [errors, setErrors] = useState({});
@@ -28,7 +32,7 @@ const ListItem = () => {
   const [descRU, setDescRU] = useState("");
 
   const [address, setAddress] = useState("");
-
+  const [addressLatLng, setAddressLatLng] = useState();
   const [rentPriceDay, setRentPriceDay] = useState("");
   const [rentPriceWeek, setRentPriceWeek] = useState("");
   const [rentPriceMonth, setRentPriceMonth] = useState("");
@@ -140,7 +144,7 @@ const ListItem = () => {
       uploadImages.forEach((blob) => {
         promises.push(fetch(blob).then((r) => r.blob()));
       });
-      Promise.all(promises).then((results) => {
+      Promise.all(promises).then(async (results) => {
         results.forEach((image) => {
           data.append(
             "images",
@@ -155,15 +159,29 @@ const ListItem = () => {
         data.append("descEN", descEN);
         data.append("descLV", descLV);
         data.append("descRU", descRU);
-        data.append("addressLng", address["lng"]);
-        data.append("addressLat", address["lat"]);
+        data.append("addressLng", addressLatLng["lng"]);
+        data.append("addressLat", addressLatLng["lat"]);
         data.append("itemValue", itemValue);
         data.append("minRent", minRent);
         data.append("itemQty", itemQty);
         data.append("rentPriceDay", rentPriceDay);
         data.append("rentPriceWeek", rentPriceWeek);
         data.append("rentPriceMonth", rentPriceMonth);
-        const response = UPLOAD_ITEM(data);
+        data.append("addressNatural", JSON.stringify(address));
+        var response;
+        try {
+          setIsUploading(true);
+          response = await UPLOAD_ITEM(data);
+
+          notification([response]);
+          setIsUploading(false);
+          setTimeout(() => {
+            window.location.replace("/");
+          }, 2000);
+        } catch (err) {
+          notification([err], true);
+          setIsUploading(false);
+        }
       });
     }
   };
@@ -250,6 +268,7 @@ const ListItem = () => {
                 errors["addressError"] && "error"
               )}
               setAddress={setAddress}
+              setAddressLatLng={setAddressLatLng}
             ></Map>
             <div className="note listing-form-field">
               {t("list-item.address-disclaimer")}
@@ -325,13 +344,18 @@ const ListItem = () => {
                 {t("list-item.cancel")}
               </Link>
               <a
-                className="listing-button"
+                className={classNames(
+                  "listing-button",
+                  isUploading && "disabled"
+                )}
                 onClick={() => {
                   uploadItem();
                   setPageLoaded(true);
                 }}
               >
-                {t("list-item.list-item")}
+                {isUploading
+                  ? t("list-item.uploading") + "..."
+                  : t("list-item.list-item")}
               </a>
             </div>
           </div>

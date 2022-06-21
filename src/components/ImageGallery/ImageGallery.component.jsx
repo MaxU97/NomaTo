@@ -51,6 +51,7 @@ const ImageGallery = ({ className, images }) => {
         {images.map((image, index) => {
           return (
             <div
+              key={index}
               className={classNames(
                 "image-gallery-scroller-item",
                 current == index && "selected"

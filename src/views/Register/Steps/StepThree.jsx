@@ -18,12 +18,11 @@ const StepThree = ({
   const [selectedLanguages, setSelectedLanguages] = useState([]);
   const [languageError, setLanguageError] = useState(false);
   const CheckAndSetPhone = (event) => {
-    debugger;
     setPhone(event);
     const validate = validator.isMobilePhone(event, "lv-LV", {
       strictMode: false,
     });
-    debugger;
+
     if (validate) {
       setPhoneError(!validate);
     } else {

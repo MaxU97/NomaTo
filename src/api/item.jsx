@@ -3,8 +3,8 @@ import api from "./config";
 export const uploadItem = async (data) => {
   return await api
     .post(`/item/upload`, data)
-    .then((data) => {
-      return "DONE!";
+    .then(({ data }) => {
+      return data.message;
     })
     .catch((err) => {
       console.log(err.response.data);
@@ -31,5 +31,17 @@ export const getPopular = async () => {
     })
     .catch((err) => {
       console.log(err.response.data);
+    });
+};
+
+export const searchItems = async (term) => {
+  return await api
+    .post(`/item/search`, term)
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => {
+      console.error(err.response.data);
+      return false;
     });
 };

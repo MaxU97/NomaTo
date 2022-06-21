@@ -62,8 +62,6 @@ const AddCategories = () => {
     const prepareForm = async () => {
       if (editType) {
         if (!(editType === "new")) {
-          debugger;
-
           const dependancies = await checkCategoryDependancies(editType._id);
           setExistingDependancies(dependancies);
           setTitleRU(editType.titleRU);
@@ -201,7 +199,6 @@ const AddCategories = () => {
   };
 
   const submitCategory = () => {
-    debugger;
     const send = async () => {
       setIsLoading(true);
 
@@ -210,7 +207,6 @@ const AddCategories = () => {
       if (!error) {
         let promises = [];
         image.forEach((blob) => {
-          debugger;
           if (blob.includes("blob")) {
             promises.push(fetch(blob).then((r) => r.blob()));
           }

@@ -14,7 +14,7 @@ const PickerDropdown = ({
   hoverError,
 }) => {
   const [dropdown, toggleDropdown] = useState(false);
-  debugger;
+
   return (
     <div className={classNames("picker-dropdown", className)}>
       <div

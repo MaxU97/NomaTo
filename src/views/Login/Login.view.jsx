@@ -4,8 +4,10 @@ import { Link, useHistory, useParams } from "react-router-dom";
 import Input from "../../components/Input/Input.component";
 import "./login.scss";
 import { useUserContext } from "../../context/user";
+import { useNotificationHandler } from "../../components/NotificationHandler/NotificationHandler.component";
 const Login = () => {
   const { t } = useTranslation();
+  const { notification } = useNotificationHandler();
   const { AUTHORIZE } = useUserContext();
   const [error, setError] = useState("");
   const [email, setEmail] = useState("");
@@ -22,6 +24,8 @@ const Login = () => {
       password: password,
     });
     if (err) {
+      notification([err.message], true);
+
       setError(err.message);
     } else {
       history.goBack();
@@ -47,22 +51,22 @@ const Login = () => {
           type="password"
           className="login-form-field"
         ></Input>
-        <div>
-          {error && <div className="login-error">{error}</div>}
-          {t("login.no-account")}{" "}
-          <Link className="change-log-type" onClick={() => {}} to="/register">
-            {t("login.click-here")}
-          </Link>
-        </div>
-
         <a
-          className="login-button"
+          className="login-page-button"
           onClick={() => {
             submitForm();
           }}
         >
           {t("login.login")}
         </a>
+        <div className="login-page-actions">
+          <Link className="change-log-type" to="/forgot-password">
+            {t("login.forgot-password")}
+          </Link>
+          <Link className="change-log-type" to="/register">
+            {t("login.register")}
+          </Link>
+        </div>
       </div>
     </div>
   );

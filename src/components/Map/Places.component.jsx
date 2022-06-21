@@ -1,18 +1,39 @@
-import { setDefaultNamespace } from "i18next";
+import classNames from "classnames";
+import { useLoadScript } from "@react-google-maps/api";
 import React from "react";
+import { googleApiKey, googleLibraries } from "../../api/config";
+import { useEffect } from "react";
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
 } from "use-places-autocomplete";
 import Dropdown from "../Dropdown/Dropdown.component";
 import DropdownItem from "../Dropdown/DropdownItem.component";
+import { set } from "lodash";
 
 const autocompleteParameters = {
   requestOptions: { componentRestrictions: { country: "lv" } },
   debounce: 300,
 };
 
-const Places = ({ setPlace = () => {} }) => {
+const Places = ({
+  setPlace = () => {},
+  setAddress = () => {},
+  onMouseOver = () => {},
+  onMouseOut = () => {},
+  disabled,
+  inputClass,
+  inMap = true,
+  containerClass,
+  children,
+  existingValue,
+}) => {
+  useLoadScript({
+    googleMapsApiKey: googleApiKey,
+    libraries: googleLibraries,
+  });
+
+  useEffect(() => {});
   const {
     ready,
     value,
@@ -20,7 +41,6 @@ const Places = ({ setPlace = () => {} }) => {
     suggestions: { status, data },
     clearSuggestions,
   } = usePlacesAutocomplete(autocompleteParameters);
-  console.log(status, data);
 
   const handleSelect = async (val) => {
     setValue(val, false);
@@ -28,13 +48,21 @@ const Places = ({ setPlace = () => {} }) => {
     const results = await getGeocode({ address: val });
     const { lat, lng } = await getLatLng(results[0]);
     setPlace({ lat, lng });
+
+    setAddress(results[0].address_components);
   };
   return (
     <Dropdown
-      className="map-dropdown"
-      value={value}
+      className={classNames("map-dropdown", inMap && "in-map")}
+      value={disabled ? existingValue : value}
       setValue={setValue}
       placeholder="Address"
+      inputClass={inputClass}
+      containerClass={containerClass}
+      hoverChild={children}
+      onMouseOver={onMouseOver}
+      onMouseOut={onMouseOut}
+      disabled={disabled}
     >
       {status === "OK" &&
         data.map(({ place_id, description }) => {
@@ -51,17 +79,3 @@ const Places = ({ setPlace = () => {} }) => {
 };
 
 export default Places;
-{
-  /* <Combobox onSelect={() => {}}>
-<ComboboxInput
-  value={value}
-  onChange={(e) => setValue(e.target.value)}
-  placeholder="Search address"
-></ComboboxInput>
-<ComboboxPopover>
-  <ComboboxList>
-    
-  </ComboboxList>
-</ComboboxPopover>
-</Combobox> */
-}

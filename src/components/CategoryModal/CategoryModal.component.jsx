@@ -37,9 +37,10 @@ const CategoryModal = ({
               <MoveIcon className="move-left-icon" />
             </a>
             <hr></hr>
-            {selectedCat.subcats.map((sub) => (
+            {selectedCat.subcats.map((sub, index) => (
               <>
                 <div
+                  key={index}
                   className="categories-sub-cat"
                   onClick={() => {
                     setSelectedCat(false);
@@ -57,11 +58,11 @@ const CategoryModal = ({
           </div>
         ) : (
           <div className="categories">
-            {categories.map((cat) => (
+            {categories.map((cat, index) => (
               <div
+                key={index}
                 className="category"
                 onClick={() => {
-                  debugger;
                   setSelectedCat(cat);
                   if (cat.subcats.length == 0) {
                     setSelectedCat(false);

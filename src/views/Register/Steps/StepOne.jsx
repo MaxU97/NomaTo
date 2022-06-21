@@ -51,10 +51,9 @@ const StepOne = ({ nextStep = () => {}, setReturnEmail = () => {} }) => {
   const CheckAndSetPass = (event) => {
     var pw = event;
     var newConds = passwordConds;
-    debugger;
+
     const validate = validator.isStrongPassword(event);
     if (pw.length != 0) {
-      debugger;
       if (event.length < 8) {
         newConds.minLength.met = false;
       } else {
@@ -119,7 +118,7 @@ const StepOne = ({ nextStep = () => {}, setReturnEmail = () => {} }) => {
     try {
       if (validate) {
         const props = { email: email, password: password };
-        debugger;
+
         const emailToReturn = await preRegEmail(props);
         setReturnEmail(emailToReturn);
         nextStep();

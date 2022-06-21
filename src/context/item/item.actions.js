@@ -1,20 +1,20 @@
 import {
   $UPLOAD_ITEM,
-  $GET_ITEMS,
+  $SEARCH_ITEMS,
   $GET_POPULAR,
   $GET_ITEM,
 } from "./item.constants";
-import { getItem, getPopular, uploadItem } from "../../api/item";
+import { getItem, getPopular, searchItems, uploadItem } from "../../api/item";
 
 export const UPLOAD_ITEM = (dispatch) => async (props) => {
   try {
-    await uploadItem(props);
+    const message = await uploadItem(props);
     dispatch({
       type: $UPLOAD_ITEM,
     });
-    return "Item Listed!";
+    return message;
   } catch (err) {
-    return err;
+    throw err;
   }
 };
 
@@ -36,6 +36,19 @@ export const GET_ITEM = (dispatch) => async (id) => {
     const data = await getItem(id);
     dispatch({
       type: $GET_ITEM,
+      payload: data,
+    });
+    return data;
+  } catch (err) {
+    return false;
+  }
+};
+
+export const SEARCH_ITEMS = (dispatch) => async (term) => {
+  try {
+    const data = await searchItems(term);
+    dispatch({
+      type: $SEARCH_ITEMS,
       payload: data,
     });
     return data;

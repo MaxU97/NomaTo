@@ -7,7 +7,7 @@ import i18n from "./services/language.serivce";
 import { Provider as UserProvider, useUserContext } from "./context/user";
 import { Provider as UtilityProvider } from "./context/utility";
 import { Provider as ItemProvider } from "./context/item";
-import { useState, useEffect } from "react";
+import { NotificationHandler } from "./components/NotificationHandler/NotificationHandler.component";
 moment.locale(i18n.language);
 
 const App = () => {
@@ -18,11 +18,12 @@ const App = () => {
         <Helmet>
           <title>NomaTo</title>
         </Helmet>
-
         <UserProvider>
           <UtilityProvider>
             <ItemProvider>
-              <Router />
+              <NotificationHandler>
+                <Router />
+              </NotificationHandler>
             </ItemProvider>
           </UtilityProvider>
         </UserProvider>

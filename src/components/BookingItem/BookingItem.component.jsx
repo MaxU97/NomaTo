@@ -38,7 +38,7 @@ const BookingItem = ({ item, status }) => {
       item.dateStart,
       item.dateEnd
     );
-    debugger;
+
     totalPrice =
       (totalPrice + getServiceCharge(totalPrice, utilityState.serviceCharge)) *
       item.qtyWant;
@@ -49,7 +49,7 @@ const BookingItem = ({ item, status }) => {
     const status = await cancelBooking(_id);
     await GET_BOOKING_HISTORY();
   };
-  debugger;
+
   return (
     <div className="booking-item">
       <div className="booking-item-left">

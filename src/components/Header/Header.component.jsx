@@ -34,8 +34,8 @@ const Header = () => {
             {localStorage.token && state.user ? (
               <ProfileMenu></ProfileMenu>
             ) : (
-              <Link to="/login">
-                <a className="login-button">{t("header.login-signup")}</a>
+              <Link className="login-button" to="/login">
+                {t("header.login-signup")}
               </Link>
             )}
           </div>

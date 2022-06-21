@@ -12,6 +12,7 @@ const ImageEditorModal = ({
   title = "Upload and Edit",
   uploadImages = [],
   setUploadImages = () => {},
+  circleCrop = false,
 }) => {
   const [image, setImage] = useState();
 
@@ -93,9 +94,10 @@ const ImageEditorModal = ({
               showGrid={false}
               image={image}
               crop={crop}
+              cropShape={circleCrop && "round"}
               rotation={rotation}
               zoom={zoom}
-              aspect={1.5 / 1}
+              aspect={circleCrop ? 1 / 1 : 1.5 / 1}
               onRotationChange={setRotation}
               onCropChange={setCrop}
               onCropComplete={onCropComplete}

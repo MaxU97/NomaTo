@@ -44,12 +44,10 @@ const BookingRequestsItem = ({ item, status }) => {
     if (item.status == "approved") {
       const prom = getApprovedUser(item.userID._id, item._id);
       Promise.all([prom]).then((user) => {
-        debugger;
         setApprovedUser(user[0]);
       });
     }
 
-    debugger;
     var totalPrice = getTotalPrice(
       item.itemID.rentPriceDay,
       item.itemID.rentPriceWeek,
@@ -60,7 +58,7 @@ const BookingRequestsItem = ({ item, status }) => {
 
     setPrice(totalPrice * item.qtyWant);
   }, []);
-  debugger;
+
   return (
     <>
       <div className="booking-request-item">

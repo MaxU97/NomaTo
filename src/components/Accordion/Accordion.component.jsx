@@ -3,7 +3,7 @@ import { DownIcon } from "../../assets/Icons";
 import "./accordion.scss";
 const Accordion = ({ children, header_children }) => {
   const [isOpen, setIsOpen] = useState(false);
-  debugger;
+
   return (
     <div className="accordion">
       <div

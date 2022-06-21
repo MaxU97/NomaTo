@@ -1,90 +1,19 @@
-import Camera from "../assets/ItemPictures/neboskreeb.jpg";
-import Car from "../assets/ItemPictures/strelovoy-kran-1.jpg";
-import Bike from "../assets/ItemPictures/vr.jpg";
-import Drone from "../assets/ItemPictures/Drone.jpg";
-const items = [
-  {
-    name: "Camera",
-    sellerName: "Seller",
-    rating: 5,
-    ratingAmount: 20,
-    location: "Riga",
-    imgUrl: Camera,
-    price: 20,
-    link: "",
-  },
-  {
-    name: "Drone",
-    sellerName: "Seller",
-    rating: 5,
-    ratingAmount: 20,
-    location: "Riga",
-    imgUrl: Drone,
-    price: 20,
-    link: "",
-  },
-  {
-    name: "Bike",
-    sellerName: "Seller ",
-    rating: 5,
-    ratingAmount: 20,
-    location: "Riga",
-    imgUrl: Bike,
-    price: 20,
-    link: "",
-  },
-  {
-    name: "Car",
-    sellerName: "Seller ",
-    rating: 5,
-    ratingAmount: 20,
-    location: "Riga",
-    imgUrl: Car,
-    price: 20,
-    link: "",
-  },
-  {
-    name: "Camera",
-    sellerName: "Seller ",
-    rating: 5,
-    ratingAmount: 20,
-    location: "Riga",
-    imgUrl: Camera,
-    price: 20,
-    link: "",
-  },
-  {
-    name: "Car",
-    sellerName: "Seller ",
-    rating: 5,
-    ratingAmount: 20,
-    location: "Riga",
-    imgUrl: Car,
-    price: 20,
-    link: "",
-  },
-  {
-    name: "Bike",
-    sellerName: "Seller ",
-    rating: 5,
-    ratingAmount: 20,
-    location: "Riga",
-    imgUrl: Bike,
-    price: 20,
-    link: "",
-  },
-  {
-    name: "Drone",
-    sellerName: "Seller ",
-    rating: 5,
-    ratingAmount: 20,
-    location: "Riga",
-    imgUrl: Drone,
-    price: 20,
-    link: "",
-  },
-];
+import Geocode from "react-geocode";
+import { googleApiKey } from "../api/config";
+import { getCurrentLanguage } from "./language.serivce";
 
-export const getPopularItems = () => {
-  return items;
+export const getNaturalAddress = async (lat, lng) => {
+  Geocode.setApiKey(googleApiKey);
+  Geocode.setLanguage(getCurrentLanguage());
+
+  const addr = await Geocode.fromLatLng(lat, lng);
+  var address;
+  addr.results[0].address_components.every((comp) => {
+    if (comp.types.includes("locality")) {
+      address = comp;
+      return false;
+    }
+    return true;
+  });
+  return address;
 };

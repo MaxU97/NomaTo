@@ -10,7 +10,7 @@ export const getTotalPrice = (
   const start = moment(dateStart);
   const end = moment(dateEnd);
   const dayCount = end.diff(start, "days");
-  debugger;
+
   if (7 <= dayCount && dayCount < 30) {
     return dayCount * rentPriceWeek;
   } else if (dayCount >= 30) {

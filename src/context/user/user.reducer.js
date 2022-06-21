@@ -8,6 +8,8 @@ import {
   $GET_CLIENT_SECRET,
   $GET_PAYMENT_METHODS,
   $RESET_CLIENT_SECRET,
+  $PATCH_USER,
+  $PATCH_IMAGE,
 } from "./user.constants";
 
 export const UserBaseState = {
@@ -66,6 +68,12 @@ export const UserReducer = (state, action) => {
     }
     case $RESET_CLIENT_SECRET: {
       return { ...state, clientSecret: "" };
+    }
+    case $PATCH_USER: {
+      return { ...state, user: payload };
+    }
+    case $PATCH_IMAGE: {
+      return { ...state, user: { ...state.user, profileImage: payload } };
     }
     default: {
       return state;

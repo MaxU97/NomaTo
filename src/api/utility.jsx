@@ -11,7 +11,6 @@ export const getCategories = async () => {
 };
 
 export const createCategory = async (category) => {
-  debugger;
   return await api
     .post("/categories/createCategory", category)
     .then(({ data }) => {
@@ -23,7 +22,6 @@ export const createCategory = async (category) => {
 };
 
 export const checkExistingCategory = async (categoryNames) => {
-  debugger;
   return await api
     .post("/categories/checkExisting", categoryNames)
     .then(() => {
@@ -35,7 +33,6 @@ export const checkExistingCategory = async (categoryNames) => {
 };
 
 export const deleteCategory = async (id) => {
-  debugger;
   return await api
     .post("/categories/deleteCategory", { _id: id })
     .then(() => {
@@ -47,15 +44,12 @@ export const deleteCategory = async (id) => {
 };
 
 export const checkCategoryDependancies = async (id) => {
-  debugger;
   return await api
     .post("/categories/checkCategoryDependancies", { _id: id })
     .then(() => {
-      debugger;
       return true;
     })
     .catch((err) => {
-      debugger;
       return false;
     });
 };

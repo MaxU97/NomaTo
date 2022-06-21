@@ -7,6 +7,8 @@ import {
   $SIGNUP,
   $GET_CLIENT_SECRET,
   $RESET_CLIENT_SECRET,
+  $PATCH_USER,
+  $PATCH_IMAGE,
 } from "./user.constants";
 import {
   logout,
@@ -14,6 +16,8 @@ import {
   getUser,
   signUp,
   getBookingHistory,
+  patchUser,
+  patchImage,
 } from "../../api/auth";
 
 import { getClientSecret, getPaymentMethods } from "../../api/booking";
@@ -60,6 +64,34 @@ export const SIGNUP = (dispatch) => async (props) => {
     return true;
   } catch (err) {
     return err;
+  }
+};
+
+export const PATCH_USER = (dispatch) => async (props) => {
+  try {
+    const user = await patchUser(props);
+    const message = user.message;
+    delete user.message;
+    dispatch({
+      type: $PATCH_USER,
+      payload: user,
+    });
+    return message;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const PATCH_IMAGE = (dispatch) => async (props) => {
+  try {
+    const data = await patchImage(props);
+    dispatch({
+      type: $PATCH_IMAGE,
+      payload: data.profileImage,
+    });
+    return data;
+  } catch (err) {
+    throw err;
   }
 };
 
