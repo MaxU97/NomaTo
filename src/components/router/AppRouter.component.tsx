@@ -61,9 +61,9 @@ export const AppRouter = () => {
 				<PrivateRoute path={["/add-news"]} exact admin>
 					<AddNews />
 				</PrivateRoute>
-				<Route path={["/add-categories"]} exact admin>
+				<PrivateRoute path={["/add-categories"]} exact admin>
 					<AddCategories />
-				</Route>
+				</PrivateRoute>
 				{/* Private Routes */}
 				<PrivateRoute path={["/list-an-item"]} exact>
 					<ListItem />
