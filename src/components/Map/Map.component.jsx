@@ -22,7 +22,6 @@ const Map = ({
   existingAddressCoordinates,
   zoom = 7,
 }) => {
-  debugger;
   const [markerIndex, setMarkerIndex] = useState();
   const [place, setPlace] = useState();
   const [map, setMap] = useState(null);
