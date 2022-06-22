@@ -35,7 +35,7 @@ const Input = ({
 	errorText = "",
 	buttonText = "",
 	buttonAction = () => {},
-	animatePlaceholder = false,
+	animatePlaceholder = true,
 	withoutError = false,
 }: InputInterface) => {
 	const input = useRef();
@@ -60,7 +60,7 @@ const Input = ({
 				{placeholder && (
 					<div
 						className={classNames("custom-input-placeholder", {
-							"custom-input-placeholder-static": !!animatePlaceholder,
+							"custom-input-placeholder-static": !animatePlaceholder,
 						})}
 					>
 						{placeholder}
