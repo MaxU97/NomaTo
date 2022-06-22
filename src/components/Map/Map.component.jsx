@@ -64,24 +64,17 @@ const Map = ({
           map.fitBounds(bounds);
         }
       }
-      if (!circle && areaCenter) {
-        map.panTo(areaCenter);
-        map.setZoom(11);
-      }
     }
   }, [map, markersCoordinates, circle]);
 
   useEffect(() => {
+    debugger;
     if (map) {
       if (existingAddressCoordinates) {
         const bounds = new window.google.maps.LatLngBounds();
         bounds.extend(existingAddressCoordinates);
         map.fitBounds(bounds);
       }
-    }
-    if (!circle && areaCenter) {
-      map.panTo(areaCenter);
-      map.setZoom(11);
     }
   }, [map, existingAddressCoordinates]);
 
@@ -151,8 +144,8 @@ const Map = ({
 
 const areaOptions = {
   strokeOpacity: 1,
-  fillOpacity: 0.6,
-  strokeWeight: 3,
+  fillOpacity: 0.4,
+  strokeWeight: 5,
   clickable: false,
   draggable: false,
   editable: false,
