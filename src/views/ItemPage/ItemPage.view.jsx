@@ -23,6 +23,7 @@ export const ItemPage = () => {
   const [booking, toggleBooking] = useState(false);
   const [itemBooked, setItemBooked] = useState(false);
   const [itemOwner, setItemOwner] = useState(false);
+  debugger;
   useEffect(async () => {
     let itemSet = false;
     itemState.cachedItems.forEach((item) => {
@@ -256,7 +257,7 @@ export const ItemPage = () => {
           rentPriceMonth={item.rentPriceMonth}
           euroLocale={euroLocale}
           itemID={id}
-          bookedDates={bookedDates}
+          bookedDates={item.bookedDates}
         ></BookingModal>
       </div>
     </div>

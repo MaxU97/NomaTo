@@ -84,7 +84,6 @@ const ForgotPassword = () => {
   };
   const sendPassword = async () => {
     const validate = validatePasswords();
-    debugger;
     try {
       if (validate) {
         const props = { email: email, password: password };

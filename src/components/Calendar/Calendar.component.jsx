@@ -24,6 +24,7 @@ const Calendar = ({
     return dayCount;
   };
 
+  debugger;
   const handleRangeClick = (date) => {
     if (date) {
       if ("from" in date && "to" in date) {

@@ -20,6 +20,7 @@ import {
   getServiceCharge,
 } from "../../services/price.service";
 import { useUtilityContext } from "../../context/utility";
+import { useItemContext } from "../../context/item";
 export const BookingModal = ({
   modalOpen,
   toggleModal,
@@ -39,8 +40,9 @@ export const BookingModal = ({
   // // var threeDays = new Date(today.getTime() + 24 * 60 * 60 * 1000 * 3);
   // var week = new Date(today.getTime() + 24 * 60 * 60 * 1000 * 7);
   let disabledDates = [];
-
+  debugger;
   const tcCheck = useRef();
+  const { state: itemState } = useItemContext();
   const { state: utilityState } = useUtilityContext();
   const [dataToSend, setDataToSend] = useState();
   const [isIntentLoading, setIntentLoading] = useState(false);
@@ -215,6 +217,7 @@ export const BookingModal = ({
   }, [dates, qtyWant]);
 
   const validateFields = async () => {
+    debugger;
     let returnBool = true;
     if (qtyWant) {
       if (qtyWant > itemQty) {
@@ -227,8 +230,8 @@ export const BookingModal = ({
     }
 
     if (_.isEmpty(dates)) {
-      if (!calendarError) {
-        setCalendarError("Please select dates");
+      if (calendarError) {
+        setCalendarError("Please select valid dates");
         returnBool = false;
       }
     }
@@ -317,7 +320,7 @@ export const BookingModal = ({
                 setCalendarError={setCalendarError}
                 dateRange={dateRange}
                 setDateRange={setDateRange}
-                bookedDates={bookedDates}
+                bookedDates={bookedDates.map((date) => new Date(date))}
                 minimumSelection={minRent}
               ></Calendar>
 

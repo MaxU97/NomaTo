@@ -49,7 +49,6 @@ const Map = ({
   );
 
   useEffect(() => {
-    debugger;
     if (map) {
       if (markersCoordinates.length > 0) {
         if (circle && areaCenter) {
@@ -108,7 +107,6 @@ const Map = ({
                 center={areaCenter}
                 radius={radius ? radius * 1000 : 1000}
                 onLoad={(event) => {
-                  debugger;
                   setCircle(event);
                 }}
                 options={areaOptions}

@@ -6,7 +6,6 @@ const MarkerList = ({ markers, markerIndex, setMarkerIndex = () => {} }) => {
   return (
     markers &&
     markers.map((value, index) => {
-      debugger;
       return (
         <Marker
           key={index}
