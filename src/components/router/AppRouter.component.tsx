@@ -25,6 +25,7 @@ import Profile from "../../views/Profile/Profile.view";
 import SearchPage from "../../views/SearchPage/SearchPage.component";
 import ForgotPassword from "../../views/ForgotPassword/ForgotPassword.view";
 import { PrivateRoute } from "./PrivateRoute.component";
+import PublicRoute from "./PublicRoute.component";
 
 export const AppRouter = () => {
 	const { state } = useUserContext();
@@ -36,25 +37,9 @@ export const AppRouter = () => {
 		<Router>
 			{header && <Header />}
 			<Switch>
-				<Route path={["/", "/home"]} exact component={() => <Home />} />
-				<Route path={["/login"]} exact component={() => <Login />}>
-					{state.user && <Redirect to="/"></Redirect>}
-				</Route>
-				<Route path={["/register"]} exact component={() => <Register />}>
-					{state.user && <Redirect to="/"></Redirect>}
-				</Route>
-				{/* TODO check admin routes */}
-				<PrivateRoute path={["/add-news"]} exact admin={true}>
-					<AddNews />
-				</PrivateRoute>
-				<Route path={["/add-categories"]} exact>
-					{state.user.admin ? <AddCategories /> : <NotFound />}
-				</Route>
-				<Route path={["/list-an-item"]} exact>
-					{state.user ? <ListItem /> : <NotFound />}
-				</Route>
-				<Route path={["/requests"]} exact>
-					{state.user ? <BookingRequests /> : <NotFound />}
+				{/* Regular routes */}
+				<Route path={["/", "/home"]} exact>
+					<Home />
 				</Route>
 				<Route path={["/item/:id"]} exact>
 					<ItemPage />
@@ -62,13 +47,30 @@ export const AppRouter = () => {
 				<Route path={["/search"]} exact>
 					<SearchPage />
 				</Route>
-				<Route
-					path={["/forgot-password"]}
-					exact
-					component={() => <ForgotPassword></ForgotPassword>}
-				>
-					{state.user && <Redirect to="/"></Redirect>}
+				{/* Public only routes */}
+				<PublicRoute path="/login" exact>
+					<Login />
+				</PublicRoute>
+				<PublicRoute path="/register" exact>
+					<Register />
+				</PublicRoute>
+				<PublicRoute path={["/forgot-password"]} exact>
+					<ForgotPassword />
+				</PublicRoute>
+				{/* Admin routes */}
+				<PrivateRoute path={["/add-news"]} exact admin>
+					<AddNews />
+				</PrivateRoute>
+				<Route path={["/add-categories"]} exact admin>
+					<AddCategories />
 				</Route>
+				{/* Private Routes */}
+				<PrivateRoute path={["/list-an-item"]} exact>
+					<ListItem />
+				</PrivateRoute>
+				<PrivateRoute path={["/requests"]} exact>
+					<BookingRequests />
+				</PrivateRoute>
 				<PrivateRoute path={["/bookings"]} exact>
 					<MyBookings />
 				</PrivateRoute>
@@ -81,16 +83,16 @@ export const AppRouter = () => {
 				<PrivateRoute path={["/profile"]} exact>
 					<Profile />
 				</PrivateRoute>
-
-				<Route path={["/checkout"]} exact>
+				<PrivateRoute path={["/checkout"]} exact>
 					<CheckoutPage />
-				</Route>
-
+				</PrivateRoute>
+				{/* Test routes */}
 				<Route
 					path={["/test-upload"]}
 					exact
 					component={() => <UploadTest />}
 				></Route>
+				{/* 404 */}
 				<Route component={() => <NotFound />} />
 			</Switch>
 			{/* <Footer /> */}
