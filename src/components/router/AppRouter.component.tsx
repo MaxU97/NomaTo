@@ -26,6 +26,7 @@ import SearchPage from "../../views/SearchPage/SearchPage.component";
 import ForgotPassword from "../../views/ForgotPassword/ForgotPassword.view";
 import { PrivateRoute } from "./PrivateRoute.component";
 import PublicRoute from "./PublicRoute.component";
+import EditItem from "../../views/EditItem/EditItem.view";
 
 export const AppRouter = () => {
   const { state } = useUserContext();
@@ -70,6 +71,9 @@ export const AppRouter = () => {
         </PrivateRoute>
         <PrivateRoute path={["/requests"]} exact>
           <BookingRequests />
+        </PrivateRoute>
+        <PrivateRoute path={["/edit-item/:id"]} exact>
+          <EditItem />
         </PrivateRoute>
         <PrivateRoute path={["/bookings"]} exact>
           <MyBookings />

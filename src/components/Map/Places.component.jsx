@@ -21,6 +21,7 @@ const Places = ({
   setAddress = () => {},
   onMouseOver = () => {},
   onMouseOut = () => {},
+  placeholder = "",
   disabled,
   inputClass,
   inMap = true,
@@ -56,7 +57,7 @@ const Places = ({
       className={classNames("map-dropdown", inMap && "in-map")}
       value={disabled ? existingValue : value}
       setValue={setValue}
-      placeholder="Address"
+      placeholder={placeholder ? placeholder : "Address"}
       inputClass={inputClass}
       containerClass={containerClass}
       hoverChild={children}

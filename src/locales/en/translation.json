@@ -184,5 +184,8 @@
     "email-code-1": "We have sent an email to",
     "email-code-2": "containing a confirmation code, please enter it below",
     "resend-code": "Resend code"
+  },
+  "edit-item": {
+    "title": "Edit Item"
   }
 }

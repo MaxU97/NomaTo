@@ -18,8 +18,11 @@ const Map = ({
   draggable = false,
   markersCoordinates = [],
   radius,
+  existingAddress,
+  existingAddressCoordinates,
   zoom = 7,
 }) => {
+  debugger;
   const [markerIndex, setMarkerIndex] = useState();
   const [place, setPlace] = useState();
   const [map, setMap] = useState(null);
@@ -68,6 +71,20 @@ const Map = ({
     }
   }, [map, markersCoordinates, circle]);
 
+  useEffect(() => {
+    if (map) {
+      if (existingAddressCoordinates) {
+        const bounds = new window.google.maps.LatLngBounds();
+        bounds.extend(existingAddressCoordinates);
+        map.fitBounds(bounds);
+      }
+    }
+    if (!circle && areaCenter) {
+      map.panTo(areaCenter);
+      map.setZoom(11);
+    }
+  }, [map, existingAddressCoordinates]);
+
   const onLoad = useCallback((map) => {
     setMap(map);
   }, []);
@@ -80,6 +97,7 @@ const Map = ({
         {searchable && (
           <div className="controls">
             <Places
+              placeholder={existingAddress}
               setPlace={(position) => {
                 setPlace(position);
                 map.panTo(position);
@@ -101,7 +119,12 @@ const Map = ({
               setMarkerIndex(-1);
             }}
           >
-            {place && <Marker position={place}></Marker>}
+            {(place || existingAddressCoordinates) && (
+              <Marker
+                position={place ? place : existingAddressCoordinates}
+              ></Marker>
+            )}
+
             {areaCenter && (
               <Circle
                 center={areaCenter}

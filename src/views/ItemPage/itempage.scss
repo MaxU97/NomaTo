@@ -11,8 +11,32 @@
   flex-direction: row;
   background-color: white;
   border: 1px solid #e0e0e0;
-  border-radius: 15px;
+  border-radius: 10px;
+  &-settings {
+    position: absolute;
+    transform: translateX(calc(-100% - 10px));
+    margin-right: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
 
+    &-content {
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      svg {
+        width: 25px;
+        height: 25px;
+        transition: 0.2s;
+        &:hover {
+          opacity: 0.5;
+        }
+      }
+      .trash {
+        fill: rgb(180, 79, 79);
+      }
+    }
+  }
   &-left {
     padding: 20px;
     display: flex;

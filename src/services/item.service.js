@@ -17,3 +17,11 @@ export const getNaturalAddress = async (lat, lng) => {
   });
   return address;
 };
+
+export const getNaturalAddressFull = async (lat, lng) => {
+  Geocode.setApiKey(googleApiKey);
+  Geocode.setLanguage(getCurrentLanguage());
+  debugger;
+  const addr = await Geocode.fromLatLng(lat, lng);
+  return addr.results[0].formatted_address;
+};
