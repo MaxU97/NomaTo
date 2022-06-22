@@ -68,7 +68,7 @@ const Calendar = ({
   };
 
   const checkBookedDates = (date) => {
-    let returnBool;
+    let returnBool = true;
     bookedDates.every((day) => {
       if (date.from < day && day < date.to) {
         returnBool = false;
