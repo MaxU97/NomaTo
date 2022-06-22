@@ -5,9 +5,9 @@ import {
   getCurrentLanguage,
   getLanguageList,
   getFullLanguageList,
-} from "../../services/language.serivce";
+} from "../../services/language.service";
 import { DownIcon } from "../../assets/Icons";
-import i18n from "../../services/language.serivce";
+import i18n from "../../services/language.service";
 import { click } from "@testing-library/user-event/dist/click";
 
 const LanguagePicker = () => {

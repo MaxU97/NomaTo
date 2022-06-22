@@ -3,7 +3,7 @@ import { AppRouter as Router } from "./components/router/AppRouter.component";
 import { I18nextProvider, useTranslation } from "react-i18next";
 import Helmet from "react-helmet";
 import moment from "moment";
-import i18n from "./services/language.serivce";
+import i18n from "./services/language.service";
 import { Provider as UserProvider, useUserContext } from "./context/user";
 import { Provider as UtilityProvider } from "./context/utility";
 import { Provider as ItemProvider } from "./context/item";

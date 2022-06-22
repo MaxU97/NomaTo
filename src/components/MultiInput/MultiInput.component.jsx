@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import React, { useState } from "react";
 import "./multiinput.scss";
-import { getCurrentLanguage } from "../../services/language.serivce";
+import { getCurrentLanguage } from "../../services/language.service";
 const MultiInput = ({ children, languages, className }) => {
   const language = getCurrentLanguage().toUpperCase();
   const [current, setCurrent] = useState(language);

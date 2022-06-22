@@ -6,7 +6,7 @@ import Input from "../../../components/Input/Input.component";
 import validator from "validator";
 import PickerDropdown from "../../../components/PickerDropdown/PickerDropdown.component";
 import PickerDropwnItem from "../../../components/PickerDropdown/PickerDropdownItem";
-import { getLanguageArray } from "../../../services/language.serivce";
+import { getLanguageArray } from "../../../services/language.service";
 const StepThree = ({
   nextStep = () => {},
   email,

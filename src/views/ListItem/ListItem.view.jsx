@@ -8,7 +8,7 @@ import Map from "../../components/Map/Map.component";
 import TextArea from "../../components/TextArea/TextArea.component";
 import MultiInput from "../../components/MultiInput/MultiInput.component";
 import MultiImagePicker from "../../components/ImagePicker/MultiImagePicker.component";
-import { getCurrentLanguage } from "../../services/language.serivce";
+import { getCurrentLanguage } from "../../services/language.service";
 import ImageEditorModal from "../../components/ImagePicker/ImageEditorModal.component";
 import classNames from "classnames";
 import { useItemContext } from "../../context/item";

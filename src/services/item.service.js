@@ -1,6 +1,6 @@
 import Geocode from "react-geocode";
 import { googleApiKey } from "../api/config";
-import { getCurrentLanguage } from "./language.serivce";
+import { getCurrentLanguage } from "./language.service";
 
 export const getNaturalAddress = async (lat, lng) => {
   Geocode.setApiKey(googleApiKey);

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import "./bookingrequestsheader.scss";
-import { getCurrentLanguage } from "../../services/language.serivce";
+import { getCurrentLanguage } from "../../services/language.service";
 const BookingRequestsHeader = ({ booking, status, rawStatus }) => {
   const [date, setDate] = useState();
   useEffect(() => {

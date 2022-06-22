@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./bookingrequestsitem.scss";
 import { apiUrl } from "../../api/config";
 import { getTotalPrice } from "../../services/price.service";
-import { getCurrentLanguage } from "../../services/language.serivce";
+import { getCurrentLanguage } from "../../services/language.service";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Modal from "../Modal/Modal.component";
