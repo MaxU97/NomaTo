@@ -40,7 +40,6 @@ export const BookingModal = ({
   // // var threeDays = new Date(today.getTime() + 24 * 60 * 60 * 1000 * 3);
   // var week = new Date(today.getTime() + 24 * 60 * 60 * 1000 * 7);
   let disabledDates = [];
-  debugger;
   const tcCheck = useRef();
   const { state: itemState } = useItemContext();
   const { state: utilityState } = useUtilityContext();
@@ -217,7 +216,6 @@ export const BookingModal = ({
   }, [dates, qtyWant]);
 
   const validateFields = async () => {
-    debugger;
     let returnBool = true;
     if (qtyWant) {
       if (qtyWant > itemQty) {

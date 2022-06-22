@@ -277,6 +277,6 @@ export const ItemPage = () => {
       </div>
     </div>
   ) : (
-    <NotFound />
+    <></>
   );
 };

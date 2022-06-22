@@ -21,15 +21,7 @@ export const getNaturalAddress = async (lat, lng) => {
 export const getNaturalAddressFull = async (lat, lng) => {
   Geocode.setApiKey(googleApiKey);
   Geocode.setLanguage(getCurrentLanguage());
-
+  debugger;
   const addr = await Geocode.fromLatLng(lat, lng);
-  var address;
-  addr.results[0].address_components.every((comp) => {
-    if (comp.types.includes("locality")) {
-      address = comp;
-      return false;
-    }
-    return true;
-  });
-  return address;
+  return addr.results[0].formatted_address;
 };

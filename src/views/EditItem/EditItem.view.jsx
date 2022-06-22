@@ -43,6 +43,7 @@ const EditItem = () => {
   const [rentPriceWeek, setRentPriceWeek] = useState("");
   const [rentPriceMonth, setRentPriceMonth] = useState("");
 
+  const [naturalAddress, setNaturalAddress] = useState();
   const [itemValue, setItemValue] = useState("");
 
   const [minRent, setMinRent] = useState("");
@@ -78,20 +79,27 @@ const EditItem = () => {
   }, []);
 
   useEffect(() => {
-    if (item) {
-      setCategory(item.category);
-      setTitle(item.title);
-      setDescEN(item.descEN);
-      setDescRU(item.descRU);
-      setDescLV(item.descLV);
-      setItemValue(item.itemValue);
-      setMinRent(item.minRent);
-      setItemQty(item.itemQty);
-      setRentPriceDay(item.rentPriceDay);
-      setRentPriceWeek(item.rentPriceDay);
-      setRentPriceMonth(item.rentPriceMonth);
-      setUploadImages(item.images.map((image) => apiUrl + "/" + image));
-    }
+    const settingItem = async () => {
+      if (item) {
+        setCategory(item.category);
+        setTitle(item.title);
+        setDescEN(item.descEN);
+        setDescRU(item.descRU);
+        setDescLV(item.descLV);
+        setItemValue(item.itemValue);
+        setMinRent(item.minRent);
+        setItemQty(item.itemQty);
+        setRentPriceDay(item.rentPriceDay);
+        setRentPriceWeek(item.rentPriceDay);
+        setRentPriceMonth(item.rentPriceMonth);
+        setUploadImages(item.images.map((image) => apiUrl + "/" + image));
+        setNaturalAddress(
+          await getNaturalAddressFull(item.address.lat, item.address.lng)
+        );
+        setAddress(item.address);
+      }
+    };
+    settingItem();
   }, [item]);
 
   useEffect(() => {
@@ -225,7 +233,7 @@ const EditItem = () => {
       {category && (
         <div className="container-m">
           <div className="listing-form">
-            <h1>{t("list-item.title")}</h1>
+            <h1>{t("edit-item.title")}</h1>
             <MultiImagePicker
               className={classNames(
                 "listing-form-field",
@@ -301,12 +309,8 @@ const EditItem = () => {
                 "listing-form-field listing-form-field-map",
                 errors["addressError"] && "error"
               )}
-              existingAddress={async () => {
-                return await getNaturalAddressFull(
-                  item.address.lat,
-                  item.address.lng
-                );
-              }}
+              existingAddress={naturalAddress}
+              existingAddressCoordinates={address}
               setAddress={setAddress}
               setAddressLatLng={setAddressLatLng}
             ></Map>
