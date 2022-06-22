@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { apiUrl } from "../../api/config";
 import { useItemContext } from "../../context/item";
 
@@ -9,7 +9,12 @@ import ImageGallery from "../../components/ImageGallery/ImageGallery.component";
 import MultiInput from "../../components/MultiInput/MultiInput.component";
 import Map from "../../components/Map/Map.component";
 import { useTranslation } from "react-i18next";
-import { ThumbDownIcon, ThumbUpIcon } from "../../assets/Icons";
+import {
+  PencilIcon,
+  ThumbDownIcon,
+  ThumbUpIcon,
+  TrashIcon,
+} from "../../assets/Icons";
 import { BookingModal } from "../../components/BookingModal/BookingModal.component";
 import { useUserContext } from "../../context/user";
 export const ItemPage = () => {
@@ -119,7 +124,17 @@ export const ItemPage = () => {
     <div className="item-page-background">
       <div className="container-l background">
         <div className="item-page">
-          itemOwner
+          {(itemOwner || userState.admin) && (
+            <div className="item-page-settings">
+              <div className="item-page-settings-content">
+                <Link to={`/edit-item/${id}`}>
+                  <PencilIcon></PencilIcon>
+                </Link>
+
+                <TrashIcon className="trash"></TrashIcon>
+              </div>
+            </div>
+          )}
           <div className="item-page-left">
             <ImageGallery
               className="item-page-left-gallery"

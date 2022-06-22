@@ -18,6 +18,7 @@ const Map = ({
   draggable = false,
   markersCoordinates = [],
   radius,
+  existingAddress,
   zoom = 7,
 }) => {
   const [markerIndex, setMarkerIndex] = useState();
@@ -80,6 +81,7 @@ const Map = ({
         {searchable && (
           <div className="controls">
             <Places
+              placeholder={existingAddress}
               setPlace={(position) => {
                 setPlace(position);
                 map.panTo(position);

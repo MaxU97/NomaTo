@@ -15,6 +15,7 @@ import { ReactComponent as SpinnerIcon } from "./spinner.svg";
 import { ReactComponent as DefaultCardIcon } from "./card-default2.svg";
 import { ReactComponent as VisaCardIcon } from "./visa-card.svg";
 import { ReactComponent as MinusIcon } from "./minus-icon.svg";
+import { ReactComponent as PencilIcon } from "./pencil-icon.svg";
 import EnFlagIcon from "./fl-en.png";
 import LvFlagIcon from "./fl-lv.png";
 import RuFlagIcon from "./fl-ru.png";
@@ -39,6 +40,7 @@ export const SpinnerAnimationIcon = ({ scale }) => {
   );
 };
 export {
+  PencilIcon,
   MoveIcon,
   CloseIcon,
   StarIcon,
