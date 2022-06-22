@@ -16,7 +16,7 @@ import SideMenu from "../../components/SideMenu/SideMenu.component";
 import { useItemContext } from "../../context/item";
 import { useUtilityContext } from "../../context/utility";
 import { getNaturalAddress } from "../../services/item.service";
-import { getCurrentLanguage } from "../../services/language.serivce";
+import { getCurrentLanguage } from "../../services/language.service";
 
 import "./search.scss";
 const SearchPage = () => {

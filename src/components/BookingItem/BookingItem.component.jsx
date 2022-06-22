@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./bookingitem.scss";
 import { apiUrl } from "../../api/config";
 import { getServiceCharge, getTotalPrice } from "../../services/price.service";
-import { getCurrentLanguage } from "../../services/language.serivce";
+import { getCurrentLanguage } from "../../services/language.service";
 import { Link } from "react-router-dom";
 import { cancelBooking } from "../../api/booking";
 import { useUserContext } from "../../context/user";

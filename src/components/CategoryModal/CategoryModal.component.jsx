@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { MoveIcon } from "../../assets/Icons";
 import { apiUrl } from "../../api/config";
 import "./catmodal.scss";
-import { getCurrentLanguage } from "../../services/language.serivce";
+import { getCurrentLanguage } from "../../services/language.service";
 const CategoryModal = ({
   modalOpen,
   toggleModal,

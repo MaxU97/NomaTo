@@ -5,7 +5,7 @@ import Input from "../../components/Input/Input.component";
 import classNames from "classnames";
 import "./addcategories.scss";
 import { CSSTransition } from "react-transition-group";
-import { getCurrentLanguage } from "../../services/language.serivce";
+import { getCurrentLanguage } from "../../services/language.service";
 import {
   CloseIcon,
   MinusIcon,

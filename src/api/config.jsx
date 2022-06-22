@@ -1,6 +1,6 @@
 import axios from "axios";
 //import * as dotenv from "dotenv";
-import i18n from "../services/language.serivce";
+import i18n from "../services/language.service";
 
 // let path;
 

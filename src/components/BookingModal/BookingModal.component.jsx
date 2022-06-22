@@ -9,7 +9,7 @@ import "react-calendar/dist/Calendar.css";
 import differenceInCalendarDays from "date-fns/differenceInCalendarDays";
 import isWithinInterval from "date-fns/isWithinInterval";
 import { CSSTransition } from "react-transition-group";
-import { getCurrentLanguage } from "../../services/language.serivce";
+import { getCurrentLanguage } from "../../services/language.service";
 import _ from "lodash";
 import moment from "moment";
 import CheckoutForm from "../CheckoutForm/CheckoutForm.component";
