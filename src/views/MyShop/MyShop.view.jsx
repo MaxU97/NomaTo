@@ -10,7 +10,6 @@ const MyShop = () => {
   const [items, setItems] = useState();
   useEffect(() => {
     const mountPage = async () => {
-      debugger;
       try {
         const items = await getMyItems();
       } catch (err) {}
