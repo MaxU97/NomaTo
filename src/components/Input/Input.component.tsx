@@ -7,9 +7,9 @@ interface InputInterface {
 	className?: string;
 	placeholder?: string;
 	type?: "text" | "email" | "password";
-	onMouseOver?: (event: Event) => void;
-	onMouseOut?: (event: Event) => void;
-	onClick?: (event: Event) => void;
+	onMouseOver?: (event: any) => void;
+	onMouseOut?: (event: any) => void;
+	onClick?: (event: any) => void;
 	onFocus?: (event: any) => void;
 	style: any;
 	disabled?: boolean;
@@ -19,6 +19,8 @@ interface InputInterface {
 	buttonAction: () => void;
 	animatePlaceholder: boolean;
 	withoutError: boolean;
+	showInformation: boolean;
+	informationText: string;
 }
 const Input = ({
 	value,
@@ -37,6 +39,8 @@ const Input = ({
 	buttonAction = () => {},
 	animatePlaceholder = true,
 	withoutError = false,
+	showInformation = false,
+	informationText = "",
 }: InputInterface) => {
 	const input = useRef();
 
@@ -46,6 +50,8 @@ const Input = ({
 				className={classNames("custom-input-container", {
 					"custom-input-container-error": error,
 				})}
+				onMouseOver={onMouseOver}
+				onMouseOut={onMouseOut}
 			>
 				<input
 					className="custom-input"
@@ -72,7 +78,12 @@ const Input = ({
 					</a>
 				)}
 			</div>
-			{!withoutError && <div className="custom-input-error">{errorText}</div>}
+			{!withoutError &&
+				(showInformation ? (
+					<div className="custom-input-information">{informationText}</div>
+				) : (
+					<div className="custom-input-error">{error && errorText}</div>
+				))}
 		</div>
 	);
 };

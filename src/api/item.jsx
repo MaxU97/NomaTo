@@ -18,20 +18,17 @@ export const patchItem = async (data) => {
       return data.message;
     })
     .catch((err) => {
-      debugger;
       throw err.response.data.message;
     });
 };
 
 export const deleteItem = async (data) => {
-  debugger;
   return await api
     .post(`/item/delete`, data)
     .then(({ data }) => {
       return data.message;
     })
     .catch((err) => {
-      debugger;
       throw err.response.data.message;
     });
 };
@@ -43,7 +40,6 @@ export const getItem = async (id) => {
       return data["item"];
     })
     .catch((err) => {
-      debugger;
       throw err;
     });
 };
@@ -55,7 +51,6 @@ export const toggleItemVisibility = async (data) => {
       return data.message;
     })
     .catch((err) => {
-      debugger;
       throw err.response.data.message;
     });
 };
@@ -86,10 +81,10 @@ export const getMyItems = async () => {
   return await api
     .get(`/item/me`)
     .then(({ data }) => {
-      debugger;
       return data.items;
     })
     .catch((err) => {
-      throw err.response.message;
+      console.error(err.response.data);
+      return false;
     });
 };

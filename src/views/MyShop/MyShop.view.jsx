@@ -21,7 +21,6 @@ const MyShop = () => {
   const [reload, toggleReload] = useState(true);
   useEffect(() => {
     const mountPage = async () => {
-      debugger;
       try {
         const items = await getMyItems();
         setItems(items);

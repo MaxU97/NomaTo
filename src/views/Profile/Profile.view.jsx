@@ -1,6 +1,9 @@
+import { useLoadScript } from "@react-google-maps/api";
 import React from "react";
+import { googleApiKey, googleLibraries } from "../../api/config";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+
 import { apiUrl, websitUrl } from "../../api/config";
 import ImageEditorModal from "../../components/ImagePicker/ImageEditorModal.component";
 import ImagePicker from "../../components/ImagePicker/ImagePicker.component";
@@ -24,6 +27,7 @@ const Profile = () => {
   const [phoneOver, togglePhoneOver] = useState(false);
   const [addressOver, toggleAddressOver] = useState(false);
   const [submitError, setSubmitError] = useState("");
+  const [changetoPlaces, setChangeToPlaces] = useState(false);
 
   const [latlng, setLatLng] = useState("");
   const updateImage = (image) => {
@@ -113,7 +117,10 @@ const Profile = () => {
       setPhoneError(!validate);
     }
   };
-
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: googleApiKey,
+    libraries: googleLibraries,
+  });
   return (
     <>
       <div className="profile">
@@ -131,19 +138,13 @@ const Profile = () => {
             </div>
             <div className="profile-content-field">
               <Input
-                className="profile-content-field-input"
-                containerClass={
-                  submitError && !surname && "profile-content-field-input-error"
-                }
+                error={submitError && !surname}
                 placeholder={t("profile.name")}
                 value={name}
                 setValue={setName}
               ></Input>
               <Input
-                className="profile-content-field-input"
-                containerClass={
-                  submitError && !surname && "profile-content-field-input-error"
-                }
+                error={submitError && !surname}
                 placeholder={t("profile.surname")}
                 value={surname}
                 setValue={setSurname}
@@ -151,17 +152,12 @@ const Profile = () => {
             </div>
             <div className="profile-content-field">
               <Input
-                className="profile-content-field-input"
                 placeholder={t("profile.email")}
                 value={email}
                 disabled={true}
               ></Input>
               <Input
-                className="profile-content-field-input"
-                containerClass={
-                  ((submitError && !phone) || phoneError) &&
-                  "profile-content-field-input-error"
-                }
+                error={(submitError && !phone) || phoneError}
                 placeholder={t("profile.phone")}
                 value={phone}
                 setValue={CheckAndSetPhone}
@@ -172,20 +168,12 @@ const Profile = () => {
                 onMouseOut={() => {
                   togglePhoneOver(false);
                 }}
-              >
-                <HoverTooltip
-                  content={
-                    phoneError && "Please enter a valid phone number (+371...)"
-                  }
-                  inVar={phoneError}
-                  style={{ transform: "translateY(25%)" }}
-                ></HoverTooltip>
-                <HoverTooltip
-                  type="above"
-                  content={"You can only change your phone once every 30 days"}
-                  inVar={!state.user.allowPhoneEdit && phoneOver}
-                ></HoverTooltip>
-              </Input>
+                errorText="Please enter a valid phone number (+371...)"
+                showInformation={!state.user.allowPhoneEdit && phoneOver}
+                informationText={
+                  "You can only change your phone once every 30 days"
+                }
+              />
             </div>
             <div className="profile-content-field">
               <Input
@@ -194,31 +182,35 @@ const Profile = () => {
                 value={languages}
                 disabled={true}
               ></Input>
-              <Places
-                inMap={false}
-                containerClass="profile-content-field-input"
-                inputClass={
-                  submitError && !address && "profile-content-field-input-error"
-                }
-                setPlace={setLatLng}
-                setAddress={setAddress}
-                onMouseOver={() => {
-                  toggleAddressOver(true);
-                }}
-                onMouseOut={() => {
-                  toggleAddressOver(false);
-                }}
-                existingValue={address}
-                disabled={!state.user.allowAddressEdit}
-              >
-                <HoverTooltip
-                  type="above"
-                  content={
-                    "You can only change your address once every 30 days"
+              {isLoaded && (
+                <Places
+                  inMap={false}
+                  containerClass="profile-content-field-input"
+                  inputClass={
+                    submitError &&
+                    !address &&
+                    "profile-content-field-input-error"
                   }
-                  inVar={!state.user.allowAddressEdit && addressOver}
-                ></HoverTooltip>
-              </Places>
+                  setPlace={setLatLng}
+                  setAddress={setAddress}
+                  onMouseOver={() => {
+                    toggleAddressOver(true);
+                  }}
+                  onMouseOut={() => {
+                    toggleAddressOver(false);
+                  }}
+                  existingValue={address}
+                  disabled={!state.user.allowAddressEdit}
+                >
+                  <HoverTooltip
+                    type="above"
+                    content={
+                      "You can only change your address once every 30 days"
+                    }
+                    inVar={!state.user.allowAddressEdit && addressOver}
+                  ></HoverTooltip>
+                </Places>
+              )}
             </div>
             <span className="profile-content-error">{submitError}</span>
             <div className="profile-button-container">
