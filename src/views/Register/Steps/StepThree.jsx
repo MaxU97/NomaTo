@@ -7,6 +7,7 @@ import validator from "validator";
 import PickerDropdown from "../../../components/PickerDropdown/PickerDropdown.component";
 import PickerDropwnItem from "../../../components/PickerDropdown/PickerDropdownItem";
 import { getLanguageArray } from "../../../services/language.service";
+import LanguagePicker from "../../../components/Picker/LanguagePicker";
 const StepThree = ({
 	nextStep = () => {},
 	email,
@@ -30,22 +31,22 @@ const StepThree = ({
 		}
 	};
 
-	const handleLanguageSelect = (language) => {
-		const indexToDelete = languages.indexOf(language);
-		const newArray = languages;
-		newArray.splice(indexToDelete, 1);
-		setLanguages(newArray);
+	const handleLanguageSelect = (event, language) => {
+		// const indexToDelete = selectedLanguages.indexOf(language);
+		// const newArray = languages;
+		// newArray.splice(indexToDelete, 1);
+		// setLanguages(newArray);
 		setSelectedLanguages([...selectedLanguages, language]);
 		setLanguageError(false);
 	};
 
 	const handleLanguageDelete = (event, language) => {
 		event.stopPropagation();
-		const indexToDelete = selectedLanguages.indexOf(language);
-		const newArray = selectedLanguages;
-		newArray.splice(indexToDelete, 1);
-		setSelectedLanguages(newArray);
-		setLanguages([...languages, language]);
+		// const indexToDelete = selectedLanguages.indexOf(language);
+		// const newArray = selectedLanguages;
+		// newArray.splice(indexToDelete, 1);
+		setSelectedLanguages(selectedLanguages.filter((lng) => lng != language));
+		// setLanguages([...languages, language]);
 	};
 
 	const validateFields = () => {
@@ -85,26 +86,20 @@ const StepThree = ({
 				errorText="Please enter a valid phone number (+371...)"
 				type="number"
 				// className="register-form-field"
-			>
-				{/* <HoverTooltip
-					content={phoneError && "Please enter a valid phone number (+371...)"}
-					inVar={phoneError}
-					style={{ transform: "translateY(25%)" }}
-				></HoverTooltip> */}
-			</Input>
-			<PickerDropdown
+			></Input>
+			{/* <PickerDropdown
 				className="register-form-field"
 				placeholder="Preferred Languages"
 				selectedValues={selectedLanguages}
 				onDelete={handleLanguageDelete}
 				containerClassname={languageError && "register-error"}
-				hoverError={
-					<HoverTooltip
-						content={languageError && "Please select at least one language"}
-						style={{ transform: "translateY(25%)" }}
-						inVar={languageError}
-					></HoverTooltip>
-				}
+				// hoverError={
+				// 	<HoverTooltip
+				// 		content={languageError && "Please select at least one language"}
+				// 		style={{ transform: "translateY(25%)" }}
+				// 		inVar={languageError}
+				// 	></HoverTooltip>
+				// }
 			>
 				{languages.map((lang) => {
 					return (
@@ -115,7 +110,16 @@ const StepThree = ({
 						></PickerDropwnItem>
 					);
 				})}
-			</PickerDropdown>
+			</PickerDropdown> */}
+			<LanguagePicker
+				languages={languages}
+				placeholder="Prefered Languages"
+				selectedValues={selectedLanguages}
+				onDelete={handleLanguageDelete}
+				onSelect={handleLanguageSelect}
+				error={languageError}
+				errorText={"Please select at least one language"}
+			/>
 			<a
 				onClick={() => {
 					sendForm();

@@ -1,0 +1,48 @@
+.custom-picker {
+	z-index: 10;
+	height: 48px;
+	width: 100%;
+	border: 0.5px solid rgba(0, 0, 0, 0.2);
+	border-radius: 10px;
+	padding: 4px 24px;
+	display: flex;
+	position: relative;
+	background: #fff;
+	box-sizing: border-box;
+	// margin-bottom: 20px;
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	box-sizing: border-box;
+	&-item {
+		padding: 5px 20px;
+		background-color: rgba(0, 0, 0, 0.1);
+		border-radius: 10px;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		&-circle {
+			width: 5px;
+			height: 5px;
+			background-color: #fff;
+			border-radius: 100%;
+		}
+		&-selected {
+			background-color: #3299de;
+			color: #fff;
+		}
+	}
+	&-error {
+		border: 0.5px solid rgb(180, 79, 79);
+		&-message {
+			min-height: 20px;
+			font-size: 12px;
+			padding-left: 4px;
+			line-height: 18px;
+			color: rgb(180, 79, 79);
+			text-align: left;
+			align-self: baseline;
+		}
+	}
+}
