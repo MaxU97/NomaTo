@@ -36,6 +36,7 @@ const LanguagePicker = ({
 						{lang}
 					</div>
 				))}
+				<div className="custom-picker-placeholder">{placeholder}</div>
 			</div>
 			<div className="custom-picker-error-message">{error && errorText}</div>
 		</>
