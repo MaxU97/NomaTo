@@ -8,7 +8,7 @@ const useItemHook = ({ state, GET_ITEMS, GET_POPULAR }) => {
   // }, [state.searchTerms, state.searchedItems]);
 
   useEffect(() => {
-    if (state.popularItems.length <= 0) {
+    if (state.popularItems == undefined) {
       GET_POPULAR();
     }
   }, [state.popularItems]);

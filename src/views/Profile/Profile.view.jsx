@@ -1,4 +1,5 @@
 import { useLoadScript } from "@react-google-maps/api";
+import { Link } from "react-router-dom";
 import React from "react";
 import { googleApiKey, googleLibraries } from "../../api/config";
 import { useState } from "react";
@@ -99,6 +100,7 @@ const Profile = () => {
   const [surname, setSurname] = useState(state.user.surname);
   const [email, setEmail] = useState(state.user.email);
   const [phone, setPhone] = useState("+" + state.user.phone);
+  debugger;
   const [address, setAddress] = useState(state.user.address);
 
   const [phoneError, setPhoneError] = useState("");
@@ -214,6 +216,9 @@ const Profile = () => {
             </div>
             <span className="profile-content-error">{submitError}</span>
             <div className="profile-button-container">
+              <Link to="/change-password" className="profile-button">
+                Change Password
+              </Link>
               <a
                 onClick={() => updateProfile()}
                 className={classNames(
@@ -223,7 +228,6 @@ const Profile = () => {
               >
                 {isUpdating ? "Updating..." : "Save Changes"}
               </a>
-              <a className="profile-button">Change Password</a>
             </div>
           </div>
         </div>

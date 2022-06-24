@@ -28,6 +28,7 @@ import { PrivateRoute } from "./PrivateRoute.component";
 import PublicRoute from "./PublicRoute.component";
 import EditItem from "../../views/EditItem/EditItem.view";
 import MyShop from "../../views/MyShop/MyShop.view";
+import ChangePassword from "../../views/ChangePassword/ChangePassword.view";
 
 export const AppRouter = () => {
   const { state } = useUserContext();
@@ -93,6 +94,9 @@ export const AppRouter = () => {
         </PrivateRoute>
         <PrivateRoute path={["/my-shop"]} exact>
           <MyShop />
+        </PrivateRoute>
+        <PrivateRoute path={["/change-password"]} exact>
+          <ChangePassword />
         </PrivateRoute>
         {/* Test routes */}
         <Route

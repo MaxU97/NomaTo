@@ -8,7 +8,7 @@ import {
 export const ItemBaseState = {
   cachedItems: [],
   searchedItems: [],
-  popularItems: [],
+  popularItems: undefined,
   searchItemCount: 0,
   searchCity: "",
 };
