@@ -186,6 +186,10 @@
     "resend-code": "Resend code"
   },
   "edit-item": {
-    "title": "Edit Item"
+    "title": "Edit Item",
+    "edit-item": "Update Item"
+  },
+  "my-shop": {
+    "my-items": "My Items"
   }
 }

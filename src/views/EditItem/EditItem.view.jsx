@@ -18,13 +18,17 @@ import {
   getNaturalAddress,
   getNaturalAddressFull,
 } from "../../services/item.service";
+import { useUserContext } from "../../context/user";
+import { patchItem } from "../../api/item";
 
 const EditItem = () => {
+  const { state: userState } = useUserContext();
+
   const [isUploading, setIsUploading] = useState(false);
 
   const { id } = useParams();
   const { notification } = useNotificationHandler();
-  const { state: items, UPLOAD_ITEM } = useItemContext();
+  const { UPLOAD_ITEM } = useItemContext();
 
   const [errors, setErrors] = useState({});
   const [title, setTitle] = useState("");
@@ -81,6 +85,10 @@ const EditItem = () => {
   useEffect(() => {
     const settingItem = async () => {
       if (item) {
+        debugger;
+        if (!(item.user.id == userState.user.id)) {
+          window.location.href = "/";
+        }
         setCategory(item.category);
         setTitle(item.title);
         setDescEN(item.descEN);
@@ -93,10 +101,10 @@ const EditItem = () => {
         setRentPriceWeek(item.rentPriceDay);
         setRentPriceMonth(item.rentPriceMonth);
         setUploadImages(item.images.map((image) => apiUrl + "/" + image));
-        setNaturalAddress(
+        setAddress(
           await getNaturalAddressFull(item.address.lat, item.address.lng)
         );
-        setAddress(item.address);
+        setAddressLatLng(item.address);
       }
     };
     settingItem();
@@ -183,6 +191,7 @@ const EditItem = () => {
       let data = new FormData();
       let promises = [];
 
+      debugger;
       uploadImages.forEach((blob) => {
         promises.push(fetch(blob).then((r) => r.blob()));
       });
@@ -193,10 +202,18 @@ const EditItem = () => {
             new File([image], Date.now(), { type: image.type })
           );
         });
+        data.append("itemId", id);
         data.append("title", title);
-        data.append("category", category["_id"]);
+        debugger;
+        data.append(
+          "category",
+          category["_id"] ? category["_id"] : category["id"]
+        );
         if (subCategory) {
-          data.append("subcat", subCategory["_id"]);
+          data.append(
+            "subcat",
+            subCategory["_id"] ? subCategory["_id"] : subCategory["id"]
+          );
         }
         data.append("descEN", descEN);
         data.append("descLV", descLV);
@@ -209,11 +226,14 @@ const EditItem = () => {
         data.append("rentPriceDay", rentPriceDay);
         data.append("rentPriceWeek", rentPriceWeek);
         data.append("rentPriceMonth", rentPriceMonth);
-        data.append("addressNatural", JSON.stringify(address));
+        data.append(
+          "addressNatural",
+          JSON.stringify(address.address_components)
+        );
         var response;
         try {
           setIsUploading(true);
-          response = await UPLOAD_ITEM(data);
+          response = await patchItem(data);
 
           notification([response]);
           setIsUploading(false);
@@ -221,6 +241,7 @@ const EditItem = () => {
             window.location.replace("/");
           }, 2000);
         } catch (err) {
+          debugger;
           notification([err], true);
           setIsUploading(false);
         }
@@ -309,8 +330,8 @@ const EditItem = () => {
                 "listing-form-field listing-form-field-map",
                 errors["addressError"] && "error"
               )}
-              existingAddress={naturalAddress}
-              existingAddressCoordinates={address}
+              existingAddress={address.formatted_address}
+              existingAddressCoordinates={addressLatLng}
               setAddress={setAddress}
               setAddressLatLng={setAddressLatLng}
             ></Map>
@@ -398,8 +419,8 @@ const EditItem = () => {
                 }}
               >
                 {isUploading
-                  ? t("list-item.uploading") + "..."
-                  : t("list-item.list-item")}
+                  ? t("edit-item.uploading") + "..."
+                  : t("edit-item.edit-item")}
               </a>
             </div>
           </div>

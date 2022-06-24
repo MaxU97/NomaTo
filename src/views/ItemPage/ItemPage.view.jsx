@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useHistory } from "react-router-dom";
 import { apiUrl } from "../../api/config";
 import { useItemContext } from "../../context/item";
 
@@ -10,6 +10,8 @@ import MultiInput from "../../components/MultiInput/MultiInput.component";
 import Map from "../../components/Map/Map.component";
 import { useTranslation } from "react-i18next";
 import {
+  EyeClosedIcon,
+  EyeOpenIcon,
   PencilIcon,
   ThumbDownIcon,
   ThumbUpIcon,
@@ -17,9 +19,12 @@ import {
 } from "../../assets/Icons";
 import { BookingModal } from "../../components/BookingModal/BookingModal.component";
 import { useUserContext } from "../../context/user";
+import { deleteItem, toggleItemVisibility } from "../../api/item";
+import { useNotificationHandler } from "../../components/NotificationHandler/NotificationHandler.component";
 export const ItemPage = () => {
   const { state: itemState, GET_ITEM } = useItemContext();
   const { state: userState, GET_BOOKING_HISTORY } = useUserContext();
+  const { notification } = useNotificationHandler();
   const { t } = useTranslation();
   let { id } = useParams();
   const options = { style: "currency", currency: "EUR" };
@@ -38,8 +43,13 @@ export const ItemPage = () => {
       }
     });
     if (!itemSet) {
-      const item = await GET_ITEM(id);
-      setItem(item);
+      try {
+        const item = await GET_ITEM(id);
+        setItem(item);
+      } catch (err) {
+        window.location.href = "/";
+        //ADDD ITEM NOT FOUND PAGE
+      }
     }
     GET_BOOKING_HISTORY();
   }, []);
@@ -78,6 +88,7 @@ export const ItemPage = () => {
           {t("item-page.you-are-owner")}
         </a>
       );
+      return returnedA;
     }
 
     if (itemBooked) {
@@ -86,6 +97,7 @@ export const ItemPage = () => {
           {t("item-page.item-booked")}
         </a>
       );
+      return returnedA;
     }
     if (userState.user) {
       if (userState.user.completionStatus) {
@@ -99,12 +111,14 @@ export const ItemPage = () => {
             {t("item-page.make-a-booking")}
           </a>
         );
+        return returnedA;
       } else {
         returnedA = (
           <a className="availablity-button booked">
             {t("item-page.need-completed-profile")}
           </a>
         );
+        return returnedA;
       }
     } else {
       returnedA = (
@@ -117,8 +131,36 @@ export const ItemPage = () => {
           {t("item-page.make-a-booking")}
         </a>
       );
+      return returnedA;
     }
-    return returnedA;
+  };
+
+  const removeItem = async () => {
+    try {
+      debugger;
+      const message = await deleteItem({ id: id });
+      notification([message]);
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 1000);
+    } catch (err) {
+      debugger;
+      notification([err], true);
+    }
+  };
+
+  const toggleVisibility = async () => {
+    try {
+      debugger;
+      const message = await toggleItemVisibility({ id: id });
+      notification([message]);
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    } catch (err) {
+      debugger;
+      notification([err], true);
+    }
   };
   return item ? (
     <div className="item-page-background">
@@ -130,8 +172,17 @@ export const ItemPage = () => {
                 <Link to={`/edit-item/${id}`}>
                   <PencilIcon></PencilIcon>
                 </Link>
-
-                <TrashIcon className="trash"></TrashIcon>
+                {item.status == "hidden" ? (
+                  <EyeClosedIcon onClick={toggleVisibility}></EyeClosedIcon>
+                ) : (
+                  <EyeOpenIcon onClick={toggleVisibility}></EyeOpenIcon>
+                )}
+                <TrashIcon
+                  className="trash"
+                  onClick={() => {
+                    removeItem();
+                  }}
+                ></TrashIcon>
               </div>
             </div>
           )}

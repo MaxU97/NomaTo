@@ -27,6 +27,7 @@ import ForgotPassword from "../../views/ForgotPassword/ForgotPassword.view";
 import { PrivateRoute } from "./PrivateRoute.component";
 import PublicRoute from "./PublicRoute.component";
 import EditItem from "../../views/EditItem/EditItem.view";
+import MyShop from "../../views/MyShop/MyShop.view";
 
 export const AppRouter = () => {
   const { state } = useUserContext();
@@ -89,6 +90,9 @@ export const AppRouter = () => {
         </PrivateRoute>
         <PrivateRoute path={["/checkout"]} exact>
           <CheckoutPage />
+        </PrivateRoute>
+        <PrivateRoute path={["/my-shop"]} exact>
+          <MyShop />
         </PrivateRoute>
         {/* Test routes */}
         <Route

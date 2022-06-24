@@ -50,7 +50,7 @@ const Places = ({
     const { lat, lng } = await getLatLng(results[0]);
     setPlace({ lat, lng });
 
-    setAddress(results[0].address_components);
+    setAddress(results[0]);
   };
   return (
     <Dropdown

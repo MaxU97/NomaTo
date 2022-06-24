@@ -102,8 +102,8 @@ const Map = ({
         )}
         <div className="map">
           <GoogleMap
-            zoom={1}
-            center={defaultCenter}
+            zoom={13}
+            center={areaCenter ? areaCenter : defaultCenter}
             mapContainerClassName={classNames("map-container", className)}
             options={options}
             onLoad={onLoad}

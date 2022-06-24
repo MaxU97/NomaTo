@@ -79,7 +79,9 @@ const ProfileMenu = () => {
           >
             {t("profile-menu.list-item")}
           </Link>
-          <Link className="profile-item">{t("profile-menu.myshop")}</Link>
+          <Link to="/my-shop" className="profile-item">
+            {t("profile-menu.myshop")}
+          </Link>
           {state.user.admin && (
             <>
               <hr />

@@ -40,7 +40,7 @@ export const GET_ITEM = (dispatch) => async (id) => {
     });
     return data;
   } catch (err) {
-    return false;
+    throw err.response.data.message;
   }
 };
 
