@@ -8,7 +8,7 @@ import StepThree from "./Steps/StepThree";
 import StepFour from "./Steps/StepFour";
 const Register = () => {
 	const { t } = useTranslation();
-	const [step, setStep] = useState(2);
+	const [step, setStep] = useState(0);
 
 	const [email, setEmail] = useState("");
 	const [phone, setPhone] = useState("");
