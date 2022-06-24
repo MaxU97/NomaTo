@@ -22,10 +22,13 @@
 			width: 100%;
 			display: flex;
 			flex-direction: row;
-
+			gap: 20px;
+			& > * {
+				flex: 1;
+			}
 			&-input {
 				width: 50%;
-				margin: 10px 20px;
+				// margin: 10px 20px;
 				&-error {
 					border-color: rgb(180, 79, 79);
 				}
