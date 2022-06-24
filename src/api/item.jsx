@@ -86,10 +86,10 @@ export const getMyItems = async () => {
   return await api
     .get(`/item/me`)
     .then(({ data }) => {
+      debugger;
       return data.items;
     })
     .catch((err) => {
-      console.error(err.response.data);
-      return false;
+      throw err.response.message;
     });
 };

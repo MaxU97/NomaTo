@@ -24,7 +24,6 @@ const Profile = () => {
   const [phoneOver, togglePhoneOver] = useState(false);
   const [addressOver, toggleAddressOver] = useState(false);
   const [submitError, setSubmitError] = useState("");
-  const [changetoPlaces, setChangeToPlaces] = useState(false);
 
   const [latlng, setLatLng] = useState("");
   const updateImage = (image) => {

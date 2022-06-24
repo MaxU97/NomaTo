@@ -14,14 +14,28 @@
     flex-direction: row;
     overflow: hidden;
     padding: 10px;
-    &-container {
+    &-scroll {
+      border-radius: 15px;
+      border-top-left-radius: 0px;
+      overflow: hidden;
       border: 1px solid #a3a3a3;
+      width: 100%;
+    }
+    &-right {
       width: 100%;
       border-radius: 15px;
       border-top-left-radius: 0px;
-      height: 200px;
+      height: 100%;
       overflow-y: scroll;
-
+      &-container {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 20px;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-auto-flow: row;
+        gap: 10px;
+      }
       &::-webkit-scrollbar {
         width: 10px;
       }
@@ -40,12 +54,52 @@
     }
   }
 
+  .my-item {
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 7px -4px #000000;
+
+    h3 {
+      margin: 0;
+      color: #3299de;
+    }
+    img {
+      object-fit: cover;
+      aspect-ratio: 1.5;
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    &-bottom {
+      margin-top: 5px;
+      display: flex;
+      justify-content: space-between;
+    }
+    &-tools {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 5px;
+      .trash {
+        fill: rgb(180, 79, 79);
+      }
+      svg {
+        transition: 0.2s;
+      }
+      svg:hover {
+        opacity: 0.5;
+        transition: 0.2s;
+        cursor: pointer;
+      }
+    }
+  }
+
   .menu-list {
     display: flex;
     flex-direction: column;
     transform: translateX(1px);
     &-item {
       border-radius: 10px;
+      min-width: 100px;
       padding: 10px;
       border: 1px solid #a3a3a3;
       border-right: none;

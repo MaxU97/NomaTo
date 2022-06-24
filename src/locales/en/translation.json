@@ -190,6 +190,7 @@
     "edit-item": "Update Item"
   },
   "my-shop": {
-    "my-items": "My Items"
+    "my-items": "My Items",
+    "income": "Income"
   }
 }
