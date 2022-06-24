@@ -11,25 +11,25 @@ import { NotificationHandler } from "./components/NotificationHandler/Notificati
 moment.locale(i18n.language);
 
 const App = () => {
-  const { t, i18n } = useTranslation();
-  return (
-    <div className="App">
-      <I18nextProvider i18n={i18n}>
-        <Helmet>
-          <title>NomaTo</title>
-        </Helmet>
-        <UserProvider>
-          <UtilityProvider>
-            <ItemProvider>
-              <NotificationHandler>
-                <Router />
-              </NotificationHandler>
-            </ItemProvider>
-          </UtilityProvider>
-        </UserProvider>
-      </I18nextProvider>
-    </div>
-  );
+	const { t, i18n } = useTranslation();
+	return (
+		<div className="App">
+			<I18nextProvider i18n={i18n}>
+				<Helmet>
+					<title>NomaTo</title>
+				</Helmet>
+				<UserProvider>
+					<UtilityProvider>
+						<ItemProvider>
+							<NotificationHandler>
+								<Router />
+							</NotificationHandler>
+						</ItemProvider>
+					</UtilityProvider>
+				</UserProvider>
+			</I18nextProvider>
+		</div>
+	);
 };
 
 export default App;

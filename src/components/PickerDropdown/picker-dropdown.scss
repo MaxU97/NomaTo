@@ -1,61 +1,63 @@
 .picker-dropdown {
-  position: relative;
-  cursor: default;
-  cursor: pointer;
-  &-container {
-    top: 0;
-    position: absolute;
-    display: flex;
-    padding: 14px 10px;
-    &-placeholder {
-      padding: 5px 5px;
-      color: rgba(0, 0, 0, 0.4);
-    }
-    &-selected {
-      border: 1px solid rgba(0, 0, 0, 0.2);
-      border-radius: 5px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 5px 10px;
-      z-index: 200;
-      svg {
-        padding-left: 5px;
-        height: 10px;
-        width: auto;
-        fill: #3398db;
-        transition: 0.2s;
-        &:hover {
-          transition: 0.2s;
-          opacity: 0.5;
-          cursor: pointer;
-        }
-      }
-      &:not(:last-child) {
-        margin-right: 5px;
-      }
-    }
-  }
-  &-content {
-    position: absolute;
-    z-index: 99;
-    background-color: white;
-    width: 100%;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-top: none;
-    transform: translateY(-10px);
+	position: relative;
+	cursor: default;
+	cursor: pointer;
+	&-container {
+		top: 0;
+		position: absolute;
+		display: flex;
+		padding: 0px 10px;
+		height: 48px;
+		align-items: center;
+		&-placeholder {
+			padding: 5px 5px;
+			color: rgba(0, 0, 0, 0.4);
+		}
+		&-selected {
+			border: 0.5px solid rgba(0, 0, 0, 0.2);
+			border-radius: 5px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 5px 10px;
+			z-index: 200;
+			svg {
+				padding-left: 5px;
+				height: 10px;
+				width: auto;
+				fill: #3398db;
+				transition: 0.2s;
+				&:hover {
+					transition: 0.2s;
+					opacity: 0.5;
+					cursor: pointer;
+				}
+			}
+			&:not(:last-child) {
+				margin-right: 5px;
+			}
+		}
+	}
+	&-content {
+		position: absolute;
+		z-index: 99;
+		background-color: white;
+		width: 100%;
+		border: 0.5px solid rgba(0, 0, 0, 0.2);
+		border-bottom-left-radius: 10px;
+		border-bottom-right-radius: 10px;
+		border-top: none;
+		transform: translateY(-10px);
 
-    box-sizing: border-box;
-    max-height: 200px;
-    overflow-y: auto;
-    cursor: pointer;
-  }
-  &-input {
-    z-index: 1;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    height: 56px;
-  }
+		box-sizing: border-box;
+		max-height: 200px;
+		overflow-y: auto;
+		cursor: pointer;
+	}
+	&-input {
+		z-index: 1;
+		border: 0.5px solid rgba(0, 0, 0, 0.2);
+		border-radius: 10px;
+		height: 48px;
+	}
 }

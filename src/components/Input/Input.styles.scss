@@ -81,9 +81,11 @@
 		}
 	}
 	&-error {
-		height: 20px;
-		font-size: 14px;
-		padding-left: 24px;
+		min-height: 20px;
+		font-size: 12px;
+		padding-left: 4px;
+		line-height: 18px;
 		color: rgb(180, 79, 79);
+		text-align: left;
 	}
 }

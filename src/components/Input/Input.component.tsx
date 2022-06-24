@@ -72,7 +72,9 @@ const Input = ({
 					</a>
 				)}
 			</div>
-			{!withoutError && <div className="custom-input-error">{errorText}</div>}
+			{!withoutError && (
+				<div className="custom-input-error">{error && errorText}</div>
+			)}
 		</div>
 	);
 };
