@@ -74,7 +74,8 @@
       "main-tooltip": "Make main image",
       "delete-tooltip": "Delete image",
       "main-image": "Main Image"
-    }
+    },
+    "please-fill-profile": "You have to fill your profile before making a listing"
   },
   "item-page": {
     "prices": "Pricelist:",
@@ -192,5 +193,8 @@
   "my-shop": {
     "my-items": "My Items",
     "income": "Income"
+  },
+  "change-pw": {
+    "title": "Change your password"
   }
 }

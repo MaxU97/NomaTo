@@ -199,3 +199,14 @@ export const sendResetPassword = async (props) => {
       throw err.response.data;
     });
 };
+
+export const sendChangePassword = async (props) => {
+  return await api
+    .patch(`/auth/sendChangePassword`, { ...props })
+    .then(({ data }) => {
+      return data.message;
+    })
+    .catch((err) => {
+      throw err.response.data;
+    });
+};
