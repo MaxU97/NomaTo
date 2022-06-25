@@ -100,7 +100,6 @@ const Profile = () => {
 	const [surname, setSurname] = useState(state.user.surname);
 	const [email, setEmail] = useState(state.user.email);
 	const [phone, setPhone] = useState("+" + state.user.phone);
-	debugger;
 	const [address, setAddress] = useState(state.user.address);
 
 	const [phoneError, setPhoneError] = useState("");
@@ -188,29 +187,39 @@ const Profile = () => {
 								<Places
 									inMap={false}
 									containerClass="profile-content-field-input"
-									inputClass={
-										submitError &&
-										!address &&
-										"profile-content-field-input-error"
-									}
+									// inputClass={
+									// 	submitError &&
+									// 	!address &&
+									// 	"profile-content-field-input-error"
+									// }
+									// error={!submitError && !address}
+									// errorText={
+									// 	"You can only change your address once every 30 days"
+									// }
 									setPlace={setLatLng}
 									setAddress={setAddress}
 									onMouseOver={() => {
 										toggleAddressOver(true);
 									}}
+									showInformation={!state.user.allowAddressEdit && addressOver}
+									informationText={
+										"You can only change your address once every 30 days"
+									}
 									onMouseOut={() => {
 										toggleAddressOver(false);
 									}}
+									// placeholder="Address"
 									existingValue={address}
-									disabled={!state.user.allowAddressEdit}
+									placeholder={address}
+									disabled={!state.user.allowAddressEdit} // || !state.user.allowAddressEdit
 								>
-									<HoverTooltip
+									{/* <HoverTooltip
 										type="above"
 										content={
 											"You can only change your address once every 30 days"
 										}
 										inVar={!state.user.allowAddressEdit && addressOver}
-									></HoverTooltip>
+									></HoverTooltip> */}
 								</Places>
 							)}
 						</div>

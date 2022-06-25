@@ -29,6 +29,10 @@ const Places = ({
 	containerClass,
 	children,
 	existingValue,
+	error,
+	errorText,
+	informationText,
+	showInformation,
 }) => {
 	const {
 		ready,
@@ -59,6 +63,10 @@ const Places = ({
 			onMouseOver={onMouseOver}
 			onMouseOut={onMouseOut}
 			disabled={disabled}
+			error={error}
+			errorText={errorText}
+			showInformation={showInformation}
+			informationText={informationText}
 		>
 			{status === "OK" &&
 				data.map(({ place_id, description }) => {

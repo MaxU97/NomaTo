@@ -14,6 +14,10 @@ const Dropdown = ({
 	onMouseOver = () => {},
 	onMouseOut = () => {},
 	disabled,
+	error,
+	errorText,
+	showInformation,
+	informationText,
 }) => {
 	return (
 		<div className={classNames("dropdown", className, containerClass)}>
@@ -27,7 +31,11 @@ const Dropdown = ({
 				onMouseOver={onMouseOver}
 				onMouseOut={onMouseOut}
 				disabled={disabled}
-				withoutError
+				// withoutError
+				error={error}
+				errorText={errorText}
+				showInformation={showInformation}
+				informationText={informationText}
 			>
 				{hoverChild}
 			</Input>
