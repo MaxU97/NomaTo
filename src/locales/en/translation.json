@@ -1,8 +1,9 @@
 {
   "header": {
     "FAQ": "FAQ",
-    "rent-item": "Rent an item",
-    "login-signup": "Login or Sign up"
+    "become-a-lender": "Become a lender",
+    "login-signup": "Login or Sign up",
+    "list-an-item": "List an item"
   },
   "home": {
     "test": "ENGLISH",
@@ -75,7 +76,7 @@
       "delete-tooltip": "Delete image",
       "main-image": "Main Image"
     },
-    "please-fill-profile": "You have to fill your profile before making a listing"
+    "please-fill-profile": "You have to fill your profile and connect a stripe account before making a listing"
   },
   "item-page": {
     "prices": "Pricelist:",
@@ -196,5 +197,25 @@
   },
   "change-pw": {
     "title": "Change your password"
+  },
+  "lender-guide": {
+    "finish-profile": "Fill Your Profile",
+    "sign-up-account": "Create a payment account",
+    "ready-to-lend": "List your first item",
+    "go-to-your": "Go to your",
+    "profile": "Profile",
+    "page": "page",
+    "fill-fields": "Fill in all of the empty fields",
+    "add-profile-picture": "Add a profile picture (Optional)",
+    "people-like": "People like seeing their lenders :)",
+    "profile-complete": "Your profile is now complete!",
+    "profile-allows": "This allows you to rent items from other people",
+    "step-complete": "Step Complete",
+    "payout-account": "In order to withdraw funds you need to set up an account with our partner Stripe",
+    "click-button": "Click the button to set up an account",
+    "go-to": "Go to",
+    "list-an-item": "List an item",
+    "fill-required": "Fill all the required fields",
+    "lending-set": "You are set to lend!"
   }
 }

@@ -198,7 +198,7 @@ const ListItem = () => {
 
   return (
     <div className="add-listing">
-      {userState.user.completionStatus ? (
+      {userState.user.completionStatus && userState.user.sellerCompleted ? (
         category ? (
           <div className="container-m">
             <div className="listing-form">

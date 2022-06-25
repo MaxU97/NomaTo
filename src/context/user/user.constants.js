@@ -9,3 +9,4 @@ export const $GET_PAYMENT_METHODS = "  $GET_PAYMENT_METHODS";
 export const $RESET_CLIENT_SECRET = "  $RESET_CLIENT_SECRET";
 export const $PATCH_USER = "  $PATCH_USER";
 export const $PATCH_IMAGE = "  $PATCH_IMAGE";
+export const $GET_USER_BALANCE = "  $GET_USER_BALANCE";

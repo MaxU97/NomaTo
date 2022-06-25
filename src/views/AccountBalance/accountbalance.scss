@@ -1,0 +1,34 @@
+.account-balance {
+  background-image: url("../../assets/home-background.png");
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  &-content {
+    box-sizing: border-box;
+    border: 1px solid #e3e3e3;
+    border-radius: 15px;
+    padding: 0 20px;
+  }
+  &-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    h3 {
+      color: #3299de;
+    }
+    &-l {
+      width: 50%;
+    }
+    &-r {
+      width: 50%;
+      border-left: 1px solid #e3e3e3;
+    }
+  }
+  &-button {
+    box-sizing: border-box;
+    background-color: #3299de;
+    color: white;
+    font-family: Gilroy-Medium;
+    padding: 15px 20px;
+  }
+}

@@ -29,6 +29,8 @@ import PublicRoute from "./PublicRoute.component";
 import EditItem from "../../views/EditItem/EditItem.view";
 import MyShop from "../../views/MyShop/MyShop.view";
 import ChangePassword from "../../views/ChangePassword/ChangePassword.view";
+import BecomeALender from "../../views/BecomeALender/BecomeALender.view";
+import AccountBalance from "../../views/AccountBalance/AccountBalance.view";
 
 export const AppRouter = () => {
   const { state } = useUserContext();
@@ -97,6 +99,12 @@ export const AppRouter = () => {
         </PrivateRoute>
         <PrivateRoute path={["/change-password"]} exact>
           <ChangePassword />
+        </PrivateRoute>
+        <PrivateRoute path={["/become-a-lender"]} exact>
+          <BecomeALender />
+        </PrivateRoute>
+        <PrivateRoute path={["/account-balance"]} exact>
+          <AccountBalance />
         </PrivateRoute>
         {/* Test routes */}
         <Route

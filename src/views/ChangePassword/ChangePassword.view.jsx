@@ -133,50 +133,40 @@ const ChangePassword = () => {
     <div className="change-pw">
       <div className="container container-s change-pw-container">
         <h1>{t("change-pw.title")}</h1>
-        <Input
-          placeholder="Old Password"
-          value={oldPassword}
-          setValue={setOldPassword}
-          type="password"
-          className="change-pw-field"
-        ></Input>
-        <Input
-          placeholder="New Password"
-          value={password}
-          setValue={CheckAndSetPass}
-          containerClass={!passwordError && "change-pw-error"}
-          type="password"
-          className="change-pw-field"
-        >
-          <HoverTooltip
-            content={Object.keys(passwordConds).map(
-              (key) =>
-                !passwordConds[key].met && <div>{passwordConds[key].text}</div>
+        <div className="change-pw-wrapper">
+          <Input
+            placeholder="Old Password"
+            value={oldPassword}
+            setValue={setOldPassword}
+            type="password"
+          ></Input>
+          <Input
+            placeholder="New Password"
+            value={password}
+            setValue={CheckAndSetPass}
+            type="password"
+            error={!strongPassword}
+            errorText={Object.keys(passwordConds).map(
+              (key) => !passwordConds[key].met && passwordConds[key].text + " "
             )}
-            inVar={!strongPassword}
-          ></HoverTooltip>
-        </Input>
-        <Input
-          placeholder="Confirm Password"
-          value={confirmPW}
-          containerClass={!confirmError && "change-pw-error"}
-          setValue={ConfirmAndSetPass}
-          type="password"
-          className="change-pw-field"
-        >
-          <HoverTooltip
-            content={!confirmError && "Passwords do not match"}
-            inVar={!confirmError}
-          ></HoverTooltip>
-        </Input>
-        <a
-          onClick={() => {
-            sendPassword();
-          }}
-          className="change-pw-button"
-        >
-          Next Step
-        </a>
+          ></Input>
+          <Input
+            placeholder="Confirm Password"
+            value={confirmPW}
+            setValue={ConfirmAndSetPass}
+            type="password"
+            error={!confirmError}
+            errorText="Passwords do not match"
+          ></Input>
+          <a
+            onClick={() => {
+              sendPassword();
+            }}
+            className="change-pw-button"
+          >
+            Change Password
+          </a>
+        </div>
       </div>
     </div>
   );

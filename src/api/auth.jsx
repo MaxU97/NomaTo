@@ -210,3 +210,36 @@ export const sendChangePassword = async (props) => {
       throw err.response.data;
     });
 };
+
+export const requestAccount = async () => {
+  return await api
+    .get(`/auth/requestAccount`)
+    .then(({ data }) => {
+      return data.url;
+    })
+    .catch((err) => {
+      throw err.response.data;
+    });
+};
+
+export const checkStripeCompletion = async () => {
+  return await api
+    .get(`/auth/checkStripeCompletion`)
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => {
+      throw err.response.data;
+    });
+};
+
+export const getUserBalance = async () => {
+  return await api
+    .get(`/auth/userBalance`)
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => {
+      throw err.response.data;
+    });
+};

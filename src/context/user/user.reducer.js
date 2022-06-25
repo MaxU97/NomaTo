@@ -10,6 +10,7 @@ import {
   $RESET_CLIENT_SECRET,
   $PATCH_USER,
   $PATCH_IMAGE,
+  $GET_USER_BALANCE,
 } from "./user.constants";
 
 export const UserBaseState = {
@@ -19,6 +20,7 @@ export const UserBaseState = {
   bookingHistoryLoaded: false,
   clientSecret: "",
   paymentMethods: false,
+  userBalance: null,
 };
 
 export const UserReducer = (state, action) => {
@@ -58,6 +60,12 @@ export const UserReducer = (state, action) => {
       return {
         ...state,
         paymentMethods: payload,
+      };
+    }
+    case $GET_USER_BALANCE: {
+      return {
+        ...state,
+        userBalance: payload,
       };
     }
     case $GET_CLIENT_SECRET: {
