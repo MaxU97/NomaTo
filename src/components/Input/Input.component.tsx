@@ -11,6 +11,7 @@ interface InputInterface {
 	onMouseOut?: (event: any) => void;
 	onClick?: (event: any) => void;
 	onFocus?: (event: any) => void;
+	onKeyDown?: (event: any) => void;
 	style: any;
 	disabled?: boolean;
 	error?: boolean;
@@ -21,6 +22,7 @@ interface InputInterface {
 	withoutError: boolean;
 	showInformation: boolean;
 	informationText: string;
+	inputRef?: any;
 }
 const Input = ({
 	value,
@@ -41,8 +43,10 @@ const Input = ({
 	withoutError = false,
 	showInformation = false,
 	informationText = "",
+	onKeyDown = () => {},
+	inputRef,
 }: InputInterface) => {
-	const input = useRef();
+	// const input = useRef();
 
 	return (
 		<div className="custom-input-wrapper">
@@ -56,12 +60,15 @@ const Input = ({
 				<input
 					className="custom-input"
 					type={type}
-					ref={input.current}
+					ref={(el) => {
+						if (inputRef) inputRef.current = el;
+					}}
 					placeholder={placeholder}
 					value={value}
 					onChange={(e) => setValue(e.target.value)}
 					disabled={disabled}
 					onFocus={(e) => onFocus(e)}
+					onKeyDown={(e) => onKeyDown(e)}
 				/>
 				{placeholder && (
 					<div

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useHistory, useParams } from "react-router-dom";
 import Input from "../../components/Input/Input.component";
@@ -31,6 +31,7 @@ const Login = () => {
 			history.goBack();
 		}
 	};
+	const passRef = useRef();
 
 	return (
 		<div className="login-page">
@@ -39,12 +40,27 @@ const Login = () => {
 					<h1>
 						{t("login.message-1")} <a>{t("login.message-2")}</a>
 					</h1>
-					<Input placeholder="Email" value={email} setValue={setEmail}></Input>
+					<Input
+						placeholder="Email"
+						value={email}
+						setValue={setEmail}
+						onKeyDown={(e) => {
+							if (e.key === "Enter") {
+								passRef?.current.focus();
+							}
+						}}
+					></Input>
 					<Input
 						placeholder="Password"
 						value={password}
 						setValue={setPassword}
 						type="password"
+						inputRef={passRef}
+						onKeyDown={(e) => {
+							if (e.key === "Enter") {
+								submitForm();
+							}
+						}}
 					></Input>
 					<a
 						className="login-page-button"
