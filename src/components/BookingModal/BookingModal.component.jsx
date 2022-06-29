@@ -192,9 +192,8 @@ export const BookingModal = ({
 		}
 	};
 
-	const checkAndResetQtyWant = (event) => {
-		setQtyWant(event);
-		resetQtyValidation();
+	const checkAndResetQtyWant = (value) => {
+		resetQtyValidation(value);
 	};
 
 	useEffect(() => {
@@ -217,6 +216,7 @@ export const BookingModal = ({
 			setDaySummary(defaultSummary.day);
 			setPriceSummary(defaultSummary.price);
 			setDiscountSummary(defaultSummary.discount);
+			setServiceSummary(defaultSummary.service);
 			setTotalSummary(defaultSummary.total);
 		}
 	};
@@ -246,17 +246,21 @@ export const BookingModal = ({
 		return returnBool;
 	};
 
-	const resetQtyValidation = () => {
-		if (qtyWant) {
-			if (qtyWant > itemQty) {
+	const resetQtyValidation = (value) => {
+		if (value) {
+			if (value > itemQty) {
 				setQtyError(`Only ${itemQty} available`);
-				return;
+				// setQtyWant(itemQty);
+				// return;
 			} else {
 				setQtyError("");
+				// setQtyWant(value);
 			}
 		} else {
 			setQtyError("");
+			// setQtyWant(value);
 		}
+		setQtyWant(value);
 	};
 	const resetTCValidation = () => {
 		if (tcCheck.current.checked) {
