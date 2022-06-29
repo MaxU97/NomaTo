@@ -36,6 +36,12 @@
       margin-right: 0;
     }
     &-content {
+      &-center {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+      }
       .link {
         color: #3299de;
         transition: 0.2s;
@@ -48,6 +54,7 @@
       font-size: 18px;
     }
     &-button {
+      display: inline-block;
       background-color: #3299de;
       color: white;
       font-family: Gilroy-Medium;

@@ -88,6 +88,8 @@ const BecomeALender = () => {
               <div className="lender-guide-block-content">
                 <ol>
                   <li> {t("lender-guide.click-button")}</li>
+                </ol>
+                <div className="lender-guide-block-content-center">
                   <a
                     className="lender-guide-block-button"
                     onClick={() => {
@@ -96,6 +98,11 @@ const BecomeALender = () => {
                   >
                     Create an account
                   </a>
+                </div>
+
+                <ol start="2">
+                  <li> {t("lender-guide.stripe-expl")}</li>
+                  <li> {t("lender-guide.able-to-list")}</li>
                 </ol>
               </div>
             </div>

@@ -108,9 +108,13 @@ const BookingItem = ({ item, status }) => {
             {t("my-bookings.confirm-dropoff")}
           </Link>
         )}
-        {!["with_customer", "canceled", "declined", "returned"].includes(
-          item.status
-        ) && (
+        {![
+          "with_customer",
+          "canceled",
+          "declined",
+          "returned",
+          "refused",
+        ].includes(item.status) && (
           <a
             className="booking-item-buttons-button cancel"
             onClick={async () => {

@@ -11,11 +11,12 @@ const Calendar = ({
   className,
   bookedDates,
   minimumSelection,
+  calendarErrorShow,
   calendarError,
   setCalendarError,
 }) => {
   const today = new Date();
-  const [dates, setDates] = useState();
+  const [dates, setDates] = useState(dateRange ? dateRange : "");
 
   const getDayCount = (to, from) => {
     const end = moment(to);
@@ -80,31 +81,29 @@ const Calendar = ({
     return returnBool;
   };
 
+  const [month, setMonth] = useState(
+    dateRange ? dateRange["from"] : Date.now()
+  );
   return (
-    <div className={classNames("calendar", calendarError && "error")}>
-      <CSSTransition
-        in={calendarError}
-        timeout={500}
-        unmountOnExit
-        classNames="error-container"
-      >
-        <div className="hover-error">
-          <div className="hover-error-content l">
-            {calendarError}
-            <div class="arrow-right"></div>
-          </div>
-        </div>
-      </CSSTransition>
-      <DayPicker
-        disabled={{ before: today }}
-        modifiers={{ booked: bookedDates }}
-        modifiersClassNames={{ booked: "booked-date" }}
-        className={"calendar-container"}
-        mode="range"
-        selected={dates}
-        onSelect={handleRangeClick}
-      ></DayPicker>
-    </div>
+    <>
+      <div className={classNames("calendar", !!calendarError && "error")}>
+        <DayPicker
+          disabled={{ before: today }}
+          modifiers={{ booked: bookedDates, today: [today] }}
+          modifiersClassNames={{
+            booked: "booked-date",
+            today: "today",
+          }}
+          month={month}
+          onMonthChange={setMonth}
+          className={"calendar-container"}
+          mode="range"
+          selected={dates}
+          onSelect={handleRangeClick}
+        ></DayPicker>
+      </div>
+      <div className="calendar-error">{calendarError}</div>
+    </>
   );
 };
 

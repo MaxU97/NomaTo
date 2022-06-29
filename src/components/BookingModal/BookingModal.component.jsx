@@ -199,7 +199,13 @@ export const BookingModal = ({
     }
   };
 
+  const checkAndResetQtyWant = (event) => {
+    setQtyWant(event);
+    resetQtyValidation();
+  };
+
   useEffect(() => {
+    debugger;
     if (!qtyError && !calendarError && qtyWant && !_.isEmpty(dates)) {
       const { day, price, service, discount, total } = producePriceSummary();
       setDaySummary(day);
@@ -226,9 +232,9 @@ export const BookingModal = ({
       setQtyError("Please select quantity");
       returnBool = false;
     }
-
+    debugger;
     if (_.isEmpty(dates)) {
-      if (calendarError) {
+      if (!calendarError) {
         setCalendarError("Please select valid dates");
         returnBool = false;
       }
@@ -261,10 +267,6 @@ export const BookingModal = ({
     }
   };
 
-  useEffect(() => {
-    resetQtyValidation();
-  }, [qtyWant]);
-
   const tcChecked = () => {
     resetTCValidation();
   };
@@ -289,27 +291,15 @@ export const BookingModal = ({
               <div className="booking-modal-contents-left-top">
                 <Input
                   placeholder={t("booking-modal.quantity")}
+                  error={!!qtyError}
+                  errorText={qtyError}
                   className={classNames("booking-modal-input")}
                   value={qtyWant}
-                  setValue={setQtyWant}
+                  setValue={checkAndResetQtyWant}
                   type="number"
                   maxLength={10}
                   containerClass={classNames(qtyError && "error")}
-                >
-                  <CSSTransition
-                    in={!!qtyError}
-                    timeout={500}
-                    unmountOnExit
-                    classNames="error-container"
-                  >
-                    <div className="hover-error">
-                      <div className="hover-error-content">
-                        {qtyError}
-                        <div class="arrow-right"></div>
-                      </div>
-                    </div>
-                  </CSSTransition>
-                </Input>
+                ></Input>
                 <div className="quantity-available">{itemQty} Available</div>
               </div>
 

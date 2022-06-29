@@ -1,68 +1,68 @@
-.hover-error {
-	position: absolute;
-	color: rgb(180, 79, 79);
-	font-family: Gilroy-Medium;
-	pointer-events: none;
-	&-content {
-		min-width: 60px;
-		text-align: end;
-		font-size: 15px;
-		left: 0;
-		// transform: translateX(-140%);
-		transform: translateX(-100%) translateX(-15px);
-		background-color: #ebebeb;
-		border-radius: 10px;
-		padding: 10px;
-		white-space: nowrap;
-		&.m {
-			&.left {
-				transform: translateX(calc(-100% - 10px));
-				min-width: fit-content;
-			}
+// .hover-error {
+// 	position: absolute;
+// 	color: rgb(180, 79, 79);
+// 	font-family: Gilroy-Medium;
+// 	pointer-events: none;
+// 	&-content {
+// 		min-width: 60px;
+// 		text-align: end;
+// 		font-size: 15px;
+// 		left: 0;
+// 		// transform: translateX(-140%);
+// 		transform: translateX(-100%) translateX(-15px);
+// 		background-color: #ebebeb;
+// 		border-radius: 10px;
+// 		padding: 10px;
+// 		white-space: nowrap;
+// 		&.m {
+// 			&.left {
+// 				transform: translateX(calc(-100% - 10px));
+// 				min-width: fit-content;
+// 			}
 
-			&.above {
-				top: 100%;
-				transform: translateY(-100%) translateX(-5%);
-				min-width: fit-content;
-			}
-		}
-	}
-	.arrow {
-		&-right {
-			position: absolute;
-			right: 0;
-			top: 0;
-			transform: translateX(5px) translateY(100%);
-			width: 0;
-			height: 0;
-			border-top: 6px solid transparent;
-			border-bottom: 6px solid transparent;
-			border-left: 6px solid #ebebeb;
-		}
+// 			&.above {
+// 				top: 100%;
+// 				transform: translateY(-100%) translateX(-5%);
+// 				min-width: fit-content;
+// 			}
+// 		}
+// 	}
+// 	.arrow {
+// 		&-right {
+// 			position: absolute;
+// 			right: 0;
+// 			top: 0;
+// 			transform: translateX(5px) translateY(100%);
+// 			width: 0;
+// 			height: 0;
+// 			border-top: 6px solid transparent;
+// 			border-bottom: 6px solid transparent;
+// 			border-left: 6px solid #ebebeb;
+// 		}
 
-		&-above {
-			position: absolute;
-			bottom: -5px;
-			left: 50%;
-			width: 0;
-			height: 0;
-			border-right: 6px solid transparent;
-			border-top: 6px solid #ebebeb;
-			border-left: 6px solid transparent;
-		}
-	}
-}
-.hover-container-enter {
-	opacity: 0;
-}
-.hover-container-enter-active {
-	opacity: 1;
-	transition: opacity 300ms, transform 300ms;
-}
-.hover-container-exit {
-	opacity: 1;
-}
-.hover-container-exit-active {
-	opacity: 0;
-	transition: opacity 0, transform 0;
-}
+// 		&-above {
+// 			position: absolute;
+// 			bottom: -5px;
+// 			left: 50%;
+// 			width: 0;
+// 			height: 0;
+// 			border-right: 6px solid transparent;
+// 			border-top: 6px solid #ebebeb;
+// 			border-left: 6px solid transparent;
+// 		}
+// 	}
+// }
+// .hover-container-enter {
+// 	opacity: 0;
+// }
+// .hover-container-enter-active {
+// 	opacity: 1;
+// 	transition: opacity 300ms, transform 300ms;
+// }
+// .hover-container-exit {
+// 	opacity: 1;
+// }
+// .hover-container-exit-active {
+// 	opacity: 0;
+// 	transition: opacity 0, transform 0;
+// }

@@ -13,30 +13,22 @@
     position: absolute;
     color: rgb(180, 79, 79);
     pointer-events: none;
+    top: 0;
+    left: 0;
+    transform: translateX(-100%) translateX(-30px);
     &-content {
-      width: 60px;
+      width: fit-content;
       text-align: end;
       font-size: 15px;
-      left: 0;
-      transform: translateX(-140%);
       background-color: white;
       border-radius: 10px;
       padding: 10px;
-
-      &.m {
-        transform: translateX(-120%) translateY(100%);
-        width: 150px;
-      }
-      &.l {
-        transform: translateX(-180%) translateY(100%);
-        width: 150px;
-      }
     }
     .arrow-right {
       position: absolute;
-      right: 0;
-      top: 0;
-      transform: translateX(6px) translateY(24px);
+      right: -5px;
+      top: 50%;
+      transform: translateY(-50%);
       width: 0;
       height: 0;
       border-top: 6px solid transparent;
@@ -57,8 +49,8 @@
       &-top {
         display: flex;
         flex-direction: row;
-        align-items: flex-start;
-        justify-content: space-between;
+        align-items: center;
+        justify-content: center;
         width: 100%;
         margin-bottom: 10px;
         .quantity-available {

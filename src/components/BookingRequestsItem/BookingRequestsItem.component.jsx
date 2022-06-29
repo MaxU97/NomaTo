@@ -10,6 +10,7 @@ import classNames from "classnames";
 import TextArea from "../TextArea/TextArea.component";
 import { getApprovedUser, refuseBooking } from "../../api/booking";
 import { approveBooking } from "../../api/booking";
+import { useNotificationHandler } from "../NotificationHandler/NotificationHandler.component";
 const BookingRequestsItem = ({ item, status }) => {
   const { t } = useTranslation();
   const options = { style: "currency", currency: "EUR" };
@@ -23,8 +24,15 @@ const BookingRequestsItem = ({ item, status }) => {
   const [approvedUser, setApprovedUser] = useState();
 
   const [price, setPrice] = useState(0);
+
+  const { notification } = useNotificationHandler();
   const approve = async (_id) => {
-    await approveBooking(_id);
+    try {
+      await approveBooking(_id);
+    } catch (err) {
+      notification([err]);
+    }
+
     window.location.reload();
   };
   const refuse = async () => {
@@ -70,7 +78,10 @@ const BookingRequestsItem = ({ item, status }) => {
           <div className="booking-request-item-details">
             <div className="booking-request-item-details-field">
               <strong>User: </strong>
-              <img src={`${apiUrl + "/" + item.userID.profileImage}`}></img>
+              <img
+                className="profile-image"
+                src={`${apiUrl + "/" + item.userID.profileImage}`}
+              ></img>
               {item.userID.name} {item.userID.surname}
             </div>
             <div className="booking-request-item-details-field">

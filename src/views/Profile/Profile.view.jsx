@@ -90,7 +90,7 @@ const Profile = () => {
       }
 
       toggleIsUpdating(false);
-      notification(response);
+      notification([response]);
     } else {
       setSubmitError(t("profile.submit-error"));
     }

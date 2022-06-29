@@ -76,8 +76,7 @@ export const approveBooking = async (_id) => {
       return true;
     })
     .catch((err) => {
-      console.log(err.response.data);
-      return false;
+      throw err.response.data.message;
     });
 };
 

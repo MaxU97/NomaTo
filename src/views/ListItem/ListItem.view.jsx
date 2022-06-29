@@ -57,7 +57,7 @@ const ListItem = () => {
   const titleLanguage = `title${getCurrentLanguage().toUpperCase()}`;
   useEffect(() => {
     let timer1 = setTimeout(() => {
-      if (userState.user.completionStatus) {
+      if (userState.user.completionStatus && userState.user.sellerCompleted) {
         toggleCategories(true);
       }
     }, 0);
@@ -185,9 +185,7 @@ const ListItem = () => {
 
           notification([response]);
           setIsUploading(false);
-          setTimeout(() => {
-            window.location.replace("/");
-          }, 2000);
+          window.location.href = "/";
         } catch (err) {
           notification([err], true);
           setIsUploading(false);

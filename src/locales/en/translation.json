@@ -216,6 +216,8 @@
     "go-to": "Go to",
     "list-an-item": "List an item",
     "fill-required": "Fill all the required fields",
-    "lending-set": "You are set to lend!"
+    "lending-set": "You are set to lend!",
+    "stripe-expl": "Stripe will lead you through authentication needed to become a seller",
+    "able-to-list": "You can now list your first item"
   }
 }

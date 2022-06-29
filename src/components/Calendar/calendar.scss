@@ -3,6 +3,10 @@
   color: white;
   pointer-events: none;
 }
+.today {
+  opacity: 0.25;
+  pointer-events: none;
+}
 
 :root {
   --rdp-cell-width: 50px;
@@ -13,15 +17,24 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid rgb(255, 255, 255);
+  border: 1px solid rgba(0, 0, 0, 0.2);
   border-width: 1px !important;
   border-radius: 10px;
-  margin-bottom: 10px;
+
   &.error {
     border: 1px solid rgb(180, 79, 79);
     border-width: 1px !important;
     border-color: rgb(180, 79, 79) !important;
     border-radius: 10px;
+  }
+  &-error {
+    min-height: 20px;
+    font-size: 12px;
+    padding-left: 4px;
+    line-height: 18px;
+    color: rgb(180, 79, 79);
+    text-align: left;
+    width: 100%;
   }
 }
 .rdp {
