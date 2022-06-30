@@ -53,3 +53,14 @@ export const checkCategoryDependancies = async (id) => {
       return false;
     });
 };
+
+export const getQRHash = async (props) => {
+  return await api
+    .post("/booking/getQrHash", props)
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => {
+      throw err.response.data;
+    });
+};
