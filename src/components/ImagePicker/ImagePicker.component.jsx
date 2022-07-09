@@ -28,16 +28,14 @@ const ImagePicker = ({
   return image ? (
     <div className={classNames("image-picker-image", buttonClassName)}>
       {index == 0 && showLegend && (
-        <div className="main-image-text">
-          {t("list-item.image-controls.main-image")}
-        </div>
+        <div className="main-image-text">{t("image-tools.main-image")}</div>
       )}
       <div className="image-picker-image-controls">
         {index != 0 && (
           <div className="image-picker-image-icon">
             <div className="image-picker-image-controls-tooltip">
               <div className="image-picker-image-controls-tooltip-content">
-                {t("list-item.image-controls.main-tooltip")}
+                {t("image-tools.main-tooltip")}
               </div>
               <div className="arrow-down"></div>
             </div>
@@ -48,7 +46,7 @@ const ImagePicker = ({
         <div className="image-picker-image-icon ">
           <div className="image-picker-image-controls-tooltip">
             <div className="image-picker-image-controls-tooltip-content">
-              {t("list-item.image-controls.delete-tooltip")}
+              {t("image-tools.delete-tooltip")}
             </div>
             <div className="arrow-down"></div>
           </div>
@@ -62,7 +60,9 @@ const ImagePicker = ({
       onClick={onClick}
       className={classNames("image-picker-button", buttonClassName)}
     >
-      <div className="image-picker-button-text">ADD AN IMAGE</div>
+      <div className="image-picker-button-text">
+        {t("image-tools.add-image")}
+      </div>
       <PlusIcon />
       {children}
     </div>

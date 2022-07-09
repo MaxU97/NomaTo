@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { preRegPhone, sendEmailCode } from "../../../api/auth";
-import HoverTooltip from "../../../components/HoverTooltip/HoverTooltip.component";
 import Input from "../../../components/Input/Input.component";
 import validator from "validator";
-import PickerDropdown from "../../../components/PickerDropdown/PickerDropdown.component";
-import PickerDropwnItem from "../../../components/PickerDropdown/PickerDropdownItem";
 import { getLanguageArray } from "../../../services/language.service";
 import LanguagePicker from "../../../components/Picker/LanguagePicker";
 import { useNotificationHandler } from "../../../components/NotificationHandler/NotificationHandler.component";
@@ -14,6 +11,7 @@ const StepThree = ({
   email,
   setReturnPhone = () => {},
 }) => {
+  const { t } = useTranslation();
   const { notification } = useNotificationHandler();
   const [phone, setPhone] = useState("");
   const [phoneError, setPhoneError] = useState(false);
@@ -73,16 +71,16 @@ const StepThree = ({
   return (
     <div className="register-form-step-3">
       <Input
-        placeholder="Phone"
+        placeholder={t("register.phone")}
         value={phone}
         setValue={CheckAndSetPhone}
         error={phoneError}
-        errorText="Please enter a valid phone number (+371...)"
+        errorText={t("register.valid-phone")}
         type="number"
       ></Input>
       <LanguagePicker
         languages={languages}
-        placeholder="Prefered Languages"
+        placeholder={t("register.prefered-lng")}
         selectedValues={selectedLanguages}
         onDelete={handleLanguageDelete}
         onSelect={handleLanguageSelect}
@@ -95,7 +93,7 @@ const StepThree = ({
         }}
         className="register-form-field-button"
       >
-        Next Step
+        {t("register.next")}
       </a>
     </div>
   );

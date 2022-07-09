@@ -14,10 +14,10 @@ export const createCategory = async (category) => {
   return await api
     .post("/categories/createCategory", category)
     .then(({ data }) => {
-      return true;
+      return data;
     })
     .catch((err) => {
-      return false;
+      throw err.response.data;
     });
 };
 
@@ -35,11 +35,11 @@ export const checkExistingCategory = async (categoryNames) => {
 export const deleteCategory = async (id) => {
   return await api
     .post("/categories/deleteCategory", { _id: id })
-    .then(() => {
-      return false;
+    .then(({ data }) => {
+      return data;
     })
     .catch((err) => {
-      return true;
+      return err.response.data;
     });
 };
 

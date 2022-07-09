@@ -29,9 +29,7 @@ const ListItem = () => {
   const [subCategory, setSubCategory] = useState("");
   const [categoryText, setCategoryText] = useState("");
 
-  const [descEN, setDescEN] = useState("");
-  const [descLV, setDescLV] = useState("");
-  const [descRU, setDescRU] = useState("");
+  const [description, setDescription] = useState("");
 
   const [address, setAddress] = useState("");
   const [addressLatLng, setAddressLatLng] = useState();
@@ -83,9 +81,7 @@ const ListItem = () => {
   }, [
     uploadImages,
     title,
-    descEN,
-    descLV,
-    descRU,
+    description,
     address,
     rentPriceDay,
     rentPriceWeek,
@@ -99,43 +95,43 @@ const ListItem = () => {
     var error = [];
     let updateErrors = {};
     if (uploadImages.length <= 0) {
-      error.push("At least 1 image, ");
+      error.push(t("list-item.error.image"));
       updateErrors = { ...updateErrors, imageError: true };
     }
     if (!title) {
-      error.push("A title, ");
+      error.push(t("list-item.error.title"));
       updateErrors = { ...updateErrors, titleError: true };
     }
-    if (!descEN & !descLV & !descRU) {
-      error.push("At least 1 description, ");
+    if (!description) {
+      error.push(t("list-item.error.desc"));
       updateErrors = { ...updateErrors, descError: true };
     }
     if (!address) {
-      error.push("A valid address from the dropdown, ");
+      error.push(t("list-item.error.address"));
       updateErrors = { ...updateErrors, addressError: true };
     }
     if (!rentPriceDay) {
-      error.push("A rent price per day, ");
+      error.push(t("list-item.error.rent-day"));
       updateErrors = { ...updateErrors, rentDayError: true };
     }
     if (!rentPriceWeek) {
-      error.push("A rent price per week, ");
+      error.push(t("list-item.error.rent-week"));
       updateErrors = { ...updateErrors, rentWeekError: true };
     }
     if (!rentPriceMonth) {
-      error.push("A rent price per month, ");
+      error.push(t("list-item.error.rent-month"));
       updateErrors = { ...updateErrors, rentMonthError: true };
     }
     if (!itemValue) {
-      error.push("Item Value,  ");
+      error.push(t("list-item.error.value"));
       updateErrors = { ...updateErrors, itemValueError: true };
     }
     if (!minRent) {
-      error.push("Minimal rent duration ");
+      error.push(t("list-item.error.min-rent"));
       updateErrors = { ...updateErrors, minRentError: true };
     }
     if (!itemQty) {
-      error.push("Quantity of items ");
+      error.push(t("list-item.error.qty"));
       updateErrors = { ...updateErrors, itemQtyError: true };
     }
     setErrors(updateErrors);
@@ -162,9 +158,7 @@ const ListItem = () => {
         if (subCategory) {
           data.append("subcat", subCategory["_id"]);
         }
-        data.append("descEN", descEN);
-        data.append("descLV", descLV);
-        data.append("descRU", descRU);
+        data.append("description", description);
         data.append("addressLng", addressLatLng["lng"]);
         data.append("addressLat", addressLatLng["lat"]);
         data.append("itemValue", itemValue);
@@ -230,47 +224,16 @@ const ListItem = () => {
                   event.target.blur();
                 }}
               ></Input>
-              <MultiInput
-                className={classNames(errors["descError"] && "error")}
-                languages={["RU", "LV", "EN"]}
-              >
-                <TextArea
-                  placeholder={t("list-item.desc")}
-                  value={descRU}
-                  setValue={setDescRU}
-                  className={classNames("listing-form-field-text")}
-                  key="RU"
-                  containerClassName={classNames(
-                    "no-left-corner",
-                    errors["descError"] && "error"
-                  )}
-                ></TextArea>
-                <TextArea
-                  placeholder={t("list-item.desc")}
-                  value={descLV}
-                  setValue={setDescLV}
-                  className={classNames("listing-form-field-text")}
-                  key="LV"
-                  containerClassName={classNames(
-                    "no-left-corner",
-                    errors["descError"] && "error"
-                  )}
-                ></TextArea>
-                <TextArea
-                  placeholder={t("list-item.desc")}
-                  value={descEN}
-                  setValue={setDescEN}
-                  key="EN"
-                  className={classNames("listing-form-field-text")}
-                  containerClassName={classNames(
-                    "no-left-corner",
-                    errors["descError"] && "error"
-                  )}
-                ></TextArea>
-              </MultiInput>
-              <div className="note listing-form-field">
+              <TextArea
+                placeholder={t("list-item.desc")}
+                value={description}
+                setValue={setDescription}
+                className={classNames("listing-form-field-text")}
+                containerClassName={classNames(errors["descError"] && "error")}
+              ></TextArea>
+              {/* <div className="note listing-form-field">
                 {t("list-item.description-disclaimer")}
-              </div>
+              </div> */}
 
               <Map
                 className={classNames(
@@ -384,7 +347,7 @@ const ListItem = () => {
                 toggleCategories(true);
               }}
             >
-              Choose a category
+              {t("list-item.choose-cat")}
             </a>
           </div>
         )

@@ -6,6 +6,7 @@ import classNames from "classnames";
 import { useUserContext } from "../../context/user";
 import { recordBooking } from "../../api/booking";
 import { websitUrl } from "../../api/config";
+import { useTranslation } from "react-i18next";
 const Checkout = ({
   isReady,
   setIsReady,
@@ -14,6 +15,7 @@ const Checkout = ({
   loadForm,
   data,
 }) => {
+  const { t } = useTranslation();
   const redirectLink = `${websitUrl}/checkout/`;
   const saveCheck = useRef();
   const elements = useElements();
@@ -88,7 +90,7 @@ const Checkout = ({
             value="accept"
             ref={saveCheck}
           ></input>
-          <label for="terms">Save payment details for the future</label>
+          <label for="terms">{t("checkout.save-details")}</label>
         </div>
       )}
 
@@ -100,9 +102,9 @@ const Checkout = ({
         {isPaymentLoading ? (
           <SpinnerIcon></SpinnerIcon>
         ) : !state.clientSecret ? (
-          "Please select a payment method"
+          t("checkout.select-methods")
         ) : (
-          "Send Booking"
+          t("checkout.send-booking")
         )}
       </a>
     </>

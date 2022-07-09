@@ -1,7 +1,9 @@
 import classNames from "classnames";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import "./stepper.scss";
 const Stepper = ({ activeStep = 0 }) => {
+  const { t } = useTranslation();
   return (
     <div className="stepper">
       <div className="stepper-field">
@@ -13,7 +15,7 @@ const Stepper = ({ activeStep = 0 }) => {
         >
           1
         </div>
-        Enter Account Details
+        {t("register.stepper.step1")}
       </div>
       <div className="stepper-divider">
         <div className="stepper-divider-content">
@@ -35,7 +37,7 @@ const Stepper = ({ activeStep = 0 }) => {
         >
           2
         </div>
-        Confirm email
+        {t("register.stepper.step2")}
       </div>
       <div className="stepper-divider">
         <div className="stepper-divider-content">
@@ -57,7 +59,7 @@ const Stepper = ({ activeStep = 0 }) => {
         >
           3
         </div>
-        Enter phone number
+        {t("register.stepper.step3")}
       </div>
       <div className="stepper-divider">
         <div className="stepper-divider-content">
@@ -79,7 +81,7 @@ const Stepper = ({ activeStep = 0 }) => {
         >
           4
         </div>
-        Confirm phone number
+        {t("register.stepper.step4")}
       </div>
     </div>
   );

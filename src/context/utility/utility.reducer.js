@@ -1,7 +1,12 @@
-import { $SET_CATEGORIES, $SET_SERVICE_CHARGE } from "./utility.constants";
+import {
+  $SET_CATEGORIES,
+  $SET_SERVICE_CHARGE,
+  $ADD_CATEGORY,
+  $DELETE_CATEGORY,
+} from "./utility.constants";
 
 export const UtilityBaseState = {
-  categories: [],
+  categories: undefined,
   serviceCharge: 0,
 };
 
@@ -18,6 +23,18 @@ export const UtilityReducer = (state, action) => {
       return {
         ...state,
         serviceCharge: payload,
+      };
+    }
+    case $ADD_CATEGORY: {
+      return {
+        ...state,
+        categories: payload,
+      };
+    }
+    case $DELETE_CATEGORY: {
+      return {
+        ...state,
+        categories: payload,
       };
     }
     default: {

@@ -5,6 +5,7 @@ import Cropper from "react-easy-crop";
 import getCroppedImg from "./getCroppedImage";
 import { CheckIcon, RotatingArrowIcon } from "../../assets/Icons";
 import _ from "lodash";
+import { useTranslation } from "react-i18next";
 
 const ImageEditorModal = ({
   modalOpen = false,
@@ -14,6 +15,7 @@ const ImageEditorModal = ({
   setUploadImages = () => {},
   circleCrop = false,
 }) => {
+  const { t } = useTranslation();
   const [image, setImage] = useState();
 
   const [crop, setCrop] = useState({ x: 0, y: 0 });
@@ -119,7 +121,7 @@ const ImageEditorModal = ({
                 document.getElementById("selectedFile").click();
               }}
             >
-              Upload
+              {t("image-tools.upload")}
             </div>
           </>
         )}

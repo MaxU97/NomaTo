@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./changepassword.scss";
 import validator from "validator";
-import HoverTooltip from "../../components/HoverTooltip/HoverTooltip.component";
+
 import Input from "../../components/Input/Input.component";
 import { useNotificationHandler } from "../../components/NotificationHandler/NotificationHandler.component";
 import {
@@ -25,11 +25,11 @@ const ChangePassword = () => {
 
   const [strongPassword, setStrongPassword] = useState(true);
   const [passwordConds, setPasswordConds] = useState({
-    minLength: { text: "Minimum 8 characters", met: false },
-    upperCase: { text: "1 uppercase letter", met: false },
-    lowerCase: { text: "1 lowercase letter", met: false },
-    symbol: { text: "1 symbol", met: false },
-    number: { text: "1 number", met: false },
+    minLength: { text: t("pw-requirements.characters"), met: false },
+    upperCase: { text: t("pw-requirements.upper"), met: false },
+    lowerCase: { text: t("pw-requirements.lower"), met: false },
+    symbol: { text: t("pw-requirements.symbol"), met: false },
+    number: { text: t("pw-requirements.number"), met: false },
   });
 
   const validatePasswords = () => {
@@ -58,7 +58,7 @@ const ChangePassword = () => {
         notification([message]);
         window.location.href = "/login";
       } else {
-        notification(["Please fill all fields"], true);
+        notification([t("change-pw.fill-fields")], true);
       }
     } catch (err) {
       notification([err.message], true);
@@ -135,13 +135,13 @@ const ChangePassword = () => {
         <h1>{t("change-pw.title")}</h1>
         <div className="change-pw-wrapper">
           <Input
-            placeholder="Old Password"
+            placeholder={t("change-pw.old-pw")}
             value={oldPassword}
             setValue={setOldPassword}
             type="password"
           ></Input>
           <Input
-            placeholder="New Password"
+            placeholder={t("change-pw.new-pw")}
             value={password}
             setValue={CheckAndSetPass}
             type="password"
@@ -151,12 +151,12 @@ const ChangePassword = () => {
             )}
           ></Input>
           <Input
-            placeholder="Confirm Password"
+            placeholder={t("change-pw.confirm-pw")}
             value={confirmPW}
             setValue={ConfirmAndSetPass}
             type="password"
             error={!confirmError}
-            errorText="Passwords do not match"
+            errorText={t("change-pw.no-match")}
           ></Input>
           <a
             onClick={() => {
@@ -164,7 +164,7 @@ const ChangePassword = () => {
             }}
             className="change-pw-button"
           >
-            Change Password
+            {t("change-pw.change")}
           </a>
         </div>
       </div>

@@ -29,7 +29,7 @@ const MyBookings = () => {
         {state.bookingHistoryLoaded ? (
           <>
             <div className="bookings-content">
-              <h1>My Bookings</h1>
+              <h1>{t("my-bookings.title")}</h1>
               <div className="bookings-content-container">
                 <div className="bookings-content-left">
                   <div className="menu-list">

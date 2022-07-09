@@ -5,6 +5,7 @@ import "./calendar.scss";
 import { CSSTransition } from "react-transition-group";
 import classNames from "classnames";
 import moment from "moment";
+import { useTranslation } from "react-i18next";
 const Calendar = ({
   setDateRange = () => {},
   dateRange,
@@ -15,6 +16,7 @@ const Calendar = ({
   calendarError,
   setCalendarError,
 }) => {
+  const { t } = useTranslation();
   const today = new Date();
   const [dates, setDates] = useState(dateRange ? dateRange : "");
 
@@ -31,7 +33,7 @@ const Calendar = ({
         if (date["from"] && date["to"]) {
           if (date.to - date.from == 0) {
             setDates(date);
-            setCalendarError("Please select more than one day");
+            setCalendarError(t("utility.calendar.error.one-day"));
             setDateRange({});
             return;
           }
@@ -43,15 +45,14 @@ const Calendar = ({
           const valid = checkBookedDates(date);
           if (!valid) {
             setDates(date);
-            setCalendarError("Your selection contains booked dates");
+            setCalendarError(t("utility.calendar.error.booked"));
             setDateRange({});
           } else {
             const count = getDayCount(date.to, date.from);
             if (count < minimumSelection) {
               setDates(date);
               setCalendarError(
-                "The minimum rent duration for this item is: " +
-                  minimumSelection
+                t("utility.calendar.error.minimum") + minimumSelection
               );
               setDateRange({});
             } else {

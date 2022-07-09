@@ -77,7 +77,7 @@ const BookingRequestsItem = ({ item, status }) => {
 
           <div className="booking-request-item-details">
             <div className="booking-request-item-details-field">
-              <strong>User: </strong>
+              <strong>{t("booking-requests.user")}: </strong>
               <img
                 className="profile-image"
                 src={`${apiUrl + "/" + item.userID.profileImage}`}
@@ -89,17 +89,17 @@ const BookingRequestsItem = ({ item, status }) => {
               {item.userID.preferedLanguage}
             </div>
             <div className="booking-request-item-details-field price">
-              <strong>Price: </strong>
+              <strong>{t("booking-requests.price")}: </strong>
               {euroLocale.format(price)}
             </div>
             <div className="booking-request-item-details-field">
-              <strong>Quantity Requested:</strong>
+              <strong>{t("booking-requests.qty-request")}:</strong>
               {item.qtyWant}
             </div>
           </div>
 
           <div className="booking-request-item-message">
-            <strong>Message:</strong>
+            <strong>{t("booking-requests.message")}:</strong>
             <div className="booking-request-item-message-scroll">
               <div className="booking-request-item-message-scroll-content">
                 {item.comment ? item.comment : "No Message"}

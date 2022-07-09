@@ -28,22 +28,7 @@
                 inVar={!emailConds}
               ></HoverTooltip>
             </Input>
-            <PickerDropdown
-              className="login-form-field"
-              placeholder="Preferred Languages"
-              selectedValues={selectedLanguages}
-              onDelete={handleLanguageDelete}
-            >
-              {languages.map((lang) => {
-                return (
-                  <PickerDropwnItem
-                    key={lang}
-                    value={lang}
-                    onSelect={handleLanguageSelect}
-                  ></PickerDropwnItem>
-                );
-              })}
-            </PickerDropdown>
+   
       
             <div>
               {error && <div className="login-error">{error}</div>}

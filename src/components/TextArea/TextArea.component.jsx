@@ -5,6 +5,7 @@ import "./textarea.scss";
 import { CSSTransition } from "react-transition-group";
 
 import _, { words } from "lodash";
+import { useTranslation } from "react-i18next";
 const TextArea = ({
   value = "",
   placeholder = "",
@@ -17,6 +18,7 @@ const TextArea = ({
   ref = "",
   ...props
 }) => {
+  const { t } = useTranslation();
   const [focus, setFocus] = useState(false);
   const [error, setError] = useState(false);
   const input = useRef();
@@ -75,7 +77,10 @@ const TextArea = ({
         unmountOnExit
         classNames="text-error"
       >
-        <div className="text-error">Maximum {maxCharacters} words</div>
+        <div className="text-error">
+          {t("utility.text-area.maximum")} {maxCharacters}{" "}
+          {t("utility.text-area.characters")}{" "}
+        </div>
       </CSSTransition>
     </div>
   );

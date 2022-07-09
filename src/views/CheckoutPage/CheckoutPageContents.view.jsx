@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useStripe } from "@stripe/react-stripe-js";
 import { sendBookingToOwner } from "../../api/booking";
 import { SpinnerAnimationIcon, SpinnerIcon } from "../../assets/Icons";
-import { Redirect } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 export const CheckoutPageContents = ({ clientSecret, intentID }) => {
   const stripe = useStripe();
+  const { t } = useTranslation();
   const [paymentIntent, setPaymentIntent] = useState();
   const [reload, setReload] = useState(true);
   const [callback, setCallback] = useState(false);
@@ -40,7 +41,7 @@ export const CheckoutPageContents = ({ clientSecret, intentID }) => {
           intentID: intentID,
         });
         if (!sent) {
-          setError("Something Went Wrong");
+          setError(t("checkout.error"));
         }
         setLoading(false);
         setCallback(sent);
@@ -53,23 +54,20 @@ export const CheckoutPageContents = ({ clientSecret, intentID }) => {
       {loading ? (
         error ? (
           <>
-            <h1>Something Went Wrong</h1>
-            <p>Please try to make a booking again.</p>
+            <h1>{t("checkout.error")}</h1>
+            <p>{t("checkout.try-again")}</p>
           </>
         ) : (
           <>
-            <h1>Processing payment method</h1>
+            <h1>{t("checkout.processing")}</h1>
             <SpinnerAnimationIcon scale={2}></SpinnerAnimationIcon>
-            <p>
-              Please do not close or refresh this page. You will be redirected
-              automatically once the payment method has been confirmed.
-            </p>
+            <p>{t("checkout.no-refresh")}</p>
           </>
         )
       ) : callback ? (
         window.location.replace("/")
       ) : (
-        <div>Something Went Wrong</div>
+        <div>{t("checkout.error")}</div>
       )}
     </div>
   );

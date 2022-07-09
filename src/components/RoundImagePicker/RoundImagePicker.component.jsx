@@ -15,7 +15,7 @@ const RoundImagePicker = ({
     <div className={classNames("image-picker-image", buttonClassName)}>
       <img src={image}></img>
       <div className="image-picker-image-overlay" onClick={onClick}>
-        Change Image
+        {t("image-tools.change-image")}
       </div>
     </div>
   ) : (
@@ -23,7 +23,9 @@ const RoundImagePicker = ({
       onClick={onClick}
       className={classNames("image-picker-button", buttonClassName)}
     >
-      <div className="image-picker-button-text">ADD AN IMAGE</div>
+      <div className="image-picker-button-text">
+        {t("image-tools.add-image")}
+      </div>
       <PlusIcon />
       {children}
     </div>

@@ -124,3 +124,15 @@ export const getBookedDates = async (props) => {
       return err.response.data;
     });
 };
+
+export const getAvailableQuantity = async (props) => {
+  debugger;
+  return await api
+    .post(`/booking/getQty`, props)
+    .then(({ data }) => {
+      return data.qtyAvailable;
+    })
+    .catch((err) => {
+      return err.response.data;
+    });
+};

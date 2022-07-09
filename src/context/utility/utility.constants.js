@@ -1,2 +1,4 @@
 export const $SET_CATEGORIES = "$SET_CATEGORIES";
 export const $SET_SERVICE_CHARGE = "$SET_SERVICE_CHARGE";
+export const $ADD_CATEGORY = "$ADD_CATEGORY";
+export const $DELETE_CATEGORY = "$DELETE_CATEGORY";

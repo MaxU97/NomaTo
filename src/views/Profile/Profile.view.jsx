@@ -13,7 +13,6 @@ import RoundImagePicker from "../../components/RoundImagePicker/RoundImagePicker
 import { useUserContext } from "../../context/user";
 import validator from "validator";
 import "./profile.scss";
-import HoverTooltip from "../../components/HoverTooltip/HoverTooltip.component";
 import { SpinnerAnimationIcon } from "../../assets/Icons";
 import classNames from "classnames";
 import { useNotificationHandler } from "../../components/NotificationHandler/NotificationHandler.component";
@@ -88,9 +87,14 @@ const Profile = () => {
         toggleIsUpdating(false);
         return;
       }
-
-      toggleIsUpdating(false);
-      notification([response]);
+      if (!response.changed) {
+        toggleIsUpdating(false);
+        notification([response.message], true);
+      } else {
+        toggleIsUpdating(false);
+        notification([response]);
+        window.location.reload();
+      }
     } else {
       setSubmitError(t("profile.submit-error"));
     }
@@ -169,11 +173,9 @@ const Profile = () => {
                 onMouseOut={() => {
                   togglePhoneOver(false);
                 }}
-                errorText="Please enter a valid phone number (+371...)"
+                errorText={t("profile.valid-number")}
                 showInformation={!state.user.allowPhoneEdit && phoneOver}
-                informationText={
-                  "You can only change your phone once every 30 days"
-                }
+                informationText={t("profle.phone-info")}
               />
             </div>
             <div className="profile-content-field">
@@ -187,46 +189,26 @@ const Profile = () => {
                 <Places
                   inMap={false}
                   containerClass="profile-content-field-input"
-                  // inputClass={
-                  // 	submitError &&
-                  // 	!address &&
-                  // 	"profile-content-field-input-error"
-                  // }
-                  // error={!submitError && !address}
-                  // errorText={
-                  // 	"You can only change your address once every 30 days"
-                  // }
                   setPlace={setLatLng}
                   setAddress={setAddress}
                   onMouseOver={() => {
                     toggleAddressOver(true);
                   }}
                   showInformation={!state.user.allowAddressEdit && addressOver}
-                  informationText={
-                    "You can only change your address once every 30 days"
-                  }
+                  informationText={t("profle.address-info")}
                   onMouseOut={() => {
                     toggleAddressOver(false);
                   }}
-                  // placeholder="Address"
                   existingValue={address}
                   placeholder={typeof address == "object" ? "" : address}
-                  disabled={!state.user.allowAddressEdit} // || !state.user.allowAddressEdit
-                >
-                  {/* <HoverTooltip
-										type="above"
-										content={
-											"You can only change your address once every 30 days"
-										}
-										inVar={!state.user.allowAddressEdit && addressOver}
-									></HoverTooltip> */}
-                </Places>
+                  disabled={!state.user.allowAddressEdit}
+                ></Places>
               )}
             </div>
             <span className="profile-content-error">{submitError}</span>
             <div className="profile-button-container">
               <Link to="/change-password" className="profile-button">
-                Change Password
+                {t("profile.change-pw")}
               </Link>
               <a
                 onClick={() => updateProfile()}
@@ -235,7 +217,7 @@ const Profile = () => {
                   isUpdating && "profile-button-update"
                 )}
               >
-                {isUpdating ? "Updating..." : "Save Changes"}
+                {isUpdating ? t("profile.updating") : t("profile.save")}
               </a>
             </div>
           </div>

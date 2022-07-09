@@ -52,7 +52,6 @@
         align-items: center;
         justify-content: center;
         width: 100%;
-        margin-bottom: 10px;
         .quantity-available {
           display: flex;
           flex-direction: column;
@@ -63,6 +62,9 @@
           font-size: 20px;
           color: #3299de;
           padding-bottom: 10px;
+          &[disabled] {
+            color: #a3a3a3;
+          }
         }
       }
     }

@@ -15,387 +15,427 @@ import moment from "moment";
 import CheckoutForm from "../CheckoutForm/CheckoutForm.component";
 
 import {
-	getTotalPrice,
-	getNoDiscountPrice,
-	getServiceCharge,
+  getTotalPrice,
+  getNoDiscountPrice,
+  getServiceCharge,
 } from "../../services/price.service";
 import { useUtilityContext } from "../../context/utility";
 import { useItemContext } from "../../context/item";
+import { getAvailableQuantity } from "../../api/booking";
+import { useNotificationHandler } from "../NotificationHandler/NotificationHandler.component";
 export const BookingModal = ({
-	modalOpen,
-	toggleModal,
-	title = "Request a booking",
-	minRent,
-	rentPriceDay,
-	rentPriceWeek,
-	rentPriceMonth,
-	itemQty,
-	itemID,
-	euroLocale,
-	bookedDates,
+  modalOpen,
+  toggleModal,
+  title = "Request a booking",
+  minRent,
+  rentPriceDay,
+  rentPriceWeek,
+  rentPriceMonth,
+  itemID,
+  euroLocale,
+  bookedDates,
 }) => {
-	const tcCheck = useRef();
-	const { state: utilityState } = useUtilityContext();
-	const [dataToSend, setDataToSend] = useState();
-	const [isIntentLoading, setIntentLoading] = useState(false);
+  const tcCheck = useRef();
 
-	const [qtyWant, setQtyWant] = useState(1);
-	const [comment, setComment] = useState("");
-	const [dayCount, setDayCount] = useState(0);
+  const { notification } = useNotificationHandler();
+  const [qtyOver, toggleQtyOver] = useState(false);
+  const [itemQty, setItemQty] = useState("?");
 
-	const [daySummary, setDaySummary] = useState("");
-	const [priceSummary, setPriceSummary] = useState("");
-	const [discountSummary, setDiscountSummary] = useState("");
-	const [totalSummary, setTotalSummary] = useState("");
-	const [serviceSummary, setServiceSummary] = useState("");
-	const [step, setStep] = useState(0);
-	const { t } = useTranslation();
+  const { state: utilityState } = useUtilityContext();
+  const [dataToSend, setDataToSend] = useState();
+  const [isIntentLoading, setIntentLoading] = useState(false);
 
-	const [fieldsValidated, setFieldsValidated] = useState(false);
-	const [dates, setDates] = useState({}); //actual dates
-	const [dateRange, setDateRange] = useState({}); //variable dates
-	const [qtyError, setQtyError] = useState("");
-	const [tcError, setTCError] = useState("");
-	const [calendarError, setCalendarError] = useState("");
+  const [qtyWant, setQtyWant] = useState("");
+  const [comment, setComment] = useState("");
+  const [dayCount, setDayCount] = useState(0);
 
-	const defaultSummary = {
-		day: { range: "", total: "0 Days" },
-		price: {
-			title: "0 items @ " + euroLocale.format(0) + " x 0 days",
-			result: euroLocale.format(0),
-		},
-		discount: {},
-		total: {
-			title: "Total Price",
-			result: euroLocale.format(0),
-		},
-	};
+  const [daySummary, setDaySummary] = useState("");
+  const [priceSummary, setPriceSummary] = useState("");
+  const [discountSummary, setDiscountSummary] = useState("");
+  const [totalSummary, setTotalSummary] = useState("");
+  const [serviceSummary, setServiceSummary] = useState("");
+  const [step, setStep] = useState(0);
+  const { t } = useTranslation();
 
-	const producePriceSummary = () => {
-		const dayString = getDateCount();
-		let price = {};
-		let discount = {};
-		let total = {};
-		let service = {};
-		let day = {};
+  const [fieldsValidated, setFieldsValidated] = useState(false);
+  const [dates, setDates] = useState({}); //actual dates
+  const [dateRange, setDateRange] = useState({}); //variable dates
+  const [qtyError, setQtyError] = useState("");
+  const [tcError, setTCError] = useState("");
+  const [calendarError, setCalendarError] = useState("");
 
-		day = { range: getDateRange(), total: getDateCount() };
+  const defaultSummary = {
+    day: { range: "", total: `0 ${t("booking-modal.day-multiple")}` },
+    price: {
+      title:
+        `0 ${t("booking-modal.item-multiple")} @ ` +
+        euroLocale.format(0) +
+        ` x 0 ${t("booking-modal.day-multiple")}`,
+      result: euroLocale.format(0),
+    },
+    discount: {},
+    total: {
+      title: t("booking-modal.total"),
+      result: euroLocale.format(0),
+    },
+  };
 
-		const totalPrice = getTotalPrice(
-			rentPriceDay,
-			rentPriceWeek,
-			rentPriceMonth,
-			dates.start,
-			dates.end
-		);
+  const producePriceSummary = () => {
+    const dayString = getDateCount();
+    let price = {};
+    let discount = {};
+    let total = {};
+    let service = {};
+    let day = {};
 
-		const noDiscountPrice = getNoDiscountPrice(
-			rentPriceDay,
-			dates.start,
-			dates.end
-		);
-		const serviceCharge = getServiceCharge(
-			totalPrice,
-			utilityState.serviceCharge
-		);
+    day = { range: getDateRange(), total: getDateCount() };
 
-		price = {
-			title:
-				qtyWant +
-				" items @ " +
-				euroLocale.format(rentPriceDay) +
-				" x " +
-				dayString,
-			result: euroLocale.format(noDiscountPrice * qtyWant),
-		};
+    const totalPrice = getTotalPrice(
+      rentPriceDay,
+      rentPriceWeek,
+      rentPriceMonth,
+      dates.start,
+      dates.end
+    );
 
-		service = {
-			title: "Service Charge",
-			result: euroLocale.format(serviceCharge * qtyWant),
-		};
+    const noDiscountPrice = getNoDiscountPrice(
+      rentPriceDay,
+      dates.start,
+      dates.end
+    );
+    const serviceCharge = getServiceCharge(
+      totalPrice,
+      utilityState.serviceCharge
+    );
 
-		total = {
-			title: "Total Price",
-			result: euroLocale.format((totalPrice + serviceCharge) * qtyWant),
-		};
+    price = {
+      title:
+        qtyWant +
+        ` ${t("booking-modal.item-multiple")} @ ` +
+        euroLocale.format(rentPriceDay) +
+        " x " +
+        dayString,
+      result: euroLocale.format(noDiscountPrice * qtyWant),
+    };
 
-		if (dayCount < 7) {
-			discount = {};
-		} else if (7 <= dayCount && dayCount < 30) {
-			discount = {
-				title: "Savings due to 7+ days discount",
-				result: euroLocale.format((totalPrice - noDiscountPrice) * qtyWant),
-			};
-		} else if (dayCount >= 30) {
-			discount = {
-				title: "Savings due to 30+ days discount",
-				result: euroLocale.format((totalPrice - noDiscountPrice) * qtyWant),
-			};
-		}
+    service = {
+      title: t("booking-modal.service-charge"),
+      result: euroLocale.format(serviceCharge * qtyWant),
+    };
 
-		return { day, price, service, discount, total };
-	};
+    total = {
+      title: t("booking-modal.total"),
+      result: euroLocale.format((totalPrice + serviceCharge) * qtyWant),
+    };
 
-	const getDateCount = () => {
-		if (dates) {
-			let dayString = dayCount + " ";
+    if (dayCount < 7) {
+      discount = {};
+    } else if (7 <= dayCount && dayCount < 30) {
+      discount = {
+        title: t("booking-modal.seven-discount"),
+        result: euroLocale.format((totalPrice - noDiscountPrice) * qtyWant),
+      };
+    } else if (dayCount >= 30) {
+      discount = {
+        title: t("booking-modal.thirty-discount"),
+        result: euroLocale.format((totalPrice - noDiscountPrice) * qtyWant),
+      };
+    }
 
-			if (dayCount == 1) {
-				dayString = dayString + t("booking-modal.day-single");
-			} else {
-				dayString = dayString + t("booking-modal.day-multiple");
-			}
-			return dayString;
-		} else {
-			return "0 Days";
-		}
-	};
+    return { day, price, service, discount, total };
+  };
 
-	const getDateRange = () => {
-		let dateString = dates["start"].toLocaleString(getCurrentLanguage(), {
-			day: "numeric",
-			month: "short",
-		});
+  const getDateCount = () => {
+    if (dates) {
+      let dayString = dayCount + " ";
 
-		dateString =
-			dateString +
-			" - " +
-			dates["end"].toLocaleString(getCurrentLanguage(), {
-				day: "numeric",
-				month: "short",
-			});
+      if (dayCount == 1) {
+        dayString = dayString + t("booking-modal.day-single");
+      } else {
+        dayString = dayString + t("booking-modal.day-multiple");
+      }
+      return dayString;
+    } else {
+      return "0 Days";
+    }
+  };
 
-		return dateString;
-	};
+  const getDateRange = () => {
+    let dateString = dates["start"].toLocaleString(getCurrentLanguage(), {
+      day: "numeric",
+      month: "short",
+    });
 
-	useEffect(() => {
-		if (!_.isEmpty(dateRange)) {
-			setDates({ start: dateRange.from, end: dateRange.to });
+    dateString =
+      dateString +
+      " - " +
+      dates["end"].toLocaleString(getCurrentLanguage(), {
+        day: "numeric",
+        month: "short",
+      });
 
-			let start = moment(dateRange.from);
-			let end = moment(dateRange.to);
-			setDayCount(end.diff(start, "days"));
-		} else {
-			setDates({});
-			setDayCount(0);
-		}
-	}, [dateRange]);
+    return dateString;
+  };
 
-	const nextStep = async () => {
-		const validated = await validateFields();
-		if (validated) {
-			setIntentLoading(true);
-			await sendCard();
-			setIntentLoading(false);
-			setTCError("");
-			setStep(step + 1);
-		}
-	};
+  useEffect(() => {
+    const changeDates = async () => {
+      if (!_.isEmpty(dateRange)) {
+        try {
+          const qty = await getAvailableQuantity({
+            dates: dateRange,
+            itemID: itemID,
+          });
+          setItemQty(qty);
+        } catch (err) {
+          notification([err.message], true);
+        }
+        setDates({ start: dateRange.from, end: dateRange.to });
+        let start = moment(dateRange.from);
+        let end = moment(dateRange.to);
+        setDayCount(end.diff(start, "days"));
+      } else {
+        setDates({});
+        setDayCount(0);
+      }
+    };
+    changeDates();
+  }, [dateRange]);
 
-	const checkAndResetQtyWant = (value) => {
-		resetQtyValidation(value);
-	};
+  const nextStep = async () => {
+    const validated = await validateFields();
+    if (validated) {
+      setIntentLoading(true);
+      await sendCard();
+      setIntentLoading(false);
+      setTCError("");
+      setStep(step + 1);
+    }
+  };
 
-	useEffect(() => {
-		processFields();
-	}, [dates, qtyWant]);
-	const processFields = () => {
-		if (
-			!qtyError?.length &&
-			!calendarError?.length &&
-			qtyWant &&
-			!_.isEmpty(dates)
-		) {
-			const { day, price, service, discount, total } = producePriceSummary();
-			setDaySummary(day);
-			setPriceSummary(price);
-			setServiceSummary(service);
-			setDiscountSummary(discount);
-			setTotalSummary(total);
-		} else {
-			setDaySummary(defaultSummary.day);
-			setPriceSummary(defaultSummary.price);
-			setDiscountSummary(defaultSummary.discount);
-			setServiceSummary(defaultSummary.service);
-			setTotalSummary(defaultSummary.total);
-		}
-	};
+  const checkAndResetQtyWant = (value) => {
+    resetQtyValidation(value);
+  };
 
-	const validateFields = async () => {
-		let returnBool = true;
-		if (qtyWant > 0) {
-			if (qtyWant > itemQty) {
-				setQtyError(`Only ${itemQty} available`);
-				returnBool = false;
-			}
-		} else {
-			setQtyError("Please select quantity");
-			returnBool = false;
-		}
-		if (_.isEmpty(dates)) {
-			if (!calendarError) {
-				setCalendarError("Please select valid dates");
-				returnBool = false;
-			}
-		}
+  useEffect(() => {
+    processFields();
+  }, [dates, qtyWant]);
+  const processFields = () => {
+    if (
+      !qtyError?.length &&
+      !calendarError?.length &&
+      qtyWant &&
+      !_.isEmpty(dates)
+    ) {
+      const { day, price, service, discount, total } = producePriceSummary();
+      setDaySummary(day);
+      setPriceSummary(price);
+      setServiceSummary(service);
+      setDiscountSummary(discount);
+      setTotalSummary(total);
+    } else {
+      setDaySummary(defaultSummary.day);
+      setPriceSummary(defaultSummary.price);
+      setDiscountSummary(defaultSummary.discount);
+      setServiceSummary(defaultSummary.service);
+      setTotalSummary(defaultSummary.total);
+    }
+  };
 
-		if (!tcCheck.current.checked) {
-			returnBool = false;
-			setTCError(true);
-		}
-		return returnBool;
-	};
+  const validateFields = async () => {
+    let returnBool = true;
+    if (qtyWant > 0) {
+      if (qtyWant > itemQty) {
+        setQtyError(
+          `${t("booking-modal.only")} ${itemQty} ${t(
+            "booking-modal.available"
+          )}`
+        );
+        returnBool = false;
+      }
+    } else {
+      setQtyError(t("booking-modal.select-quantity"));
+      returnBool = false;
+    }
+    if (_.isEmpty(dates)) {
+      if (!calendarError) {
+        setCalendarError(t("booking-modal.valid-dates"));
+        returnBool = false;
+      }
+    }
 
-	const resetQtyValidation = (value) => {
-		if (value) {
-			if (value > itemQty) {
-				setQtyError(`Only ${itemQty} available`);
-				// setQtyWant(itemQty);
-				// return;
-			} else {
-				setQtyError("");
-				// setQtyWant(value);
-			}
-		} else {
-			setQtyError("");
-			// setQtyWant(value);
-		}
-		setQtyWant(value);
-	};
-	const resetTCValidation = () => {
-		if (tcCheck.current.checked) {
-			setTCError(false);
-		} else {
-			setTCError(true);
-		}
-	};
+    if (!tcCheck.current.checked) {
+      returnBool = false;
+      setTCError(true);
+    }
+    return returnBool;
+  };
 
-	const tcChecked = () => {
-		resetTCValidation();
-	};
-	const sendCard = async () => {
-		let data = {
-			itemID,
-			comment: comment,
-			dateStart: dates["start"],
-			dateEnd: dates["end"],
-			qtyWant: qtyWant,
-		};
-		setDataToSend(data);
-	};
+  const resetQtyValidation = (value) => {
+    if (value) {
+      if (value > itemQty) {
+        setQtyError(
+          `${t("booking-modal.only")} ${itemQty} ${t(
+            "booking-modal.available"
+          )}`
+        );
+        // setQtyWant(itemQty);
+        // return;
+      } else {
+        setQtyError("");
+        // setQtyWant(value);
+      }
+    } else {
+      setQtyError("");
+      // setQtyWant(value);
+    }
+    setQtyWant(value);
+  };
+  const resetTCValidation = () => {
+    if (tcCheck.current.checked) {
+      setTCError(false);
+    } else {
+      setTCError(true);
+    }
+  };
 
-	return (
-		<Modal modalOpen={modalOpen} toggleModal={toggleModal}>
-			<div className="booking-modal">
-				<h1>{title}</h1>
-				{step == 0 && (
-					<div className="booking-modal-contents">
-						<div className="booking-modal-contents-left">
-							<div className="booking-modal-contents-left-top">
-								<Input
-									placeholder={t("booking-modal.quantity")}
-									error={!!qtyError}
-									errorText={qtyError}
-									className={classNames("booking-modal-input")}
-									value={qtyWant}
-									setValue={checkAndResetQtyWant}
-									type="number"
-									maxLength={10}
-									containerClass={classNames(qtyError && "error")}
-								></Input>
-								<div className="quantity-available">{itemQty} Available</div>
-							</div>
+  const tcChecked = () => {
+    resetTCValidation();
+  };
+  const sendCard = async () => {
+    let data = {
+      itemID,
+      comment: comment,
+      dateStart: dates["start"],
+      dateEnd: dates["end"],
+      qtyWant: qtyWant,
+    };
+    setDataToSend(data);
+  };
 
-							<Calendar
-								calendarError={calendarError}
-								setCalendarError={setCalendarError}
-								dateRange={dateRange}
-								setDateRange={setDateRange}
-								bookedDates={bookedDates.map((date) => new Date(date))}
-								minimumSelection={minRent}
-							></Calendar>
+  return (
+    <Modal modalOpen={modalOpen} toggleModal={toggleModal}>
+      <div className="booking-modal">
+        <h1>{title}</h1>
+        {step == 0 && (
+          <div className="booking-modal-contents">
+            <div className="booking-modal-contents-left">
+              <Calendar
+                calendarError={calendarError}
+                setCalendarError={setCalendarError}
+                dateRange={dateRange}
+                setDateRange={setDateRange}
+                bookedDates={bookedDates.map((date) => new Date(date))}
+                minimumSelection={minRent}
+              ></Calendar>
 
-							<Input
-								placeholder={t("booking-modal.comment")}
-								className={classNames("booking-modal-input-100")}
-								value={comment}
-								setValue={setComment}
-								maxLength={200}
-							></Input>
-						</div>
-						<div className="booking-modal-contents-right">
-							<div className="price-summary">
-								<div className="price-summary-dates">
-									{daySummary.range}
-									<div className="price-summary-dates-count">
-										{daySummary.total}
-									</div>
-								</div>
-								<div className="price-summary-prices">
-									<div className="summary">
-										{priceSummary && (
-											<div className="entry">
-												<div className="calc">{priceSummary.title}</div>
-												<div className="result">{priceSummary.result}</div>
-											</div>
-										)}
-										{serviceSummary && (
-											<div className="entry">
-												<div className="calc">{serviceSummary.title}</div>
-												<div className="result">{serviceSummary.result}</div>
-											</div>
-										)}
-										{discountSummary && (
-											<div className="entry">
-												<div className="calc">{discountSummary.title}</div>
-												<div className="result">{discountSummary.result}</div>
-											</div>
-										)}
-									</div>
-									{totalSummary && (
-										<div className="total">
-											<div className="calc">{totalSummary.title}</div>
-											<div className="result">{totalSummary.result}</div>
-										</div>
-									)}
-								</div>
-							</div>
-							<div className="terms-and-conditions">
-								<input
-									type="checkbox"
-									id="terms"
-									name="terms"
-									value="accept"
-									onClick={tcChecked}
-									ref={tcCheck}
-								></input>
-								<label
-									className={classNames(tcError && "tc-error")}
-									for="terms"
-								>
-									Agree to terms and conditions
-								</label>
-							</div>
-							<a
-								className="booking-modal-button"
-								onClick={async () => {
-									nextStep();
-								}}
-								disabled={isIntentLoading}
-							>
-								{isIntentLoading ? "Loading" : "Next Step"}
-							</a>
-						</div>
-					</div>
-				)}
-				{step == 1 && (
-					<CheckoutForm
-						step={step}
-						setStep={setStep}
-						data={dataToSend}
-					></CheckoutForm>
-				)}
-			</div>
-		</Modal>
-	);
+              <div className="booking-modal-contents-left-top">
+                <Input
+                  placeholder={t("booking-modal.quantity")}
+                  error={!!qtyError}
+                  errorText={qtyError}
+                  className={classNames("booking-modal-input")}
+                  value={qtyWant}
+                  setValue={checkAndResetQtyWant}
+                  disabled={_.isEmpty(dateRange)}
+                  onMouseOver={() => {
+                    toggleQtyOver(true);
+                  }}
+                  onMouseOut={() => {
+                    toggleQtyOver(false);
+                  }}
+                  showInformation={_.isEmpty(dates) && qtyOver}
+                  informationText={t("booking-modal.dates-first")}
+                  type="number"
+                  maxLength={10}
+                  containerClass={classNames(qtyError && "error")}
+                ></Input>
+                <div className="quantity-available" disabled={_.isEmpty(dates)}>
+                  {itemQty} {t("booking-modal.available-c")}
+                </div>
+              </div>
+              <Input
+                placeholder={t("booking-modal.comment")}
+                className={classNames("booking-modal-input-100")}
+                value={comment}
+                setValue={setComment}
+                maxLength={200}
+              ></Input>
+            </div>
+            <div className="booking-modal-contents-right">
+              <div className="price-summary">
+                <div className="price-summary-dates">
+                  {daySummary.range}
+                  <div className="price-summary-dates-count">
+                    {daySummary.total}
+                  </div>
+                </div>
+                <div className="price-summary-prices">
+                  <div className="summary">
+                    {priceSummary && (
+                      <div className="entry">
+                        <div className="calc">{priceSummary.title}</div>
+                        <div className="result">{priceSummary.result}</div>
+                      </div>
+                    )}
+                    {serviceSummary && (
+                      <div className="entry">
+                        <div className="calc">{serviceSummary.title}</div>
+                        <div className="result">{serviceSummary.result}</div>
+                      </div>
+                    )}
+                    {discountSummary && (
+                      <div className="entry">
+                        <div className="calc">{discountSummary.title}</div>
+                        <div className="result">{discountSummary.result}</div>
+                      </div>
+                    )}
+                  </div>
+                  {totalSummary && (
+                    <div className="total">
+                      <div className="calc">{totalSummary.title}</div>
+                      <div className="result">{totalSummary.result}</div>
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="terms-and-conditions">
+                <input
+                  type="checkbox"
+                  id="terms"
+                  name="terms"
+                  value="accept"
+                  onClick={tcChecked}
+                  ref={tcCheck}
+                ></input>
+                <label
+                  className={classNames(tcError && "tc-error")}
+                  for="terms"
+                >
+                  {t("booking-modal.t-c")}
+                </label>
+              </div>
+              <a
+                className="booking-modal-button"
+                onClick={async () => {
+                  nextStep();
+                }}
+                disabled={isIntentLoading}
+              >
+                {isIntentLoading
+                  ? t("booking-modal.loading")
+                  : t("booking-modal.next")}
+              </a>
+            </div>
+          </div>
+        )}
+        {step == 1 && (
+          <CheckoutForm
+            step={step}
+            setStep={setStep}
+            data={dataToSend}
+          ></CheckoutForm>
+        )}
+      </div>
+    </Modal>
+  );
 };

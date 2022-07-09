@@ -53,7 +53,7 @@ const QRRead = ({ showHeader = (val) => {} }) => {
       <div className="qr-read-container">
         {!!!options ? (
           <>
-            <h2>Scan the QR-Code provided</h2>
+            <h2>{t("qr.scan-qr")}</h2>
             <div className="qr-read-overlay">
               <svg width="50px" viewBox="0 0 100 100">
                 <path

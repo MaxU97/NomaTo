@@ -257,8 +257,7 @@
     }
 
     .description {
-      transform: translateY();
-      max-height: 100px;
+      height: 100px;
       overflow-y: auto;
       padding: 10px;
       font-size: 18px;
@@ -280,7 +279,21 @@
     font-size: 22px;
     font-weight: bold;
     text-align: left;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
     margin-bottom: 10px;
+    &-small {
+      color: #a3a3a3;
+      font-family: Gilroy-Light;
+      font-size: 15px;
+      transition: 0.2s;
+      &:hover {
+        color: #bebebe;
+        transition: 0.2s;
+      }
+    }
   }
 }
 .center {

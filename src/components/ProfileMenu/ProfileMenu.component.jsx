@@ -88,9 +88,9 @@ const ProfileMenu = () => {
           {state.user.admin && (
             <>
               <hr />
-              <Link to="/add-news" className="profile-item">
+              {/* <Link to="/add-news" className="profile-item">
                 {t("profile-menu.admin.add-news")}
-              </Link>
+              </Link> */}
               <Link to="/add-categories" className="profile-item">
                 {t("profile-menu.admin.add-categories")}
               </Link>
@@ -104,7 +104,7 @@ const ProfileMenu = () => {
               window.location.reload();
             }}
           >
-            Logout
+            {t("profile-menu.logout")}
           </a>
         </div>
       )}

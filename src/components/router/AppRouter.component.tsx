@@ -11,7 +11,6 @@ import NotFound from "../../views/NotFound";
 import Header from "../Header/Header.component";
 import { useUserContext } from "../../context/user";
 import AddNews from "../../views/AddNews/AddNews.view";
-import UploadTest from "../../views/UploadTest";
 import ListItem from "../../views/ListItem/ListItem.view";
 import { ItemPage } from "../../views/ItemPage/ItemPage.view";
 import { CheckoutPage } from "../../views/CheckoutPage/CheckoutPage.view";
@@ -63,9 +62,9 @@ export const AppRouter = () => {
           <ForgotPassword />
         </PublicRoute>
         {/* Admin routes */}
-        <PrivateRoute path={["/add-news"]} exact admin>
+        {/* <PrivateRoute path={["/add-news"]} exact admin>
           <AddNews />
-        </PrivateRoute>
+        </PrivateRoute> */}
         <PrivateRoute path={["/add-categories"]} exact admin>
           <AddCategories />
         </PrivateRoute>
@@ -107,11 +106,11 @@ export const AppRouter = () => {
           <AccountBalance />
         </PrivateRoute>
         {/* Test routes */}
-        <Route
+        {/* <Route
           path={["/test-upload"]}
           exact
           component={() => <UploadTest />}
-        ></Route>
+        ></Route> */}
         {/* 404 */}
         <Route component={() => <NotFound />} />
       </Switch>

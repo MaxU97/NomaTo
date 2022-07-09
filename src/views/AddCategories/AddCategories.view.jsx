@@ -24,9 +24,17 @@ import {
 import { apiUrl } from "../../api/config";
 import { useUtilityContext } from "../../context/utility";
 import { set } from "lodash";
+import { useNotificationHandler } from "../../components/NotificationHandler/NotificationHandler.component";
+
 const AddCategories = () => {
   const [editType, setEditType] = useState(false);
-  const { state: utilityState } = useUtilityContext();
+  const { notification } = useNotificationHandler();
+  const {
+    state: utilityState,
+    ADD_CATEGORY,
+    GET_CAT,
+    DELETE_CATEGORY,
+  } = useUtilityContext();
   const titleLanguage = `title${getCurrentLanguage().toUpperCase()}`;
   const { t } = useTranslation();
 
@@ -45,6 +53,10 @@ const AddCategories = () => {
   const [imageError, setImageError] = useState("");
 
   const [existingDependancies, setExistingDependancies] = useState(false);
+
+  useEffect(async () => {
+    await GET_CAT();
+  }, []);
 
   const resetFields = () => {
     setTitleRU("");
@@ -173,6 +185,7 @@ const AddCategories = () => {
       }
     }
 
+    debugger;
     subcats.map((subcat, index) => {
       const titles = [subcat.titleEN, subcat.titleRU, subcat.titleLV];
       titles.every((title) => {
@@ -194,6 +207,7 @@ const AddCategories = () => {
     });
     if (image.length == 0) {
       setImageError(t("add-category.include-an-image"));
+      error = true;
     }
     return error;
   };
@@ -201,6 +215,7 @@ const AddCategories = () => {
   const submitCategory = () => {
     const send = async () => {
       setIsLoading(true);
+      debugger;
 
       const error = await validateFields();
 
@@ -235,12 +250,17 @@ const AddCategories = () => {
             }
           }
 
-          const res = await createCategory(data);
-          if (res) {
+          try {
+            const res = await ADD_CATEGORY(data);
+            if (res) {
+              setIsLoading(false);
+              window.location.reload();
+            } else {
+              setIsLoading(false);
+            }
+          } catch (err) {
             setIsLoading(false);
-            window.location.reload();
-          } else {
-            setIsLoading(false);
+            notification([err.message], true);
           }
         });
       } else {
@@ -264,7 +284,12 @@ const AddCategories = () => {
   };
 
   const deleteCat = async (id) => {
-    const res = await deleteCategory(id);
+    try {
+      await DELETE_CATEGORY(id);
+      window.location.reload();
+    } catch (err) {
+      notification([err.message], true);
+    }
   };
 
   return (
@@ -275,17 +300,18 @@ const AddCategories = () => {
             <>
               <h1>{t("add-category.edit-categories")}</h1>
               <div className="category-form-types">
-                {utilityState.categories.map((cat) => (
-                  <div
-                    className="category-form-types-type"
-                    onClick={() => {
-                      setEditType(cat);
-                    }}
-                  >
-                    <img src={`${apiUrl + "/" + cat.imageURL}`}></img>
-                    <h3>{cat[titleLanguage]}</h3>
-                  </div>
-                ))}
+                {utilityState.categories &&
+                  utilityState.categories.map((cat) => (
+                    <div
+                      className="category-form-types-type"
+                      onClick={() => {
+                        setEditType(cat);
+                      }}
+                    >
+                      <img src={`${apiUrl + "/" + cat.imageURL}`}></img>
+                      <h3>{cat[titleLanguage]}</h3>
+                    </div>
+                  ))}
                 <div
                   className="category-form-types-type"
                   onClick={() => {
@@ -311,9 +337,9 @@ const AddCategories = () => {
               {editType != "new" && !existingDependancies && (
                 <TrashIcon
                   className="delete-category"
-                  onClick={() => {
-                    deleteCat(editType._id);
-                    window.location.reload();
+                  onClick={async () => {
+                    await deleteCat(editType._id);
+                    setEditType(false);
                   }}
                 ></TrashIcon>
               )}
@@ -437,39 +463,42 @@ const AddCategories = () => {
                         ></MinusIcon>
                         <Input
                           placeholder={t("add-category.title-EN")}
-                          className={classNames("subcat-input")}
                           value={subcat.titleEN}
                           setValue={(event) => {
                             setSubTitleEN(event, index);
                             resetSubcat(index);
                           }}
-                          containerClass={classNames(
-                            subcatErrors[index].error && "error"
-                          )}
+                          withoutError={true}
+                          error={subcatErrors[index].error}
+                          // containerClass={classNames(
+                          //    && "error"
+                          // )}
                         ></Input>
                         <Input
                           placeholder={t(t("add-category.title-RU"))}
-                          className={classNames("subcat-input")}
                           value={subcat.titleRU}
                           setValue={(event) => {
                             setSubTitleRU(event, index);
                             resetSubcat(index);
                           }}
-                          containerClass={classNames(
-                            subcatErrors[index].error && "error"
-                          )}
+                          withoutError={true}
+                          error={subcatErrors[index].error}
+                          // containerClass={classNames(
+                          //   subcatErrors[index].error && "error"
+                          // )}
                         ></Input>
                         <Input
                           placeholder={t("add-category.title-LV")}
-                          className={classNames("subcat-input")}
                           value={subcat.titleLV}
                           setValue={(event) => {
                             setSubTitleLV(event, index);
                             resetSubcat(index);
                           }}
-                          containerClass={classNames(
-                            subcatErrors[index].error && "error"
-                          )}
+                          error={subcatErrors[index].error}
+                          withoutError={true}
+                          // containerClass={classNames(
+                          //   subcatErrors[index].error && "error"
+                          // )}
                         ></Input>
                       </div>
                     ))}

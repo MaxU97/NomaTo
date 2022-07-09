@@ -40,7 +40,7 @@ const Header = () => {
 
           {state.user.sellerCompleted && state.userBalance && (
             <Link to="/account-balance" className="menu-item">
-              {euroLocale.format(state.userBalance.available)}
+              {euroLocale.format(state.userBalance.available / 100)}
               <span style={{ color: "#a3a3a3" }}>{` (${euroLocale.format(
                 state.userBalance.pending / 100
               )})`}</span>

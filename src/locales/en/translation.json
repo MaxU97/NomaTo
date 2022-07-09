@@ -33,13 +33,31 @@
     "reg-message-2": "anything",
     "login": "Login",
     "signup": "Sign up",
-    "forgot-password": "Forgot Password"
+    "forgot-password": "Forgot Password",
+    "email": "Email",
+    "password": "Password"
   },
   "register": {
     "fill-code": "Please enter a code",
     "email-code-1": "We have sent an email to",
     "email-code-2": "containing a confirmation code, please enter it below to confirm the email",
-    "resend-code": "Resend code"
+    "resend-code": "Resend code",
+    "stepper": {
+      "step1": "Enter Account Details",
+      "step2": "Confirm email",
+      "step3": "Enter phone number",
+      "step4": "Confirm phone number"
+    },
+    "next": "Next Step",
+    "valid-email": "Please enter a valid email",
+    "no-match": "Passwords do not match",
+    "valid-phone": "Please enter a valid phone number (+371...)",
+    "confirm-code": "Confirmation Code",
+    "email": "Email",
+    "password": "Password",
+    "confirm-pw": "Confirm Password",
+    "phone": "Phone",
+    "prefered-lng": "Prefered Languages"
   },
   "profile-menu": {
     "profile": "Profile",
@@ -48,9 +66,11 @@
     "myshop": "My Shop",
     "list-item": "List an item",
     "booking-requests": "Booking Requests",
-    "admin": { "add-news": "Add News", "add-categories": "Edit Categories" }
+    "admin": { "add-news": "Add News", "add-categories": "Edit Categories" },
+    "logout": "Logout"
   },
   "list-item": {
+    "must-include": "Must include the following:",
     "uploading": "Listing",
     "title": "List an Item",
     "t1": "Name",
@@ -61,7 +81,7 @@
     "desc": "Description (800 characters max)",
     "address": "Address",
     "address-disclaimer": "We will never show users your full address",
-    "description-disclaimer": "You must enter at least one description, it will be translated automatically (errors maybe present)",
+    "description-disclaimer": "Our system will automatically translate your description our users' languages",
     "item-value": "Item Value (€)",
     "min-days": "Minimum rental days",
     "price-per": "Rent price (€) per:",
@@ -71,12 +91,20 @@
     "month": "Month",
     "cancel": "Cancel",
     "list-item": "List this item",
-    "image-controls": {
-      "main-tooltip": "Make main image",
-      "delete-tooltip": "Delete image",
-      "main-image": "Main Image"
-    },
-    "please-fill-profile": "You have to fill your profile and connect a stripe account before making a listing"
+    "please-fill-profile": "You have to fill your profile and connect a stripe account before making a listing",
+    "choose-cat": "Choose a category",
+    "error": {
+      "image": "At least 1 image",
+      "title": "A title ",
+      "desc": "Description",
+      "address": "A valid address from the dropdown",
+      "rent-day": "A rent price per day",
+      "rent-week": "A rent price per week",
+      "rent-month": "A rent price per month",
+      "value": "Item Value",
+      "min-rent": "Minimum rent duration",
+      "qty": "Quantity of items"
+    }
   },
   "item-page": {
     "prices": "Pricelist:",
@@ -94,14 +122,31 @@
     "recommended": "Recommended",
     "not-recommended": "Not recommended",
     "you-are-owner": "You are the owner",
-    "need-completed-profile": "You need to fill your profile before booking"
+    "need-completed-profile": "You need to fill your profile before booking",
+    "read-more": "Read more...",
+    "show-original": "Show original description",
+    "show-translated": "Show translated description"
   },
   "booking-modal": {
     "quantity": "Quantity Needed",
     "comment": "Message for the owner (optional)",
     "price-breakdown": "Price Breakdown",
     "day-single": "Day",
-    "day-multiple": "Days"
+    "day-multiple": "Days",
+    "item-multiple": "items",
+    "total": "Total Price",
+    "service-charge": "Service Charge",
+    "seven-discount": "Savings due to 7+ days discount",
+    "thirty-discount": "Savings due to 30+ days discount",
+    "select-quantity": "Please select quantity",
+    "valid-dates": "Please select valid dates",
+    "only": "Only",
+    "available": "available",
+    "available-c": "Available",
+    "dates-first": "Please select dates first",
+    "t-c": "Agree to terms and conditions",
+    "loading": "Loading",
+    "next": "Next Step"
   },
 
   "booking-requests": {
@@ -126,9 +171,16 @@
     "language-advise": "Please respect the user's prefered languages",
     "prefered-languages": "Prefered Languages:",
     "confirm-pickup": "Confirm Pick-up",
-    "drop-off-qr": "Drop-off QR"
+    "drop-off-qr": "Drop-off QR",
+    "status": "Status",
+    "dates": "Dates",
+    "user": "User",
+    "price": "Price",
+    "qty-request": "Quantity Requested",
+    "message": "Message"
   },
   "my-bookings": {
+    "title": "My Bookings",
     "all": "All",
     "approval-required": "Awaiting Confirmation",
     "approved": "Awaiting Pick Up",
@@ -142,7 +194,8 @@
   "qr": {
     "show-owner": "Show this to the owner on pick up",
     "fees": "Fees may apply if not shown!",
-    "processing": "Processing QR Code"
+    "processing": "Processing QR Code",
+    "scan-qr": "Scan the QR-Code provided"
   },
   "add-category": {
     "add-category": "Add Category",
@@ -161,6 +214,13 @@
     "new-cat": "Add New",
     "save-changes": "Save Changes"
   },
+  "pw-requirements": {
+    "characters": "Minimum 8 characters",
+    "upper": "1 uppercase letter",
+    "lower": "1 lowercase letter",
+    "symbol": "1 symbol",
+    "number": "1 number"
+  },
 
   "profile": {
     "title": "Your Profile",
@@ -170,7 +230,13 @@
     "phone": "Phone",
     "languages": "Languages",
     "address": "Address",
-    "submit-error": "Please fill all the fields correctly"
+    "change-pw": "Change Password",
+    "submit-error": "Please fill all the fields correctly",
+    "updating": "Updating...",
+    "save": "Save Changes",
+    "valid-number": "Please enter a valid phone number (+371...)",
+    "address-info": "You can only change your address once every 30 days",
+    "phone-info": "You can only change your phone once every 30 days"
   },
   "search-page": {
     "location": "Location",
@@ -178,14 +244,25 @@
     "price": "Price",
     "other-filters": "Other Filters",
     "price-from": "Price (from)",
-    "price-to": "Price (to)"
+    "price-to": "Price (to)",
+    "apply": "Apply",
+    "distance": "Distance(km)"
   },
   "forgot-pw": {
     "title": "Reset your password",
     "fill-code": "Please enter a code",
     "email-code-1": "We have sent an email to",
     "email-code-2": "containing a confirmation code, please enter it below",
-    "resend-code": "Resend code"
+    "resend-code": "Resend code",
+    "next": "Next Step",
+    "confirm": "Confirm",
+    "fill-fields": "Please fill all fields",
+    "valid-email": "Please enter a valid email",
+    "no-match": "Passwords do not match",
+    "email": "Email",
+    "confirm-code": "Confirmation Code",
+    "password": "Password",
+    "confirm-pw": "Confirm Password"
   },
   "edit-item": {
     "title": "Edit Item",
@@ -196,7 +273,13 @@
     "income": "Income"
   },
   "change-pw": {
-    "title": "Change your password"
+    "title": "Change your password",
+    "change": "Change Password",
+    "old-pw": "Old Password",
+    "new-pw": "New Password",
+    "confirm-pw": "Confirm Password",
+    "no-match": "Passwords don't match",
+    "fill-fields": "Please fill all fields"
   },
   "lender-guide": {
     "finish-profile": "Fill Your Profile",
@@ -218,6 +301,48 @@
     "fill-required": "Fill all the required fields",
     "lending-set": "You are set to lend!",
     "stripe-expl": "Stripe will lead you through authentication needed to become a seller",
-    "able-to-list": "You can now list your first item"
+    "able-to-list": "You can now list your first item",
+    "create-account": "Create an account"
+  },
+  "checkout": {
+    "save-details": "Save payment details for the future",
+    "select-methods": "Please select a payment method",
+    "send-booking": "Send Booking",
+    "error": "Something went wrong",
+    "try-again": "Please try to make a booking again.",
+    "processing": "Processing payment method",
+    "no-refresh": "Please do not close or refresh this page. You will be redirected automatically once the payment method has been confirmed."
+  },
+  "image-tools": {
+    "main-tooltip": "Make main image",
+    "delete-tooltip": "Delete image",
+    "main-image": "Main Image",
+    "add-image": "ADD AN IMAGE",
+    "change-image": "Change Image",
+    "upload": "Upload"
+  },
+  "account-balance": {
+    "balance": "Balance",
+    "available": "Available",
+    "pending": "Pending",
+    "loading": "Loading",
+    "withdraw": "Withdraw Funds",
+    "amount": "Withdraw Amount"
+  },
+  "utility": {
+    "calendar": {
+      "error": {
+        "one-day": "Please select more than one day",
+        "booked": "Your selection contains booked dates",
+        "minimum": "The minimum rent duration for this item is: "
+      }
+    },
+    "places": {
+      "address": "Address"
+    },
+    "text-area": {
+      "maximum": "Maximum",
+      "characters": "characters"
+    }
   }
 }

@@ -67,8 +67,8 @@ const LanguagePicker = () => {
 
   const selectLanguage = (key) => {
     setOpen(!isOpen);
-    i18n.changeLanguage(key);
     localStorage.language = key;
+    window.location.reload();
   };
   return (
     <div className="lp-wrapper" ref={ref}>

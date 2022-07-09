@@ -96,7 +96,7 @@ const BecomeALender = () => {
                       getRequestAccount();
                     }}
                   >
-                    Create an account
+                    {t("lender-guide.create-account")}
                   </a>
                 </div>
 

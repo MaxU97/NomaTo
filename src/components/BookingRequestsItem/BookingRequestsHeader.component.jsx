@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import "./bookingrequestsheader.scss";
 import { getCurrentLanguage } from "../../services/language.service";
+import { useTranslation } from "react-i18next";
 const BookingRequestsHeader = ({ booking, status, rawStatus }) => {
   const [date, setDate] = useState();
+  const { t } = useTranslation();
   useEffect(() => {
     const dates = [new Date(booking.dateStart), new Date(booking.dateEnd)];
 
@@ -22,10 +24,11 @@ const BookingRequestsHeader = ({ booking, status, rawStatus }) => {
     <div className="booking-header">
       <div className="booking-header-title">{booking.itemID.title}</div>
       <div className="booking-header-status">
-        Status: <strong aria-label={rawStatus}>{status}</strong>
+        {t("booking-requests.status")}:{" "}
+        <strong aria-label={rawStatus}>{status}</strong>
       </div>
       <div className="booking-header-dates">
-        Dates: <strong>{date}</strong>
+        {t("booking-requests.dates")}: <strong>{date}</strong>
       </div>
     </div>
   );
