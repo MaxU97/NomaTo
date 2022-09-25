@@ -12,7 +12,9 @@ import {
 } from "../../assets/Icons";
 import { useNotificationHandler } from "../../components/NotificationHandler/NotificationHandler.component";
 import "./myshop.scss";
+import { usePromptHandler } from "../../components/Prompt/Prompt.component";
 const MyShop = () => {
+  const { prompt } = usePromptHandler();
   const { t } = useTranslation();
   const { notification } = useNotificationHandler();
   const tabs = [t("my-shop.my-items"), t("my-shop.income")];
@@ -102,7 +104,13 @@ const MyShop = () => {
                           <TrashIcon
                             className="trash"
                             onClick={() => {
-                              removeItem(item.id);
+                              prompt(
+                                `Are you sure you want to delete "${item.title}"?`,
+                                "This action is irrevirsible",
+                                () => {
+                                  removeItem(item.id);
+                                }
+                              );
                             }}
                           ></TrashIcon>
                         </div>

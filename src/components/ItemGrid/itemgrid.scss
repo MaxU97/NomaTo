@@ -1,0 +1,13 @@
+.item-grid {
+  width: 100%;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  margin-top: 0;
+  grid-auto-flow: row;
+  gap: 10px;
+  margin: 20px 0px;
+  .no-margin {
+    margin: 0;
+  }
+}

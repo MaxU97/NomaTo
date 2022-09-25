@@ -31,3 +31,15 @@
   opacity: 0;
   transition: opacity 300ms, transform 300ms;
 }
+
+@media only screen and (max-device-width: 768px) {
+  .notification {
+    box-sizing: border-box;
+    padding: 20px 20px;
+    width: 90%;
+    &.error {
+      background-color: rgb(180, 79, 79);
+      color: white;
+    }
+  }
+}

@@ -30,7 +30,7 @@ export const patchUser = async (props) => {
       return data;
     })
     .catch((err) => {
-      throw err;
+      throw err.response.data;
     });
 };
 
@@ -211,33 +211,22 @@ export const sendChangePassword = async (props) => {
     });
 };
 
-export const requestAccount = async () => {
-  return await api
-    .get(`/auth/requestAccount`)
-    .then(({ data }) => {
-      return data.url;
-    })
-    .catch((err) => {
-      throw err.response.data;
-    });
-};
-
-export const checkStripeCompletion = async () => {
-  return await api
-    .get(`/auth/checkStripeCompletion`)
-    .then(({ data }) => {
-      return data;
-    })
-    .catch((err) => {
-      throw err.response.data;
-    });
-};
-
 export const getUserBalance = async () => {
   return await api
     .get(`/auth/userBalance`)
     .then(({ data }) => {
       return data;
+    })
+    .catch((err) => {
+      throw err.response.data;
+    });
+};
+
+export const createStripe = async (props) => {
+  return await api
+    .post(`/auth/createStripeAccount`, props)
+    .then(({ data }) => {
+      return data.message;
     })
     .catch((err) => {
       throw err.response.data;

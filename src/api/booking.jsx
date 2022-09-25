@@ -1,47 +1,16 @@
 import api from "./config";
 
-export const getClientSecret = async (data) => {
+export const sendBookingToOwner = async (payment_intent, intentID) => {
   return await api
-    .post(`/booking/request`, data)
-    .then(({ data }) => {
-      return data.clientSecret;
+    .post(`/booking/sendBookingToOwner`, {
+      payment_intent: payment_intent,
+      intentID: intentID,
     })
-    .catch((err) => {
-      console.log(err.response.data);
-    });
-};
-
-export const getPaymentMethods = async () => {
-  return await api
-    .get(`/booking/getPaymentMethods`)
-    .then(({ data }) => {
-      return data.methods;
-    })
-    .catch((err) => {
-      console.log(err.response.data);
-    });
-};
-
-export const recordBooking = async (data) => {
-  return await api
-    .post(`/booking/recordBooking`, data)
-    .then(({ data }) => {
-      return data;
-    })
-    .catch((err) => {
-      console.log(err.response.data);
-    });
-};
-
-export const sendBookingToOwner = async (data) => {
-  return await api
-    .post(`/booking/sendBookingToOwner`, data)
     .then((data) => {
       return true;
     })
     .catch((err) => {
-      console.log(err.response.data);
-      return false;
+      throw err.response.data;
     });
 };
 
@@ -126,7 +95,6 @@ export const getBookedDates = async (props) => {
 };
 
 export const getAvailableQuantity = async (props) => {
-  debugger;
   return await api
     .post(`/booking/getQty`, props)
     .then(({ data }) => {
@@ -134,5 +102,27 @@ export const getAvailableQuantity = async (props) => {
     })
     .catch((err) => {
       return err.response.data;
+    });
+};
+
+export const recordBooking = async (data) => {
+  return await api
+    .post(`/booking/recordBooking`, data)
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => {
+      console.log(err.response.data);
+    });
+};
+
+export const getClientSecret = async (data) => {
+  return await api
+    .post(`/booking/request`, data)
+    .then(({ data }) => {
+      return data.clientSecret;
+    })
+    .catch((err) => {
+      console.log(err.response.data);
     });
 };

@@ -2,7 +2,7 @@ import { t } from "i18next";
 import React, { useEffect, useRef, useState, useLayoutEffect } from "react";
 import "./listitem.scss";
 import Input from "../../components/Input/Input.component";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import CategoryModal from "../../components/CategoryModal/CategoryModal.component";
 import Map from "../../components/Map/Map.component";
 import TextArea from "../../components/TextArea/TextArea.component";
@@ -14,8 +14,12 @@ import classNames from "classnames";
 import { useItemContext } from "../../context/item";
 import { useNotificationHandler } from "../../components/NotificationHandler/NotificationHandler.component";
 import { useUserContext } from "../../context/user";
+import useWindowDimensions from "../../services/responsive.service";
+import Places from "../../components/Map/Places.component";
 
 const ListItem = () => {
+  const location = useLocation();
+  const { isMobile } = useWindowDimensions();
   const [isUploading, setIsUploading] = useState(false);
 
   const { notification } = useNotificationHandler();
@@ -136,7 +140,7 @@ const ListItem = () => {
     }
     setErrors(updateErrors);
     setValidationError(error);
-    return !!validationError;
+    return !!error;
   };
   const uploadItem = () => {
     if (validate()) {
@@ -192,7 +196,10 @@ const ListItem = () => {
     <div className="add-listing">
       {userState.user.completionStatus && userState.user.sellerCompleted ? (
         category ? (
-          <div className="container-m">
+          <div
+            className="container-m"
+            style={{ paddingTop: "140px", paddingBottom: "100px" }}
+          >
             <div className="listing-form">
               <h1>{t("list-item.title")}</h1>
               <MultiImagePicker
@@ -209,9 +216,7 @@ const ListItem = () => {
                 className={classNames("listing-form-field")}
                 value={title}
                 setValue={setTitle}
-                tooltipMessage="Good title example: Sony Camera 64GB"
                 error={!!errors["titleError"]}
-                // errorText={errors["titleError"]}
               ></Input>
               <Input
                 placeholder={t("list-item.category")}
@@ -231,18 +236,26 @@ const ListItem = () => {
                 className={classNames("listing-form-field-text")}
                 containerClassName={classNames(errors["descError"] && "error")}
               ></TextArea>
-              {/* <div className="note listing-form-field">
-                {t("list-item.description-disclaimer")}
-              </div> */}
+              {isMobile ? (
+                <Places
+                  inMap={false}
+                  containerClass="listing-form-field"
+                  setPlace={setAddressLatLng}
+                  setAddress={setAddress}
+                  error={errors["addressError"]}
+                  withoutError={true}
+                ></Places>
+              ) : (
+                <Map
+                  className={classNames(
+                    "listing-form-field listing-form-field-map",
+                    errors["addressError"] && "error"
+                  )}
+                  setAddress={setAddress}
+                  setAddressLatLng={setAddressLatLng}
+                ></Map>
+              )}
 
-              <Map
-                className={classNames(
-                  "listing-form-field listing-form-field-map",
-                  errors["addressError"] && "error"
-                )}
-                setAddress={setAddress}
-                setAddressLatLng={setAddressLatLng}
-              ></Map>
               <div className="note listing-form-field">
                 {t("list-item.address-disclaimer")}
               </div>
@@ -250,28 +263,26 @@ const ListItem = () => {
               <div className="listing-form-multi">
                 <Input
                   className={classNames("price-short")}
-                  containerClass={classNames(
-                    errors["itemValueError"] && "error"
-                  )}
                   placeholder={t("list-item.item-value")}
                   value={itemValue}
                   setValue={setItemValue}
+                  error={!!errors["itemValueError"]}
                   type="number"
                 ></Input>
                 <Input
                   className={classNames("price-short")}
-                  containerClass={classNames(errors["minRentError"] && "error")}
                   placeholder={t("list-item.min-days")}
                   value={minRent}
                   setValue={setMinRent}
+                  error={!!errors["minRentError"]}
                   type="number"
                 ></Input>
                 <Input
                   className={classNames("price-short")}
-                  containerClass={classNames(errors["itemQtyError"] && "error")}
                   placeholder={t("list-item.qty")}
                   value={itemQty}
                   setValue={setItemQty}
+                  error={!!errors["itemQtyError"]}
                   type="number"
                 ></Input>
               </div>
@@ -281,30 +292,26 @@ const ListItem = () => {
               <div className="listing-form-multi">
                 <Input
                   className={classNames("price-short")}
-                  containerClass={classNames(errors["rentDayError"] && "error")}
                   placeholder={t("list-item.day")}
                   value={rentPriceDay}
                   setValue={setRentPriceDay}
+                  error={!!errors["rentDayError"]}
                   type="number"
                 ></Input>
                 <Input
                   className={classNames("price-short")}
-                  containerClass={classNames(
-                    errors["rentWeekError"] && "error"
-                  )}
                   placeholder={t("list-item.week")}
                   value={rentPriceWeek}
                   setValue={setRentPriceWeek}
+                  error={!!errors["rentWeekError"]}
                   type="number"
                 ></Input>
                 <Input
                   className={classNames("price-short")}
-                  containerClass={classNames(
-                    errors["rentMonthError"] && "error"
-                  )}
                   placeholder={t("list-item.month")}
                   value={rentPriceMonth}
                   setValue={setRentPriceMonth}
+                  error={!!errors["rentMonthError"]}
                   type="number"
                 ></Input>
               </div>
@@ -353,7 +360,20 @@ const ListItem = () => {
         )
       ) : (
         <div className="no-cat">
-          <h1>{t("list-item.please-fill-profile")}</h1>
+          <h1>
+            {t("list-item.fill-profile")}{" "}
+            <Link to="/profile">{t("list-item.fill-profile2")}</Link>{" "}
+            {t("list-item.fill-profile3")}{" "}
+            <Link
+              to={{
+                pathname: "/payment-details",
+                state: { from: location.pathname },
+              }}
+            >
+              {t("list-item.fill-profile4")}
+            </Link>{" "}
+            {t("list-item.fill-profile5")}
+          </h1>
         </div>
       )}
 

@@ -1,8 +1,4 @@
 import classNames from "classnames";
-import { useLoadScript } from "@react-google-maps/api";
-import React from "react";
-import { googleApiKey, googleLibraries } from "../../api/config";
-import { useEffect } from "react";
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
@@ -23,6 +19,7 @@ const Places = ({
   setAddress = () => {},
   onMouseOver = () => {},
   onMouseOut = () => {},
+  placeholderColor,
   placeholder = "",
   disabled,
   inputClass,
@@ -34,6 +31,7 @@ const Places = ({
   errorText,
   informationText,
   showInformation,
+  withoutError = false,
 }) => {
   const { t } = useTranslation();
   const {
@@ -50,7 +48,6 @@ const Places = ({
     const results = await getGeocode({ address: val });
     const { lat, lng } = await getLatLng(results[0]);
     setPlace({ lat, lng });
-
     setAddress(results[0]);
   };
   return (
@@ -61,6 +58,7 @@ const Places = ({
       placeholder={placeholder ? placeholder : t("utility.places.address")}
       inputClass={inputClass}
       containerClass={containerClass}
+      placeholderColor={placeholderColor}
       hoverChild={children}
       onMouseOver={onMouseOver}
       onMouseOut={onMouseOut}
@@ -69,6 +67,7 @@ const Places = ({
       errorText={errorText}
       showInformation={showInformation}
       informationText={informationText}
+      withoutError={withoutError}
     >
       {status === "OK" &&
         data.map(({ place_id, description }) => {

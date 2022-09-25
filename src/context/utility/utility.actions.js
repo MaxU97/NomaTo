@@ -55,7 +55,7 @@ export const ADD_CATEGORY = (dispatch) => async (data) => {
 export const DELETE_CATEGORY = (dispatch) => async (id) => {
   try {
     const categories = await deleteCategory(id);
-    debugger;
+
     dispatch({
       type: $DELETE_CATEGORY,
       payload: categories,

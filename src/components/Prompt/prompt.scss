@@ -1,0 +1,79 @@
+.prompt {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-sizing: border-box;
+  background-color: rgb(255, 255, 255);
+  padding: 20px 40px;
+  max-width: 400px;
+  border-radius: 15px;
+  font-family: Gilroy-Medium;
+  &-content {
+    margin-bottom: 20px;
+    font-family: Gilroy-SemiBold;
+  }
+  &-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  &-button {
+    padding: 10px 0;
+    width: 50%;
+    border-radius: 10px;
+    font-family: Gilroy-Medium;
+    transition: 0.3s;
+    &.confirm {
+      color: white;
+      background-color: #3299de;
+      &:hover {
+        background-color: #66aedf;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+    }
+    &.cancel {
+      background-color: #e0e0e0;
+      &:hover {
+        background-color: #a3a3a3;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+    }
+  }
+}
+.prompt-container {
+  position: fixed;
+  top: 0;
+  background: rgba(0, 0, 0, 0.301);
+  height: 100%;
+  width: 100%;
+  z-index: 999;
+  pointer-events: none;
+  &.active {
+    pointer-events: all;
+  }
+}
+.prompt-animation-enter {
+  opacity: 0;
+}
+.prompt-animation-enter-active {
+  opacity: 1;
+  transition: opacity 300ms;
+}
+.prompt-animation-exit {
+  opacity: 1;
+}
+.prompt-animation-exit-active {
+  opacity: 0;
+  transition: opacity 300ms;
+}
+
+@media only screen and (max-device-width: 768px) {
+  .prompt {
+    box-sizing: border-box;
+    padding: 20px 20px;
+    width: 90%;
+  }
+}

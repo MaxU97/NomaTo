@@ -18,12 +18,36 @@
   gap: 10px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  height: 300px;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: #ffffff00;
+    border-radius: 5px;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background: #ebebeb;
+  }
+  &-search-wrapper {
+    padding-top: 20px;
+    width: 100%;
+  }
   .category {
     padding: 10px;
     transition: 0.3s;
     img {
       filter: invert(54%) sepia(20%) saturate(2284%) hue-rotate(169deg)
         brightness(95%) contrast(82%);
+      width: 30px;
+      height: auto;
     }
     h3 {
       margin-bottom: 0;
@@ -47,6 +71,8 @@
       }
       img {
         margin-right: 8px;
+        width: 25px;
+        height: auto;
       }
     }
     .back-button {
@@ -58,6 +84,59 @@
         cursor: pointer;
         fill: rgba(104, 104, 104, 0.541);
         transition: 0.3s;
+      }
+    }
+  }
+}
+@media only screen and (max-device-width: 768px) {
+  .cat-modal {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 5px;
+    h1 {
+      font-size: 30px;
+      padding: 0 40px;
+    }
+
+    min-width: 100%;
+  }
+  .categories {
+    gap: 5px;
+    .category {
+      padding: 5px;
+      h3 {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+    }
+
+    &-sub {
+      &-cat {
+        grid-column-start: 1;
+        grid-column-end: 4;
+        display: flex;
+        flex-direction: row;
+        &:hover {
+          cursor: pointer;
+          background-color: #e0e0e0;
+        }
+        img {
+          margin-right: 8px;
+        }
+      }
+      .back-button {
+        height: 24px;
+        width: 24px;
+        position: absolute;
+        left: 20px;
+        top: 30px;
+        transition: 0.3s;
+        &:hover {
+          cursor: pointer;
+          fill: rgba(104, 104, 104, 0.541);
+          transition: 0.3s;
+        }
       }
     }
   }

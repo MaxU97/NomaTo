@@ -20,7 +20,17 @@ import { BookingModal } from "../../components/BookingModal/BookingModal.compone
 import { useUserContext } from "../../context/user";
 import { deleteItem, toggleItemVisibility } from "../../api/item";
 import { useNotificationHandler } from "../../components/NotificationHandler/NotificationHandler.component";
+import useWindowDimensions from "../../services/responsive.service";
+import classNames from "classnames";
+import { usePromptHandler } from "../../components/Prompt/Prompt.component";
+import Reviews from "../../components/Reviews/Reviews.component";
+
+const scrollToRef = (ref) => {
+  window.scrollTo({ top: ref.current.offsetTop, left: 0, behavior: "smooth" });
+};
+
 export const ItemPage = () => {
+  const { isMobile } = useWindowDimensions();
   const { state: itemState, GET_ITEM } = useItemContext();
   const { state: userState, GET_BOOKING_HISTORY } = useUserContext();
   const { notification } = useNotificationHandler();
@@ -33,6 +43,14 @@ export const ItemPage = () => {
   const [itemBooked, setItemBooked] = useState(false);
   const [itemOwner, setItemOwner] = useState(false);
   const [original, showOriginal] = useState(false);
+  const [showReviews, toggleReviews] = useState(false);
+  const { prompt } = usePromptHandler();
+
+  const reviewsRef = useRef(null);
+  const executeScroll = () => {
+    scrollToRef(reviewsRef);
+  };
+
   useEffect(async () => {
     let itemSet = false;
     itemState.cachedItems.forEach((item) => {
@@ -158,11 +176,18 @@ export const ItemPage = () => {
       notification([err], true);
     }
   };
+
+  useEffect(() => {
+    if (showReviews) {
+      executeScroll();
+    }
+  }, [showReviews]);
+
   return item ? (
     <div className="item-page-background">
       <div className="container-l background">
         <div className="item-page">
-          {(itemOwner || userState.admin) && (
+          {(itemOwner || userState.user.admin) && !isMobile && (
             <div className="item-page-settings">
               <div className="item-page-settings-content">
                 <Link to={`/edit-item/${id}`}>
@@ -176,13 +201,32 @@ export const ItemPage = () => {
                 <TrashIcon
                   className="trash"
                   onClick={() => {
-                    removeItem();
+                    prompt(
+                      `Are you sure you want to delete "${item.title}"?`,
+                      "This action is irrevirsible",
+                      () => {
+                        removeItem(item.id);
+                      }
+                    );
                   }}
                 ></TrashIcon>
               </div>
             </div>
           )}
           <div className="item-page-left">
+            {isMobile && (
+              <div className="title-field">
+                <div className="title-field-left">
+                  <div className="title">{item.title}</div>
+                </div>
+                <div className="ratio">
+                  <a>{item.likes}</a>
+                  <ThumbUpIcon className="likes"></ThumbUpIcon>
+                  <a>{item.dislikes}</a>
+                  <ThumbDownIcon className="dislikes"></ThumbDownIcon>
+                </div>
+              </div>
+            )}
             <ImageGallery
               className="item-page-left-gallery"
               images={item.images}
@@ -197,17 +241,19 @@ export const ItemPage = () => {
           </div>
           <div className="item-page-right">
             <div className="item-page-right-field">
-              <div className="title-field">
-                <div className="title-field-left">
-                  <div className="title">{item.title}</div>
+              {!isMobile && (
+                <div className="title-field">
+                  <div className="title-field-left">
+                    <div className="title">{item.title}</div>
+                  </div>
+                  <div className="ratio">
+                    <a>{item.likes}</a>
+                    <ThumbUpIcon className="likes"></ThumbUpIcon>
+                    <a>{item.dislikes}</a>
+                    <ThumbDownIcon className="dislikes"></ThumbDownIcon>
+                  </div>
                 </div>
-                <div className="ratio">
-                  <a>{item.likes}</a>
-                  <ThumbUpIcon className="likes"></ThumbUpIcon>
-                  <a>{item.dislikes}</a>
-                  <ThumbDownIcon className="dislikes"></ThumbDownIcon>
-                </div>
-              </div>
+              )}
             </div>
             <div className="title-margin">{t("item-page.prices")}</div>
             <div className="item-page-right-field center">
@@ -263,7 +309,12 @@ export const ItemPage = () => {
                 {original ? item["originalDescription"] : item["description"]}
               </div>
             </div>
-            <div className="item-page-right-field flex-row">
+            <div
+              className={classNames(
+                "item-page-right-field",
+                !isMobile && "flex-row"
+              )}
+            >
               <div className="item-page-right-owner">
                 <div className="title-minor">{t("item-page.owner")}</div>
                 <div className="item-page-right-owner-contents">
@@ -277,38 +328,50 @@ export const ItemPage = () => {
                 <div className="title-minor">
                   {t("item-page.recent-review")}
                 </div>
-                <div className="item-page-right-review-contents">
-                  <div className="item-page-right-review-text">
-                    <div className="item-page-right-review-text-user">
-                      <div className="user">
-                        <img src={apiUrl + "/" + item.user.profileImage}></img>
-                        {item.user.name}
+                {item.recentReview ? (
+                  <div className="item-page-right-review-contents">
+                    <div className="item-page-right-review-text">
+                      <div className="item-page-right-review-text-user">
+                        <div className="user">
+                          <img
+                            src={apiUrl + "/" + item.recentReview.image}
+                          ></img>
+                          {item.recentReview.username}
+                        </div>
+                        <a
+                          className="read-more-link"
+                          onClick={() => {
+                            if (showReviews) {
+                              executeScroll();
+                            } else {
+                              toggleReviews(true);
+                            }
+                          }}
+                        >
+                          {t("item-page.read-more")}
+                        </a>
                       </div>
-                      <a
-                        className="read-more-link"
-                        onClick={() => {
-                          console.log("clicked");
-                        }}
-                      >
-                        {t("item-page.read-more")}
-                      </a>
+                      <div className="item-page-right-review-text-content">
+                        {item.recentReview.text}
+                      </div>
                     </div>
-                    <div className="item-page-right-review-text-content">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                      ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                      Duis aute irure dolor in reprehenderit in voluptate velit
-                      esse cillum dolore eu fugiat nulla pariatur. Excepteur
-                      sint occaecat cupidatat non proident, sunt in culpa qui
-                      officia deserunt mollit anim id est laborum.
+                    <div className="item-page-right-review-title">
+                      {item.recentReview.type == "positive" ? (
+                        <ThumbUpIcon></ThumbUpIcon>
+                      ) : (
+                        <ThumbDownIcon></ThumbDownIcon>
+                      )}
+
+                      {t("item-page.recommended")}
                     </div>
                   </div>
-                  <div className="item-page-right-review-title">
-                    <ThumbUpIcon></ThumbUpIcon>
-                    {t("item-page.recommended")}
+                ) : (
+                  <div className="item-page-right-review-contents">
+                    <h2 style={{ textAlign: "center", color: "#a3a3a3" }}>
+                      {t("item-page.no-reviews")}
+                    </h2>
                   </div>
-                </div>
+                )}
               </div>
             </div>
           </div>
@@ -328,6 +391,11 @@ export const ItemPage = () => {
           bookedDates={item.bookedDates}
         ></BookingModal>
       </div>
+      {showReviews && (
+        <div className="container-m item-page-reviews" ref={reviewsRef}>
+          <Reviews itemID={id}></Reviews>
+        </div>
+      )}
     </div>
   ) : (
     <></>

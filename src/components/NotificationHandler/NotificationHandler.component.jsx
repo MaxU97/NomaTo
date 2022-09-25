@@ -27,19 +27,17 @@ export const NotificationHandler = ({ children }) => {
 
   return (
     <Context.Provider value={{ notification }}>
-      <div>
-        <CSSTransition
-          in={show}
-          timeout={300}
-          unmountOnExit
-          classNames="notification-container"
-        >
-          <div className={classNames("notification", error && "error")}>
-            {alert[0]}
-          </div>
-        </CSSTransition>
-        {children}
-      </div>
+      <CSSTransition
+        in={show}
+        timeout={300}
+        unmountOnExit
+        classNames="notification-container"
+      >
+        <div className={classNames("notification", error && "error")}>
+          {alert[0]}
+        </div>
+      </CSSTransition>
+      {children}
     </Context.Provider>
   );
 };

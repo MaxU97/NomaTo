@@ -5,95 +5,146 @@
 //error color rgb(180, 79, 79)
 //error hover rgb(180, 79, 79);
 * {
-	font-family: "Gilroy-Regular";
+  font-family: "Gilroy-Regular";
 }
+
 .App {
-	text-align: center;
+  text-align: center;
 }
 
 a {
-	text-decoration: inherit;
-	color: inherit;
-	cursor: pointer;
+  text-decoration: inherit;
+  color: inherit;
+  cursor: pointer;
 }
 
 body {
-	font-family: Gilroy-Regular;
-	overflow-x: hidden;
+  font-family: Gilroy-Regular;
+  overflow-x: hidden;
+  &.no-scroll {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+  }
 }
 
 .container {
-	max-width: 1000px;
-	margin: 0 auto;
-	padding: 0 40px;
-	height: 100%;
-	&-s {
-		max-width: 600px;
-		margin: 0 auto;
-		padding: 0 40px;
-		height: 100%;
-	}
-	&-m {
-		max-width: 800px;
-		margin: 0 auto;
-		padding: 0 40px;
-		height: 100%;
-	}
-	&-l {
-		max-width: 1200px;
-		margin: 0 auto;
-		padding: 0 40px;
-		height: 100%;
-	}
-	&-xl {
-		max-width: 1600px;
-		margin: 0 auto;
-		padding: 0 40px;
-		height: 100%;
-	}
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 40px;
+  height: 100%;
+  &-s {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 40px;
+    height: 100%;
+  }
+  &-m {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 40px;
+    height: 100%;
+  }
+  &-l {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+    height: 100%;
+  }
+  &-xl {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 40px;
+    height: 100%;
+  }
+  &-relative {
+    position: relative;
+  }
+}
+
+@media only screen and (max-device-width: 768px) {
+  .container {
+    max-width: 768px;
+    margin: 0 auto;
+    padding: 0 20px;
+    height: 100%;
+    &-s {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 0 20px;
+      height: 100%;
+    }
+    &-m {
+      max-width: 768px;
+      margin: 0 auto;
+      padding: 0 20px;
+      height: 100%;
+    }
+    &-l {
+      max-width: 768px;
+      margin: 0 auto;
+      padding: 0 20px;
+      height: 100%;
+    }
+  }
 }
 
 .move-left-icon {
-	transform: rotateZ(180deg);
+  transform: rotateZ(180deg);
 }
 
 .note {
-	font-family: "Gilroy-LightItalic";
+  font-family: "Gilroy-LightItalic";
 }
 
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-	-webkit-appearance: none;
-	margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 /* Firefox */
 input[type="number"] {
-	-moz-appearance: textfield;
+  -moz-appearance: textfield;
 }
 
 @-moz-keyframes spin {
-	from {
-		-moz-transform: rotate(0deg);
-	}
-	to {
-		-moz-transform: rotate(360deg);
-	}
+  from {
+    -moz-transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(360deg);
+  }
 }
 @-webkit-keyframes spin {
-	from {
-		-webkit-transform: rotate(0deg);
-	}
-	to {
-		-webkit-transform: rotate(360deg);
-	}
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
 }
 @keyframes spin {
-	from {
-		transform: rotate(0deg);
-	}
-	to {
-		transform: rotate(360deg);
-	}
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+html {
+  &::-webkit-scrollbar {
+    position: absolute;
+    width: 5px;
+  }
+  &::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: #ebebeb;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #c7c7c7;
+    border-radius: 10px;
+  }
 }

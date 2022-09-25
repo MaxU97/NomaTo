@@ -1,4 +1,5 @@
 .item {
+  background-color: white;
   padding: 10px;
   margin: 10px;
   border-radius: 10px;
@@ -14,6 +15,11 @@
   &-details {
     display: flex;
     flex-direction: column;
+    &-name {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
     &-minor {
       display: flex;
       justify-content: space-between;

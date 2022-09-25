@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import ImagePicker from "../../components/ImagePicker/ImagePicker.component";
 import Input from "../../components/Input/Input.component";
@@ -25,8 +25,13 @@ import { apiUrl } from "../../api/config";
 import { useUtilityContext } from "../../context/utility";
 import { set } from "lodash";
 import { useNotificationHandler } from "../../components/NotificationHandler/NotificationHandler.component";
+import useWindowDimensions, {
+  useIntersection,
+  useScrollDirection,
+} from "../../services/responsive.service";
 
 const AddCategories = () => {
+  const { isMobile } = useWindowDimensions();
   const [editType, setEditType] = useState(false);
   const { notification } = useNotificationHandler();
   const {
@@ -185,7 +190,6 @@ const AddCategories = () => {
       }
     }
 
-    debugger;
     subcats.map((subcat, index) => {
       const titles = [subcat.titleEN, subcat.titleRU, subcat.titleLV];
       titles.every((title) => {
@@ -215,7 +219,6 @@ const AddCategories = () => {
   const submitCategory = () => {
     const send = async () => {
       setIsLoading(true);
-      debugger;
 
       const error = await validateFields();
 
@@ -294,7 +297,10 @@ const AddCategories = () => {
 
   return (
     <div className="add-category">
-      <div className="container-m">
+      <div
+        className="container-m"
+        style={{ paddingTop: "140px", paddingBottom: "0px" }}
+      >
         <div className="category-form">
           {!editType ? (
             <>
@@ -401,30 +407,24 @@ const AddCategories = () => {
                   className={classNames("category-form-input")}
                   value={titleEN}
                   setValue={setCatEN}
-                  containerClass={classNames(
-                    "category-form-input-container",
-                    titleError && "error"
-                  )}
+                  withoutError={true}
+                  error={titleError}
                 ></Input>
                 <Input
                   placeholder={t(t("add-category.title-RU"))}
                   className={classNames("category-form-input")}
                   value={titleRU}
                   setValue={setCatRU}
-                  containerClass={classNames(
-                    "category-form-input-container",
-                    titleError && "error"
-                  )}
+                  withoutError={true}
+                  error={titleError}
                 ></Input>
                 <Input
                   placeholder={t("add-category.title-LV")}
                   className={classNames("category-form-input")}
                   value={titleLV}
                   setValue={setCatLV}
-                  containerClass={classNames(
-                    "category-form-input-container",
-                    titleError && "error"
-                  )}
+                  withoutError={true}
+                  error={titleError}
                 ></Input>
               </div>
               <h2>{t("add-category.subcats")}:</h2>

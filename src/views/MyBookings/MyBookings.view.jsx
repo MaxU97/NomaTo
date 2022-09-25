@@ -6,8 +6,10 @@ import NotFound from "../NotFound";
 import "./mybookings.scss";
 import { bookingStatuses } from "../../services/booking.categories";
 import { useTranslation } from "react-i18next";
+import useWindowDimensions from "../../services/responsive.service";
 const MyBookings = () => {
   const { t } = useTranslation();
+
   const bookingCategories = [
     t("my-bookings.all"),
     t("my-bookings.approval-required"),
@@ -19,6 +21,8 @@ const MyBookings = () => {
   ];
   const { state, GET_BOOKING_HISTORY } = useUserContext();
   const [activeTab, setActiveTab] = useState(0);
+  const [dropdown, toggleDropdown] = useState(false);
+  const { isMobile } = useWindowDimensions();
   useEffect(() => {
     GET_BOOKING_HISTORY();
   }, []);
@@ -32,21 +36,60 @@ const MyBookings = () => {
               <h1>{t("my-bookings.title")}</h1>
               <div className="bookings-content-container">
                 <div className="bookings-content-left">
-                  <div className="menu-list">
-                    {bookingCategories.map((cat, index) => (
+                  {isMobile ? (
+                    <div
+                      className={classNames(
+                        "booking-cats",
+                        dropdown && "active"
+                      )}
+                    >
                       <div
-                        className={classNames(
-                          "menu-list-item",
-                          activeTab == index && "active"
-                        )}
+                        className="booking-cats-current"
                         onClick={() => {
-                          !(activeTab == index) && setActiveTab(index);
+                          toggleDropdown(!dropdown);
                         }}
                       >
-                        {cat}
+                        <div className="booking-cats-current-text">
+                          {bookingCategories[activeTab]}
+                        </div>
                       </div>
-                    ))}
-                  </div>
+                      {dropdown && (
+                        <div className="booking-cats-list">
+                          {bookingCategories.map((cat, index) => {
+                            if (cat !== bookingCategories[activeTab])
+                              return (
+                                <div
+                                  key={index}
+                                  className="booking-cats-list-item"
+                                  onClick={() => {
+                                    setActiveTab(index);
+                                    toggleDropdown(!dropdown);
+                                  }}
+                                >
+                                  {cat}
+                                </div>
+                              );
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <div className="menu-list">
+                      {bookingCategories.map((cat, index) => (
+                        <div
+                          className={classNames(
+                            "menu-list-item",
+                            activeTab == index && "active"
+                          )}
+                          onClick={() => {
+                            !(activeTab == index) && setActiveTab(index);
+                          }}
+                        >
+                          {cat}
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
                 <div className="bookings-content-scroll">
                   <div className="bookings-content-right">

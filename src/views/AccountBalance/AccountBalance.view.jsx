@@ -22,7 +22,6 @@ const AccountBalance = () => {
       setAmountError("Please enter a valid amount");
       return;
     } else {
-      debugger;
       try {
         setIsLoading(true);
         const response = await withdraw({ amount: amount });
@@ -49,12 +48,18 @@ const AccountBalance = () => {
             <div className="account-balance-container-l">
               <h3>{t("account-balance.available")}</h3>
               <h1>
-                {euroLocale.format(userState.userBalance.available / 100)}
+                {userState.userBalance
+                  ? euroLocale.format(userState.userBalance.available / 100)
+                  : euroLocale.format(0)}
               </h1>
             </div>
             <div className="account-balance-container-r">
               <h3>{t("account-balance.pending")}</h3>
-              <h1>{euroLocale.format(userState.userBalance.pending / 100)}</h1>
+              <h1>
+                {userState.userBalance
+                  ? euroLocale.format(userState.userBalance.pending / 100)
+                  : euroLocale.format(0)}
+              </h1>
             </div>
           </div>
           <div className="account-balance-withdraw">
@@ -65,13 +70,17 @@ const AccountBalance = () => {
               type="number"
               error={!!amountError}
               errorText={amountError}
-              buttonText={
-                isLoading
-                  ? t("account-balance.loading")
-                  : t("account-balance.withdraw")
-              }
-              buttonAction={requestWithdraw}
             ></Input>
+            <a
+              className="account-balance-button"
+              onClick={() => {
+                requestWithdraw();
+              }}
+            >
+              {isLoading
+                ? t("account-balance.loading")
+                : t("account-balance.withdraw")}
+            </a>
           </div>
         </div>
       </div>

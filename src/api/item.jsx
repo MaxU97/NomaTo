@@ -88,3 +88,25 @@ export const getMyItems = async () => {
       return false;
     });
 };
+
+export const getReviewItem = async (id) => {
+  return await api
+    .get(`/item/reviewItem`, { params: { id: id } })
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => {
+      throw err.response.data;
+    });
+};
+
+export const submitReview = async (props) => {
+  return await api
+    .post(`/item/submitReview`, props)
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => {
+      throw err.response.data;
+    });
+};

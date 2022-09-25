@@ -41,6 +41,12 @@ code {
 }
 
 @font-face {
+  font-family: "Gilroy-SemiBold";
+  src: local("Gilroy-SemiBold"),
+    url(./fonts/Gilroy-SemiBold.ttf) format("truetype");
+}
+
+@font-face {
   font-family: "Gilroy-Black";
   src: local("Gilroy-Black"), url(./fonts/Gilroy-Black.ttf) format("truetype");
 }

@@ -1,8 +1,10 @@
 import classNames from "classnames";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import useWindowDimensions from "../../../services/responsive.service";
 import "./stepper.scss";
 const Stepper = ({ activeStep = 0 }) => {
+  const { isMobile } = useWindowDimensions();
   const { t } = useTranslation();
   return (
     <div className="stepper">
@@ -15,7 +17,7 @@ const Stepper = ({ activeStep = 0 }) => {
         >
           1
         </div>
-        {t("register.stepper.step1")}
+        {!isMobile && t("register.stepper.step1")}
       </div>
       <div className="stepper-divider">
         <div className="stepper-divider-content">
@@ -37,7 +39,7 @@ const Stepper = ({ activeStep = 0 }) => {
         >
           2
         </div>
-        {t("register.stepper.step2")}
+        {!isMobile && t("register.stepper.step2")}
       </div>
       <div className="stepper-divider">
         <div className="stepper-divider-content">
@@ -59,7 +61,7 @@ const Stepper = ({ activeStep = 0 }) => {
         >
           3
         </div>
-        {t("register.stepper.step3")}
+        {!isMobile && t("register.stepper.step3")}
       </div>
       <div className="stepper-divider">
         <div className="stepper-divider-content">
@@ -81,7 +83,7 @@ const Stepper = ({ activeStep = 0 }) => {
         >
           4
         </div>
-        {t("register.stepper.step4")}
+        {!isMobile && t("register.stepper.step4")}
       </div>
     </div>
   );

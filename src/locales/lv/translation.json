@@ -1,22 +1,351 @@
 {
   "header": {
     "FAQ": "FAQ",
-    "rent-item": "Nomājiet preci",
-    "login-signup": "Pieteikties vai Reģistrēties"
+    "become-a-lender": "Kļūsti par iznomātāju",
+    "login-signup": "Ienākt vai Reģistrēties",
+    "list-an-item": "Iznomā savu preci"
   },
   "home": {
-    "test": "LATVIESHU",
+    "test": "ENGLISH",
     "search-title-p1": "Atrodi",
     "search-title-p2": "jebko",
-    "search-title-p3": "savā pilsētā"
+    "search-title-p3": "savā pilsētā",
+    "news": {
+      "title": "Jaunumi"
+    }
   },
   "search": {
     "placeholder": "Velosipēds, kamera, drons...",
     "button": "Meklēt",
-    "checkout": "Vai arī apskatiet mūsu populārākās preces...",
-    "viewmore": "Skatīt Vairāk"
+    "checkout": "Vai apskati populārākās preces pie mums...",
+    "viewmore": "Vairāk"
   },
   "item": {
     "price-day": "diena"
+  },
+  "login": {
+    "no-account": "Vel neesi reģistrējies?",
+    "have-account": "Ienākt savā kontā",
+    "register": "Reģistrējies jau tagad",
+    "message-1": "Ienāc un nomā",
+    "message-2": "jebko",
+    "reg-message-1": "Reģistrējies un nomā",
+    "reg-message-2": "jebko",
+    "login": "Ienākt",
+    "signup": "Reģistrēties",
+    "forgot-password": "Aizmirsi paroli?",
+    "email": "Epasts",
+    "password": "Parole"
+  },
+  "register": {
+    "fill-code": "Lūdzam ievadīt saņemto kodu",
+    "email-code-1": "Mēs nosūtijām ziņu uz Jūsu epastu",
+    "email-code-2": "satur autentifikācijas kodu, ievadiet to zemāk norādītajā vietā, lai apstiprinātu epastu",
+    "resend-code": "Nosūtīt kodu atkārtoti",
+    "stepper": {
+      "step1": "Ievadiet konta detaļas",
+      "step2": "Apstipriniet epastu",
+      "step3": "Ievadiet tālruņa numuru",
+      "step4": "Apstipriniet tālruņa numuru"
+    },
+    "next": "Nākamais solis",
+    "valid-email": "Lūdzu ievadiet pareizu e-pastu",
+    "no-match": "Paroles nesakrīt",
+    "valid-phone": "Lūdzam ievadīt pareizu tālruņa numuru (+371...)",
+    "confirm-code": "Autentifikācijas kods",
+    "email": "Epasts",
+    "password": "Parole",
+    "confirm-pw": "Apstiprināt paroli",
+    "phone": "Tālrunis",
+    "prefered-lng": "Valoda"
+  },
+  "profile-menu": {
+    "profile": "Profils",
+    "inbox": "Ziņas",
+    "my-bookings": "Nomātās preces",
+    "myshop": "Manas preces nomā",
+    "list-item": "Iznomā savu preci",
+    "booking-requests": "Nomas pieprasijumi",
+    "admin": {
+      "add-news": "Pievienot jaunumu",
+      "add-categories": "Rediģēt kategoriju"
+    },
+    "logout": "Iziet"
+  },
+  "list-item": {
+    "must-include": "Nepieciešams iekļaut:",
+    "uploading": "Pievieno",
+    "title": "Iznomāt savu preci",
+    "t1": "Nosaukums",
+    "t2": "Modelis",
+    "t3": "Izplatītājs",
+    "set-title": "Virsraksts",
+    "category": "Kategorija",
+    "desc": "Apraksts (800 burti maksimums)",
+    "address": "Adrese",
+    "address-disclaimer": "Citi lietotāji neredzēs Jūsu tiešo adresi",
+    "description-disclaimer": "Mūsu sistēma automātiski tūlkos Jūsu aprakstu citiem lietotājiem",
+    "item-value": "Preces cena (€)",
+    "min-days": "Minimālais nomas periods",
+    "price-per": "Nomas cena (€) par:",
+    "qty": "Daudzums",
+    "day": "Diena",
+    "week": "Nedēļa",
+    "month": "Mēnesis",
+    "cancel": "Atcelt",
+    "list-item": "Iznomāt šo preci",
+    "please-fill-profile": "Lūdzam aizpildīt informāciju profilā un pievienot maksājuma informāciju pirms iznomāt savu preci",
+    "choose-cat": "Izvēlieties kategoriju",
+    "error": {
+      "image": "Vizmaz 1 attēlu",
+      "title": "Virsraksts ",
+      "desc": "Apraksts",
+      "address": "Derīgu adresi no saraksta",
+      "rent-day": "nomas cenu par vienu dienu",
+      "rent-week": "nomas cenu par vienu nedēļu",
+      "rent-month": "nomas cenu par vienu mēnesi",
+      "value": "Preces vērtība",
+      "min-rent": "Minimālo nomas periodu",
+      "qty": "Preces daudzumu"
+    }
+  },
+  "item-page": {
+    "prices": "Cenrādis:",
+    "location": "Lokācija",
+    "desc": "Apraksts",
+    "price-daily": "Dienā",
+    "price-weekly": "7+ dienas",
+    "price-monthly": "30+ dienas",
+    "day": "diena",
+    "make-a-booking": "Nomāt",
+    "item-oos": "Nepieejams",
+    "item-booked": "Prece jau tiek nomāta",
+    "owner": "Īpašnieks",
+    "recent-review": "Jaunakā atsauksme",
+    "recommended": "Rekomendējam",
+    "not-recommended": "Nerekomendējam",
+    "you-are-owner": "Jūs esat īpašnieks",
+    "need-completed-profile": "Jums jāpabeidz profils, lai nomātu preces",
+    "read-more": "Lasīt vairāk...",
+    "show-original": "Parādīt orģinālo aprakstu",
+    "show-translated": "Parādīt tūlkoto aprakstu"
+  },
+  "booking-modal": {
+    "quantity": "Nepieciešamais daudzums",
+    "comment": "Ziņa īpašniekam (pēc izvēles)",
+    "price-breakdown": "Price Breakdown",
+    "day-single": "Diena",
+    "day-multiple": "Dienas",
+    "item-multiple": "Preces",
+    "total": "Summa kopā",
+    "service-charge": "Apkalpošanas maksa",
+    "seven-discount": "Ietaupijums par 7+ dienu atlaidi",
+    "thirty-discount": "Ietaupijums par 30+ dienu atlaidi",
+    "select-quantity": "Ievadiet nepieciešamo daudzumu",
+    "valid-dates": "Lūdzu, izvēlieties neaizņemtus datumus",
+    "only": "Tikai",
+    "available": "Pieejams",
+    "available-c": "Pieejams",
+    "dates-first": "Lūdzu, sākumā izvēlieties datumus",
+    "t-c": "Piekrist lietošanas noteikumiem un nosacijumiem",
+    "loading": "Ielādē",
+    "next": "Nākamais solis"
+  },
+
+  "booking-requests": {
+    "title": "Nomas pieprasijumi",
+    "all": "Visi",
+    "approval-required": "Nepieciešams apstiprinājums",
+    "approved": "Apstiprināts",
+    "with-customer": "Pie lietotāja",
+    "canceled": "Atcēla klients",
+    "declined": "Atteikts",
+    "returned": "Atgriezts",
+    "approve": "Apstiprināt",
+    "approving": "Notiek apstiprināšana...",
+    "refuse": "Atteikt",
+    "refusing": "Notiek atteikšanās...",
+    "refusal-reason": "Iemesls",
+    "refusal-reason-optional": "Atteikšanās iemesls (pēc izvēles)",
+    "view-details": "Kontaktinformācija",
+    "user-details": "Lietotāja informācija",
+    "email": "Epasts:",
+    "number": "Tālrunis:",
+    "language-advise": "Lūdzam, respektet lietotāja izvelēto valodu",
+    "prefered-languages": "Valodas:",
+    "confirm-pickup": "Apstiprināt nodošanu",
+    "drop-off-qr": "Atgriešanas QR kods",
+    "status": "Status",
+    "dates": "Datumi",
+    "user": "Lietotājs",
+    "price": "Cena",
+    "qty-request": "Pieprasītais daudzums",
+    "message": "Ziņa"
+  },
+  "my-bookings": {
+    "title": "Manis nomātās preces",
+    "all": "Visas",
+    "approval-required": "Gaida apstiprinājumu",
+    "approved": "Gaida saņemšanu",
+    "with-customer": "Šobrīd lietošanā",
+    "canceled": "Atcelts",
+    "declined": "Atteikts",
+    "returned": "Atgriezts",
+    "view-qr": "Saņemšanas QR kods",
+    "confirm-dropoff": "Apstiprināt atgriešanu"
+  },
+  "qr": {
+    "show-owner": "Parādiet QR kodu Īpasniekam, lai saņemtu preci",
+    "fees": "Maksa var tikt ieturēta, ja QR kods netiek parādīts!",
+    "processing": "Notiek QR koda apstrāde",
+    "scan-qr": "Skenējiet sniegto QR kodu"
+  },
+  "add-category": {
+    "add-category": "Pievienot kategoriju",
+    "edit-category": "Rediģēt kategoriju",
+    "edit-categories": "Rediģēt kategorijas",
+    "title-EN": "Virsraksts EN",
+    "title-RU": "Virsraksts RU",
+    "title-LV": "Virsraksts LV",
+    "subcats": "Apakškategorija",
+    "add": "Pievienot kategoriju",
+    "loading": "Notiek pievienošana",
+    "fill-in": "Lūdzu, aizpildiet visus virsrakstus",
+    "exists": "Kategorija jau eksistē",
+    "fill-highlighted": "Lūdzu aizpildiet iezīmētos laukumus",
+    "include-an-image": "Lūdzu, pievienojiet attēlu",
+    "new-cat": "Pievienot jaunu kategoriju",
+    "save-changes": "Saglabāt izmaiņas"
+  },
+  "pw-requirements": {
+    "characters": "Minimums 8 burti",
+    "upper": "1 lielais burts",
+    "lower": "1 mazais burts",
+    "symbol": "1 simbols",
+    "number": "1 cipars"
+  },
+
+  "profile": {
+    "title": "Mans profils",
+    "name": "Vārds",
+    "surname": "Uzvārds",
+    "email": "Epasts",
+    "phone": "Tālrunis",
+    "languages": "Valodas",
+    "address": "Adrese",
+    "change-pw": "Mainīt paroli",
+    "submit-error": "Lūdzu, aizpildiet visus laukumus pareizi",
+    "updating": "Notiek atjaunināšana...",
+    "save": "Saglabāt izmaiņas",
+    "valid-number": "Lūdzu, ievadiet pareizu tālruņa numuru (+371...)",
+    "address-info": "Jūs varat mainīt adresi vienu reizi 30 dienās",
+    "phone-info": "Jūs varat mainīt tālruņa numuru vienu reizi 30 dienās"
+  },
+  "search-page": {
+    "location": "Lokācija",
+    "category": "Kategorija",
+    "price": "Cena",
+    "other-filters": "Citi filtri",
+    "price-from": "Cena (no)",
+    "price-to": "Cena (līdz)",
+    "apply": "Apstiprināt",
+    "distance": "Distance(km)"
+  },
+  "forgot-pw": {
+    "title": "Mainīt paroli",
+    "fill-code": "Uz Jūsu tālruni tika nosūtīta ziņa",
+    "email-code-1": "Mēs nosūtijām epastu uz",
+    "email-code-2": "ar autentifikācijas kodu, lūdzu ievadiet to zemak norādītajā ailē",
+    "resend-code": "Nosūtīt kodu atkāroti",
+    "next": "Nākamais solis",
+    "confirm": "Apstiprināt",
+    "fill-fields": "Lūdzu, aizpildiet visas ailes",
+    "valid-email": "Lūdzu, ievadiet derīgu epastu",
+    "no-match": "Paroles nav vienādas",
+    "email": "Epasts",
+    "confirm-code": "Autentifikācijas kods",
+    "password": "Parole",
+    "confirm-pw": "Apstipriniet paroli"
+  },
+  "edit-item": {
+    "title": "Rediģēt preci",
+    "edit-item": "Atjaunināt preci"
+  },
+  "my-shop": {
+    "my-items": "Manas preces",
+    "income": "Ienākumi"
+  },
+  "change-pw": {
+    "title": "Mainīt manu paroli",
+    "change": "Mainīt paroli",
+    "old-pw": "Vecā parole",
+    "new-pw": "Jaunā parole",
+    "confirm-pw": "Apstiprināt paroli",
+    "no-match": "Paroles nav vienādas",
+    "fill-fields": "Lūdzu, aizpildiet visas ailes"
+  },
+  "lender-guide": {
+    "finish-profile": "Aizpildīt savu profilu",
+    "sign-up-account": "Pievienot maksājuma informāciju",
+    "ready-to-lend": "Ievieto savu pirmo preci",
+    "go-to-your": "Doties uz",
+    "profile": "Profilu",
+    "page": "lapa",
+    "fill-fields": "Aizpildiet visas tukšās ailes",
+    "add-profile-picture": "Pievienot profila bildi (Pēc izvēles)",
+    "people-like": "Cilvēkiem patīk redzēt iznomātājus :)",
+    "profile-complete": "Jūsu profils ir gatavs!",
+    "profile-allows": "Tas atļaus nomāt preces no citiem cilvēkiem",
+    "step-complete": "Solis pabeigts",
+    "payout-account": "Lai izņemtu līdzekļus Jums ir nepieciešams izveidot kontu ar mūsu partneri Stripe",
+    "click-button": "Nospiediet pogu, lai izveidotu kontu",
+    "go-to": "Izveidot",
+    "list-an-item": "Pievienot savu preci",
+    "fill-required": "Aizpildiet visas nepieciešamās ailes",
+    "lending-set": "Jūs esat gatavs iznomāt savas preces!",
+    "stripe-expl": "Stripe Jūs izvedīs cauri autentifikācijai, lai Jūs kļūtu par iznomātāju",
+    "able-to-list": "Tagad Jūs varat pievienot Jūsu pirmo preci",
+    "create-account": "Izveidot kontu"
+  },
+  "checkout": {
+    "save-details": "Saglabāt apmaksas informāciju",
+    "select-methods": "Lūdzam, izvēlēties Jums piemērotāko apmaksas iespēju",
+    "send-booking": "Nosūtīt nomas pieprasijumu",
+    "error": "Kautkas nogāja greizi",
+    "try-again": "Lūdzu, mēģiniet velreiz",
+    "processing": "Apstiprina maksājuma veidu",
+    "no-refresh": "Lūdzu, nepārslēdziet vai neslēdziet ārā šo lapu. Tiklīdz maksājuma veids būs apstiprināts, Jūs automātiski novirzīs."
+  },
+  "image-tools": {
+    "main-tooltip": "Iestatīt kā galveno attēlu",
+    "delete-tooltip": "Dzēst attēlu",
+    "main-image": "Galvenais attēls",
+    "add-image": "PIEVIENOT ATTĒLU",
+    "change-image": "Mainīt attēlu",
+    "upload": "Augšuplādēt"
+  },
+  "account-balance": {
+    "balance": "līdzekļi",
+    "available": "Pieejams",
+    "pending": "Gaida",
+    "loading": "Notiek ielāde",
+    "withdraw": "Izņemt līzekļus",
+    "amount": "Līdzekļu daudzums"
+  },
+  "utility": {
+    "calendar": {
+      "error": {
+        "one-day": "Lūdzu, atzīmējiet vairāk par 1 dienu",
+        "booked": "Jūsu izvēlētie datumi ir jau aizņemti",
+        "minimum": "Minimalais nomas periods šajai precei ir: "
+      }
+    },
+    "places": {
+      "address": "Adrese"
+    },
+    "text-area": {
+      "maximum": "Maksimums",
+      "characters": "simboli"
+    }
   }
 }

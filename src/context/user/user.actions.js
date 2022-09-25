@@ -3,13 +3,13 @@ import {
   $SET_USER,
   $UNAUTH,
   $GET_BOOKING_HISTORY,
-  $GET_PAYMENT_METHODS,
   $SIGNUP,
-  $GET_CLIENT_SECRET,
   $RESET_CLIENT_SECRET,
   $PATCH_USER,
   $PATCH_IMAGE,
   $GET_USER_BALANCE,
+  $FAIL_AUTH,
+  $GET_CLIENT_SECRET,
 } from "./user.constants";
 import {
   logout,
@@ -19,11 +19,10 @@ import {
   getBookingHistory,
   patchUser,
   patchImage,
-  checkStripeCompletion,
   getUserBalance,
 } from "../../api/auth";
 
-import { getClientSecret, getPaymentMethods } from "../../api/booking";
+import { getClientSecret } from "../../api/booking";
 
 export const AUTHORIZE = (dispatch) => async (props) => {
   try {
@@ -34,6 +33,9 @@ export const AUTHORIZE = (dispatch) => async (props) => {
     });
     return null;
   } catch (err) {
+    dispatch({
+      type: $FAIL_AUTH,
+    });
     return err;
   }
 };
@@ -57,17 +59,6 @@ export const GET_USER = (dispatch) => async () => {
   }
 };
 
-export const CHECK_STRIPE = (dispatch) => async () => {
-  try {
-    const user = await checkStripeCompletion();
-    dispatch({
-      type: $SET_USER,
-      payload: user,
-    });
-  } catch (err) {
-    throw err;
-  }
-};
 export const SIGNUP = (dispatch) => async (props) => {
   try {
     const token = await signUp(props);
@@ -124,25 +115,17 @@ export const GET_BOOKING_HISTORY = (dispatch) => async () => {
   }
 };
 
+export const RESET_CLIENT_SECRET = (dispatch) => () => {
+  dispatch({
+    type: $RESET_CLIENT_SECRET,
+  });
+};
+
 export const GET_CLIENT_SECRET = (dispatch) => async (data) => {
   const clientSecret = await getClientSecret(data);
   dispatch({
     type: $GET_CLIENT_SECRET,
     payload: { clientSecret },
-  });
-};
-
-export const GET_PAYMENT_METHODS = (dispatch) => async () => {
-  const paymentMethods = await getPaymentMethods();
-  dispatch({
-    type: $GET_PAYMENT_METHODS,
-    payload: paymentMethods,
-  });
-};
-
-export const RESET_CLIENT_SECRET = (dispatch) => () => {
-  dispatch({
-    type: $RESET_CLIENT_SECRET,
   });
 };
 

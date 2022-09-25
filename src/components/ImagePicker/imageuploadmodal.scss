@@ -8,7 +8,6 @@
     padding: 0 100px;
   }
   min-width: 500px;
-
   &-button {
     justify-self: center;
     background-color: #3299de;
@@ -69,6 +68,18 @@
       &:hover {
         background-color: #66aedf;
       }
+    }
+  }
+}
+@media only screen and (max-device-width: 768px) {
+  .image-upload-modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 100%;
+    h1 {
+      font-size: 30px;
+      padding: 0 40px;
     }
   }
 }

@@ -36,7 +36,11 @@ const QRPage = ({ showHeader = (val) => {} }) => {
           <SpinnerAnimationIcon></SpinnerAnimationIcon>
         ) : (
           <>
-            <h1>{t("qr.show-owner")}</h1>
+            {type == "dropoff" ? (
+              <h1>{t("qr.show-renter")}</h1>
+            ) : (
+              <h1>{t("qr.show-owner")}</h1>
+            )}
             <QRCode value={`${hash}`}></QRCode>
             <h4>{t("qr.fees")}</h4>
           </>

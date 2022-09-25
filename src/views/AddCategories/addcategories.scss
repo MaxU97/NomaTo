@@ -4,9 +4,6 @@
   background-position: center;
   background-attachment: fixed;
   min-height: calc(100vh);
-  .container-m {
-    padding-bottom: 0 !important;
-  }
 }
 .category {
   &-form {
@@ -44,6 +41,8 @@
         img {
           filter: invert(54%) sepia(20%) saturate(2284%) hue-rotate(169deg)
             brightness(95%) contrast(82%);
+          width: 30px;
+          height: auto;
         }
         svg {
           fill: rgb(51 152 222);
@@ -309,4 +308,70 @@
 .error-container-exit-active {
   opacity: 0;
   transition: opacity 0, transform 0;
+}
+
+@media only screen and (max-device-width: 768px) {
+  .container-m {
+    padding-top: 100px;
+  }
+  .category {
+    &-form {
+      background-color: rgb(0, 0, 0, 0);
+      padding: 0;
+      border: none;
+      .back-button {
+        position: absolute;
+        top: 7px;
+        left: 0;
+      }
+      &-field {
+        flex-direction: column;
+      }
+      &-subcats {
+        &-scroll {
+          overflow-x: visible;
+          height: 100%;
+          min-height: 215px;
+          background-color: white;
+        }
+        &-container {
+          background-color: white;
+          display: flex;
+          flex-direction: row;
+        }
+        &-subcat {
+          flex-direction: column;
+          width: 100%;
+          min-width: 100%;
+          border: none;
+        }
+      }
+      .delete-category {
+        fill: rgb(180, 79, 79);
+        position: absolute;
+        right: 20px;
+        top: 30px;
+        transition: 0.3s;
+        &:hover {
+          cursor: pointer;
+          fill: rgb(190, 117, 117);
+          transition: 0.3s;
+        }
+      }
+      &-types {
+        gap: 5px;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        &-type {
+          position: relative;
+          padding: 5px;
+          transition: 0.3s;
+          font-size: 15px;
+          h3 {
+            margin-top: 0;
+          }
+        }
+      }
+    }
+  }
 }

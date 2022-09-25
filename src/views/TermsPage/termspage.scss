@@ -1,0 +1,26 @@
+.terms-container {
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  text-align: left;
+  padding: 40px;
+  margin-top: 100px;
+  h1 {
+    text-align: center;
+  }
+  .terms-content {
+    li {
+      margin-bottom: 10px;
+    }
+  }
+  ol {
+    counter-reset: item;
+    li {
+      display: block;
+      margin-bottom: 10px;
+      &:before {
+        content: counters(item, ". ") ". ";
+        counter-increment: item;
+      }
+    }
+  }
+}

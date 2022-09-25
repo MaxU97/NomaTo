@@ -241,7 +241,10 @@ const EditItem = () => {
   return (
     <div className="add-listing">
       {category && (
-        <div className="container-m">
+        <div
+          className="container-m"
+          style={{ paddingTop: "140px", paddingBottom: "100px" }}
+        >
           <div className="listing-form">
             <h1>{t("edit-item.title")}</h1>
             <MultiImagePicker
@@ -382,7 +385,6 @@ const EditItem = () => {
               </a>
             </div>
           </div>
-          {JSON.stringify(item)}
         </div>
       )}
 

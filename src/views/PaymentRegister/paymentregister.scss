@@ -1,0 +1,95 @@
+.payment-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  padding: 20px;
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 15px;
+  &-submit {
+    background-color: #3299de;
+    color: white;
+    font-family: Gilroy-Medium;
+    padding: 15px 40px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    width: 220px;
+    transition: 0.2s;
+    align-self: center;
+    &:hover {
+      background-color: #66aedf;
+      transition: 0.2s;
+    }
+    &:disabled,
+    &[disabled] {
+      background-color: #afafaf;
+      pointer-events: none;
+      color: rgb(203, 231, 255);
+    }
+    svg {
+      fill: white;
+      animation: spin 0.8s infinite linear;
+      height: 19px;
+    }
+  }
+  &-tos {
+    a {
+      color: #3299de;
+      transition: 0.2s;
+      &:hover {
+        cursor: pointer;
+        color: #66aedf;
+        transition: 0.2s;
+      }
+    }
+  }
+  &-fields {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    &-double {
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+    }
+    .StripeElement {
+      font-family: Gilroy-Black !important;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      padding: 15px 10px;
+      &.number {
+      }
+      &.cvc {
+        width: 100%;
+      }
+      &.expiry {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media only screen and (max-device-width: 768px) {
+  .payment-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    padding: 0;
+    border: 0;
+    h1 {
+      font-size: 30px;
+    }
+    &-fields {
+      width: 100%;
+      &-double {
+        flex-direction: column;
+        gap: 0;
+      }
+    }
+    &-submit {
+      width: 100%;
+    }
+  }
+}

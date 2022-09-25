@@ -7,8 +7,6 @@ import {
   getFullLanguageList,
 } from "../../services/language.service";
 import { DownIcon } from "../../assets/Icons";
-import i18n from "../../services/language.service";
-import { click } from "@testing-library/user-event/dist/click";
 
 const LanguagePicker = () => {
   const lang = getLanguageList();
@@ -79,9 +77,9 @@ const LanguagePicker = () => {
           <DownIcon />
         </div>
       </div>
-      <div className="lp-wrapper-dropdown">
-        {isOpen &&
-          lang.map((language) => (
+      {isOpen && (
+        <div className="lp-wrapper-dropdown">
+          {lang.map((language) => (
             <div
               className="lp-item"
               onClick={() => selectLanguage(language.key)}
@@ -90,7 +88,8 @@ const LanguagePicker = () => {
               <div className="lp-text">{language.title}</div>
             </div>
           ))}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

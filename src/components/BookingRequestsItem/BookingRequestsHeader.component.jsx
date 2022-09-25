@@ -3,7 +3,9 @@ import { useEffect } from "react";
 import "./bookingrequestsheader.scss";
 import { getCurrentLanguage } from "../../services/language.service";
 import { useTranslation } from "react-i18next";
+import useWindowDimensions from "../../services/responsive.service";
 const BookingRequestsHeader = ({ booking, status, rawStatus }) => {
+  const { isMobile } = useWindowDimensions();
   const [date, setDate] = useState();
   const { t } = useTranslation();
   useEffect(() => {
@@ -23,13 +25,27 @@ const BookingRequestsHeader = ({ booking, status, rawStatus }) => {
   return (
     <div className="booking-header">
       <div className="booking-header-title">{booking.itemID.title}</div>
-      <div className="booking-header-status">
-        {t("booking-requests.status")}:{" "}
-        <strong aria-label={rawStatus}>{status}</strong>
-      </div>
-      <div className="booking-header-dates">
-        {t("booking-requests.dates")}: <strong>{date}</strong>
-      </div>
+      {isMobile ? (
+        <>
+          <div className="booking-header-dates">
+            {t("booking-requests.dates")}: <strong>{date}</strong>
+          </div>
+          <div className="booking-header-status">
+            {t("booking-requests.status")}:{" "}
+            <strong aria-label={rawStatus}>{status}</strong>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="booking-header-status">
+            {t("booking-requests.status")}:{" "}
+            <strong aria-label={rawStatus}>{status}</strong>
+          </div>
+          <div className="booking-header-dates">
+            {t("booking-requests.dates")}: <strong>{date}</strong>
+          </div>
+        </>
+      )}
     </div>
   );
 };

@@ -2,21 +2,7 @@ import axios from "axios";
 //import * as dotenv from "dotenv";
 import i18n from "../services/language.service";
 
-// let path;
-
-// switch (process.env.NODE_ENV) {
-//   case "test":
-//     break;
-//   case "development":
-//     path = "@root/.env.local";
-//     break;
-//   case "production":
-//     break;
-//   default:
-//     path = "@root/.env.local";
-// }
-// dotenv.config({ path });
-
+export const captchaKey = process.env.REACT_APP_CAPTCHA_KEY;
 export const apiUrl =
   process.env.NODE_ENV === "development"
     ? process.env.REACT_APP_API_URL_DEV
@@ -26,8 +12,9 @@ export const websitUrl =
     ? process.env.REACT_APP_WEB_URL_DEV
     : process.env.REACT_APP_WEB_URL_PROD;
 export const googleApiKey = process.env.REACT_APP_GOOGLE_API_KEY;
-export const stripeKey = process.env.REACT_APP_STRIPE_API_KEY;
 export const googleLibraries = ["places"];
+
+export const stripeKey = process.env.REACT_APP_STRIPE_KEY;
 export let token = null;
 
 export const setToken = (currentToken) => {

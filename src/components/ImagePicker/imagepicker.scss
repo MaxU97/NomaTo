@@ -52,6 +52,9 @@
       margin: 2px;
       opacity: 0;
       transition: 0.3s;
+      &.active {
+        opacity: 1 !important;
+      }
       .delete {
         border-radius: 10px;
         background-color: rgb(202, 59, 59);
@@ -59,6 +62,9 @@
       .crown {
         border-radius: 10px;
         background-color: #62c967;
+        &.active {
+          opacity: 1 !important;
+        }
       }
       &:hover {
         opacity: 1 !important;

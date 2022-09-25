@@ -3,6 +3,7 @@ import "./imagepicker.scss";
 import { CrownIcon, PlusIcon, TrashIcon } from "../../assets/Icons";
 import classNames from "classnames";
 import { useTranslation } from "react-i18next";
+import useWindowDimensions from "../../services/responsive.service";
 const ImagePicker = ({
   onClick = () => {},
   buttonClassName = "",
@@ -13,6 +14,7 @@ const ImagePicker = ({
   showLegend = true,
   children,
 }) => {
+  const { isMobile } = useWindowDimensions();
   const { t } = useTranslation();
   const removeImage = () => {
     var newList = [...imageList];
@@ -32,7 +34,12 @@ const ImagePicker = ({
       )}
       <div className="image-picker-image-controls">
         {index != 0 && (
-          <div className="image-picker-image-icon">
+          <div
+            className={classNames(
+              "image-picker-image-icon",
+              isMobile && "active"
+            )}
+          >
             <div className="image-picker-image-controls-tooltip">
               <div className="image-picker-image-controls-tooltip-content">
                 {t("image-tools.main-tooltip")}
@@ -43,14 +50,19 @@ const ImagePicker = ({
           </div>
         )}
 
-        <div className="image-picker-image-icon ">
+        <div
+          className={classNames(
+            "image-picker-image-icon",
+            isMobile && "active"
+          )}
+        >
           <div className="image-picker-image-controls-tooltip">
             <div className="image-picker-image-controls-tooltip-content">
               {t("image-tools.delete-tooltip")}
             </div>
             <div className="arrow-down"></div>
           </div>
-          <TrashIcon onClick={removeImage} className="delete"></TrashIcon>
+          <TrashIcon onClick={removeImage} className={"delete"}></TrashIcon>
         </div>
       </div>
       <img src={image}></img>

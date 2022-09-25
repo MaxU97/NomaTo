@@ -18,6 +18,8 @@ import { ReactComponent as MinusIcon } from "./minus-icon.svg";
 import { ReactComponent as PencilIcon } from "./pencil-icon.svg";
 import { ReactComponent as EyeOpenIcon } from "./eye-open-icon.svg";
 import { ReactComponent as EyeClosedIcon } from "./eye-closed-icon.svg";
+import { ReactComponent as MenuIcon } from "./menu-3line.svg";
+import { ReactComponent as SmileyIcon } from "./smiley.svg";
 import EnFlagIcon from "./fl-en.png";
 import LvFlagIcon from "./fl-lv.png";
 import RuFlagIcon from "./fl-ru.png";
@@ -42,6 +44,7 @@ export const SpinnerAnimationIcon = ({ scale }) => {
   );
 };
 export {
+  MenuIcon,
   EyeOpenIcon,
   EyeClosedIcon,
   PencilIcon,
@@ -64,4 +67,5 @@ export {
   DefaultCardIcon,
   VisaCardIcon,
   MinusIcon,
+  SmileyIcon,
 };

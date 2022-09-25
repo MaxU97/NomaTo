@@ -54,3 +54,14 @@
     }
   }
 }
+
+@media only screen and (max-device-width: 768px) {
+  .accordion {
+    border: none;
+    border-bottom: 1px solid #aaaaaa;
+    &:last-child {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+}

@@ -19,7 +19,10 @@ import { getNaturalAddress } from "../../services/item.service";
 import { getCurrentLanguage } from "../../services/language.service";
 
 import "./search.scss";
+import useWindowDimensions from "../../services/responsive.service";
 const SearchPage = () => {
+  const { isMobile } = useWindowDimensions();
+
   const options = { style: "currency", currency: "EUR" };
   const euroLocale = Intl.NumberFormat("lv-LV", options);
   const { t } = useTranslation();
@@ -36,15 +39,9 @@ const SearchPage = () => {
   const [address, setAddress] = useState();
   const [addressApplied, setAddressApplied] = useState(false);
   const [latLng, setLatLng] = useState();
-  // const [filterCategory, setFilterCategory] = useState(params.get("cat"));
-  // const [filterPrice, setFilterPrice] = useState(params.get("price"));
 
   const [categoryValue, setCategoryValue] = useState();
   const [termValue, setTermValue] = useState();
-  //  const [filterLocation, setLocation] = useState({
-  //     lng: params.get("lng"),
-  //     lat: params.get("lat"),
-  //   });
 
   const [maxPages, setMaxPages] = useState();
   const [termChanged, setTermChanged] = useState(false);
@@ -402,66 +399,73 @@ const SearchPage = () => {
             buttonAction={() => {
               search();
             }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                search();
+              }
+            }}
           ></Input>
-          <a
-            className={classNames(
-              "filter-item",
-              address && addressApplied && "active"
-            )}
-            onClick={() => {
-              toggleLocations(true);
-            }}
-          >
-            {address && addressApplied
-              ? address[0].long_name
-              : t("search-page.location")}
-            {addressApplied && address && (
-              <CloseIcon
-                className="filter-item-delete"
-                onClick={async (event) => {
-                  applyLocation(event, true);
-                  setAddress("");
-                }}
-              ></CloseIcon>
-            )}
-          </a>
-          <a
-            className={classNames("filter-item", categoryValue && "active")}
-            onClick={() => {
-              toggleCategories(true);
-            }}
-          >
-            {categoryValue ? categoryValue : t("search-page.category")}
-            {categoryValue && (
-              <CloseIcon
-                className="filter-item-delete"
-                onClick={async (event) => {
-                  await changeCategory("", event);
-                }}
-              ></CloseIcon>
-            )}
-          </a>
-          <a
-            className={classNames(
-              "filter-item",
-              (priceTo || priceFrom) && "active"
-            )}
-            onClick={() => {
-              togglePriceModal(true);
-            }}
-          >
-            {getPriceString()}
-            {(priceTo || priceFrom) && (
-              <CloseIcon
-                className="filter-item-delete"
-                onClick={(event) => {
-                  applyPrice(event, true);
-                  setPriceFrom("");
-                  setPriceTo("");
-                }}
-              ></CloseIcon>
-            )}
-          </a>
+          <div className="filters">
+            <a
+              className={classNames(
+                "filter-item",
+                address && addressApplied && "active"
+              )}
+              onClick={() => {
+                toggleLocations(true);
+              }}
+            >
+              {address && addressApplied
+                ? address[0].long_name
+                : t("search-page.location")}
+              {addressApplied && address && (
+                <CloseIcon
+                  className="filter-item-delete"
+                  onClick={async (event) => {
+                    applyLocation(event, true);
+                    setAddress("");
+                  }}
+                ></CloseIcon>
+              )}
+            </a>
+            <a
+              className={classNames("filter-item", categoryValue && "active")}
+              onClick={() => {
+                toggleCategories(true);
+              }}
+            >
+              {categoryValue ? categoryValue : t("search-page.category")}
+              {categoryValue && (
+                <CloseIcon
+                  className="filter-item-delete"
+                  onClick={async (event) => {
+                    await changeCategory("", event);
+                  }}
+                ></CloseIcon>
+              )}
+            </a>
+            <a
+              className={classNames(
+                "filter-item",
+                (priceTo || priceFrom) && "active"
+              )}
+              onClick={() => {
+                togglePriceModal(true);
+              }}
+            >
+              {getPriceString()}
+              {(priceTo || priceFrom) && (
+                <CloseIcon
+                  className="filter-item-delete"
+                  onClick={(event) => {
+                    applyPrice(event, true);
+                    setPriceFrom("");
+                    setPriceTo("");
+                  }}
+                ></CloseIcon>
+              )}
+            </a>
+          </div>
         </div>
         <div className="search-container">
           <div className="search-content">
@@ -496,29 +500,32 @@ const SearchPage = () => {
               </div>
             )}
           </div>
-          <div className="search-map">
-            <Map
-              areaCenter={addressApplied ? latLng : ""}
-              draggable={true}
-              radius={addressApplied ? km : 1000}
-              searchable={false}
-              className="search-map-container"
-              markersCoordinates={itemState.searchedItems}
-              zoom={11}
-            ></Map>
-          </div>
+          {!isMobile && (
+            <div className="search-map">
+              <Map
+                areaCenter={addressApplied ? latLng : ""}
+                draggable={true}
+                radius={addressApplied ? km : 1000}
+                searchable={false}
+                className="search-map-container"
+                markersCoordinates={itemState.searchedItems}
+                zoom={11}
+              ></Map>
+            </div>
+          )}
         </div>
-
-        <CategoryModal
-          modalOpen={categoryModal}
-          toggleModal={toggleCategories}
-          style={{ backgroundColor: "none" }}
-          title="Select a category"
-          setCategory={async (event) => {
-            await changeCategory(event);
-          }}
-          // setSubCategory={setSubCategory}
-        />
+        {utilityState.categories && (
+          <CategoryModal
+            modalOpen={categoryModal}
+            toggleModal={toggleCategories}
+            style={{ backgroundColor: "none" }}
+            title="Select a category"
+            setCategory={async (event) => {
+              await changeCategory(event);
+            }}
+            // setSubCategory={setSubCategory}
+          />
+        )}
 
         <Modal modalOpen={locationModal} toggleModal={toggleLocations}>
           <div className="location-modal">
@@ -573,11 +580,6 @@ const SearchPage = () => {
             </a>
           </div>
         </Modal>
-
-        {/* <SideMenu
-          toggleMenu={togglePriceModal}
-          menuOpen={priceModal}
-        ></SideMenu> */}
       </div>
     </>
   );

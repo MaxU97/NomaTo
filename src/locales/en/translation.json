@@ -3,7 +3,8 @@
     "FAQ": "FAQ",
     "become-a-lender": "Become a lender",
     "login-signup": "Login or Sign up",
-    "list-an-item": "List an item"
+    "list-an-item": "List an item",
+    "search": "Search for item"
   },
   "home": {
     "test": "ENGLISH",
@@ -11,7 +12,8 @@
     "search-title-p2": "anything",
     "search-title-p3": "in your city",
     "news": {
-      "title": "News"
+      "title": "News",
+      "view-more": "View More"
     }
   },
   "search": {
@@ -91,7 +93,11 @@
     "month": "Month",
     "cancel": "Cancel",
     "list-item": "List this item",
-    "please-fill-profile": "You have to fill your profile and connect a stripe account before making a listing",
+    "fill-profile": "You have to fill your",
+    "fill-profile2": "profile",
+    "fill-profile3": "and",
+    "fill-profile4": "connect a bank account",
+    "fill-profile5": "before making a listing",
     "choose-cat": "Choose a category",
     "error": {
       "image": "At least 1 image",
@@ -125,7 +131,9 @@
     "need-completed-profile": "You need to fill your profile before booking",
     "read-more": "Read more...",
     "show-original": "Show original description",
-    "show-translated": "Show translated description"
+    "show-translated": "Show translated description",
+    "no-reviews": "No Reviews",
+    "reviews": "Reviews"
   },
   "booking-modal": {
     "quantity": "Quantity Needed",
@@ -154,7 +162,7 @@
     "all": "All",
     "approval-required": "Approval Required",
     "approved": "Approved",
-    "with-customer": "With Customer",
+    "with-customer": "In Rent",
     "canceled": "Canceled by Customer",
     "declined": "Refused",
     "returned": "Returned",
@@ -189,13 +197,18 @@
     "declined": "Refused",
     "returned": "Returned",
     "view-qr": "Pick-up QR",
-    "confirm-dropoff": "Confirm Drop-off"
+    "confirm-dropoff": "Confirm Drop-off",
+    "leave-a-review": "Leave a review",
+    "canceling": "Canceling...",
+    "cancel-booking": "Cancel Booking"
   },
   "qr": {
     "show-owner": "Show this to the owner on pick up",
+    "show-renter": "Show this to the renter on drop off",
     "fees": "Fees may apply if not shown!",
     "processing": "Processing QR Code",
-    "scan-qr": "Scan the QR-Code provided"
+    "scan-qr": "Scan the QR-Code provided",
+    "not-mobile": "Please open this page on a phone"
   },
   "add-category": {
     "add-category": "Add Category",
@@ -236,7 +249,8 @@
     "save": "Save Changes",
     "valid-number": "Please enter a valid phone number (+371...)",
     "address-info": "You can only change your address once every 30 days",
-    "phone-info": "You can only change your phone once every 30 days"
+    "phone-info": "You can only change your phone once every 30 days",
+    "update-bank-info": "Bank Details"
   },
   "search-page": {
     "location": "Location",
@@ -305,13 +319,15 @@
     "create-account": "Create an account"
   },
   "checkout": {
+    "wrong": "Something went wrong.",
+    "wrong2": "You will be redirected to the item page to try again shortly",
     "save-details": "Save payment details for the future",
     "select-methods": "Please select a payment method",
     "send-booking": "Send Booking",
     "error": "Something went wrong",
     "try-again": "Please try to make a booking again.",
-    "processing": "Processing payment method",
-    "no-refresh": "Please do not close or refresh this page. You will be redirected automatically once the payment method has been confirmed."
+    "processing": "Processing payment",
+    "no-refresh": "Please do not close or refresh this page. You will be redirected automatically once the payment has been confirmed."
   },
   "image-tools": {
     "main-tooltip": "Make main image",
@@ -330,6 +346,9 @@
     "amount": "Withdraw Amount"
   },
   "utility": {
+    "categories": {
+      "search-categories": "Search for a category"
+    },
     "calendar": {
       "error": {
         "one-day": "Please select more than one day",
@@ -343,6 +362,42 @@
     "text-area": {
       "maximum": "Maximum",
       "characters": "characters"
+    },
+    "prompt": {
+      "confirm": "Confirm",
+      "cancel": "Cancel"
     }
+  },
+
+  "add-news": {
+    "add-news": "Add News",
+    "edit-news": "Edit News",
+    "language": "Language",
+    "title": "Title",
+    "news": "News",
+    "attach-pictures": "Attach Pictures",
+    "publish": "Publish",
+    "preview": "Preview"
+  },
+  "payment-register": {
+    "title": "Adding a payout method to your account",
+    "update-title": "Updating the payout method on your account",
+    "submit": "Submit details",
+    "tos": "By registering your account, you agree to our",
+    "our-tos": "Services Agreement",
+    "tos2": "and the",
+    "stripe-tos": "Stripe Connected Account Agreement",
+    "name": "Account holder name",
+    "surname": " Account holder Surname",
+    "IBAN": "IBAN",
+    "name-error": "Please enter a name",
+    "surname-error": "Please enter a surname",
+    "iban-error": "Please enter a valid IBAN"
+  },
+  "leave-review": {
+    "title": "Review for",
+    "item-reviewed": "Item already reviewed, thank you.",
+    "review": "Review",
+    "submit": "Submit Review"
   }
 }

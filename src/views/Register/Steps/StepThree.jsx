@@ -85,7 +85,7 @@ const StepThree = ({
         onDelete={handleLanguageDelete}
         onSelect={handleLanguageSelect}
         error={languageError}
-        errorText={"Please select at least one language"}
+        errorText={"Please select at least one language"} //NOTES
       />
       <a
         onClick={() => {

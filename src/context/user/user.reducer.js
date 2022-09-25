@@ -5,12 +5,11 @@ import {
   $SET_USER,
   $UNAUTH,
   $SIGNUP,
-  $GET_CLIENT_SECRET,
-  $GET_PAYMENT_METHODS,
-  $RESET_CLIENT_SECRET,
   $PATCH_USER,
   $PATCH_IMAGE,
   $GET_USER_BALANCE,
+  $RESET_CLIENT_SECRET,
+  $GET_CLIENT_SECRET,
 } from "./user.constants";
 
 export const UserBaseState = {
@@ -18,9 +17,10 @@ export const UserBaseState = {
   token: false,
   bookingHistory: [],
   bookingHistoryLoaded: false,
-  clientSecret: "",
   paymentMethods: false,
   userBalance: null,
+  loginAttempts: 0,
+  clientSecret: "",
 };
 
 export const UserReducer = (state, action) => {
@@ -30,6 +30,13 @@ export const UserReducer = (state, action) => {
       return {
         ...state,
         token: payload,
+        loginAttempts: 0,
+      };
+    }
+    case $FAIL_AUTH: {
+      return {
+        ...state,
+        loginAttempts: state.loginAttempts + 1,
       };
     }
     case $UNAUTH: {
@@ -56,18 +63,13 @@ export const UserReducer = (state, action) => {
         ...payload,
       };
     }
-    case $GET_PAYMENT_METHODS: {
-      return {
-        ...state,
-        paymentMethods: payload,
-      };
-    }
     case $GET_USER_BALANCE: {
       return {
         ...state,
         userBalance: payload,
       };
     }
+
     case $GET_CLIENT_SECRET: {
       return {
         ...state,

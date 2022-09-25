@@ -3,18 +3,27 @@ import "./roundimagepicker.scss";
 import { CrownIcon, PlusIcon, TrashIcon } from "../../assets/Icons";
 import classNames from "classnames";
 import { useTranslation } from "react-i18next";
+import useWindowDimensions from "../../services/responsive.service";
 const RoundImagePicker = ({
   onClick = () => {},
   buttonClassName = "",
   image = "",
   children,
 }) => {
+  const { isMobile } = useWindowDimensions();
   const { t } = useTranslation();
 
   return image ? (
     <div className={classNames("image-picker-image", buttonClassName)}>
       <img src={image}></img>
-      <div className="image-picker-image-overlay" onClick={onClick}>
+
+      <div
+        className={classNames(
+          "image-picker-image-overlay",
+          isMobile && "active"
+        )}
+        onClick={onClick}
+      >
         {t("image-tools.change-image")}
       </div>
     </div>

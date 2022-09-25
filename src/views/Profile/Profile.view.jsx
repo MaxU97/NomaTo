@@ -83,17 +83,20 @@ const Profile = () => {
       try {
         response = await PATCH_USER(props);
       } catch (err) {
-        notification(err.message, true);
+        notification([err.message], true);
         toggleIsUpdating(false);
         return;
       }
+
       if (!response.changed) {
         toggleIsUpdating(false);
         notification([response.message], true);
       } else {
         toggleIsUpdating(false);
-        notification([response]);
-        window.location.reload();
+        notification([response.message]);
+        setTimeout(() => {
+          window.location.reload();
+        }, 700);
       }
     } else {
       setSubmitError(t("profile.submit-error"));
@@ -129,7 +132,10 @@ const Profile = () => {
   return (
     <>
       <div className="profile">
-        <div className="container-m">
+        <div
+          className="container-m"
+          style={{ paddingTop: "140px", paddingBottom: "100px" }}
+        >
           <div className="profile-content">
             <h1>{t("profile.title")}</h1>
             <div className="profile-image">
@@ -175,7 +181,7 @@ const Profile = () => {
                 }}
                 errorText={t("profile.valid-number")}
                 showInformation={!state.user.allowPhoneEdit && phoneOver}
-                informationText={t("profle.phone-info")}
+                informationText={t("profile.phone-info")}
               />
             </div>
             <div className="profile-content-field">
@@ -189,19 +195,18 @@ const Profile = () => {
                 <Places
                   inMap={false}
                   containerClass="profile-content-field-input"
+                  placeholderColor="#000"
                   setPlace={setLatLng}
                   setAddress={setAddress}
                   onMouseOver={() => {
                     toggleAddressOver(true);
                   }}
-                  showInformation={!state.user.allowAddressEdit && addressOver}
-                  informationText={t("profle.address-info")}
+                  informationText={t("profile.address-info")}
                   onMouseOut={() => {
                     toggleAddressOver(false);
                   }}
                   existingValue={address}
                   placeholder={typeof address == "object" ? "" : address}
-                  disabled={!state.user.allowAddressEdit}
                 ></Places>
               )}
             </div>
@@ -210,6 +215,11 @@ const Profile = () => {
               <Link to="/change-password" className="profile-button">
                 {t("profile.change-pw")}
               </Link>
+              {state.user.sellerCompleted && (
+                <Link to="/payment-details" className="profile-button">
+                  {t("profile.update-bank-info")}
+                </Link>
+              )}
               <a
                 onClick={() => updateProfile()}
                 className={classNames(

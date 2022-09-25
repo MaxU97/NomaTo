@@ -28,8 +28,14 @@ import PublicRoute from "./PublicRoute.component";
 import EditItem from "../../views/EditItem/EditItem.view";
 import MyShop from "../../views/MyShop/MyShop.view";
 import ChangePassword from "../../views/ChangePassword/ChangePassword.view";
-import BecomeALender from "../../views/BecomeALender/BecomeALender.view";
+
 import AccountBalance from "../../views/AccountBalance/AccountBalance.view";
+import NewsPage from "../../views/NewsPage/NewsPage.component";
+import EditNews from "../../views/EditNews/EditNews.view";
+import TermsPage from "../../views/TermsPage/TermsPage.view";
+import PrivacyPage from "../../views/PrivacyPage/PrivacyPage.view";
+import PaymentRegister from "../../views/PaymentRegister/PaymentRegister.view";
+import LeaveReview from "../../views/LeaveReview/LeaveReview.view";
 
 export const AppRouter = () => {
   const { state } = useUserContext();
@@ -48,8 +54,17 @@ export const AppRouter = () => {
         <Route path={["/item/:id"]} exact>
           <ItemPage />
         </Route>
+        <Route path={["/news/:id"]} exact>
+          <NewsPage />
+        </Route>
         <Route path={["/search"]} exact>
           <SearchPage />
+        </Route>
+        <Route path={["/terms-of-service"]} exact>
+          <TermsPage />
+        </Route>
+        <Route path={["/privacy-policy"]} exact>
+          <PrivacyPage />
         </Route>
         {/* Public only routes */}
         <PublicRoute path="/login" exact>
@@ -62,13 +77,19 @@ export const AppRouter = () => {
           <ForgotPassword />
         </PublicRoute>
         {/* Admin routes */}
-        {/* <PrivateRoute path={["/add-news"]} exact admin>
+        <PrivateRoute path={["/add-news"]} exact admin>
           <AddNews />
-        </PrivateRoute> */}
+        </PrivateRoute>
+        <PrivateRoute path={["/edit-news/:id"]} exact admin>
+          <EditNews />
+        </PrivateRoute>
         <PrivateRoute path={["/add-categories"]} exact admin>
           <AddCategories />
         </PrivateRoute>
         {/* Private Routes */}
+        <PrivateRoute path={["/payment-details"]}>
+          <PaymentRegister></PaymentRegister>
+        </PrivateRoute>
         <PrivateRoute path={["/list-an-item"]} exact>
           <ListItem />
         </PrivateRoute>
@@ -99,8 +120,8 @@ export const AppRouter = () => {
         <PrivateRoute path={["/change-password"]} exact>
           <ChangePassword />
         </PrivateRoute>
-        <PrivateRoute path={["/become-a-lender"]} exact>
-          <BecomeALender />
+        <PrivateRoute path={["/review/:id"]} exact>
+          <LeaveReview />
         </PrivateRoute>
         <PrivateRoute path={["/account-balance"]} exact>
           <AccountBalance />

@@ -11,7 +11,26 @@
   width: 100%;
   gap: 2px;
   &-button {
-    height: 100%;
     width: 20% !important;
+  }
+}
+@media only screen and (max-device-width: 768px) {
+  .multi-image-picker {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+  }
+
+  .secondary-images {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 2px;
+    &-button {
+      height: 100%;
+      width: auto !important;
+      &:last-child {
+        display: none;
+      }
+    }
   }
 }

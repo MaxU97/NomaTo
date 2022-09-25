@@ -6,13 +6,9 @@ import classNames from "classnames";
 import Input from "../Input/Input.component";
 import Calendar from "../Calendar/Calendar.component";
 import "react-calendar/dist/Calendar.css";
-import differenceInCalendarDays from "date-fns/differenceInCalendarDays";
-import isWithinInterval from "date-fns/isWithinInterval";
-import { CSSTransition } from "react-transition-group";
 import { getCurrentLanguage } from "../../services/language.service";
 import _ from "lodash";
 import moment from "moment";
-import CheckoutForm from "../CheckoutForm/CheckoutForm.component";
 
 import {
   getTotalPrice,
@@ -20,9 +16,9 @@ import {
   getServiceCharge,
 } from "../../services/price.service";
 import { useUtilityContext } from "../../context/utility";
-import { useItemContext } from "../../context/item";
 import { getAvailableQuantity } from "../../api/booking";
 import { useNotificationHandler } from "../NotificationHandler/NotificationHandler.component";
+import CheckoutForm from "../CheckoutForm/CheckoutForm.component";
 export const BookingModal = ({
   modalOpen,
   toggleModal,
@@ -205,9 +201,14 @@ export const BookingModal = ({
     const validated = await validateFields();
     if (validated) {
       setIntentLoading(true);
-      await sendCard();
-      setIntentLoading(false);
       setTCError("");
+      setDataToSend({
+        itemID,
+        comment: comment,
+        dateStart: dates["start"],
+        dateEnd: dates["end"],
+        qtyWant: qtyWant,
+      });
       setStep(step + 1);
     }
   };
@@ -300,16 +301,6 @@ export const BookingModal = ({
 
   const tcChecked = () => {
     resetTCValidation();
-  };
-  const sendCard = async () => {
-    let data = {
-      itemID,
-      comment: comment,
-      dateStart: dates["start"],
-      dateEnd: dates["end"],
-      qtyWant: qtyWant,
-    };
-    setDataToSend(data);
   };
 
   return (

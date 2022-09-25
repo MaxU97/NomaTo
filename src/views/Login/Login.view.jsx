@@ -1,34 +1,51 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { Link, useHistory, useParams } from "react-router-dom";
+import { Link, useHistory, Redirect, useLocation } from "react-router-dom";
 import Input from "../../components/Input/Input.component";
 import "./login.scss";
 import { useUserContext } from "../../context/user";
 import { useNotificationHandler } from "../../components/NotificationHandler/NotificationHandler.component";
+import ReCAPTCHA from "react-google-recaptcha";
+import { captchaKey } from "../../api/config";
 const Login = () => {
+  const { state } = useUserContext();
+  const reRef = useRef();
   const { t } = useTranslation();
   const { notification } = useNotificationHandler();
   const { AUTHORIZE } = useUserContext();
   const [error, setError] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [captchaToken, setCaptchaToken] = useState(false);
   const history = useHistory();
+  const location = useLocation();
 
   useEffect(() => {
     setEmail(email);
     setPassword(password);
   });
+
+  const setCaptcha = (e) => {
+    setCaptchaToken(e);
+  };
   const submitForm = async () => {
     const err = await AUTHORIZE({
       email: email,
       password: password,
+      token: captchaToken,
     });
+
     if (err) {
       notification([err.message], true);
-
+      reRef.current?.reset();
+      setCaptchaToken(false);
       setError(err.message);
     } else {
-      history.goBack();
+      if (location.state?.from) {
+        <Redirect to={{ pathname: location.state?.from.pathname }}></Redirect>;
+      } else {
+        <Redirect to={{ pathname: "/" }}></Redirect>;
+      }
     }
   };
   const passRef = useRef();
@@ -62,7 +79,18 @@ const Login = () => {
               }
             }}
           ></Input>
+          {state.loginAttempts > 2 && (
+            <ReCAPTCHA
+              sitekey={captchaKey}
+              onChange={setCaptcha}
+              size="normal"
+              ref={reRef}
+              style={{ marginBottom: "20px" }}
+            />
+          )}
+
           <a
+            disabled={!!!captchaToken && state.loginAttempts > 2}
             className="login-page-button"
             onClick={() => {
               submitForm();

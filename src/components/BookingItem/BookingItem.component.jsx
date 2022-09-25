@@ -3,7 +3,7 @@ import "./bookingitem.scss";
 import { apiUrl } from "../../api/config";
 import { getServiceCharge, getTotalPrice } from "../../services/price.service";
 import { getCurrentLanguage } from "../../services/language.service";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { cancelBooking } from "../../api/booking";
 import { useUserContext } from "../../context/user";
 import { SpinnerAnimationIcon } from "../../assets/Icons";
@@ -18,6 +18,7 @@ const BookingItem = ({ item, status }) => {
   const [date, setDate] = useState("");
   const [isCanceling, setIsCanceling] = useState(false);
   const [price, setPrice] = useState(0);
+  const location = useLocation();
   useEffect(() => {
     const dates = [new Date(item.dateStart), new Date(item.dateEnd)];
 
@@ -122,9 +123,23 @@ const BookingItem = ({ item, status }) => {
               await cancel(item._id);
             }}
           >
-            {isCanceling ? "Canceling..." : "Cancel Booking"}
+            {isCanceling
+              ? t("my-bookings.canceling")
+              : t("my-bookings.cancel-booking")}
           </a>
         )}
+        {(item.reviewed != undefined || item.reviewed != null) &&
+          !item.reviewed && (
+            <Link
+              to={{
+                pathname: `/review/${item._id}`,
+                state: { from: location.pathname },
+              }}
+              className="booking-item-buttons-button"
+            >
+              {t("my-bookings.leave-a-review")}
+            </Link>
+          )}
       </div>
     </div>
   );

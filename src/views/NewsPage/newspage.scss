@@ -1,0 +1,124 @@
+.news-page {
+  background-image: url("../../assets/home-background.png");
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  padding-top: 100px;
+  box-sizing: border-box;
+}
+
+.news {
+  &-container {
+    position: relative;
+    width: 100%;
+    border: 1px solid #a3a3a3;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding: 20px;
+    background-color: white;
+  }
+  &-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    img {
+      width: 80%;
+      height: auto;
+      aspect-ratio: 1.5/1;
+    }
+  }
+  &-title {
+    padding-bottom: 20px;
+    text-align: center;
+    font-family: "Gilroy-SemiBold";
+    font-size: 30px;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  &-text {
+    padding: 20px;
+    text-align: left;
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
+    -webkit-column-gap: 30px;
+    -moz-column-gap: 30px;
+    column-gap: 30px;
+  }
+  &-date {
+    padding-top: 10px;
+    text-align: left;
+    color: #a3a3a3;
+    font-size: 11px;
+  }
+  &-settings {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 1px solid #a3a3a3;
+    border-radius: 10px;
+    transform: translateX(calc(-100% - 10px));
+    &-content {
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      svg {
+        width: 25px;
+        height: 25px;
+        transition: 0.2s;
+        &:hover {
+          cursor: pointer;
+          opacity: 0.5;
+        }
+      }
+      .trash {
+        fill: rgb(180, 79, 79);
+      }
+    }
+  }
+}
+
+@media only screen and (max-device-width: 768px) {
+  .news-page {
+    background: none;
+    padding-bottom: 20px;
+    padding-top: 80px;
+    .no-padding-top {
+      padding-top: 0;
+    }
+  }
+  .news {
+    &-container {
+      width: 100%;
+      border: none;
+      box-sizing: border-box;
+      padding: 0;
+    }
+    &-image {
+      margin-bottom: 20px;
+      img {
+        width: 100%;
+      }
+    }
+    &-title {
+      padding-bottom: 20px;
+      text-align: center;
+    }
+    &-text {
+      font-size: 18px;
+      padding: 0;
+      text-align: left;
+      -webkit-column-count: 1;
+      -moz-column-count: 1;
+      column-count: 1;
+      -webkit-column-gap: 0;
+      -moz-column-gap: 0;
+      column-gap: 0;
+    }
+  }
+}
