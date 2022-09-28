@@ -46,7 +46,7 @@ const Checkout = ({
       .then((result) => {
         if (result.error) {
           setPaymentLoading(false);
-          notification([result.error.message], true);
+          notification([result.error.message], true, 100);
         } else {
         }
       });

@@ -8,10 +8,14 @@ export const NotificationHandler = ({ children }) => {
   const [alert, setAlert] = useState(false);
   const [show, setShow] = useState(false);
   const [error, setError] = useState(false);
-  const notification = (text, error = false) => {
+  const [zIndex, setZIndex] = useState();
+  const notification = (text, error = false, z) => {
     setAlert(text);
     setError(error);
     setShow(true);
+    if (z) {
+      setZIndex(z);
+    }
     setTimeout(() => {
       setShow(false);
     }, 3000);
@@ -33,7 +37,10 @@ export const NotificationHandler = ({ children }) => {
         unmountOnExit
         classNames="notification-container"
       >
-        <div className={classNames("notification", error && "error")}>
+        <div
+          className={classNames("notification", error && "error")}
+          style={zIndex && { zIndex: zIndex }}
+        >
           {alert[0]}
         </div>
       </CSSTransition>
