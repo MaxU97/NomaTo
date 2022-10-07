@@ -17,7 +17,9 @@ export const googleLibraries = ["places"];
 export const stripeKey = process.env.REACT_APP_STRIPE_KEY;
 export let token = null;
 
-export const setToken = (currentToken) => {
+export const setToken = async (currentToken) => {
+  console.log("Token: ", currentToken);
+  console.log("Token: ", token);
   if (currentToken) {
     localStorage.setItem("token", currentToken);
     token = currentToken;

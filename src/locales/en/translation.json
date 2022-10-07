@@ -399,5 +399,9 @@
     "item-reviewed": "Item already reviewed, thank you.",
     "review": "Review",
     "submit": "Submit Review"
+  },
+  "not-found": {
+    "text": "Oops. You have stumbled onto a non-existing page",
+    "button": "Take me home"
   }
 }

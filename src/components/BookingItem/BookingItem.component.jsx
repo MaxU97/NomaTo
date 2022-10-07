@@ -103,7 +103,10 @@ const BookingItem = ({ item, status }) => {
         )}
         {["with_customer"].includes(item.status) && (
           <Link
-            to={`qr-reader/${item._id}`}
+            to={{
+              pathname: `qr-reader/${item._id}`,
+              state: { from: location.pathname },
+            }}
             className="booking-item-buttons-button"
           >
             {t("my-bookings.confirm-dropoff")}

@@ -3,7 +3,7 @@ import "./bookingrequestsitem.scss";
 import { apiUrl } from "../../api/config";
 import { getTotalPrice } from "../../services/price.service";
 import { getCurrentLanguage } from "../../services/language.service";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Modal from "../Modal/Modal.component";
 import classNames from "classnames";
@@ -22,7 +22,7 @@ const BookingRequestsItem = ({ item, status }) => {
   const [refusalReason, setRefusalReason] = useState("");
   const [bookingID, setBookingID] = useState("");
   const [approvedUser, setApprovedUser] = useState();
-
+  const location = useLocation();
   const [price, setPrice] = useState(0);
 
   const { notification } = useNotificationHandler();
@@ -153,7 +153,10 @@ const BookingRequestsItem = ({ item, status }) => {
               </a>
               <Link
                 className="booking-request-item-actions-button"
-                to={`/qr-reader/${item._id}`}
+                to={{
+                  pathname: `qr-reader/${item._id}`,
+                  state: { from: location.pathname },
+                }}
               >
                 {t("booking-requests.confirm-pickup")}
               </Link>

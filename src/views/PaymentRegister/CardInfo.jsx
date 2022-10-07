@@ -76,6 +76,8 @@ export const CardInfo = () => {
       } catch (err) {
         notification([err.message], true);
       }
+    } else {
+      toggleLoading(false);
     }
   };
 

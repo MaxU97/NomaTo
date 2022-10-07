@@ -123,6 +123,6 @@ export const getClientSecret = async (data) => {
       return data.clientSecret;
     })
     .catch((err) => {
-      console.log(err.response.data);
+      throw err.response.data;
     });
 };

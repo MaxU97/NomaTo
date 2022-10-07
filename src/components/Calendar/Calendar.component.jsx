@@ -5,6 +5,7 @@ import "./calendar.scss";
 import { CSSTransition } from "react-transition-group";
 import classNames from "classnames";
 import moment from "moment";
+import { isAfter, set } from "date-fns";
 import { useTranslation } from "react-i18next";
 const Calendar = ({
   setDateRange = () => {},
@@ -16,8 +17,27 @@ const Calendar = ({
   calendarError,
   setCalendarError,
 }) => {
+  const getViableToday = () => {
+    debugger;
+    var date = set(new Date(Date.now()), {
+      hours: 12,
+      minutes: 0,
+      seconds: 0,
+      milliseconds: 0,
+    });
+    if (isAfter(Date.now(), date)) {
+      date = new Date();
+      console.log("Is after");
+    } else {
+      date = new Date(Date.now() - 24 * 60 * 60 * 1000);
+    }
+    return date;
+  };
+
   const { t } = useTranslation();
-  const today = new Date();
+  debugger;
+  const today = getViableToday();
+
   const [dates, setDates] = useState(dateRange ? dateRange : "");
 
   const getDayCount = (to, from) => {

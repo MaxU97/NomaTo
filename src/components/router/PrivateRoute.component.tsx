@@ -1,7 +1,7 @@
 import React from "react";
 import { Redirect, Route } from "react-router-dom";
 import { useUserContext } from "../../context/user";
-import NotFound from "../../views/NotFound";
+import NotFound from "../../views/NotFound/NotFound";
 
 export const PrivateRoute = ({ children, admin = false, ...props }) => {
   const { state } = useUserContext();

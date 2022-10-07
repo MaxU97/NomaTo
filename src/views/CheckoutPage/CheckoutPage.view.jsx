@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
-import NotFound from "../NotFound";
-import { CloseIcon, SpinnerAnimationIcon } from "../../assets/Icons";
+import NotFound from "../NotFound/NotFound";
+import { CheckIcon, CloseIcon, SpinnerAnimationIcon } from "../../assets/Icons";
 import "./checkoutpage.scss";
 import { useTranslation } from "react-i18next";
 import { sendBookingToOwner } from "../../api/booking";
@@ -15,7 +15,6 @@ export const CheckoutPage = () => {
 
   const { t } = useTranslation();
   const [loading, setLoading] = useState(true);
-
   const [error, setError] = useState(false);
 
   useEffect(() => {
@@ -25,7 +24,10 @@ export const CheckoutPage = () => {
         const intentID = params.get("payment_intent");
         try {
           await sendBookingToOwner(payment_intent, intentID);
-          window.location.href = `/`;
+          setLoading(false);
+          setTimeout(() => {
+            window.location.href = `/bookings`;
+          }, 2000);
         } catch (err) {
           console.log(err.message);
           setError(true);
@@ -47,14 +49,18 @@ export const CheckoutPage = () => {
           <SpinnerAnimationIcon scale={2}></SpinnerAnimationIcon>
           <p>{t("checkout.no-refresh")}</p>
         </>
+      ) : error ? (
+        <>
+          <h1>{t("checkout.wrong")}</h1>
+          <CloseIcon className="error-cross"></CloseIcon>
+          <p>{t("checkout.wrong2")}</p>
+        </>
       ) : (
-        error && (
-          <>
-            <h1>{t("checkout.wrong")}</h1>
-            <CloseIcon className="error-cross"></CloseIcon>
-            <p>{t("checkout.wrong2")}</p>
-          </>
-        )
+        <>
+          <h1>{t("checkout.wrong")}</h1>
+          <CheckIcon className="check-mark"></CheckIcon>
+          <p>{t("checkout.wrong2")}</p>
+        </>
       )}
     </div>
   ) : (

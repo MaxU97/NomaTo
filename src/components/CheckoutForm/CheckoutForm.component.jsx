@@ -18,6 +18,7 @@ import Checkout from "./Checkout.component";
 import "./checkoutform.scss";
 import { useUserContext } from "../../context/user";
 import { stripeKey } from "../../api/config";
+import { useNotificationHandler } from "../NotificationHandler/NotificationHandler.component";
 const stripe = loadStripe(stripeKey);
 
 const CheckoutForm = ({ step, setStep, data }) => {
@@ -25,12 +26,19 @@ const CheckoutForm = ({ step, setStep, data }) => {
   const [isReady, setIsReady] = useState(true);
   const [clickedIndex, setClickedIndex] = useState();
   const { state, GET_CLIENT_SECRET, RESET_CLIENT_SECRET } = useUserContext();
-
+  const { notification } = useNotificationHandler();
   useEffect(() => {
     const onPageLoad = async () => {
       setIsReady(false);
       RESET_CLIENT_SECRET();
-      await GET_CLIENT_SECRET(data);
+      try {
+        await GET_CLIENT_SECRET(data);
+      } catch (err) {
+        notification([err.message], true, 100);
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      }
     };
     onPageLoad();
   }, []);

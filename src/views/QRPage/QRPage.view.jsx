@@ -8,7 +8,7 @@ import { SpinnerAnimationIcon } from "../../assets/Icons";
 import { useNotificationHandler } from "../../components/NotificationHandler/NotificationHandler.component";
 import { useUserContext } from "../../context/user";
 import "./qrpage.scss";
-const QRPage = ({ showHeader = (val) => {} }) => {
+const QRPage = () => {
   let { type, booking } = useParams();
   const [hash, setHash] = useState();
   const [isLoading, setIsLoading] = useState(true);
@@ -16,7 +16,6 @@ const QRPage = ({ showHeader = (val) => {} }) => {
   const { t } = useTranslation();
   useEffect(() => {
     const getHash = async () => {
-      showHeader(false);
       if (type && booking) {
         try {
           const hash = await getQRHash({ type, booking });

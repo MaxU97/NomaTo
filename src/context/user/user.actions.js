@@ -55,7 +55,7 @@ export const GET_USER = (dispatch) => async () => {
     });
   } catch (err) {
     console.error(err);
-    await logout();
+    await LOGOUT();
   }
 };
 

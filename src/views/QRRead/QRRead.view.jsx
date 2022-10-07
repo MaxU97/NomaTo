@@ -6,7 +6,8 @@ import { QrReader } from "react-qr-reader";
 import "./qrread.scss";
 import { useTranslation } from "react-i18next";
 import useWindowDimensions from "../../services/responsive.service";
-const QRRead = ({ showHeader = (val) => {} }) => {
+import { useLocation } from "react-router-dom";
+const QRRead = () => {
   const { isMobile } = useWindowDimensions();
   const { t } = useTranslation();
   const history = useHistory();
@@ -16,6 +17,7 @@ const QRRead = ({ showHeader = (val) => {} }) => {
   const [data, setData] = useState();
   const [qrError, setQrError] = useState();
   const [options, setOptions] = useState();
+  const location = useLocation();
   useEffect(() => {
     if (data) {
       var parsedData = JSON.parse(data);
@@ -29,14 +31,13 @@ const QRRead = ({ showHeader = (val) => {} }) => {
 
   useEffect(() => {
     if (isMobile) {
-      showHeader(false);
       const getScanned = async () => {
         const response = await qrCodeScan(options);
         setLoading(false);
         setStatus(response);
         if (response.status) {
           setTimeout(() => {
-            history.goBack();
+            window.location.href = "/my-bookings";
           }, 2500);
         } else {
           setTimeout(() => {
