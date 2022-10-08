@@ -15,6 +15,15 @@
   background-color: white;
   border: 1px solid #e0e0e0;
   border-radius: 10px;
+  &-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    height: 760px;
+  }
   &-settings {
     position: absolute;
     transform: translateX(calc(-100% - 10px));

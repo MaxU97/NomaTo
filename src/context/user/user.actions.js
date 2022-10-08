@@ -40,7 +40,8 @@ export const AUTHORIZE = (dispatch) => async (props) => {
   }
 };
 export const LOGOUT = (dispatch) => async () => {
-  await logout();
+  debugger;
+  logout();
   dispatch({
     type: $UNAUTH,
   });
@@ -54,8 +55,8 @@ export const GET_USER = (dispatch) => async () => {
       payload: user,
     });
   } catch (err) {
-    console.error(err);
-    await LOGOUT();
+    debugger;
+    LOGOUT(dispatch)();
   }
 };
 

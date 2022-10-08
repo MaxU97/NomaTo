@@ -15,12 +15,9 @@ export const login = async (props) => {
     });
 };
 
-export const logout = async () => {
-  try {
-    localStorage.removeItem("token");
-  } catch (err) {
-    console.error(err);
-  }
+export const logout = () => {
+  debugger;
+  localStorage.removeItem("token");
 };
 
 export const patchUser = async (props) => {

@@ -12,6 +12,7 @@ import {
   EyeClosedIcon,
   EyeOpenIcon,
   PencilIcon,
+  SpinnerAnimationIcon,
   ThumbDownIcon,
   ThumbUpIcon,
   TrashIcon,
@@ -398,6 +399,12 @@ export const ItemPage = () => {
       )}
     </div>
   ) : (
-    <></>
+    <div className="item-page-background">
+      <div className="container-l background">
+        <div className="item-page-loading">
+          <SpinnerAnimationIcon scale={2}></SpinnerAnimationIcon>
+        </div>
+      </div>
+    </div>
   );
 };
