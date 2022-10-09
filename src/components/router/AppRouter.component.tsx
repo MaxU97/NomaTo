@@ -39,8 +39,22 @@ import "./router.scss";
 import { SpinnerAnimationIcon } from "../../assets/Icons";
 import { CSSTransition } from "react-transition-group";
 export const AppRouter = () => {
-  const { state } = useUserContext();
+  const { state, LOGOUT } = useUserContext();
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const handleInvalidToken = (e) => {
+      if (e.key === "token" && e.oldValue && !e.newValue) {
+        debugger;
+        console.log(e);
+        LOGOUT();
+      }
+    };
+    window.addEventListener("storage", handleInvalidToken);
+    return function cleanup() {
+      window.removeEventListener("storage", handleInvalidToken);
+    };
+  }, [LOGOUT]);
 
   useEffect(() => {
     setTimeout(() => {
