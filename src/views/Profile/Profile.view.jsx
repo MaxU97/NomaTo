@@ -17,6 +17,7 @@ import { SpinnerAnimationIcon } from "../../assets/Icons";
 import classNames from "classnames";
 import { useNotificationHandler } from "../../components/NotificationHandler/NotificationHandler.component";
 import Places from "../../components/Map/Places.component";
+import { AddressModal } from "../../components/AddressModal/AddressModal.component";
 const Profile = () => {
   const { t } = useTranslation();
   const { state, PATCH_USER, PATCH_IMAGE } = useUserContext();
@@ -28,6 +29,7 @@ const Profile = () => {
   const [addressOver, toggleAddressOver] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [changetoPlaces, setChangeToPlaces] = useState(false);
+  const [addressModal, toggleAddressModal] = useState(true);
 
   const [latlng, setLatLng] = useState("");
   const updateImage = (image) => {
@@ -182,6 +184,7 @@ const Profile = () => {
                 errorText={t("profile.valid-number")}
                 showInformation={!state.user.allowPhoneEdit && phoneOver}
                 informationText={t("profile.phone-info")}
+                type="number"
               />
             </div>
             <div className="profile-content-field">
@@ -239,6 +242,11 @@ const Profile = () => {
         setUploadImages={updateImage}
         circleCrop={true}
       ></ImageEditorModal>
+      <AddressModal
+        modalOpen={addressModal}
+        toggleModal={toggleAddressModal}
+        setAddress={setAddress}
+      ></AddressModal>
     </>
   );
 };

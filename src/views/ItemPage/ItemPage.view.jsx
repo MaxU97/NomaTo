@@ -12,6 +12,7 @@ import {
   EyeClosedIcon,
   EyeOpenIcon,
   PencilIcon,
+  QuestionIcon,
   SpinnerAnimationIcon,
   ThumbDownIcon,
   ThumbUpIcon,
@@ -328,6 +329,12 @@ export const ItemPage = () => {
               <div className="item-page-right-review">
                 <div className="title-minor">
                   {t("item-page.recent-review")}
+                  <div className="title-minor-icon">
+                    <QuestionIcon></QuestionIcon>
+                  </div>
+                  <div className="title-minor-tooltip">
+                    {t("item-page.review-tooltip")}
+                  </div>
                 </div>
                 {item.recentReview ? (
                   <div className="item-page-right-review-contents">

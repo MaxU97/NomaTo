@@ -133,7 +133,8 @@
     "show-original": "Show original description",
     "show-translated": "Show translated description",
     "no-reviews": "No Reviews",
-    "reviews": "Reviews"
+    "reviews": "Reviews",
+    "review-tooltip": "All of the reviews are written by people who have rented the item"
   },
   "booking-modal": {
     "quantity": "Quantity Needed",
@@ -250,7 +251,12 @@
     "valid-number": "Please enter a valid phone number (+371...)",
     "address-info": "You can only change your address once every 30 days",
     "phone-info": "You can only change your phone once every 30 days",
-    "update-bank-info": "Bank Details"
+    "update-bank-info": "Bank Details",
+    "type-an-address": "Start typing an address",
+    "house-number": "House/flat number",
+    "city": "City",
+    "street-name": "Street Name",
+    "postcode": "Postcode"
   },
   "search-page": {
     "location": "Location",
@@ -397,7 +403,7 @@
   "leave-review": {
     "title": "Review for",
     "item-reviewed": "Item already reviewed, thank you.",
-    "review": "Review",
+    "review": "Review (optional)",
     "submit": "Submit Review"
   },
   "not-found": {

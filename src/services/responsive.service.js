@@ -21,6 +21,16 @@ function getWindowDimensions() {
   };
 }
 
+export const parseAddressSpecific = (address, type) => {
+  var toReturn = "";
+  address.map((entry) => {
+    if (entry.types.includes(type)) {
+      toReturn = entry.long_name;
+    }
+  });
+  return toReturn;
+};
+
 export default function useWindowDimensions() {
   const [windowDimensions, setWindowDimensions] = useState(
     getWindowDimensions()
