@@ -37,7 +37,7 @@
       flex-direction: column;
       justify-content: space-between;
       overflow: auto;
-      &.loading {
+      &-loading {
         justify-content: center;
       }
       &-grid {

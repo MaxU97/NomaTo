@@ -470,7 +470,7 @@ const SearchPage = () => {
         <div className="search-container">
           <div className="search-content">
             {isLoading ? (
-              <div className="search-content-results loading">
+              <div className="search-content-results search-content-results-loading">
                 <SpinnerAnimationIcon scale={1}></SpinnerAnimationIcon>
               </div>
             ) : (
