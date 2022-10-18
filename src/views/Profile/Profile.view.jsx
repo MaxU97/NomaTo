@@ -29,7 +29,7 @@ const Profile = () => {
   const [addressOver, toggleAddressOver] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [changetoPlaces, setChangeToPlaces] = useState(false);
-  const [addressModal, toggleAddressModal] = useState(true);
+  const [addressModal, toggleAddressModal] = useState(false);
 
   const [latlng, setLatLng] = useState("");
   const updateImage = (image) => {
@@ -194,7 +194,16 @@ const Profile = () => {
                 value={languages}
                 disabled={true}
               ></Input>
-              {isLoaded && (
+              <Input
+                placeholder={t("profile.address")}
+                value={state.user.address}
+                onClick={() => {
+                  toggleAddressModal(true);
+                }}
+                clickable={true}
+              ></Input>
+
+              {/* {isLoaded && (
                 <Places
                   inMap={false}
                   containerClass="profile-content-field-input"
@@ -211,7 +220,7 @@ const Profile = () => {
                   existingValue={address}
                   placeholder={typeof address == "object" ? "" : address}
                 ></Places>
-              )}
+              )} */}
             </div>
             <span className="profile-content-error">{submitError}</span>
             <div className="profile-button-container">

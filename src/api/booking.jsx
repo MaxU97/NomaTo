@@ -126,3 +126,14 @@ export const getClientSecret = async (data) => {
       throw err.response.data;
     });
 };
+
+export const checkPendingReview = async () => {
+  return await api
+    .get(`/booking/checkPendingReview`)
+    .then(({ data }) => {
+      return data.review_pending;
+    })
+    .catch((err) => {
+      throw err.response.data;
+    });
+};

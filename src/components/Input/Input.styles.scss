@@ -75,6 +75,9 @@
     &-error {
       border: 0.5px solid rgb(180, 79, 79);
     }
+    &.clickable {
+      cursor: pointer;
+    }
   }
   &-button {
     background-color: #3299de;
@@ -103,5 +106,10 @@
   }
   &-information {
     color: rgb(161, 161, 161);
+  }
+
+  &.clickable {
+    cursor: pointer;
+    color: black;
   }
 }

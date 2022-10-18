@@ -18,7 +18,6 @@ const ItemThumbnail = ({ className, item }) => {
             <div className="item-rating">
               {item.likes}
               <ThumbUpIcon className="star" />
-              <div>({item.ratingAmount})</div>
             </div>
             <div>{item.location}</div>
           </div>

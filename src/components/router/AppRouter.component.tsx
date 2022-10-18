@@ -45,7 +45,6 @@ export const AppRouter = () => {
   useEffect(() => {
     const handleInvalidToken = (e) => {
       if (e.key === "token" && e.oldValue && !e.newValue) {
-        debugger;
         console.log(e);
         LOGOUT();
       }

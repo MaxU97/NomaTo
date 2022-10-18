@@ -16,7 +16,6 @@ export const login = async (props) => {
 };
 
 export const logout = () => {
-  debugger;
   localStorage.removeItem("token");
 };
 
@@ -28,6 +27,16 @@ export const patchUser = async (props) => {
     })
     .catch((err) => {
       throw err.response.data;
+    });
+};
+export const patchAddress = async (props) => {
+  return await api
+    .patch(`/auth/patchAddress`, props)
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => {
+      throw err;
     });
 };
 

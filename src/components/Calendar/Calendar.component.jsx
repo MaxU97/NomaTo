@@ -18,7 +18,6 @@ const Calendar = ({
   setCalendarError,
 }) => {
   const getViableToday = () => {
-    debugger;
     var date = set(new Date(Date.now()), {
       hours: 12,
       minutes: 0,
@@ -35,7 +34,7 @@ const Calendar = ({
   };
 
   const { t } = useTranslation();
-  debugger;
+
   const today = getViableToday();
 
   const [dates, setDates] = useState(dateRange ? dateRange : "");

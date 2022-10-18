@@ -44,7 +44,7 @@
     padding: 15px 40px;
     border-radius: 10px;
     box-sizing: border-box;
-    width: 220px;
+    min-width: 220px;
     transition: 0.2s;
     &-container {
       display: flex;

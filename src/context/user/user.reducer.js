@@ -10,11 +10,14 @@ import {
   $GET_USER_BALANCE,
   $RESET_CLIENT_SECRET,
   $GET_CLIENT_SECRET,
+  $PATCH_ADDRESS,
+  $CHECK_REVIEWS,
 } from "./user.constants";
 
 export const UserBaseState = {
   user: false,
   token: false,
+  reviewPending: undefined,
   bookingHistory: [],
   bookingHistoryLoaded: false,
   paymentMethods: false,
@@ -76,11 +79,20 @@ export const UserReducer = (state, action) => {
         ...payload,
       };
     }
+    case $CHECK_REVIEWS: {
+      return {
+        ...state,
+        reviewPending: payload,
+      };
+    }
     case $RESET_CLIENT_SECRET: {
       return { ...state, clientSecret: "" };
     }
     case $PATCH_USER: {
       return { ...state, user: payload };
+    }
+    case $PATCH_ADDRESS: {
+      return { ...state, user: { ...state.user, address: payload } };
     }
     case $PATCH_IMAGE: {
       return { ...state, user: { ...state.user, profileImage: payload } };

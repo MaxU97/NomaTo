@@ -6,6 +6,10 @@
   min-height: 100vh;
   padding-top: 100px;
   box-sizing: border-box;
+
+  .leave-review-modal {
+    width: 500px;
+  }
 }
 
 .item-page {
@@ -386,6 +390,10 @@
 @media only screen and (max-device-width: 768px) {
   .item-page-background {
     background-image: none;
+    .leave-review-modal {
+      width: 340px;
+      box-sizing: border-box;
+    }
   }
   .item-page {
     flex-direction: column;

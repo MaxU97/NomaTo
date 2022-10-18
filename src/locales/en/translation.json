@@ -134,7 +134,8 @@
     "show-translated": "Show translated description",
     "no-reviews": "No Reviews",
     "reviews": "Reviews",
-    "review-tooltip": "All of the reviews are written by people who have rented the item"
+    "review-tooltip": "All of the reviews are written by people who have rented the item",
+    "leave-review-pls": "Please let us know what you thought about: "
   },
   "booking-modal": {
     "quantity": "Quantity Needed",
@@ -254,9 +255,13 @@
     "update-bank-info": "Bank Details",
     "type-an-address": "Start typing an address",
     "house-number": "House/flat number",
+    "housenum-error": "Please enter a correct format (house/flat)",
     "city": "City",
+    "city-error": "Please enter a valid city",
     "street-name": "Street Name",
-    "postcode": "Postcode"
+    "street-error": "Please enter a valid street name",
+    "postcode": "Postcode",
+    "postcode-error": "Please enter a valid postcode"
   },
   "search-page": {
     "location": "Location",
@@ -401,10 +406,12 @@
     "iban-error": "Please enter a valid IBAN"
   },
   "leave-review": {
-    "title": "Review for",
+    "title": "Review for:",
     "item-reviewed": "Item already reviewed, thank you.",
     "review": "Review (optional)",
-    "submit": "Submit Review"
+    "submit": "Submit Review",
+    "owner": "Owner",
+    "dates": "Dates"
   },
   "not-found": {
     "text": "Oops. You have stumbled onto a non-existing page",

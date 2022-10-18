@@ -25,6 +25,8 @@ interface InputInterface {
   informationText: string;
   inputRef?: any;
   placeholderColor: string;
+  charLimit?: number;
+  clickable: boolean;
 }
 const Input = ({
   value,
@@ -48,6 +50,8 @@ const Input = ({
   onKeyDown = () => {},
   inputRef,
   placeholderColor,
+  charLimit,
+  clickable = false,
 }: InputInterface) => {
   const validNumberChars = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
@@ -70,12 +74,16 @@ const Input = ({
       <div
         className={classNames("custom-input-container", {
           "custom-input-container-error": error,
+          clickable: clickable,
         })}
         onMouseOver={onMouseOver}
         onMouseOut={onMouseOut}
+        onClick={onClick}
       >
         <input
-          className="custom-input"
+          className={classNames("custom-input", {
+            clickable: clickable,
+          })}
           type={type == "number" ? "text" : type}
           ref={(el) => {
             if (inputRef) inputRef.current = el;
@@ -83,9 +91,10 @@ const Input = ({
           placeholder={placeholder}
           value={value}
           onChange={(e) => checkValidValue(e)}
-          disabled={disabled}
+          disabled={disabled || clickable}
           onFocus={(e) => onFocus(e)}
           onKeyDown={(e) => onKeyDown(e)}
+          maxLength={charLimit ? charLimit : 524288}
         />
         {placeholder && (
           <div

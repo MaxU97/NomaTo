@@ -26,6 +26,8 @@ import useWindowDimensions from "../../services/responsive.service";
 import classNames from "classnames";
 import { usePromptHandler } from "../../components/Prompt/Prompt.component";
 import Reviews from "../../components/Reviews/Reviews.component";
+import Modal from "../../components/Modal/Modal.component";
+import LeaveReviewForm from "../../components/LeaveReview/LeaveReviewForm.component,";
 
 const scrollToRef = (ref) => {
   window.scrollTo({ top: ref.current.offsetTop, left: 0, behavior: "smooth" });
@@ -34,7 +36,11 @@ const scrollToRef = (ref) => {
 export const ItemPage = () => {
   const { isMobile } = useWindowDimensions();
   const { state: itemState, GET_ITEM } = useItemContext();
-  const { state: userState, GET_BOOKING_HISTORY } = useUserContext();
+  const {
+    state: userState,
+    GET_BOOKING_HISTORY,
+    CHECK_REVIEWS,
+  } = useUserContext();
   const { notification } = useNotificationHandler();
   const { t } = useTranslation();
   let { id } = useParams();
@@ -46,6 +52,8 @@ export const ItemPage = () => {
   const [itemOwner, setItemOwner] = useState(false);
   const [original, showOriginal] = useState(false);
   const [showReviews, toggleReviews] = useState(false);
+
+  const [reviewModal, toggleReviewModal] = useState(false);
   const { prompt } = usePromptHandler();
 
   const reviewsRef = useRef(null);
@@ -62,6 +70,7 @@ export const ItemPage = () => {
         return;
       }
     });
+    GET_BOOKING_HISTORY();
     if (!itemSet) {
       try {
         const item = await GET_ITEM(id);
@@ -71,7 +80,6 @@ export const ItemPage = () => {
         //ADDD ITEM NOT FOUND PAGE
       }
     }
-    GET_BOOKING_HISTORY();
   }, []);
 
   useEffect(() => {
@@ -124,8 +132,21 @@ export const ItemPage = () => {
         returnedA = (
           <a
             className="availablity-button"
-            onClick={() => {
-              toggleBooking(true);
+            onClick={async () => {
+              if (userState.reviewPending == undefined) {
+                const reviewPending = await CHECK_REVIEWS();
+                if (reviewPending) {
+                  toggleReviewModal(true);
+                } else {
+                  toggleBooking(true);
+                }
+              } else {
+                if (userState.reviewPending) {
+                  toggleReviewModal(true);
+                } else {
+                  toggleBooking(true);
+                }
+              }
             }}
           >
             {t("item-page.make-a-booking")}
@@ -384,8 +405,7 @@ export const ItemPage = () => {
             </div>
           </div>
         </div>
-        {/* 
-        <h1>{JSON.stringify(item)}</h1> */}
+
         <BookingModal
           modalOpen={booking}
           toggleModal={toggleBooking}
@@ -398,6 +418,15 @@ export const ItemPage = () => {
           itemID={id}
           bookedDates={item.bookedDates}
         ></BookingModal>
+        <Modal modalOpen={reviewModal} toggleModal={toggleReviewModal}>
+          <div className="leave-review-modal">
+            <LeaveReviewForm
+              modal={true}
+              id={userState.reviewPending}
+              title={t("item-page.leave-review-pls")}
+            ></LeaveReviewForm>
+          </div>
+        </Modal>
       </div>
       {showReviews && (
         <div className="container-m item-page-reviews" ref={reviewsRef}>

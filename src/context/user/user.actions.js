@@ -10,6 +10,8 @@ import {
   $GET_USER_BALANCE,
   $FAIL_AUTH,
   $GET_CLIENT_SECRET,
+  $PATCH_ADDRESS,
+  $CHECK_REVIEWS,
 } from "./user.constants";
 import {
   logout,
@@ -20,9 +22,10 @@ import {
   patchUser,
   patchImage,
   getUserBalance,
+  patchAddress,
 } from "../../api/auth";
 
-import { getClientSecret } from "../../api/booking";
+import { checkPendingReview, getClientSecret } from "../../api/booking";
 
 export const AUTHORIZE = (dispatch) => async (props) => {
   try {
@@ -40,7 +43,6 @@ export const AUTHORIZE = (dispatch) => async (props) => {
   }
 };
 export const LOGOUT = (dispatch) => async () => {
-  debugger;
   logout();
   dispatch({
     type: $UNAUTH,
@@ -55,7 +57,6 @@ export const GET_USER = (dispatch) => async () => {
       payload: user,
     });
   } catch (err) {
-    debugger;
     LOGOUT(dispatch)();
   }
 };
@@ -81,6 +82,21 @@ export const PATCH_USER = (dispatch) => async (props) => {
     dispatch({
       type: $PATCH_USER,
       payload: user,
+    });
+    return message;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const PATCH_ADDRESS = (dispatch) => async (props) => {
+  try {
+    const data = await patchAddress(props);
+    const message = data.message;
+    delete data.message;
+    dispatch({
+      type: $PATCH_ADDRESS,
+      payload: data.address,
     });
     return message;
   } catch (err) {
@@ -128,6 +144,16 @@ export const GET_CLIENT_SECRET = (dispatch) => async (data) => {
     type: $GET_CLIENT_SECRET,
     payload: { clientSecret },
   });
+};
+
+export const CHECK_REVIEWS = (dispatch) => async (data) => {
+  const review_pending = await checkPendingReview();
+  dispatch({
+    type: $CHECK_REVIEWS,
+    payload: review_pending,
+  });
+
+  return review_pending;
 };
 
 export const GET_USER_BALANCE = (dispatch) => async () => {

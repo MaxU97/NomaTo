@@ -9,3 +9,5 @@ export const $PATCH_USER = "$PATCH_USER";
 export const $PATCH_IMAGE = "$PATCH_IMAGE";
 export const $GET_USER_BALANCE = "$GET_USER_BALANCE";
 export const $GET_CLIENT_SECRET = "$GET_CLIENT_SECRET";
+export const $PATCH_ADDRESS = "$PATCH_ADDRESS";
+export const $CHECK_REVIEWS = "$CHECK_REVIEWS";
