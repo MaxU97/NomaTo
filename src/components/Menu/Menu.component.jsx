@@ -183,37 +183,35 @@ const Menu = () => {
     </div>
   ) : (
     <div className="menu-wrapper">
-      <div className="menu-wrapper">
-        <Link to="/faq">
-          <div className="menu-item">{t("header.FAQ")}</div>
+      <Link to="/faq">
+        <div className="menu-item">{t("header.FAQ")}</div>
+      </Link>
+
+      <Link to="/list-an-item">
+        <div className="menu-item">{t("header.list-an-item")}</div>
+      </Link>
+
+      <div className="menu-item lang">
+        <LanguagePicker />
+      </div>
+
+      {state.user.completionStatus && state.userBalance && (
+        <Link to="/account-balance" className="menu-item">
+          {euroLocale.format(state.userBalance.available / 100)}
+          <span style={{ color: "#a3a3a3" }}>{` (${euroLocale.format(
+            state.userBalance.pending / 100
+          )})`}</span>
         </Link>
+      )}
 
-        <Link to="/list-an-item">
-          <div className="menu-item">{t("header.list-an-item")}</div>
-        </Link>
-
-        <div className="menu-item lang">
-          <LanguagePicker />
-        </div>
-
-        {state.user.completionStatus && state.userBalance && (
-          <Link to="/account-balance" className="menu-item">
-            {euroLocale.format(state.userBalance.available / 100)}
-            <span style={{ color: "#a3a3a3" }}>{` (${euroLocale.format(
-              state.userBalance.pending / 100
-            )})`}</span>
+      <div className="account-menu">
+        {localStorage.token && state.user ? (
+          <ProfileMenu></ProfileMenu>
+        ) : (
+          <Link className="login-button" to="/login">
+            {t("header.login-signup")}
           </Link>
         )}
-
-        <div className="account-menu">
-          {localStorage.token && state.user ? (
-            <ProfileMenu></ProfileMenu>
-          ) : (
-            <Link className="login-button" to="/login">
-              {t("header.login-signup")}
-            </Link>
-          )}
-        </div>
       </div>
     </div>
   );
