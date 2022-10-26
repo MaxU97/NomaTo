@@ -64,3 +64,14 @@ export const getQRHash = async (props) => {
       throw err.response.data;
     });
 };
+
+export const sendSupport = async (props) => {
+  return await api
+    .post("/sendSupport", props)
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => {
+      throw err.response.data;
+    });
+};

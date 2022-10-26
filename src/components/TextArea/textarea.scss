@@ -28,7 +28,7 @@
     top: 15px;
     align-items: center;
     margin: 0 12px;
-    padding: 0 2px;
+    padding: 0 12px;
     z-index: -1;
     textarea:focus ~ &,
     textarea:not(:placeholder-shown) ~ & {
@@ -43,7 +43,7 @@
     background: transparent;
     width: 100%;
     margin-top: 10px;
-    padding: 0 14px;
+    padding: 0 24px;
     color: #000000;
     font-size: 16px;
     height: 100%;

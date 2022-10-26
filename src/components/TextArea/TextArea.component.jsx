@@ -10,12 +10,15 @@ const TextArea = ({
   value = "",
   placeholder = "",
   setValue = () => {},
+  errorBool = false,
+  errorText = "",
   className = "",
   containerClassName = "",
   textarea = false,
   disabled = false,
   maxCharacters = 800,
   ref = "",
+  withoutError = true,
   ...props
 }) => {
   const { t } = useTranslation();
@@ -49,7 +52,8 @@ const TextArea = ({
           "text-area",
           disabled && "disabled",
           containerClassName,
-          error && "error"
+          error && "error",
+          errorBool && "error"
         )}
         onClick={() => input?.current.focus()}
       >
@@ -82,6 +86,9 @@ const TextArea = ({
           {t("utility.text-area.characters")}{" "}
         </div>
       </CSSTransition>
+      {!withoutError && (
+        <div className="custom-input-error">{errorBool && errorText}</div>
+      )}
     </div>
   );
 };

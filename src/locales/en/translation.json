@@ -416,5 +416,16 @@
   "not-found": {
     "text": "Oops. You have stumbled onto a non-existing page",
     "button": "Take me home"
+  },
+  "support": {
+    "contact": "Get in touch",
+    "send": "Send",
+    "let-us-know": "Let us know how we can help :)",
+    "email": "Email",
+    "subject": "Subject",
+    "message": "Message",
+    "valid-email": "Please enter a valid email",
+    "valid-subject": "Please enter a subject",
+    "valid-message": "Please enter a message"
   }
 }

@@ -20,7 +20,8 @@ import { ReactComponent as EyeOpenIcon } from "./eye-open-icon.svg";
 import { ReactComponent as EyeClosedIcon } from "./eye-closed-icon.svg";
 import { ReactComponent as MenuIcon } from "./menu-3line.svg";
 import { ReactComponent as SmileyIcon } from "./smiley.svg";
-import { ReactComponent as QuestionIcon } from "./question.svg";
+import { ReactComponent as QuestionIconCircle } from "./question-circle.svg";
+import { ReactComponent as QuestionIcon } from "./question-icon.svg";
 import EnFlagIcon from "./fl-en.png";
 import LvFlagIcon from "./fl-lv.png";
 import RuFlagIcon from "./fl-ru.png";
@@ -76,4 +77,5 @@ export {
   MinusIcon,
   SmileyIcon,
   QuestionIcon,
+  QuestionIconCircle,
 };
