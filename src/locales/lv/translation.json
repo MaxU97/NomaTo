@@ -68,7 +68,10 @@
     "myshop": "Manas preces",
     "list-item": "Iznomāt preci",
     "booking-requests": "Nomas pieprasijumi",
-    "admin": { "add-news": "Pievienot jaunumu", "add-categories": "Rediģēt kategoriju" },
+    "admin": {
+      "add-news": "Pievienot jaunumu",
+      "add-categories": "Rediģēt kategoriju"
+    },
     "logout": "Iziet"
   },
   "list-item": {
@@ -260,8 +263,7 @@
   },
   "search-page": {
     "location": "Lokācija",
-    "category": "Kategorija
-    ",
+    "category": "Kategorija",
     "price": "Cena",
     "other-filters": "Citi filtri",
     "price-from": "Cena (no)",
