@@ -88,40 +88,38 @@ const MyBookings = () => {
                   </div>
                 )}
               </div>
-              <div className="bookings-content-scroll">
-                <div className="bookings-content-right">
-                  {state.bookingHistoryLoaded ? (
-                    <div className="bookings-content-right-container">
-                      {state.bookingHistory.map((booking) => {
-                        if (booking.status == bookingStatuses[activeTab]) {
-                          return <BookingItem item={booking}></BookingItem>;
-                        } else if (bookingStatuses[activeTab] == "all") {
-                          return (
-                            <BookingItem
-                              item={booking}
-                              status={
-                                bookingCategories[
-                                  bookingStatuses.indexOf(booking.status)
-                                ]
-                              }
-                            ></BookingItem>
-                          );
-                        }
-                      })}
-                    </div>
-                  ) : (
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        height: "100%",
-                      }}
-                    >
-                      <SpinnerAnimationIcon scale={2}></SpinnerAnimationIcon>
-                    </div>
-                  )}
-                </div>
+              <div className="bookings-content-right">
+                {state.bookingHistoryLoaded ? (
+                  <div className="bookings-content-right-container">
+                    {state.bookingHistory.map((booking) => {
+                      if (booking.status == bookingStatuses[activeTab]) {
+                        return <BookingItem item={booking}></BookingItem>;
+                      } else if (bookingStatuses[activeTab] == "all") {
+                        return (
+                          <BookingItem
+                            item={booking}
+                            status={
+                              bookingCategories[
+                                bookingStatuses.indexOf(booking.status)
+                              ]
+                            }
+                          ></BookingItem>
+                        );
+                      }
+                    })}
+                  </div>
+                ) : (
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      height: "100%",
+                    }}
+                  >
+                    <SpinnerAnimationIcon scale={2}></SpinnerAnimationIcon>
+                  </div>
+                )}
               </div>
             </div>
           </div>

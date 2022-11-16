@@ -11,6 +11,7 @@ import TextArea from "../TextArea/TextArea.component";
 import { getApprovedUser, refuseBooking } from "../../api/booking";
 import { approveBooking } from "../../api/booking";
 import { useNotificationHandler } from "../NotificationHandler/NotificationHandler.component";
+import { set } from "date-fns/esm";
 const BookingRequestsItem = ({ item, status }) => {
   const { t } = useTranslation();
   const options = { style: "currency", currency: "EUR" };
@@ -24,6 +25,13 @@ const BookingRequestsItem = ({ item, status }) => {
   const [approvedUser, setApprovedUser] = useState();
   const location = useLocation();
   const [price, setPrice] = useState(0);
+
+  const dateNow = set(new Date(Date.now()), {
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+    milliseconds: 0,
+  });
 
   const { notification } = useNotificationHandler();
   const approve = async (_id) => {
@@ -151,15 +159,17 @@ const BookingRequestsItem = ({ item, status }) => {
               >
                 {t("booking-requests.view-details")}
               </a>
-              <Link
-                className="booking-request-item-actions-button"
-                to={{
-                  pathname: `qr-reader/${item._id}`,
-                  state: { from: location.pathname },
-                }}
-              >
-                {t("booking-requests.confirm-pickup")}
-              </Link>
+              {item.dateStart === dateNow && (
+                <Link
+                  className="booking-request-item-actions-button"
+                  to={{
+                    pathname: `qr-reader/${item._id}`,
+                    state: { from: location.pathname },
+                  }}
+                >
+                  {t("booking-requests.confirm-pickup")}
+                </Link>
+              )}
             </>
           )}
 

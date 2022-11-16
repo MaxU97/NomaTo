@@ -79,11 +79,20 @@ const ProfileMenu = () => {
           >
             {t("profile-menu.list-item")}
           </Link>
-          {state.user.completionStatus && (
+          {state.user.completionStatus && state.user.sellerCompleted && (
             <Link to="/my-shop" className="profile-item">
               {t("profile-menu.myshop")}
             </Link>
           )}
+          <a
+            className="profile-item"
+            onClick={() => {
+              toggleOpen();
+              window.dispatchEvent(new Event("support_clicked"));
+            }}
+          >
+            {t("profile-menu.support")}
+          </a>
 
           {state.user.admin && (
             <>

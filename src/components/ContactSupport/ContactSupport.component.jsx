@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { CSSTransition } from "react-transition-group";
-import { CloseIcon, QuestionIcon } from "../../assets/Icons";
+import { CheckIcon, CloseIcon, QuestionIcon } from "../../assets/Icons";
+import { useLocation } from "react-router-dom";
 import { useUserContext } from "../../context/user";
 import Input from "../Input/Input.component";
 import TextArea from "../TextArea/TextArea.component";
 import validator from "validator";
 import "./contactsupport.scss";
 import { sendSupport } from "../../api/utility";
+import { useNotificationHandler } from "../NotificationHandler/NotificationHandler.component";
 const ContactSupport = () => {
+  const location = useLocation();
   const { t } = useTranslation();
+  const { notification } = useNotificationHandler();
   const [open, toggleOpen] = useState(false);
   const [question, toggleQuestion] = useState(true);
   const [formOpen, toggleFormOpen] = useState(false);
@@ -23,20 +27,54 @@ const ContactSupport = () => {
   const [message, setMessage] = useState("");
   const [messageError, setMessageError] = useState();
 
+  const [showToggle, toggleShowToggle] = useState(true);
+
   const [isSending, setIsSending] = useState(false);
-  const renderQuestion = () => {
-    setTimeout(() => {
-      toggleQuestion(true);
-      toggleFormOpen(false);
-    }, 200);
-  };
+
+  const [sent, setSent] = useState(false);
 
   useEffect(() => {
-    debugger;
+    if (location.pathname !== "/") {
+      toggleShowToggle(false);
+    } else {
+      toggleShowToggle(true);
+    }
+  }, [location.pathname]);
+  useEffect(() => {
+    window.addEventListener("support_clicked", () => {
+      toggleOpen(true);
+    });
+    window.addEventListener("mobile_menu_opened", () => {
+      toggleShowToggle(false);
+    });
+    window.addEventListener("mobile_menu_closed", () => {
+      toggleShowToggle(true);
+    });
+
+    return () => {
+      window.removeEventListener("support_clicked", () => {
+        toggleOpen(true);
+      });
+      window.removeEventListenerListener("mobile_menu_opened", () => {
+        toggleShowToggle(false);
+      });
+      window.removeEventListener("mobile_menu_closed", () => {
+        toggleShowToggle(true);
+      });
+    };
+  }, []);
+
+  const resetForm = () => {
+    setEmail("");
+    setSubject("");
+    setMessage("");
+    setSent(false);
+  };
+  useEffect(() => {
     if (state.user) {
       setEmail(state.user.email);
     }
-  }, [state.user]);
+  }, [state.user, open]);
 
   useEffect(() => {
     setEmailError("");
@@ -52,7 +90,6 @@ const ContactSupport = () => {
     var verified = true;
 
     const isEmail = validator.isEmail(email);
-    debugger;
     if (!email || !isEmail) {
       setEmailError(t("support.valid-email"));
       verified = false;
@@ -74,7 +111,18 @@ const ContactSupport = () => {
     const verified = verifyFields();
     if (verified) {
       setIsSending(true);
-      await sendSupport({ email, subject, message });
+      try {
+        await sendSupport({ email, subject, message });
+        setSent(true);
+        setTimeout(() => {
+          toggleOpen(false);
+          setTimeout(() => {
+            resetForm();
+          }, 500);
+        }, 1000);
+      } catch (err) {
+        setIsSending(false);
+      }
       setIsSending(false);
     }
   };
@@ -95,54 +143,68 @@ const ContactSupport = () => {
             ></CloseIcon>
           </div>
           <div className="support-form-bottom">
-            <Input
-              placeholder={t("support.email")}
-              error={emailError}
-              errorText={emailError}
-              value={email}
-              setValue={setEmail}
-            ></Input>
-            <Input
-              placeholder={t("support.subject")}
-              error={subjectError}
-              errorText={subjectError}
-              value={subject}
-              setValue={setSubject}
-            ></Input>
-            <TextArea
-              placeholder={t("support.message")}
-              errorBool={messageError}
-              errorText={messageError}
-              value={message}
-              setValue={setMessage}
-              containerClassName="message-container"
-              withoutError={false}
-            ></TextArea>
-            <div
-              className="support-form-button"
-              onClick={() => {
-                sendMail();
-              }}
-              disabled={isSending}
-            >
-              {t("support.send")}
-            </div>
+            {!sent ? (
+              <>
+                <Input
+                  placeholder={t("support.email")}
+                  error={emailError}
+                  errorText={emailError}
+                  value={email}
+                  setValue={setEmail}
+                ></Input>
+                <Input
+                  placeholder={t("support.subject")}
+                  error={subjectError}
+                  errorText={subjectError}
+                  value={subject}
+                  setValue={setSubject}
+                ></Input>
+                <TextArea
+                  placeholder={t("support.message")}
+                  errorBool={messageError}
+                  errorText={messageError}
+                  value={message}
+                  setValue={setMessage}
+                  containerClassName="message-container"
+                  withoutError={false}
+                ></TextArea>
+                <div
+                  className="support-form-button"
+                  onClick={() => {
+                    sendMail();
+                  }}
+                  disabled={isSending}
+                >
+                  {t("support.send")}
+                </div>
+              </>
+            ) : (
+              <>
+                <CheckIcon></CheckIcon>
+                <h2>{t("support.sent")}</h2>
+              </>
+            )}
           </div>
         </div>
       </CSSTransition>
-      <div
-        className="support-toggle"
-        onClick={() => {
-          toggleOpen(true);
-        }}
+
+      <CSSTransition
+        in={showToggle}
+        timeout={500}
+        unmountOnExit
+        classNames="toggle-in"
       >
-        <QuestionIcon></QuestionIcon>
-      </div>
+        <div
+          className="support-toggle"
+          onClick={() => {
+            toggleOpen(true);
+          }}
+        >
+          <QuestionIcon></QuestionIcon>
+        </div>
+      </CSSTransition>
     </div>
   );
 };
 
 export default ContactSupport;
-{
-  /*  */
-}

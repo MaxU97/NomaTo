@@ -96,72 +96,70 @@ const BookingRequests = () => {
                   </div>
                 )}
               </div>
-              <div className="booking-requests-content-scroll">
-                <div className="booking-requests-content-right">
-                  {requests ? (
-                    <div className="booking-requests-content-right-container">
-                      {requests.map((booking) => {
-                        if (booking.status == bookingStatuses[activeTab]) {
-                          return (
-                            <Accordion
-                              header_children={
-                                <BookingRequestsHeader
-                                  booking={booking}
-                                  status={
-                                    bookingCategories[
-                                      bookingStatuses.indexOf(booking.status)
-                                    ]
-                                  }
-                                  rawStatus={booking.status}
-                                ></BookingRequestsHeader>
-                              }
-                            >
-                              <BookingRequestsItem
-                                item={booking}
-                              ></BookingRequestsItem>
-                            </Accordion>
-                          );
-                        } else if (bookingStatuses[activeTab] == "all") {
-                          return (
-                            <Accordion
-                              header_children={
-                                <BookingRequestsHeader
-                                  booking={booking}
-                                  status={
-                                    bookingCategories[
-                                      bookingStatuses.indexOf(booking.status)
-                                    ]
-                                  }
-                                  rawStatus={booking.status}
-                                ></BookingRequestsHeader>
-                              }
-                            >
-                              <BookingRequestsItem
-                                item={booking}
+              <div className="booking-requests-content-right">
+                {requests ? (
+                  <div className="booking-requests-content-right-container">
+                    {requests.map((booking) => {
+                      if (booking.status == bookingStatuses[activeTab]) {
+                        return (
+                          <Accordion
+                            header_children={
+                              <BookingRequestsHeader
+                                booking={booking}
                                 status={
                                   bookingCategories[
                                     bookingStatuses.indexOf(booking.status)
                                   ]
                                 }
-                              ></BookingRequestsItem>
-                            </Accordion>
-                          );
-                        }
-                      })}
-                    </div>
-                  ) : (
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        height: "100%",
-                      }}
-                    >
-                      <SpinnerAnimationIcon scale={2}></SpinnerAnimationIcon>
-                    </div>
-                  )}
-                </div>
+                                rawStatus={booking.status}
+                              ></BookingRequestsHeader>
+                            }
+                          >
+                            <BookingRequestsItem
+                              item={booking}
+                            ></BookingRequestsItem>
+                          </Accordion>
+                        );
+                      } else if (bookingStatuses[activeTab] == "all") {
+                        return (
+                          <Accordion
+                            header_children={
+                              <BookingRequestsHeader
+                                booking={booking}
+                                status={
+                                  bookingCategories[
+                                    bookingStatuses.indexOf(booking.status)
+                                  ]
+                                }
+                                rawStatus={booking.status}
+                              ></BookingRequestsHeader>
+                            }
+                          >
+                            <BookingRequestsItem
+                              item={booking}
+                              status={
+                                bookingCategories[
+                                  bookingStatuses.indexOf(booking.status)
+                                ]
+                              }
+                            ></BookingRequestsItem>
+                          </Accordion>
+                        );
+                      }
+                    })}
+                  </div>
+                ) : (
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      height: "100%",
+                    }}
+                  >
+                    <SpinnerAnimationIcon scale={2}></SpinnerAnimationIcon>
+                  </div>
+                )}
               </div>
             </div>
           </div>

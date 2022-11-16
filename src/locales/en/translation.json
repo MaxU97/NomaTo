@@ -69,7 +69,8 @@
     "list-item": "List an item",
     "booking-requests": "Booking Requests",
     "admin": { "add-news": "Add News", "add-categories": "Edit Categories" },
-    "logout": "Logout"
+    "logout": "Logout",
+    "support": "Contact us"
   },
   "list-item": {
     "must-include": "Must include the following:",
@@ -271,7 +272,12 @@
     "price-from": "Price (from)",
     "price-to": "Price (to)",
     "apply": "Apply",
-    "distance": "Distance(km)"
+    "distance": "Distance(km)",
+    "sort-by": "Sort by...",
+    "likes-desc": "Likes: Highest First",
+    "likes-asc": "Likes: Lowest First",
+    "day-price-asc": "Price: Lowest First",
+    "day-price-desc": "Price: Highest First"
   },
   "forgot-pw": {
     "title": "Reset your password",
@@ -332,6 +338,8 @@
   "checkout": {
     "wrong": "Something went wrong.",
     "wrong2": "You will be redirected to the item page to try again shortly",
+    "success": "Payment confirmed",
+    "success2": "You will be redirected to your bookings shortly",
     "save-details": "Save payment details for the future",
     "select-methods": "Please select a payment method",
     "send-booking": "Send Booking",
@@ -426,6 +434,7 @@
     "message": "Message",
     "valid-email": "Please enter a valid email",
     "valid-subject": "Please enter a subject",
-    "valid-message": "Please enter a message"
+    "valid-message": "Please enter a message",
+    "sent": "Message sent"
   }
 }

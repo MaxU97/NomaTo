@@ -57,9 +57,9 @@ export const CheckoutPage = () => {
         </>
       ) : (
         <>
-          <h1>{t("checkout.wrong")}</h1>
+          <h1>{t("checkout.success")}</h1>
           <CheckIcon className="check-mark"></CheckIcon>
-          <p>{t("checkout.wrong2")}</p>
+          <p>{t("checkout.success2")}</p>
         </>
       )}
     </div>

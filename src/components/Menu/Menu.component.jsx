@@ -21,6 +21,14 @@ const Menu = () => {
   const [isOpen, setOpen] = useState(false);
   const ref = useRef();
 
+  useEffect(() => {
+    if (mobileMenu) {
+      window.dispatchEvent(new Event("mobile_menu_opened"));
+    } else {
+      window.dispatchEvent(new Event("mobile_menu_closed"));
+    }
+  }, [mobileMenu]);
+
   const toggleOpen = (open) => {
     if (open == null) {
       setOpen(!isOpen);
@@ -119,11 +127,20 @@ const Menu = () => {
                   >
                     {t("profile-menu.list-item")}
                   </Link>
-                  {state.user.completionStatus && (
+                  {state.user.completionStatus && state.user.sellerCompleted && (
                     <Link to="/my-shop" className="mobile-menu-item">
                       {t("profile-menu.myshop")}
                     </Link>
                   )}
+                  <a
+                    className="mobile-menu-item"
+                    onClick={() => {
+                      toggleOpen();
+                      window.dispatchEvent(new Event("support_clicked"));
+                    }}
+                  >
+                    {t("profile-menu.support")}
+                  </a>
                   {state.user.admin && (
                     <>
                       <Link

@@ -10,6 +10,7 @@
   }
 
   &-bar {
+    z-index: 3;
     background-color: white;
     width: 100%;
     display: flex;
@@ -31,11 +32,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow: hidden;
     &-results {
       height: 100%;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+
       overflow: auto;
       &-loading {
         justify-content: center;
@@ -64,56 +66,71 @@
     &-counter {
       display: flex;
       flex-direction: row;
-      padding: 20px;
-      padding-top: 10px;
-      padding-right: 0;
-      font-family: Gilroy-Medium;
-      align-items: center;
-      h3 {
-        padding: 5px;
-        width: 30px;
-        height: 30px;
+      justify-content: space-between;
+      padding: 5px 10px;
+      box-sizing: border-box;
+      padding-bottom: 10px;
+      background-color: white;
+      width: 100%;
+      -webkit-box-shadow: 1px 2px 9px 1px rgba(0, 0, 0, 0.29);
+      box-shadow: 1px 2px 9px 1px rgba(0, 0, 0, 0.29);
+      z-index: 2;
+      &-sort-by {
         display: flex;
         align-items: center;
-        justify-content: center;
-        margin: 0;
-        border-radius: 50%;
-        transition: 0.2s;
-        margin-right: 5px;
-        &.active {
-          background-color: #3299de;
-          color: white;
-        }
-        &:hover {
-          cursor: pointer;
-          background-color: #3299de;
-          color: white;
-          transition: 0.2s;
-        }
-        &:is(:last-of-type) {
-          margin-right: 0;
-        }
+        height: 100%;
       }
-      .arrow {
-        transition: 0.2s;
-        height: 30px;
-        margin-left: 10px;
-
-        &.left {
-          transform: rotateZ(180deg);
-          margin-right: 10px;
-          margin-left: 0;
-        }
-        &:hover {
-          cursor: pointer;
-          fill: #a3a3a3;
+      &-container {
+        display: flex;
+        flex-direction: row;
+        font-family: Gilroy-Medium;
+        align-items: center;
+        h3 {
+          padding: 5px;
+          width: 30px;
+          height: 30px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0;
+          border-radius: 50%;
           transition: 0.2s;
+          margin-right: 5px;
+          &.active {
+            background-color: #3299de;
+            color: white;
+          }
+          &:hover {
+            cursor: pointer;
+            background-color: #3299de;
+            color: white;
+            transition: 0.2s;
+          }
+          &:is(:last-of-type) {
+            margin-right: 0;
+          }
         }
-
-        &[disabled] {
-          pointer-events: none;
-          fill: #a3a3a3;
+        .arrow {
           transition: 0.2s;
+          height: 30px;
+          margin-left: 10px;
+
+          &.left {
+            transform: rotateZ(180deg);
+            margin-right: 10px;
+            margin-left: 0;
+          }
+          &:hover {
+            cursor: pointer;
+            fill: #a3a3a3;
+            transition: 0.2s;
+          }
+
+          &[disabled] {
+            pointer-events: none;
+            fill: #a3a3a3;
+            transition: 0.2s;
+          }
         }
       }
     }
@@ -191,8 +208,10 @@
   .filters {
     display: flex;
     flex-direction: row;
+    gap: 10px;
   }
   .filter-item {
+    min-width: 100px;
     white-space: pre;
     display: flex;
     flex-direction: row;
@@ -203,7 +222,12 @@
     padding: 10px 20px;
     // margin-right: 10px;
     border-radius: 15px;
-    font-family: Gilroy-Medium;
+    span {
+      max-width: 150px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      font-family: Gilroy-Medium;
+    }
     &-delete {
       height: 10px;
       width: 10px;
@@ -242,19 +266,28 @@
     height: 100%;
     margin-top: 60px;
     padding: 10px;
+    &-bar {
+      padding-bottom: 0;
+    }
     .filters {
       gap: 10px;
     }
     .filter-item {
+      min-width: 0;
       width: 100%;
+      &.active {
+        span {
+          max-width: 50px;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+      }
     }
     &-content {
       width: 100%;
       &-results {
         &-grid {
           grid-template-columns: 1fr 1fr;
-          .item {
-          }
         }
       }
       &-counter {

@@ -15,11 +15,14 @@ import Modal from "../../components/Modal/Modal.component";
 import SideMenu from "../../components/SideMenu/SideMenu.component";
 import { useItemContext } from "../../context/item";
 import { useUtilityContext } from "../../context/utility";
-import { getNaturalAddress } from "../../services/item.service";
+import { getNaturalAddressFull } from "../../services/item.service";
 import { getCurrentLanguage } from "../../services/language.service";
-
+import Select from "react-select";
 import "./search.scss";
 import useWindowDimensions from "../../services/responsive.service";
+import Dropdown from "../../components/Dropdown/Dropdown.component";
+import DropdownItem from "../../components/Dropdown/DropdownItem.component";
+
 const SearchPage = () => {
   const { isMobile } = useWindowDimensions();
 
@@ -51,6 +54,25 @@ const SearchPage = () => {
 
   const { state: utilityState } = useUtilityContext();
 
+  const sortOptions = [
+    {
+      value: "likes_desc",
+      label: t("search-page.likes-desc"),
+    },
+    {
+      value: "likes_asc",
+      label: t("search-page.likes-asc"),
+    },
+    {
+      value: "day_price_desc",
+      label: t("search-page.day-price-desc"),
+    },
+    {
+      value: "day_price_asc",
+      label: t("search-page.day-price-asc"),
+    },
+  ];
+
   useEffect(() => {
     const onLoad = async () => {
       search();
@@ -69,8 +91,12 @@ const SearchPage = () => {
         });
       }
       if (params.has("lat") && params.has("lng")) {
-        var adr = await getNaturalAddress(params.get("lat"), params.get("lng"));
-        setAddress([adr]);
+        debugger;
+        var adr = await getNaturalAddressFull(
+          params.get("lat"),
+          params.get("lng")
+        );
+        setAddress(adr);
         setLatLng({
           lat: parseFloat(params.get("lat")),
           lng: parseFloat(params.get("lng")),
@@ -145,6 +171,7 @@ const SearchPage = () => {
     var lng = "";
     var pricefrom = "";
     var priceto = "";
+    var sort_type = "";
     const query = window.location.search;
     const params = new URLSearchParams(query);
     setIsLoading(true);
@@ -167,6 +194,9 @@ const SearchPage = () => {
     if (params.has("priceto")) {
       priceto = params.get("priceto");
     }
+    if (params.has("sort_type")) {
+      sort_type = params.get("sort_type");
+    }
 
     await SEARCH_ITEMS({
       terms: terms,
@@ -177,6 +207,7 @@ const SearchPage = () => {
       page: page,
       pricefrom: pricefrom,
       priceto: priceto,
+      sort_type: sort_type,
     });
     setIsLoading(false);
   };
@@ -313,7 +344,18 @@ const SearchPage = () => {
     toggleLocations(false);
   };
 
+  const applySort = (event) => {
+    setTermChanged(false);
+    var newSearchParams = searchParams;
+
+    if (event) {
+      newSearchParams["sort_type"] = event.value;
+    }
+    setSearchParams({ ...newSearchParams });
+  };
+
   const createPages = () => {
+    debugger;
     var elipsisAdded = false;
     var toReturn = [];
     for (let i = 0; i < maxPages; i++) {
@@ -415,9 +457,11 @@ const SearchPage = () => {
                 toggleLocations(true);
               }}
             >
-              {address && addressApplied
-                ? address[0].long_name
-                : t("search-page.location")}
+              <span>
+                {address && addressApplied
+                  ? address.formatted_address
+                  : t("search-page.location")}
+              </span>
               {addressApplied && address && (
                 <CloseIcon
                   className="filter-item-delete"
@@ -434,7 +478,9 @@ const SearchPage = () => {
                 toggleCategories(true);
               }}
             >
-              {categoryValue ? categoryValue : t("search-page.category")}
+              <span>
+                {categoryValue ? categoryValue : t("search-page.category")}
+              </span>
               {categoryValue && (
                 <CloseIcon
                   className="filter-item-delete"
@@ -453,7 +499,7 @@ const SearchPage = () => {
                 togglePriceModal(true);
               }}
             >
-              {getPriceString()}
+              <span>{getPriceString()}</span>
               {(priceTo || priceFrom) && (
                 <CloseIcon
                   className="filter-item-delete"
@@ -469,6 +515,61 @@ const SearchPage = () => {
         </div>
         <div className="search-container">
           <div className="search-content">
+            <div className="search-content-counter">
+              <div className="search-content-counter-container">
+                <MoveIcon
+                  className="arrow left"
+                  onClick={() => {
+                    changeStep(-1);
+                  }}
+                  disabled={page <= 0}
+                ></MoveIcon>
+                {createPages()}
+                <MoveIcon
+                  className="arrow"
+                  onClick={() => {
+                    changeStep(1);
+                  }}
+                  disabled={page + 2 > maxPages}
+                ></MoveIcon>
+              </div>
+              <div className="search-content-counter-sort-by">
+                <Select
+                  options={sortOptions}
+                  placeholder={t("search-page.sort-by")}
+                  isSearchable={false}
+                  onChange={applySort}
+                  styles={{
+                    control: (provided, state) => ({
+                      ...provided,
+                      boxShadow: "none",
+                      borderColor: "#e0e0e0",
+                      "&:hover": {
+                        borderColor: "#a3a3a3",
+                      },
+                      width: 170,
+                      textAlign: "left",
+                      fontFamily: "Gilroy-Medium !important",
+                    }),
+                    singleValue: (provided, state) => ({
+                      ...provided,
+                      fontFamily: "Gilroy-Medium !important",
+                    }),
+                    placeholder: (provided, state) => ({
+                      ...provided,
+                      fontFamily: "Gilroy-Medium !important",
+                      color: "black",
+                    }),
+                    menu: (provided, state) => ({
+                      ...provided,
+                      textAlign: "left",
+                      fontFamily: "Gilroy-Medium !important",
+                    }),
+                  }}
+                ></Select>
+              </div>
+            </div>
+
             {isLoading ? (
               <div className="search-content-results search-content-results-loading">
                 <SpinnerAnimationIcon scale={1}></SpinnerAnimationIcon>
@@ -479,23 +580,6 @@ const SearchPage = () => {
                   {itemState.searchedItems.map((item, index) => (
                     <ItemThumbnail key={index} item={item}></ItemThumbnail>
                   ))}
-                </div>
-                <div className="search-content-counter">
-                  <MoveIcon
-                    className="arrow left"
-                    onClick={() => {
-                      changeStep(-1);
-                    }}
-                    disabled={page <= 0}
-                  ></MoveIcon>
-                  {createPages()}
-                  <MoveIcon
-                    className="arrow"
-                    onClick={() => {
-                      changeStep(1);
-                    }}
-                    disabled={page + 2 > maxPages}
-                  ></MoveIcon>
                 </div>
               </div>
             )}
@@ -586,16 +670,3 @@ const SearchPage = () => {
 };
 
 export default SearchPage;
-{
-  /* <div className="location-modal-slider">
-              <p>Select Range:</p>
-              <Slider
-                defaultValue={5}
-                valueLabelDisplay="auto"
-                step={5}
-                marks
-                min={5}
-                max={50}
-              ></Slider>
-            </div> */
-}

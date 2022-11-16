@@ -5,6 +5,7 @@ import image from "../../assets/Logo-1-big.png";
 import Input from "../../components/Input/Input.component";
 import Carousel from "../../components/Carousel/Carousel.component";
 import NewsBlock from "../../components/NewsBlock/NewsBlock.component";
+import { Link } from "react-router-dom";
 import { getPopularItems } from "../../services/item.service";
 import { useItemContext } from "../../context/item";
 import { useNotificationHandler } from "../../components/NotificationHandler/NotificationHandler.component";
@@ -49,17 +50,20 @@ const Home = () => {
             <div className="home-search-carousel">
               <h2>{t("search.checkout")}</h2>
               <Carousel items={popularItems} infinite={true}></Carousel>
-              <a className="home-search-view-more">{t("search.viewmore")}</a>
+              <Link to="/search/" className="home-search-view-more">
+                {t("search.viewmore")}
+              </Link>
             </div>
             <div className="home-search-grid">
               <h2>{t("search.checkout")}</h2>
               <ItemGrid items={popularItems}></ItemGrid>
-              <a className="home-search-view-more">{t("search.viewmore")}</a>
+              <Link to="/search/" className="home-search-view-more">
+                {t("search.viewmore")}
+              </Link>
             </div>
           </div>
         </div>
       </section>
-      {/* <section className="values"></section> */}
       <section className="news">
         <div className="container" style={{ maxWidth: "1200px" }}>
           <div className="home-news">

@@ -9,7 +9,15 @@ import { useUserContext } from "../../context/user";
 import { SpinnerAnimationIcon } from "../../assets/Icons";
 import { useUtilityContext } from "../../context/utility";
 import { t } from "i18next";
+import { set } from "date-fns";
 const BookingItem = ({ item, status }) => {
+  const dateNow = set(new Date(Date.now()), {
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+    milliseconds: 0,
+  });
+
   const { state: utilityState } = useUtilityContext();
 
   const { GET_BOOKING_HISTORY } = useUserContext();
@@ -101,7 +109,7 @@ const BookingItem = ({ item, status }) => {
             {t("my-bookings.view-qr")}
           </Link>
         )}
-        {["with_customer"].includes(item.status) && (
+        {["with_customer"].includes(item.status) && item.dateEnd === dateNow && (
           <Link
             to={{
               pathname: `qr-reader/${item._id}`,

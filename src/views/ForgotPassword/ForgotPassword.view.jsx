@@ -59,10 +59,11 @@ const ForgotPassword = () => {
       setEmailError(validate);
     }
   };
+
   const validateFields = () => {
     var boolToReturn = true;
 
-    if (!email) {
+    if (!email || !emailError) {
       boolToReturn = false;
     }
 
