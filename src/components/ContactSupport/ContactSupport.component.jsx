@@ -48,14 +48,16 @@ const ContactSupport = () => {
       toggleShowToggle(false);
     });
     window.addEventListener("mobile_menu_closed", () => {
-      toggleShowToggle(true);
+      if (location.pathname == "/") {
+        toggleShowToggle(true);
+      }
     });
 
     return () => {
       window.removeEventListener("support_clicked", () => {
         toggleOpen(true);
       });
-      window.removeEventListenerListener("mobile_menu_opened", () => {
+      window.removeEventListener("mobile_menu_opened", () => {
         toggleShowToggle(false);
       });
       window.removeEventListener("mobile_menu_closed", () => {

@@ -1,10 +1,10 @@
-import { useLoadScript } from "@react-google-maps/api";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { googleApiKey, googleLibraries } from "../../api/config";
 import { SpinnerAnimationIcon, SpinnerIcon } from "../../assets/Icons";
 import { useUserContext } from "../../context/user";
 import { parseAddressSpecific } from "../../services/responsive.service";
+import { useGoogleApiProvider } from "../GoogleMapsApiProvider/GoogleMapsApiProvider.component";
 import Input from "../Input/Input.component";
 import Places from "../Map/Places.component";
 import Modal from "../Modal/Modal.component";
@@ -36,10 +36,7 @@ export const AddressModal = ({
 
   const [country, setCountry] = useState("");
 
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: googleApiKey,
-    libraries: googleLibraries,
-  });
+  const { isLoaded } = useGoogleApiProvider();
 
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {

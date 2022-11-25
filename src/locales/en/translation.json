@@ -136,7 +136,8 @@
     "no-reviews": "No Reviews",
     "reviews": "Reviews",
     "review-tooltip": "All of the reviews are written by people who have rented the item",
-    "leave-review-pls": "Please let us know what you thought about: "
+    "leave-review-pls": "Please let us know what you thought about: ",
+    "delete-prompt": "Are you sure you want to delete {{item_title}}"
   },
   "booking-modal": {
     "quantity": "Quantity Needed",
@@ -228,7 +229,8 @@
     "fill-highlighted": "Please fill in highlighted fields",
     "include-an-image": "Please attach an image",
     "new-cat": "Add New",
-    "save-changes": "Save Changes"
+    "save-changes": "Save Changes",
+    "delete-prompt": "Are you sure you want to delete {{category_title}}"
   },
   "pw-requirements": {
     "characters": "Minimum 8 characters",
@@ -277,7 +279,9 @@
     "likes-desc": "Likes: Highest First",
     "likes-asc": "Likes: Lowest First",
     "day-price-asc": "Price: Lowest First",
-    "day-price-desc": "Price: Highest First"
+    "day-price-desc": "Price: Highest First",
+    "filters": "Filters",
+    "no-items": "No items found"
   },
   "forgot-pw": {
     "title": "Reset your password",
@@ -301,7 +305,8 @@
   },
   "my-shop": {
     "my-items": "My Items",
-    "income": "Income"
+    "income": "Income",
+    "delete-prompt": "Are you sure you want to delete {{item_title}}"
   },
   "change-pw": {
     "title": "Change your password",
@@ -366,7 +371,8 @@
   },
   "utility": {
     "categories": {
-      "search-categories": "Search for a category"
+      "search-categories": "Search for a category",
+      "apply": "Apply"
     },
     "calendar": {
       "error": {
@@ -384,6 +390,7 @@
     },
     "prompt": {
       "confirm": "Confirm",
+      "irreversible": "This action is irrevirsible",
       "cancel": "Cancel"
     }
   },

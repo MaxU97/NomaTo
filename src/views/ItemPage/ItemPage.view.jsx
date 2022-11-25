@@ -225,8 +225,10 @@ export const ItemPage = () => {
                   className="trash"
                   onClick={() => {
                     prompt(
-                      `Are you sure you want to delete "${item.title}"?`,
-                      "This action is irrevirsible",
+                      t("item-page.delete-prompt", {
+                        item_title: item.title,
+                      }),
+                      t("utility.prompt.irreversible"),
                       () => {
                         removeItem(item.id);
                       }

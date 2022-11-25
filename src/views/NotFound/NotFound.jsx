@@ -13,7 +13,9 @@ const NotFound = () => {
         </div>
         <div className="not-found-text">
           <h1>{t("not-found.text")}</h1>
-          <Link className="not-found-home">{t("not-found.button")}</Link>
+          <Link to="/" className="not-found-home">
+            {t("not-found.button")}
+          </Link>
         </div>
       </div>
     </div>

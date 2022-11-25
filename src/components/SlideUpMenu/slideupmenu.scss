@@ -1,0 +1,58 @@
+.slide-up {
+  pointer-events: none;
+  &.active {
+    pointer-events: unset;
+  }
+  &-background {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background-color: #000;
+    opacity: 0;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    display: block;
+    transition: opacity 0.3s;
+    &.active {
+      opacity: 0.25;
+      transition: opacity 0.3s;
+      pointer-events: all;
+    }
+  }
+
+  &-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    height: 90vh;
+    width: 100%;
+    background: white;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding: 20px;
+    padding-top: 10px;
+    box-sizing: border-box;
+    -webkit-overflow-scrolling: touch;
+    transition: all 0.5s ease;
+    z-index: 100;
+    transition: 0.3s ease;
+    border-radius: 15px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    &.active {
+      transition: 0.3s ease;
+      pointer-events: all;
+    }
+    .drag-line {
+      height: 5px;
+      width: 70%;
+      background-color: #a3a3a3;
+      border-radius: 15px;
+      justify-self: center;
+    }
+  }
+}

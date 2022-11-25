@@ -5,8 +5,14 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
-import { CloseIcon, MoveIcon, SpinnerAnimationIcon } from "../../assets/Icons";
-import CategoryModal from "../../components/CategoryModal/CategoryModal.component";
+import {
+  CloseIcon,
+  ConfusedSmileyIcon,
+  MoveIcon,
+  OptionsIcon,
+  PlusIcon,
+  SpinnerAnimationIcon,
+} from "../../assets/Icons";
 import Input from "../../components/Input/Input.component";
 import ItemThumbnail from "../../components/ItemThumbnail/ItemThumbnail.component";
 import Map from "../../components/Map/Map.component";
@@ -22,9 +28,17 @@ import "./search.scss";
 import useWindowDimensions from "../../services/responsive.service";
 import Dropdown from "../../components/Dropdown/Dropdown.component";
 import DropdownItem from "../../components/Dropdown/DropdownItem.component";
+import SlideUpMenu from "../../components/SlideUpMenu/SlideUpMenu.component";
+import MobileFilters from "../../components/MobileFilters/MobileFilters.component";
+import { PageState } from "./PageStates";
+import CategoryFilterModal from "../../components/CategoryFilterModal/CategoryModal.component";
 
 const SearchPage = () => {
+  const [pageState, setPageState] = useState(PageState.Initial);
+
   const { isMobile } = useWindowDimensions();
+
+  const [filtersOpen, toggleFilters] = useState(false);
 
   const options = { style: "currency", currency: "EUR" };
   const euroLocale = Intl.NumberFormat("lv-LV", options);
@@ -44,6 +58,7 @@ const SearchPage = () => {
   const [latLng, setLatLng] = useState();
 
   const [categoryValue, setCategoryValue] = useState();
+  const [subCategoryValue, setSubCategoryValue] = useState([]);
   const [termValue, setTermValue] = useState();
 
   const [maxPages, setMaxPages] = useState();
@@ -81,7 +96,8 @@ const SearchPage = () => {
       if (params.has("term")) {
         setTermValue(params.get("term"));
       }
-      if (params.has("cat")) {
+      if (params.has("cat") && utilityState.categories) {
+        debugger;
         utilityState.categories.every((cat) => {
           if (cat._id === params.get("cat")) {
             setCategoryValue(cat["title" + language]);
@@ -91,7 +107,6 @@ const SearchPage = () => {
         });
       }
       if (params.has("lat") && params.has("lng")) {
-        debugger;
         var adr = await getNaturalAddressFull(
           params.get("lat"),
           params.get("lng")
@@ -122,7 +137,7 @@ const SearchPage = () => {
   useEffect(() => {
     const query = window.location.search;
     const params = new URLSearchParams(query);
-    if (params.has("cat")) {
+    if (params.has("cat") && utilityState.categories) {
       utilityState.categories.every((cat) => {
         if (cat._id === params.get("cat")) {
           setCategoryValue(cat["title" + language]);
@@ -138,6 +153,9 @@ const SearchPage = () => {
 
     if (params.has("cat")) {
       newSearchParams.cat = params.get("cat");
+    }
+    if (params.has("sub_cat")) {
+      newSearchParams.sub_cat = params.get("sub_cat");
     }
     if (params.has("term")) {
       newSearchParams.term = params.get("term");
@@ -157,6 +175,9 @@ const SearchPage = () => {
     if (params.has("km")) {
       newSearchParams.km = params.get("km");
     }
+    if (params.has("sort_type")) {
+      newSearchParams.sort_type = params.get("sort_type");
+    }
 
     setSearchParams(newSearchParams);
   };
@@ -167,6 +188,7 @@ const SearchPage = () => {
   const search = async () => {
     var terms = "";
     var category = "";
+    var subcat = "";
     var lat = "";
     var lng = "";
     var pricefrom = "";
@@ -181,6 +203,9 @@ const SearchPage = () => {
     }
     if (params.has("cat")) {
       category = params.get("cat");
+    }
+    if (params.has("sub_cat")) {
+      subcat = params.get("sub_cat");
     }
     if (params.has("lat")) {
       lat = params.get("lat");
@@ -198,18 +223,32 @@ const SearchPage = () => {
       sort_type = params.get("sort_type");
     }
 
-    await SEARCH_ITEMS({
-      terms: terms,
-      category: category,
-      lat: lat,
-      lng: lng,
-      km: km * 1000,
-      page: page,
-      pricefrom: pricefrom,
-      priceto: priceto,
-      sort_type: sort_type,
-    });
-    setIsLoading(false);
+    try {
+      const { searchItemCount } = await SEARCH_ITEMS({
+        terms: terms,
+        category: category,
+        subcat: subcat,
+        lat: lat,
+        lng: lng,
+        km: km * 1000,
+        page: page,
+        pricefrom: pricefrom,
+        priceto: priceto,
+        sort_type: sort_type,
+      });
+      if (searchItemCount == 0) {
+        setPageState(PageState.NoneFound);
+      } else {
+        setPageState(PageState.Initial);
+      }
+      setIsLoading(false);
+    } catch (e) {
+      debugger;
+      if (itemState.searchItemCount == 0) {
+        setPageState(PageState.NoneFound);
+      }
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -220,6 +259,7 @@ const SearchPage = () => {
     if (searchParams) {
       var newURL = window.location.pathname;
       var count = 0;
+      debugger;
       for (const [key, value] of Object.entries(searchParams)) {
         if (count > 0) {
           newURL = newURL + `&${key}=${value}`;
@@ -260,6 +300,7 @@ const SearchPage = () => {
   }, [termValue]);
 
   const changeCategory = async (value, event) => {
+    debugger;
     setTermChanged(false);
     if (event) {
       event.stopPropagation();
@@ -271,6 +312,21 @@ const SearchPage = () => {
       delete newSearchParams["cat"];
     }
     setCategoryValue(value["title" + language]);
+    setSearchParams({ ...newSearchParams });
+  };
+
+  const changeSubCategory = async (value, event) => {
+    debugger;
+    if (event) {
+      event.stopPropagation();
+    }
+    var newSearchParams = searchParams;
+    if (value.length > 0) {
+      newSearchParams["sub_cat"] = value;
+    } else {
+      delete newSearchParams["sub_cat"];
+    }
+    setSubCategoryValue(value);
     setSearchParams({ ...newSearchParams });
   };
 
@@ -344,20 +400,25 @@ const SearchPage = () => {
     toggleLocations(false);
   };
 
-  const applySort = (event) => {
+  const applySort = (event, value = false) => {
     setTermChanged(false);
     var newSearchParams = searchParams;
 
     if (event) {
       newSearchParams["sort_type"] = event.value;
     }
+    if (value) {
+      delete newSearchParams["sort_type"];
+    }
     setSearchParams({ ...newSearchParams });
   };
 
   const createPages = () => {
-    debugger;
     var elipsisAdded = false;
     var toReturn = [];
+    if (maxPages == 0) {
+      return [<h3 className="disabled">0</h3>];
+    }
     for (let i = 0; i < maxPages; i++) {
       if (i == page - 1 || i == page || i == 0 || i + 1 == maxPages) {
         toReturn.push(
@@ -431,90 +492,187 @@ const SearchPage = () => {
     <>
       <div className="search">
         <div className="search-bar">
-          <Input
-            className="search-bar-input"
-            value={termValue}
-            setValue={changeTerm}
-            button={true}
-            buttonText="Search"
-            withoutError
-            buttonAction={() => {
-              search();
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
+          <div className="search-bar-container">
+            <Input
+              className="search-bar-input"
+              value={termValue}
+              setValue={changeTerm}
+              button={true}
+              buttonText="Search"
+              withoutError
+              buttonAction={() => {
                 search();
-              }
-            }}
-          ></Input>
-          <div className="filters">
-            <a
-              className={classNames(
-                "filter-item",
-                address && addressApplied && "active"
-              )}
-              onClick={() => {
-                toggleLocations(true);
               }}
-            >
-              <span>
-                {address && addressApplied
-                  ? address.formatted_address
-                  : t("search-page.location")}
-              </span>
-              {addressApplied && address && (
-                <CloseIcon
-                  className="filter-item-delete"
-                  onClick={async (event) => {
-                    applyLocation(event, true);
-                    setAddress("");
-                  }}
-                ></CloseIcon>
-              )}
-            </a>
-            <a
-              className={classNames("filter-item", categoryValue && "active")}
-              onClick={() => {
-                toggleCategories(true);
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  search();
+                }
               }}
-            >
-              <span>
-                {categoryValue ? categoryValue : t("search-page.category")}
-              </span>
-              {categoryValue && (
-                <CloseIcon
-                  className="filter-item-delete"
-                  onClick={async (event) => {
-                    await changeCategory("", event);
-                  }}
-                ></CloseIcon>
-              )}
-            </a>
-            <a
-              className={classNames(
-                "filter-item",
-                (priceTo || priceFrom) && "active"
-              )}
-              onClick={() => {
-                togglePriceModal(true);
-              }}
-            >
-              <span>{getPriceString()}</span>
-              {(priceTo || priceFrom) && (
-                <CloseIcon
-                  className="filter-item-delete"
-                  onClick={(event) => {
-                    applyPrice(event, true);
-                    setPriceFrom("");
-                    setPriceTo("");
-                  }}
-                ></CloseIcon>
-              )}
-            </a>
+            ></Input>
           </div>
+
+          {isMobile ? (
+            <OptionsIcon
+              onClick={() => {
+                toggleFilters(true);
+              }}
+            ></OptionsIcon>
+          ) : (
+            <div className="filters">
+              <a
+                className={classNames(
+                  "filter-item",
+                  address && addressApplied && "active"
+                )}
+                onClick={() => {
+                  toggleLocations(true);
+                }}
+              >
+                <span>
+                  {address && addressApplied
+                    ? address.formatted_address
+                    : t("search-page.location")}
+                </span>
+                {addressApplied && address && (
+                  <CloseIcon
+                    className="filter-item-delete"
+                    onClick={async (event) => {
+                      applyLocation(event, true);
+                      setAddress("");
+                    }}
+                  ></CloseIcon>
+                )}
+              </a>
+              <a
+                className={classNames("filter-item", categoryValue && "active")}
+                onClick={() => {
+                  toggleCategories(true);
+                }}
+              >
+                <span>
+                  {categoryValue
+                    ? `${categoryValue}${
+                        subCategoryValue &&
+                        subCategoryValue.length > 0 &&
+                        ` (${subCategoryValue.length})`
+                      }`
+                    : t("search-page.category")}
+                </span>
+                {categoryValue && (
+                  <CloseIcon
+                    className="filter-item-delete"
+                    onClick={async (event) => {
+                      await changeCategory("", event);
+                      await changeSubCategory("", event);
+                    }}
+                  ></CloseIcon>
+                )}
+              </a>
+              <a
+                className={classNames(
+                  "filter-item",
+                  (priceTo || priceFrom) && "active"
+                )}
+                onClick={() => {
+                  togglePriceModal(true);
+                }}
+              >
+                <span>{getPriceString()}</span>
+                {(priceTo || priceFrom) && (
+                  <CloseIcon
+                    className="filter-item-delete"
+                    onClick={(event) => {
+                      applyPrice(event, true);
+                      setPriceFrom("");
+                      setPriceTo("");
+                    }}
+                  ></CloseIcon>
+                )}
+              </a>
+            </div>
+          )}
         </div>
         <div className="search-container">
           <div className="search-content">
+            {!isMobile && (
+              <div className="search-content-counter">
+                <div className="search-content-counter-container">
+                  <MoveIcon
+                    className="arrow left"
+                    onClick={() => {
+                      changeStep(-1);
+                    }}
+                    disabled={page <= 0}
+                  ></MoveIcon>
+                  {createPages()}
+                  <MoveIcon
+                    className="arrow"
+                    onClick={() => {
+                      changeStep(1);
+                    }}
+                    disabled={page + 2 > maxPages}
+                  ></MoveIcon>
+                </div>
+                <div className="search-content-counter-sort-by">
+                  <Select
+                    options={sortOptions}
+                    placeholder={t("search-page.sort-by")}
+                    isSearchable={false}
+                    onChange={applySort}
+                    isDisabled={pageState != PageState.Initial}
+                    styles={{
+                      control: (provided, state) => ({
+                        ...provided,
+                        boxShadow: "none",
+                        borderColor: "#e0e0e0",
+                        "&:hover": {
+                          borderColor: "#a3a3a3",
+                        },
+
+                        width: 170,
+                        textAlign: "left",
+                        fontFamily: "Gilroy-Medium !important",
+                      }),
+                      singleValue: (provided, state) => ({
+                        ...provided,
+                        fontFamily: "Gilroy-Medium !important",
+                      }),
+                      placeholder: (provided, state) => ({
+                        ...provided,
+                        fontFamily: "Gilroy-Medium !important",
+                        color: "black",
+                      }),
+                      menu: (provided, state) => ({
+                        ...provided,
+                        textAlign: "left",
+                        fontFamily: "Gilroy-Medium !important",
+                      }),
+                    }}
+                  ></Select>
+                </div>
+              </div>
+            )}
+
+            {isLoading ? (
+              <div className="search-content-results search-content-results-center">
+                <SpinnerAnimationIcon scale={1}></SpinnerAnimationIcon>
+              </div>
+            ) : pageState === PageState.NoneFound ? (
+              <div className="search-content-results search-content-results-center">
+                <ConfusedSmileyIcon></ConfusedSmileyIcon>
+                <span>{t("search-page.no-items")}</span>
+              </div>
+            ) : (
+              <div className="search-content-results">
+                <div className="search-content-results-grid">
+                  {itemState.searchedItems.map((item, index) => (
+                    <ItemThumbnail key={index} item={item}></ItemThumbnail>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+          {isMobile && (
             <div className="search-content-counter">
               <div className="search-content-counter-container">
                 <MoveIcon
@@ -533,57 +691,8 @@ const SearchPage = () => {
                   disabled={page + 2 > maxPages}
                 ></MoveIcon>
               </div>
-              <div className="search-content-counter-sort-by">
-                <Select
-                  options={sortOptions}
-                  placeholder={t("search-page.sort-by")}
-                  isSearchable={false}
-                  onChange={applySort}
-                  styles={{
-                    control: (provided, state) => ({
-                      ...provided,
-                      boxShadow: "none",
-                      borderColor: "#e0e0e0",
-                      "&:hover": {
-                        borderColor: "#a3a3a3",
-                      },
-                      width: 170,
-                      textAlign: "left",
-                      fontFamily: "Gilroy-Medium !important",
-                    }),
-                    singleValue: (provided, state) => ({
-                      ...provided,
-                      fontFamily: "Gilroy-Medium !important",
-                    }),
-                    placeholder: (provided, state) => ({
-                      ...provided,
-                      fontFamily: "Gilroy-Medium !important",
-                      color: "black",
-                    }),
-                    menu: (provided, state) => ({
-                      ...provided,
-                      textAlign: "left",
-                      fontFamily: "Gilroy-Medium !important",
-                    }),
-                  }}
-                ></Select>
-              </div>
             </div>
-
-            {isLoading ? (
-              <div className="search-content-results search-content-results-loading">
-                <SpinnerAnimationIcon scale={1}></SpinnerAnimationIcon>
-              </div>
-            ) : (
-              <div className="search-content-results">
-                <div className="search-content-results-grid">
-                  {itemState.searchedItems.map((item, index) => (
-                    <ItemThumbnail key={index} item={item}></ItemThumbnail>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
+          )}
           {!isMobile && (
             <div className="search-map">
               <Map
@@ -599,7 +708,7 @@ const SearchPage = () => {
           )}
         </div>
         {utilityState.categories && (
-          <CategoryModal
+          <CategoryFilterModal
             modalOpen={categoryModal}
             toggleModal={toggleCategories}
             style={{ backgroundColor: "none" }}
@@ -607,7 +716,10 @@ const SearchPage = () => {
             setCategory={async (event) => {
               await changeCategory(event);
             }}
-            // setSubCategory={setSubCategory}
+            setSubCategories={async (event) => {
+              debugger;
+              await changeSubCategory(event);
+            }}
           />
         )}
 
@@ -638,7 +750,9 @@ const SearchPage = () => {
         <Modal
           modalOpen={priceModal}
           toggleModal={() => {
-            applyPrice();
+            setPriceFrom("");
+            setPriceTo("");
+            togglePriceModal(false);
           }}
         >
           <div className="price-modal">
@@ -664,6 +778,31 @@ const SearchPage = () => {
             </a>
           </div>
         </Modal>
+        {isMobile && (
+          <SlideUpMenu toggleMenu={toggleFilters} menuOpen={filtersOpen}>
+            <MobileFilters
+              applySort={applySort}
+              sortOptions={sortOptions}
+              changeLatLng={changeLatLng}
+              setAddress={setAddress}
+              changeKm={changeKm}
+              km={km}
+              applyLocation={applyLocation}
+              address={address}
+              addressApplied={addressApplied}
+              applyPrice={applyPrice}
+              getPriceString={getPriceString}
+              priceFrom={priceFrom}
+              priceTo={priceTo}
+              setPriceFrom={setPriceFrom}
+              setPriceTo={setPriceTo}
+              applyCategory={changeCategory}
+              categoryValue={categoryValue}
+              applySubCategories={changeSubCategory}
+              subCategoryValue={subCategoryValue}
+            ></MobileFilters>
+          </SlideUpMenu>
+        )}
       </div>
     </>
   );

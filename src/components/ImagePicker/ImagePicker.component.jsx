@@ -24,7 +24,7 @@ const ImagePicker = ({
   const makeMain = () => {
     var newList = [...imageList];
     var newMain = newList.splice(index, 1);
-    newList = [newMain, ...newList];
+    newList = [...newMain, ...newList];
     setImages(newList);
   };
   return image ? (

@@ -5,7 +5,6 @@ import Input from "../../components/Input/Input.component";
 import classNames from "classnames";
 import "./addcategories.scss";
 import { CSSTransition } from "react-transition-group";
-import { getCurrentLanguage } from "../../services/language.service";
 import {
   CloseIcon,
   MinusIcon,
@@ -29,8 +28,11 @@ import useWindowDimensions, {
   useIntersection,
   useScrollDirection,
 } from "../../services/responsive.service";
+import { usePromptHandler } from "../../components/Prompt/Prompt.component";
+import { getCurrentLanguage } from "../../services/language.service";
 
 const AddCategories = () => {
+  const { prompt } = usePromptHandler();
   const { isMobile } = useWindowDimensions();
   const [editType, setEditType] = useState(false);
   const { notification } = useNotificationHandler();
@@ -344,8 +346,17 @@ const AddCategories = () => {
                 <TrashIcon
                   className="delete-category"
                   onClick={async () => {
-                    await deleteCat(editType._id);
-                    setEditType(false);
+                    debugger;
+                    prompt(
+                      t("add-category.delete-prompt", {
+                        category_title: editType[titleLanguage],
+                      }),
+                      t("utility.prompt.irreversible"),
+                      async () => {
+                        await deleteCat(editType._id);
+                        setEditType(false);
+                      }
+                    );
                   }}
                 ></TrashIcon>
               )}

@@ -1,0 +1,122 @@
+.mobile-filter {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .filters-title {
+    text-align: center;
+    margin: 0;
+    border-bottom: 1px solid #bebebe;
+    padding-top: 15px;
+    padding-bottom: 10px;
+  }
+  &-item {
+    padding: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: white;
+    border-bottom: 1px solid #bebebe;
+    border-radius: 0;
+    font-size: 20px;
+    font-family: Gilroy-Medium;
+    text-align: left;
+    transition: 0.05s;
+
+    &-sub {
+      padding: 0;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      background-color: white;
+      border-bottom: 1px solid #bebebe;
+      border-radius: 0;
+      font-size: 18px;
+      font-family: Gilroy-Regular;
+      text-align: left;
+      transition: 0.05s;
+    }
+    &:active {
+      &:not(.active) {
+        background-color: #bebebe;
+        transition: 0.05s;
+      }
+    }
+    &-chosen {
+      display: flex;
+      align-items: center;
+      margin-top: 5px;
+      font-size: 15px;
+      padding: 5px 10px;
+      background-color: #3299de;
+      width: fit-content;
+      color: white;
+      border-radius: 15px;
+      gap: 5px;
+      span {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        max-width: 275px;
+      }
+      svg {
+        height: 10px;
+        width: 10px;
+        background-color: white;
+        padding: 3px;
+        border-radius: 50%;
+      }
+    }
+  }
+}
+
+.sort-filter-container {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 20px;
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  gap: 10px;
+  left: 0;
+  position: fixed;
+  text-align: left;
+  &.no-gap {
+    gap: 0;
+  }
+  &.h100 {
+    height: 100%;
+    background-color: white;
+  }
+  &-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    border-bottom: 1px solid #bebebe;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    h2 {
+      margin: 0;
+      text-align: center;
+      width: 100%;
+    }
+    svg {
+      transform: rotate(180deg);
+      position: absolute;
+    }
+  }
+}
+.sort-filter-enter {
+  transform: translateX(100%);
+}
+.sort-filter-enter-active {
+  transform: translateX(0);
+  transition: opacity 300ms, transform 300ms;
+}
+.sort-filter-exit {
+  transform: translateX(0);
+}
+.sort-filter-exit-active {
+  transform: translateX(100%);
+  transition: opacity 300ms, transform 300ms;
+}

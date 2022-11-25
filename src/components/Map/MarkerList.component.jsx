@@ -1,8 +1,15 @@
 import { InfoWindow, Marker } from "@react-google-maps/api";
 import React, { useState } from "react";
 import ItemThumbnail from "../ItemThumbnail/ItemThumbnail.component";
+import _ from "lodash";
 
 const MarkerList = ({ markers, markerIndex, setMarkerIndex = () => {} }) => {
+  var infoHover = false;
+  const resetIndex = (hover) => {
+    if (!hover) {
+      setMarkerIndex(-1);
+    }
+  };
   return (
     markers &&
     markers.map((value, index) => {
@@ -14,12 +21,29 @@ const MarkerList = ({ markers, markerIndex, setMarkerIndex = () => {} }) => {
             window.location.href = `/item/${value.id}`;
           }}
           onMouseOver={() => setMarkerIndex(index)}
-          onMouseOut={() => setMarkerIndex(-1)}
+          onMouseOut={() => {
+            setTimeout(() => {
+              resetIndex(infoHover);
+            }, 200);
+          }}
         >
           {index == markerIndex && (
             <InfoWindow
               onCloseClick={() => {
                 setMarkerIndex(-1);
+              }}
+              onLoad={(event) => {
+                debugger;
+                const el = event.content;
+                el.onmouseenter = () => {
+                  infoHover = true;
+                };
+                el.onmouseleave = () => {
+                  infoHover = false;
+                  setTimeout(() => {
+                    resetIndex(infoHover);
+                  }, 200);
+                };
               }}
             >
               <div className="item-info">

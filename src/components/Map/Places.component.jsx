@@ -7,6 +7,8 @@ import Dropdown from "../Dropdown/Dropdown.component";
 import DropdownItem from "../Dropdown/DropdownItem.component";
 import { set } from "lodash";
 import { useTranslation } from "react-i18next";
+import { useEffect, useState } from "react";
+import { useForceUpdate } from "../../services/responsive.service";
 
 const autocompleteParameters = {
   requestOptions: { componentRestrictions: { country: "lv" } },
@@ -34,7 +36,7 @@ const Places = ({
   withoutError = false,
 }) => {
   const { t } = useTranslation();
-  const {
+  var {
     ready,
     value,
     setValue,
@@ -50,6 +52,7 @@ const Places = ({
     setPlace({ lat, lng });
     setAddress(results[0]);
   };
+
   return (
     <Dropdown
       className={classNames("map-dropdown", inMap && "in-map")}
@@ -62,7 +65,7 @@ const Places = ({
       hoverChild={children}
       onMouseOver={onMouseOver}
       onMouseOut={onMouseOut}
-      disabled={disabled}
+      disabled={disabled || !ready}
       error={error}
       errorText={errorText}
       showInformation={showInformation}

@@ -1,4 +1,3 @@
-import { useLoadScript } from "@react-google-maps/api";
 import { Link } from "react-router-dom";
 import React from "react";
 import { googleApiKey, googleLibraries } from "../../api/config";
@@ -18,6 +17,7 @@ import classNames from "classnames";
 import { useNotificationHandler } from "../../components/NotificationHandler/NotificationHandler.component";
 import Places from "../../components/Map/Places.component";
 import { AddressModal } from "../../components/AddressModal/AddressModal.component";
+import { useGoogleApiProvider } from "../../components/GoogleMapsApiProvider/GoogleMapsApiProvider.component";
 const Profile = () => {
   const { t } = useTranslation();
   const { state, PATCH_USER, PATCH_IMAGE } = useUserContext();
@@ -127,10 +127,7 @@ const Profile = () => {
       setPhoneError(!validate);
     }
   };
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: googleApiKey,
-    libraries: googleLibraries,
-  });
+  const { isLoaded } = useGoogleApiProvider();
   return (
     <>
       <div className="profile">

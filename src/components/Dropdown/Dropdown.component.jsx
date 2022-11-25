@@ -21,6 +21,11 @@ const Dropdown = ({
   withoutError,
   placeholderColor,
 }) => {
+  const blockPropagation = (e) => {
+    if (e) {
+      e.stopPropagation();
+    }
+  };
   return (
     <div className={classNames("dropdown", className, containerClass)}>
       <Input
@@ -42,7 +47,11 @@ const Dropdown = ({
       >
         {hoverChild}
       </Input>
-      {children && <div className="dropdown-content">{children}</div>}
+      {children && (
+        <div className="dropdown-content" onTouchMove={blockPropagation}>
+          {children}
+        </div>
+      )}
     </div>
   );
 };

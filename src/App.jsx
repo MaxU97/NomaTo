@@ -10,10 +10,13 @@ import { Provider as ItemProvider } from "./context/item";
 import { NotificationHandler } from "./components/NotificationHandler/NotificationHandler.component";
 import { useEffect, useState } from "react";
 import { Prompt } from "./components/Prompt/Prompt.component";
+import { googleApiKey, googleLibraries } from "./api/config";
+import { GoogleMapsApiProvider } from "./components/GoogleMapsApiProvider/GoogleMapsApiProvider.component";
 moment.locale(i18n.language);
 
 const App = () => {
   const { t, i18n } = useTranslation();
+
   return (
     <div className="App">
       <meta
@@ -27,11 +30,13 @@ const App = () => {
         <UserProvider>
           <UtilityProvider>
             <ItemProvider>
-              <Prompt>
-                <NotificationHandler>
-                  <Router />
-                </NotificationHandler>
-              </Prompt>
+              <GoogleMapsApiProvider>
+                <Prompt>
+                  <NotificationHandler>
+                    <Router />
+                  </NotificationHandler>
+                </Prompt>
+              </GoogleMapsApiProvider>
             </ItemProvider>
           </UtilityProvider>
         </UserProvider>

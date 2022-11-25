@@ -53,6 +53,6 @@ export const SEARCH_ITEMS = (dispatch) => async (term) => {
     });
     return data;
   } catch (err) {
-    return false;
+    throw err;
   }
 };

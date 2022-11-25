@@ -19,6 +19,9 @@
     gap: 10px;
     padding: 10px;
     box-sizing: border-box;
+    &-container {
+      width: 100%;
+    }
   }
   &-container {
     height: calc(100% - 76px);
@@ -37,10 +40,21 @@
       height: 100%;
       display: flex;
       flex-direction: column;
-
       overflow: auto;
-      &-loading {
+      &-center {
+        align-items: center;
         justify-content: center;
+        svg {
+          width: 100px;
+          height: 100px;
+          fill: #bebebe;
+          margin-bottom: 10px;
+        }
+        color: #bebebe;
+        font-size: 25px;
+        span {
+          font-family: "Gilroy-Medium" !important;
+        }
       }
       &-grid {
         display: grid;
@@ -100,7 +114,8 @@
             background-color: #3299de;
             color: white;
           }
-          &:hover {
+
+          &:hover ~ &:not(:disabled) {
             cursor: pointer;
             background-color: #3299de;
             color: white;
@@ -263,41 +278,52 @@
   .search {
     box-sizing: border-box;
     background-color: white;
-    height: 100%;
-    margin-top: 60px;
+    height: 100vh;
     padding: 10px;
-    &-bar {
-      padding-bottom: 0;
+    padding-top: 70px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    &-bar-container {
+      width: auto;
     }
-    .filters {
-      gap: 10px;
-    }
-    .filter-item {
-      min-width: 0;
-      width: 100%;
-      &.active {
-        span {
-          max-width: 50px;
-          text-overflow: ellipsis;
-          overflow: hidden;
-        }
-      }
+    &-container {
+      flex-direction: column;
+      height: 100%;
     }
     &-content {
       width: 100%;
+      box-sizing: border-box;
+      padding-top: 55px;
+      padding-bottom: 60px;
       &-results {
         &-grid {
           grid-template-columns: 1fr 1fr;
         }
       }
       &-counter {
+        position: fixed;
+        bottom: 0;
         box-sizing: border-box;
-        padding: 0;
+        padding: 10px 0;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        height: 60px;
       }
     }
 
     &-bar {
-      flex-direction: column;
+      position: fixed;
+      background-color: white;
+      flex-direction: row;
+      padding: 0;
+      padding-bottom: 5px;
+      gap: 10px;
+      height: 55px;
+      width: 100%;
+      svg {
+        fill: #616161;
+      }
       .filters {
         width: 100%;
         display: flex;

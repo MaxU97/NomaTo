@@ -22,6 +22,8 @@ import { ReactComponent as MenuIcon } from "./menu-3line.svg";
 import { ReactComponent as SmileyIcon } from "./smiley.svg";
 import { ReactComponent as QuestionIconCircle } from "./question-circle.svg";
 import { ReactComponent as QuestionIcon } from "./question-icon.svg";
+import { ReactComponent as OptionsIcon } from "./options-icon.svg";
+import { ReactComponent as ConfusedSmileyIcon } from "./confused-smiley.svg";
 import EnFlagIcon from "./fl-en.png";
 import LvFlagIcon from "./fl-lv.png";
 import RuFlagIcon from "./fl-ru.png";
@@ -78,4 +80,6 @@ export {
   SmileyIcon,
   QuestionIcon,
   QuestionIconCircle,
+  OptionsIcon,
+  ConfusedSmileyIcon,
 };

@@ -72,8 +72,7 @@ export const searchItems = async (term) => {
       return data;
     })
     .catch((err) => {
-      console.error(err.response.data);
-      return false;
+      throw err.response.data;
     });
 };
 
