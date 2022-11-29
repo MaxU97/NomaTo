@@ -17,6 +17,7 @@ import {
   TrashIcon,
 } from "../../assets/Icons";
 import { useNotificationHandler } from "../../components/NotificationHandler/NotificationHandler.component";
+import classNames from "classnames";
 
 const NewsPage = () => {
   const { id } = useParams();
@@ -84,7 +85,9 @@ const NewsPage = () => {
             <div className="news-image">
               <img src={apiUrl + "/NewsImages/" + news.image}></img>
             </div>
-            <div className="news-text">{news.body}</div>
+            <div className={classNames("news-text", news.template)}>
+              {news.body}
+            </div>
             <div className="news-date">
               {formatDate(new Date(news.dateAdded))}
             </div>

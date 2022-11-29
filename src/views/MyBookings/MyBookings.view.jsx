@@ -4,7 +4,7 @@ import BookingItem from "../../components/BookingItem/BookingItem.component";
 import { useUserContext } from "../../context/user";
 import NotFound from "../NotFound/NotFound";
 import "./mybookings.scss";
-import { bookingStatuses } from "../../services/booking.categories";
+import { bookingStatuses } from "../../services/nomato.constants";
 import { useTranslation } from "react-i18next";
 import useWindowDimensions from "../../services/responsive.service";
 import { SpinnerAnimationIcon } from "../../assets/Icons";

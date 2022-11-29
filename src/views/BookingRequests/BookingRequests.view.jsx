@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getBookingRequests } from "../../api/auth";
-import { bookingStatuses } from "../../services/booking.categories";
+import { bookingStatuses } from "../../services/nomato.constants";
 import BookingRequestsItem from "../../components/BookingRequestsItem/BookingRequestsItem.component";
 import classNames from "classnames";
 import NotFound from "../NotFound/NotFound";

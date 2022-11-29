@@ -13,6 +13,8 @@ import ImageEditorModal from "../../components/ImagePicker/ImageEditorModal.comp
 import { useNotificationHandler } from "../../components/NotificationHandler/NotificationHandler.component";
 import { apiUrl } from "../../api/config";
 import { formatDate } from "../../services/responsive.service";
+import { NewsTemplates } from "../../services/nomato.constants";
+import NewsLayouts from "../../components/NewsLayouts/NewsLayouts.component";
 export const AddNews = () => {
   const { notification } = useNotificationHandler();
 
@@ -24,6 +26,7 @@ export const AddNews = () => {
   const [selectedLanguage, setSelectedLanguage] = useState([]);
   const [news, setNews] = useState("");
   const [imageList, setImageList] = useState([]);
+  const [layout, setLayout] = useState(NewsTemplates.OneColumn);
 
   const handleLanguageSelect = (event, language) => {
     setSelectedLanguage([language]);
@@ -45,10 +48,18 @@ export const AddNews = () => {
       data.append("title", title);
       data.append("text", news);
       data.append("language", selectedLanguage[0]);
+      data.append("template", layout.value);
 
       try {
         var response = await newsUpload(data);
         notification([response.message]);
+        setTimeout(() => {
+          if (response.id) {
+            window.location.href = `/news/${response.id}`;
+          } else {
+            window.location.href = "/";
+          }
+        }, 250);
       } catch (err) {
         notification([err.message], true);
       }
@@ -68,6 +79,7 @@ export const AddNews = () => {
             onClick={toggleImgModal}
             showLegend={false}
           ></ImagePicker>
+          <NewsLayouts layout={layout} setLayout={setLayout}></NewsLayouts>
           <LanguagePicker
             languages={languages}
             placeholder={t("add-news.language")}
@@ -112,7 +124,7 @@ export const AddNews = () => {
               <div className="news-image">
                 <img alt="image" src={imageList[0]}></img>
               </div>
-              <div className="news-text">
+              <div className={classNames("news-text", layout.value)}>
                 {news ? news : t("add-news.news")}
               </div>
               <div className="news-date">

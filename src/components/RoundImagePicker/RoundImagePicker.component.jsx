@@ -14,12 +14,12 @@ const RoundImagePicker = ({
   const { t } = useTranslation();
 
   return image ? (
-    <div className={classNames("image-picker-image", buttonClassName)}>
+    <div className={classNames("round-image-picker-image", buttonClassName)}>
       <img src={image}></img>
 
       <div
         className={classNames(
-          "image-picker-image-overlay",
+          "round-image-picker-image-overlay",
           isMobile && "active"
         )}
         onClick={onClick}
@@ -30,9 +30,9 @@ const RoundImagePicker = ({
   ) : (
     <div
       onClick={onClick}
-      className={classNames("image-picker-button", buttonClassName)}
+      className={classNames("round-image-picker-button", buttonClassName)}
     >
-      <div className="image-picker-button-text">
+      <div className="round-image-picker-button-text">
         {t("image-tools.add-image")}
       </div>
       <PlusIcon />

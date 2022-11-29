@@ -33,7 +33,6 @@ const MarkerList = ({ markers, markerIndex, setMarkerIndex = () => {} }) => {
                 setMarkerIndex(-1);
               }}
               onLoad={(event) => {
-                debugger;
                 const el = event.content;
                 el.onmouseenter = () => {
                   infoHover = true;

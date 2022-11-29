@@ -97,7 +97,6 @@ const SearchPage = () => {
         setTermValue(params.get("term"));
       }
       if (params.has("cat") && utilityState.categories) {
-        debugger;
         utilityState.categories.every((cat) => {
           if (cat._id === params.get("cat")) {
             setCategoryValue(cat["title" + language]);
@@ -243,7 +242,6 @@ const SearchPage = () => {
       }
       setIsLoading(false);
     } catch (e) {
-      debugger;
       if (itemState.searchItemCount == 0) {
         setPageState(PageState.NoneFound);
       }
@@ -259,7 +257,6 @@ const SearchPage = () => {
     if (searchParams) {
       var newURL = window.location.pathname;
       var count = 0;
-      debugger;
       for (const [key, value] of Object.entries(searchParams)) {
         if (count > 0) {
           newURL = newURL + `&${key}=${value}`;
@@ -300,7 +297,6 @@ const SearchPage = () => {
   }, [termValue]);
 
   const changeCategory = async (value, event) => {
-    debugger;
     setTermChanged(false);
     if (event) {
       event.stopPropagation();
@@ -316,7 +312,6 @@ const SearchPage = () => {
   };
 
   const changeSubCategory = async (value, event) => {
-    debugger;
     if (event) {
       event.stopPropagation();
     }
@@ -717,7 +712,6 @@ const SearchPage = () => {
               await changeCategory(event);
             }}
             setSubCategories={async (event) => {
-              debugger;
               await changeSubCategory(event);
             }}
           />

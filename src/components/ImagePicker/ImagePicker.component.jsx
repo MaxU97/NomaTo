@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import useWindowDimensions from "../../services/responsive.service";
 const ImagePicker = ({
   onClick = () => {},
+  onDrop = () => {},
   buttonClassName = "",
   image = "",
   index = 0,
@@ -70,6 +71,10 @@ const ImagePicker = ({
   ) : (
     <div
       onClick={onClick}
+      onDrop={onDrop}
+      onDragOver={(e) => {
+        e.preventDefault();
+      }}
       className={classNames("image-picker-button", buttonClassName)}
     >
       <div className="image-picker-button-text">

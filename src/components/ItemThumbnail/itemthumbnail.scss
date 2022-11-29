@@ -27,8 +27,12 @@
       font-family: "Gilroy-Medium" !important;
     }
     &-major {
-      display: flex;
+      text-align: left;
       font-size: 18px;
+      white-space: nowrap;
+      overflow: hidden;
+      display: block;
+      text-overflow: ellipsis;
     }
     &-price {
       display: flex;

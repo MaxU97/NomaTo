@@ -45,7 +45,7 @@ const ListItem = () => {
 
   const [minRent, setMinRent] = useState("");
 
-  const [itemQty, setItemQty] = useState(1);
+  const [itemQty, setItemQty] = useState();
 
   const [uploadImages, setUploadImages] = useState([]);
 

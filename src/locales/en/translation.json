@@ -359,7 +359,10 @@
     "main-image": "Main Image",
     "add-image": "ADD AN IMAGE",
     "change-image": "Change Image",
-    "upload": "Upload"
+    "upload": "Upload",
+    "drag-upload": "Drag and Drop or Click Here",
+    "only-one-image": "You can only add one image",
+    "image-format": "Please attach images of type .JPG, .JPEG, .PNG"
   },
   "account-balance": {
     "balance": "Balance",
@@ -403,7 +406,10 @@
     "news": "News",
     "attach-pictures": "Attach Pictures",
     "publish": "Publish",
-    "preview": "Preview"
+    "preview": "Preview",
+    "layout": "Layout",
+    "two-columns": "Two Columns",
+    "one-column": "One Column"
   },
   "payment-register": {
     "title": "Adding a payout method to your account",

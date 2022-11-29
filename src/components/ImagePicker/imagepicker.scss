@@ -104,7 +104,9 @@
       fill: #e0e0e0;
       transition: 0.3s;
     }
-    &:hover {
+    &:hover,
+    &:focus,
+    &[active] {
       background-color: #d4d4d4;
       cursor: pointer;
       transition: 0.3s;
@@ -113,7 +115,9 @@
         transition: 0.3s;
       }
     }
-    &:hover &-text {
+    &:hover &-text,
+    &:focus &-text,
+    &[active] &-text {
       color: #f1f1f1;
       transition: 0.3s;
     }

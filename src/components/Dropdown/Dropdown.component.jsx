@@ -28,25 +28,26 @@ const Dropdown = ({
   };
   return (
     <div className={classNames("dropdown", className, containerClass)}>
-      <Input
-        placeholder={placeholder}
-        placeholderColor={placeholderColor}
-        containerClass={inputClass}
-        value={value}
-        setValue={setValue}
-        className="dropdown-input"
-        animatePlaceholder={false}
-        onMouseOver={onMouseOver}
-        onMouseOut={onMouseOut}
-        disabled={disabled}
-        withoutError={withoutError}
-        error={error}
-        errorText={errorText}
-        showInformation={showInformation}
-        informationText={informationText}
-      >
-        {hoverChild}
-      </Input>
+      <div className="dropdown-input">
+        <Input
+          placeholder={placeholder}
+          placeholderColor={placeholderColor}
+          containerClass={inputClass}
+          value={value}
+          setValue={setValue}
+          animatePlaceholder={false}
+          onMouseOver={onMouseOver}
+          onMouseOut={onMouseOut}
+          disabled={disabled}
+          withoutError={withoutError}
+          error={error}
+          errorText={errorText}
+          showInformation={showInformation}
+          informationText={informationText}
+        >
+          {hoverChild}
+        </Input>
+      </div>
       {children && (
         <div className="dropdown-content" onTouchMove={blockPropagation}>
           {children}

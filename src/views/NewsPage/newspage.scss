@@ -40,14 +40,20 @@
     text-overflow: ellipsis;
   }
   &-text {
-    padding: 20px;
-    text-align: left;
-    -webkit-column-count: 2;
-    -moz-column-count: 2;
-    column-count: 2;
-    -webkit-column-gap: 30px;
-    -moz-column-gap: 30px;
-    column-gap: 30px;
+    &.two-columns {
+      padding: 20px;
+      text-align: left;
+      -webkit-column-count: 2;
+      -moz-column-count: 2;
+      column-count: 2;
+      -webkit-column-gap: 30px;
+      -moz-column-gap: 30px;
+      column-gap: 30px;
+    }
+    &.one-column {
+      padding: 20px;
+      text-align: left;
+    }
   }
   &-date {
     padding-top: 10px;

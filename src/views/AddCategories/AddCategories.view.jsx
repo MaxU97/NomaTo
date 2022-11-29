@@ -274,8 +274,46 @@ const AddCategories = () => {
     };
     send();
   };
+
+  const imgRegEx = /image\/(svg)/;
   const onSelectIcon = (e) => {
+    debugger;
+    e.stopPropagation();
     e.preventDefault();
+    if (e) {
+      if (e.type === "drop") {
+        if (e.dataTransfer.files.length > 1) {
+          notification([t("image-tools.only-one-image")], true, 100);
+          return;
+        }
+        var newImage;
+        if (e.dataTransfer.files) {
+          if (imgRegEx.test(e.dataTransfer.files[0].type)) {
+            newImage = URL.createObjectURL(e.dataTransfer.files[0]);
+          } else {
+            notification([t("image-tools.image-format")], true, 100);
+          }
+        } else {
+          return;
+        }
+        if (imageError) {
+          setImageError("");
+        }
+        setImage([newImage]);
+      } else {
+        var newImage;
+        if (e.target.files) {
+          newImage = URL.createObjectURL(e.target.files[0]);
+        } else {
+          return;
+        }
+        if (imageError) {
+          setImageError("");
+        }
+        setImage([newImage]);
+      }
+    }
+
     var newImage;
     if (e.target.files) {
       newImage = URL.createObjectURL(e.target.files[0]);
@@ -346,7 +384,6 @@ const AddCategories = () => {
                 <TrashIcon
                   className="delete-category"
                   onClick={async () => {
-                    debugger;
                     prompt(
                       t("add-category.delete-prompt", {
                         category_title: editType[titleLanguage],
@@ -371,6 +408,7 @@ const AddCategories = () => {
                   onClick={() => {
                     document.getElementById("selectedFile").click();
                   }}
+                  onDrop={onSelectIcon}
                   image={image[0]}
                   imageList={image}
                   setImages={setImage}

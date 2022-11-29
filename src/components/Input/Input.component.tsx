@@ -57,11 +57,16 @@ const Input = ({
 
   const checkValidValue = (e) => {
     const reg = new RegExp("^[0-9]+$");
+    debugger;
     if (
       (reg.test(e.target.value) || e.target.value === "") &&
       type === "number"
     ) {
-      setValue(Number(e.target.value));
+      if (e.target.value === "") {
+        setValue("");
+      } else {
+        setValue(Number(e.target.value));
+      }
     } else if (type !== "number") {
       setValue(e.target.value);
     }
