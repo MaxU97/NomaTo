@@ -20,7 +20,7 @@
       }
     }
     &-carousel {
-      width: 1000px;
+      width: 1100px;
       height: auto;
     }
     &-grid {
@@ -79,6 +79,16 @@
 @media only screen and (max-device-width: 768px) {
   .home {
     background-image: none;
+    &-news {
+      background-color: #ffffff00;
+      h1 {
+        background-color: white;
+        width: 100%;
+        border-radius: 10px;
+        padding: 10px 0;
+        border: 1px solid #ebebeb;
+      }
+    }
     &-search {
       padding-top: 100px;
       padding-bottom: 40px;

@@ -1,0 +1,42 @@
+.skeleton-item-page {
+  &-gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+    &-minor {
+      display: flex;
+      gap: 10px;
+      & .image {
+        aspect-ratio: 1.5/1;
+      }
+    }
+  }
+  &-description {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  &-owner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+  }
+  &-review {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    &-top {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    &-middle {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+  }
+}

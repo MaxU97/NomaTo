@@ -1,0 +1,28 @@
+.skeleton {
+  &-carousel {
+    width: 100%;
+    display: flex;
+    margin-top: 5px;
+    margin-bottom: 31px;
+    padding: 0px 24px;
+    box-sizing: border-box;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    svg {
+      fill: #a3a3a3;
+      width: 24px;
+      height: 24px;
+    }
+    &-item {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      width: 25%;
+      background-color: #ebebeb;
+      padding: 10px;
+      border-radius: 10px;
+      height: 175px;
+    }
+  }
+}

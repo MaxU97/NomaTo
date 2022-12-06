@@ -149,15 +149,10 @@ const BookingRequests = () => {
                     })}
                   </div>
                 ) : (
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      height: "100%",
-                    }}
-                  >
-                    <SpinnerAnimationIcon scale={2}></SpinnerAnimationIcon>
+                  <div className="booking-requests-content-right-container">
+                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14].map(() => {
+                      return <Accordion header_children={false}></Accordion>;
+                    })}
                   </div>
                 )}
               </div>

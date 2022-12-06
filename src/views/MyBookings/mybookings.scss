@@ -23,6 +23,7 @@
       background-color: white;
       display: flex;
       flex-direction: row;
+      height: 690px;
     }
 
     &-left {
@@ -73,7 +74,6 @@
         padding: 20px;
         display: grid;
         grid-template-columns: auto;
-
         row-gap: 10px;
         .booking-item {
           height: 200px;

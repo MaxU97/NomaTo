@@ -13,6 +13,8 @@ import {
 import { useNotificationHandler } from "../../components/NotificationHandler/NotificationHandler.component";
 import "./myshop.scss";
 import { usePromptHandler } from "../../components/Prompt/Prompt.component";
+import CarouselSkeletonItem from "../../skeletons/CarouselSkeleton/CarouselSkeletonItem.component";
+import MyShopSkeleton from "../../skeletons/MyShopSkeleton/MyShopSkeleton.component";
 const MyShop = () => {
   const { prompt } = usePromptHandler();
   const { t } = useTranslation();
@@ -77,13 +79,15 @@ const MyShop = () => {
           <div className="myshop-content-scroll">
             <div className="myshop-content-right">
               <div className="myshop-content-right-container">
-                {items &&
+                {items ? (
                   activeTab == 0 &&
                   items.map((item, index) => (
                     <div className="my-item">
                       <img src={apiUrl + "/" + item.image}></img>
                       <div className="my-item-bottom">
-                        <h3>{item.title}</h3>
+                        <h3>
+                          <a href={`item/${item.id}`}>{item.title}</a>
+                        </h3>
                         <div className="my-item-tools">
                           <Link to={`/edit-item/${item.id}`}>
                             <PencilIcon></PencilIcon>
@@ -118,7 +122,16 @@ const MyShop = () => {
                         </div>
                       </div>
                     </div>
-                  ))}
+                  ))
+                ) : (
+                  <>
+                    {[
+                      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
+                    ].map(() => {
+                      return <MyShopSkeleton></MyShopSkeleton>;
+                    })}
+                  </>
+                )}
                 {activeTab == 1}
               </div>
             </div>

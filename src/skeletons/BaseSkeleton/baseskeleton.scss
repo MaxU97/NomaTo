@@ -1,0 +1,64 @@
+.skeleton {
+  background-color: #ddd;
+  border-radius: 10px;
+  &-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  &.text {
+    width: 100%;
+    height: 12px;
+    &.short {
+      width: 50%;
+    }
+    &.w130 {
+      width: 130px;
+    }
+  }
+
+  &.title {
+    width: 50%;
+    height: 20px;
+    &.w100 {
+      width: 100%;
+    }
+    &.w75 {
+      width: 75%;
+    }
+  }
+
+  &.avatar {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    &.s {
+      height: 20px;
+      width: 20px;
+    }
+  }
+  &.thumbnail {
+    width: 100px;
+    height: 100px;
+  }
+  &.carousel-thumbnail {
+    width: 20%;
+    height: 200px;
+  }
+  &.image {
+    aspect-ratio: 1.5/1;
+    width: 100%;
+    &.w250 {
+      width: 250px;
+    }
+  }
+  &.map {
+    width: 100%;
+    height: 25vh;
+  }
+  &.button {
+    width: 185px;
+    height: 50px;
+  }
+}

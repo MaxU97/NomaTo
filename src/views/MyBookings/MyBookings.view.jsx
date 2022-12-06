@@ -109,15 +109,20 @@ const MyBookings = () => {
                     })}
                   </div>
                 ) : (
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      height: "100%",
-                    }}
-                  >
-                    <SpinnerAnimationIcon scale={2}></SpinnerAnimationIcon>
+                  // <div
+                  //   style={{
+                  //     display: "flex",
+                  //     justifyContent: "center",
+                  //     alignItems: "center",
+                  //     height: "100%",
+                  //   }}
+                  // >
+                  //   <SpinnerAnimationIcon scale={2}></SpinnerAnimationIcon>
+                  // </div>
+                  <div className="bookings-content-right-container">
+                    <BookingItem item={false}></BookingItem>
+                    <BookingItem item={false}></BookingItem>
+                    <BookingItem item={false}></BookingItem>
                   </div>
                 )}
               </div>

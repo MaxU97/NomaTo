@@ -28,6 +28,14 @@ import { usePromptHandler } from "../../components/Prompt/Prompt.component";
 import Reviews from "../../components/Reviews/Reviews.component";
 import Modal from "../../components/Modal/Modal.component";
 import LeaveReviewForm from "../../components/LeaveReview/LeaveReviewForm.component,";
+import BaseSkeleton from "../../skeletons/BaseSkeleton/BaseSkeleton.component";
+import ItemPageGallerySkeleton from "../../skeletons/ItemPageSkeleton/ItemPageGallerySkeleton.component";
+import { ItemPageMapSkeleton } from "../../skeletons/ItemPageSkeleton/ItemPageMapSkeleton.component";
+import { BaseSkeletonShimmer } from "../../skeletons/BaseSkeleton/BaseSkeletonShimmer.component";
+import SkeletonWrapper from "../../skeletons/SkeletonWrapper";
+import ItemPageDescriptionSkeleton from "../../skeletons/ItemPageSkeleton/ItemPageDescriptionSkeleton.component";
+import ItemPageOwnerSkeleton from "../../skeletons/ItemPageSkeleton/ItemPageOwnerSkeleton.component";
+import ItemPageReviewSkeleton from "../../skeletons/ItemPageSkeleton/ItemPageReviewSkeleton.component";
 
 const scrollToRef = (ref) => {
   window.scrollTo({ top: ref.current.offsetTop, left: 0, behavior: "smooth" });
@@ -127,6 +135,7 @@ export const ItemPage = () => {
       );
       return returnedA;
     }
+
     if (userState.user) {
       if (userState.user.completionStatus) {
         returnedA = (
@@ -439,8 +448,114 @@ export const ItemPage = () => {
   ) : (
     <div className="item-page-background">
       <div className="container-l background">
-        <div className="item-page-loading">
-          <SpinnerAnimationIcon scale={2}></SpinnerAnimationIcon>
+        <div className="item-page">
+          <div className="item-page-left">
+            {isMobile && (
+              <div className="title-field" style={{ height: "35px" }}>
+                <div className="title-field-left" style={{ width: "250px" }}>
+                  <BaseSkeletonShimmer type="title"></BaseSkeletonShimmer>
+                </div>
+                <div className="ratio">
+                  0<ThumbUpIcon className="likes"></ThumbUpIcon>0
+                  <ThumbDownIcon className="dislikes"></ThumbDownIcon>
+                </div>
+              </div>
+            )}
+            <ItemPageGallerySkeleton></ItemPageGallerySkeleton>
+            <div className="title-margin">{t("item-page.location")}</div>
+            <ItemPageMapSkeleton></ItemPageMapSkeleton>
+          </div>
+          <div className="item-page-right">
+            <div className="item-page-right-field">
+              {!isMobile && (
+                <div className="title-field">
+                  <BaseSkeletonShimmer type="title"></BaseSkeletonShimmer>
+                  <div className="ratio">
+                    0<ThumbUpIcon className="likes"></ThumbUpIcon>0
+                    <ThumbDownIcon className="dislikes"></ThumbDownIcon>
+                  </div>
+                </div>
+              )}
+            </div>
+            <div className="title-margin">{t("item-page.prices")}</div>
+            <SkeletonWrapper>
+              <div className="item-page-right-field center">
+                <div className="item-page-right-prices">
+                  <div className="price">
+                    <div className="price-title">
+                      {t("item-page.price-daily")}
+                    </div>
+                    <div className="price-price">
+                      <a>/{t("item-page.day")}</a>
+                    </div>
+                  </div>
+                  <div className="price">
+                    <div className="price-title">
+                      {t("item-page.price-weekly")}
+                    </div>
+                    <div className="price-price">
+                      <a>/{t("item-page.day")}</a>
+                    </div>
+                  </div>
+                  <div className="price">
+                    <div className="price-title">
+                      {t("item-page.price-monthly")}
+                    </div>
+                    <div className="price-price">
+                      <a>/{t("item-page.day")}</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </SkeletonWrapper>
+            <SkeletonWrapper>
+              <div
+                className="availablity-button"
+                disabled
+                onClick={() => {
+                  window.location.href = "/login";
+                }}
+              >
+                {t("item-page.loading")}
+              </div>
+            </SkeletonWrapper>
+
+            <div className="item-page-right-field">
+              <div className="title-margin">{t("item-page.desc")}</div>
+              <div className="description" key="RU">
+                <ItemPageDescriptionSkeleton></ItemPageDescriptionSkeleton>
+              </div>
+            </div>
+            <div
+              className={classNames(
+                "item-page-right-field",
+                !isMobile && "flex-row"
+              )}
+            >
+              <div className="item-page-right-owner">
+                <div className="title-minor">{t("item-page.owner")}</div>
+                <div className="item-page-right-owner-contents">
+                  <ItemPageOwnerSkeleton></ItemPageOwnerSkeleton>
+                </div>
+              </div>
+
+              <div className="item-page-right-review">
+                <div className="title-minor">
+                  {t("item-page.recent-review")}
+                  <div className="title-minor-icon">
+                    <QuestionIconCircle></QuestionIconCircle>
+                  </div>
+                  <div className="title-minor-tooltip">
+                    {t("item-page.review-tooltip")}
+                  </div>
+                </div>
+
+                <div className="item-page-right-review-contents">
+                  <ItemPageReviewSkeleton></ItemPageReviewSkeleton>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

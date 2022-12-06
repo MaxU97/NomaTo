@@ -20,12 +20,15 @@
     justify-content: space-between;
   }
   &-item {
+    min-height: 460px;
     flex: 1;
     background: white;
     box-sizing: border-box;
     border: 1px solid #e8e8e8;
     padding: 20px;
     border-radius: 10px;
+    display: flex;
+    flex-direction: column;
     &-image {
       width: 100%;
       height: auto;
@@ -56,6 +59,7 @@
       text-align: left;
     }
     &-date {
+      margin-top: auto;
       padding-top: 10px;
       text-align: left;
       color: #a3a3a3;
@@ -69,7 +73,6 @@
     &-block {
       width: 100%;
       height: auto;
-      margin-bottom: 50px;
       display: flex;
       flex-direction: column;
       gap: 20px;

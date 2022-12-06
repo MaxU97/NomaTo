@@ -137,7 +137,8 @@
     "reviews": "Reviews",
     "review-tooltip": "All of the reviews are written by people who have rented the item",
     "leave-review-pls": "Please let us know what you thought about: ",
-    "delete-prompt": "Are you sure you want to delete {{item_title}}"
+    "delete-prompt": "Are you sure you want to delete {{item_title}}",
+    "loading": "Loading..."
   },
   "booking-modal": {
     "quantity": "Quantity Needed",

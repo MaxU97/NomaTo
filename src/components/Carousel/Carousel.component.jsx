@@ -10,6 +10,7 @@ import {
 } from "pure-react-carousel";
 import ItemThumbnail from "../ItemThumbnail/ItemThumbnail.component";
 import { MoveIcon } from "../../assets/Icons";
+import CarouselSkeleton from "../../skeletons/CarouselSkeleton/CarouselSkeleton.component";
 
 const Carousel = ({
   items = [],
@@ -17,7 +18,8 @@ const Carousel = ({
   className = "",
   infinite = false,
 }) => {
-  return (
+  debugger;
+  return items.length ? (
     <CarouselProvider
       naturalSlideWidth={200}
       naturalSlideHeight={225}
@@ -42,6 +44,8 @@ const Carousel = ({
         <MoveIcon />
       </ButtonNext>
     </CarouselProvider>
+  ) : (
+    <CarouselSkeleton></CarouselSkeleton>
   );
 };
 

@@ -10,6 +10,9 @@ import { SpinnerAnimationIcon } from "../../assets/Icons";
 import { useUtilityContext } from "../../context/utility";
 import { t } from "i18next";
 import { set } from "date-fns";
+import BookingItemSkeleton from "../../skeletons/BookingItemSkeleton/BookingItemSkeleton.component";
+import SkeletonWrapper from "../../skeletons/SkeletonWrapper";
+import Shimmer from "../../skeletons/Shimmer";
 const BookingItem = ({ item, status }) => {
   const dateNow = set(new Date(Date.now()), {
     hours: 0,
@@ -28,30 +31,33 @@ const BookingItem = ({ item, status }) => {
   const [price, setPrice] = useState(0);
   const location = useLocation();
   useEffect(() => {
-    const dates = [new Date(item.dateStart), new Date(item.dateEnd)];
+    if (item) {
+      const dates = [new Date(item.dateStart), new Date(item.dateEnd)];
 
-    setDate(
-      `${dates[0].toLocaleString(getCurrentLanguage(), {
-        day: "numeric",
-        month: "short",
-      })} -  ${dates[1].toLocaleString(getCurrentLanguage(), {
-        day: "numeric",
-        month: "short",
-      })}`
-    );
+      setDate(
+        `${dates[0].toLocaleString(getCurrentLanguage(), {
+          day: "numeric",
+          month: "short",
+        })} -  ${dates[1].toLocaleString(getCurrentLanguage(), {
+          day: "numeric",
+          month: "short",
+        })}`
+      );
 
-    var totalPrice = getTotalPrice(
-      item.itemID.rentPriceDay,
-      item.itemID.rentPriceWeek,
-      item.itemID.rentPriceMonth,
-      item.dateStart,
-      item.dateEnd
-    );
+      var totalPrice = getTotalPrice(
+        item.itemID.rentPriceDay,
+        item.itemID.rentPriceWeek,
+        item.itemID.rentPriceMonth,
+        item.dateStart,
+        item.dateEnd
+      );
 
-    totalPrice =
-      (totalPrice + getServiceCharge(totalPrice, utilityState.serviceCharge)) *
-      item.qtyWant;
-    setPrice(totalPrice);
+      totalPrice =
+        (totalPrice +
+          getServiceCharge(totalPrice, utilityState.serviceCharge)) *
+        item.qtyWant;
+      setPrice(totalPrice);
+    }
   }, []);
 
   const cancel = async (_id) => {
@@ -59,7 +65,7 @@ const BookingItem = ({ item, status }) => {
     await GET_BOOKING_HISTORY();
   };
 
-  return (
+  return item ? (
     <div className="booking-item">
       <div className="booking-item-left">
         <div className="booking-item-image">
@@ -153,6 +159,12 @@ const BookingItem = ({ item, status }) => {
           )}
       </div>
     </div>
+  ) : (
+    <SkeletonWrapper>
+      <div className="booking-item">
+        <BookingItemSkeleton></BookingItemSkeleton>
+      </div>
+    </SkeletonWrapper>
   );
 };
 

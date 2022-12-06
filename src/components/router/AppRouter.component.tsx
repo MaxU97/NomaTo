@@ -56,23 +56,8 @@ export const AppRouter = () => {
     };
   }, [LOGOUT]);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-  }, [state.user]);
   return (
     <>
-      <CSSTransition
-        in={loading}
-        timeout={300}
-        unmountOnExit
-        classNames="loading-overlay"
-      >
-        <div className="loading">
-          <SpinnerAnimationIcon scale={4}></SpinnerAnimationIcon>
-        </div>
-      </CSSTransition>
       <Router>
         <Header />
         <Switch>

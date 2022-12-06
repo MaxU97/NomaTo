@@ -10,6 +10,7 @@ import "./menu.scss";
 import SideMenu from "../SideMenu/SideMenu.component";
 import { apiUrl } from "../../api/config";
 import { logout } from "../../api/auth";
+import BaseSkeleton from "../../skeletons/BaseSkeleton/BaseSkeleton.component";
 const Menu = () => {
   const { isMobile } = useWindowDimensions();
   const [mobileMenu, showMobileMenu] = useState(false);
@@ -86,16 +87,20 @@ const Menu = () => {
                     </div>
 
                     <div className="mobile-menu-account-block-buttons">
-                      {state.userBalance && (
-                        <Link to="/account-balance">
-                          {euroLocale.format(state.userBalance.available / 100)}
-                          <span
-                            style={{ color: "#a3a3a3" }}
-                          >{` (${euroLocale.format(
-                            state.userBalance.pending / 100
-                          )})`}</span>
-                        </Link>
-                      )}
+                      {state.userBalance &&
+                        state.user.completionStatus &&
+                        state.user.sellerCompleted && (
+                          <Link to="/account-balance">
+                            {euroLocale.format(
+                              state.userBalance.available / 100
+                            )}
+                            <span
+                              style={{ color: "#a3a3a3" }}
+                            >{` (${euroLocale.format(
+                              state.userBalance.pending / 100
+                            )})`}</span>
+                          </Link>
+                        )}
                     </div>
                   </div>
 
@@ -212,17 +217,19 @@ const Menu = () => {
         <LanguagePicker />
       </div>
 
-      {state.user.completionStatus && state.userBalance && (
-        <Link to="/account-balance" className="menu-item">
-          {euroLocale.format(state.userBalance.available / 100)}
-          <span style={{ color: "#a3a3a3" }}>{` (${euroLocale.format(
-            state.userBalance.pending / 100
-          )})`}</span>
-        </Link>
-      )}
+      {state.user.completionStatus &&
+        state.user.sellerCompleted &&
+        state.userBalance && (
+          <Link to="/account-balance" className="menu-item">
+            {euroLocale.format(state.userBalance.available / 100)}
+            <span style={{ color: "#a3a3a3" }}>{` (${euroLocale.format(
+              state.userBalance.pending / 100
+            )})`}</span>
+          </Link>
+        )}
 
       <div className="account-menu">
-        {localStorage.token && state.user ? (
+        {localStorage.token ? (
           <ProfileMenu></ProfileMenu>
         ) : (
           <Link className="login-button" to="/login">
