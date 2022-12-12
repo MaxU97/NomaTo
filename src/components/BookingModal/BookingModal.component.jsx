@@ -19,6 +19,9 @@ import { useUtilityContext } from "../../context/utility";
 import { getAvailableQuantity } from "../../api/booking";
 import { useNotificationHandler } from "../NotificationHandler/NotificationHandler.component";
 import CheckoutForm from "../CheckoutForm/CheckoutForm.component";
+import useWindowDimensions from "../../services/responsive.service";
+import SlideUpMenu from "../SlideUpMenu/SlideUpMenu.component";
+import { CloseIcon } from "../../assets/Icons";
 export const BookingModal = ({
   modalOpen,
   toggleModal,
@@ -31,6 +34,7 @@ export const BookingModal = ({
   euroLocale,
   bookedDates,
 }) => {
+  const { isMobile } = useWindowDimensions();
   const tcCheck = useRef();
 
   const { notification } = useNotificationHandler();
@@ -303,130 +307,147 @@ export const BookingModal = ({
     resetTCValidation();
   };
 
-  return (
-    <Modal modalOpen={modalOpen} toggleModal={toggleModal}>
-      <div className="booking-modal">
-        <h1>{title}</h1>
-        {step == 0 && (
-          <div className="booking-modal-contents">
-            <div className="booking-modal-contents-left">
-              <Calendar
-                calendarError={calendarError}
-                setCalendarError={setCalendarError}
-                dateRange={dateRange}
-                setDateRange={setDateRange}
-                bookedDates={bookedDates.map((date) => new Date(date))}
-                minimumSelection={minRent}
-              ></Calendar>
+  const children = (
+    <div>
+      {step == 0 && (
+        <div className="booking-modal-contents">
+          <div className="booking-modal-contents-left">
+            <Calendar
+              calendarError={calendarError}
+              setCalendarError={setCalendarError}
+              dateRange={dateRange}
+              setDateRange={setDateRange}
+              bookedDates={bookedDates.map((date) => new Date(date))}
+              minimumSelection={minRent}
+            ></Calendar>
 
-              <div className="booking-modal-contents-left-top">
-                <Input
-                  placeholder={t("booking-modal.quantity")}
-                  error={!!qtyError}
-                  errorText={qtyError}
-                  className={classNames("booking-modal-input")}
-                  value={qtyWant}
-                  setValue={checkAndResetQtyWant}
-                  disabled={_.isEmpty(dateRange)}
-                  onMouseOver={() => {
-                    toggleQtyOver(true);
-                  }}
-                  onMouseOut={() => {
-                    toggleQtyOver(false);
-                  }}
-                  showInformation={_.isEmpty(dates) && qtyOver}
-                  informationText={t("booking-modal.dates-first")}
-                  type="number"
-                  maxLength={10}
-                  containerClass={classNames(qtyError && "error")}
-                ></Input>
-                <div className="quantity-available" disabled={_.isEmpty(dates)}>
-                  {itemQty} {t("booking-modal.available-c")}
+            <div className="booking-modal-contents-left-top">
+              <Input
+                placeholder={t("booking-modal.quantity")}
+                error={!!qtyError}
+                errorText={qtyError}
+                className={classNames("booking-modal-input")}
+                value={qtyWant}
+                setValue={checkAndResetQtyWant}
+                disabled={_.isEmpty(dateRange)}
+                onMouseOver={() => {
+                  toggleQtyOver(true);
+                }}
+                onMouseOut={() => {
+                  toggleQtyOver(false);
+                }}
+                showInformation={_.isEmpty(dates) && qtyOver}
+                informationText={t("booking-modal.dates-first")}
+                type="number"
+                maxLength={10}
+                containerClass={classNames(qtyError && "error")}
+              ></Input>
+              <div className="quantity-available" disabled={_.isEmpty(dates)}>
+                {itemQty} {t("booking-modal.available-c")}
+              </div>
+            </div>
+            <Input
+              placeholder={t("booking-modal.comment")}
+              className={classNames("booking-modal-input-100")}
+              value={comment}
+              setValue={setComment}
+              maxLength={200}
+            ></Input>
+          </div>
+          <div className="booking-modal-contents-right">
+            <div className="price-summary">
+              <div className="price-summary-dates">
+                {daySummary.range}
+                <div className="price-summary-dates-count">
+                  {daySummary.total}
                 </div>
               </div>
-              <Input
-                placeholder={t("booking-modal.comment")}
-                className={classNames("booking-modal-input-100")}
-                value={comment}
-                setValue={setComment}
-                maxLength={200}
-              ></Input>
-            </div>
-            <div className="booking-modal-contents-right">
-              <div className="price-summary">
-                <div className="price-summary-dates">
-                  {daySummary.range}
-                  <div className="price-summary-dates-count">
-                    {daySummary.total}
-                  </div>
-                </div>
-                <div className="price-summary-prices">
-                  <div className="summary">
-                    {priceSummary && (
-                      <div className="entry">
-                        <div className="calc">{priceSummary.title}</div>
-                        <div className="result">{priceSummary.result}</div>
-                      </div>
-                    )}
-                    {serviceSummary && (
-                      <div className="entry">
-                        <div className="calc">{serviceSummary.title}</div>
-                        <div className="result">{serviceSummary.result}</div>
-                      </div>
-                    )}
-                    {discountSummary && (
-                      <div className="entry">
-                        <div className="calc">{discountSummary.title}</div>
-                        <div className="result">{discountSummary.result}</div>
-                      </div>
-                    )}
-                  </div>
-                  {totalSummary && (
-                    <div className="total">
-                      <div className="calc">{totalSummary.title}</div>
-                      <div className="result">{totalSummary.result}</div>
+              <div className="price-summary-prices">
+                <div className="summary">
+                  {priceSummary && (
+                    <div className="entry">
+                      <div className="calc">{priceSummary.title}</div>
+                      <div className="result">{priceSummary.result}</div>
+                    </div>
+                  )}
+                  {serviceSummary && (
+                    <div className="entry">
+                      <div className="calc">{serviceSummary.title}</div>
+                      <div className="result">{serviceSummary.result}</div>
+                    </div>
+                  )}
+                  {discountSummary && (
+                    <div className="entry">
+                      <div className="calc">{discountSummary.title}</div>
+                      <div className="result">{discountSummary.result}</div>
                     </div>
                   )}
                 </div>
+                {totalSummary && (
+                  <div className="total">
+                    <div className="calc">{totalSummary.title}</div>
+                    <div className="result">{totalSummary.result}</div>
+                  </div>
+                )}
               </div>
-              <div className="terms-and-conditions">
-                <input
-                  type="checkbox"
-                  id="terms"
-                  name="terms"
-                  value="accept"
-                  onClick={tcChecked}
-                  ref={tcCheck}
-                ></input>
-                <label
-                  className={classNames(tcError && "tc-error")}
-                  for="terms"
-                >
-                  {t("booking-modal.t-c")}
-                </label>
-              </div>
-              <a
-                className="booking-modal-button"
-                onClick={async () => {
-                  nextStep();
-                }}
-                disabled={isIntentLoading}
-              >
-                {isIntentLoading
-                  ? t("booking-modal.loading")
-                  : t("booking-modal.next")}
-              </a>
             </div>
+            <div className="terms-and-conditions">
+              <input
+                type="checkbox"
+                id="terms"
+                name="terms"
+                value="accept"
+                onClick={tcChecked}
+                ref={tcCheck}
+              ></input>
+              <label className={classNames(tcError && "tc-error")} for="terms">
+                {t("booking-modal.t-c")}
+              </label>
+            </div>
+            <a
+              className="booking-modal-button"
+              onClick={async () => {
+                nextStep();
+              }}
+              disabled={isIntentLoading}
+            >
+              {isIntentLoading
+                ? t("booking-modal.loading")
+                : t("booking-modal.next")}
+            </a>
           </div>
-        )}
-        {step == 1 && (
-          <CheckoutForm
-            step={step}
-            setStep={setStep}
-            data={dataToSend}
-          ></CheckoutForm>
-        )}
+        </div>
+      )}
+      {step == 1 && (
+        <CheckoutForm
+          step={step}
+          setStep={setStep}
+          data={dataToSend}
+        ></CheckoutForm>
+      )}
+    </div>
+  );
+
+  return isMobile ? (
+    <SlideUpMenu
+      toggleMenu={toggleModal}
+      menuOpen={modalOpen}
+      draggable={false}
+    >
+      <div className="mobile-booking-title">
+        <h1>{title}</h1>
+        <CloseIcon
+          onClick={() => {
+            toggleModal(false);
+          }}
+        ></CloseIcon>
       </div>
+
+      {children}
+    </SlideUpMenu>
+  ) : (
+    <Modal modalOpen={modalOpen} toggleModal={toggleModal}>
+      <div className="booking-modal">{children}</div>
     </Modal>
   );
 };

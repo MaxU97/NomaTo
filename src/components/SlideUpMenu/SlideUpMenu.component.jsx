@@ -1,7 +1,13 @@
 import classNames from "classnames";
 import React, { useEffect, useRef, useState } from "react";
+import { CloseIcon } from "../../assets/Icons";
 import "./slideupmenu.scss";
-const SlideUpMenu = ({ toggleMenu = () => {}, menuOpen = true, children }) => {
+const SlideUpMenu = ({
+  toggleMenu = () => {},
+  menuOpen = true,
+  draggable = true,
+  children,
+}) => {
   const dragRef = useRef();
 
   const [y, setY] = useState(0);
@@ -40,15 +46,16 @@ const SlideUpMenu = ({ toggleMenu = () => {}, menuOpen = true, children }) => {
         className={classNames("slide-up-content ", menuOpen && "active")}
         style={{
           transform: menuOpen ? `translateY(${y / 2}px) ` : "translateY(100%)",
-          overflow: "hidden",
+          overflow: draggable ? "hidden" : "",
+          overflowY: !draggable && "scroll",
         }}
-        onTouchMove={onDrag}
-        onTouchEnd={checkClose}
+        onTouchMove={draggable && onDrag}
+        onTouchEnd={draggable && checkClose}
         onClick={(e) => {
           e.stopPropagation();
         }}
       >
-        <div className="drag-line"></div>
+        {draggable && <div className="drag-line"></div>}
         {children}
       </div>
     </div>

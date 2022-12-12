@@ -32,7 +32,6 @@ export const parseAddressSpecific = (address, type) => {
 };
 
 export default function useWindowDimensions() {
-  debugger;
   const [windowDimensions, setWindowDimensions] = useState(
     getWindowDimensions()
   );

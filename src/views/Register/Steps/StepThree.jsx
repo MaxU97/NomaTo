@@ -76,7 +76,7 @@ const StepThree = ({
         setValue={CheckAndSetPhone}
         error={phoneError}
         errorText={t("register.valid-phone")}
-        type="number"
+        type="tel"
       ></Input>
       <LanguagePicker
         languages={languages}

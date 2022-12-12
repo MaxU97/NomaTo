@@ -19,9 +19,11 @@ import "./checkoutform.scss";
 import { useUserContext } from "../../context/user";
 import { stripeKey } from "../../api/config";
 import { useNotificationHandler } from "../NotificationHandler/NotificationHandler.component";
+import useWindowDimensions from "../../services/responsive.service";
 const stripe = loadStripe(stripeKey);
 
 const CheckoutForm = ({ step, setStep, data }) => {
+  const { isMobile } = useWindowDimensions();
   const [isPaymentLoading, setPaymentLoading] = useState(false);
   const [isReady, setIsReady] = useState(true);
   const [clickedIndex, setClickedIndex] = useState();
@@ -44,7 +46,7 @@ const CheckoutForm = ({ step, setStep, data }) => {
   }, []);
   return (
     <div className="checkout">
-      {step && (
+      {step && !isMobile && (
         <a
           className="back-button"
           onClick={() => {

@@ -20,6 +20,7 @@ const StepFour = ({ email = "", phone = "" }) => {
   };
 
   const sendConfirmation = async () => {
+    debugger;
     if (code) {
       const props = { email: email, phone: phone, code: code };
       try {
@@ -59,7 +60,8 @@ const StepFour = ({ email = "", phone = "" }) => {
   return (
     <div className="register-form-step-4">
       <div className="register-form-field-text">
-        {t("register.email-code-1")} <strong>+{phone} </strong>
+        {t("register.email-code-1")}{" "}
+        <strong>{phone.charAt(0) == "+" ? phone : "+" + phone} </strong>
         {t("register.email-code-2")}.{" "}
         <a
           onClick={() => {

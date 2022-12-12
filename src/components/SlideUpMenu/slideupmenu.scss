@@ -20,7 +20,12 @@
       pointer-events: all;
     }
   }
-
+  &-close {
+    position: absolute;
+    right: 0;
+    top: 40px;
+    margin-right: 10px;
+  }
   &-content {
     display: flex;
     flex-direction: column;

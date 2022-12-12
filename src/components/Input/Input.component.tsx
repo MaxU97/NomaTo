@@ -7,7 +7,7 @@ interface InputInterface {
   setValue: (val: string | number) => void;
   className?: string;
   placeholder?: string;
-  type?: "text" | "email" | "password" | "number";
+  type?: "text" | "email" | "password" | "number" | "tel";
   onMouseOver?: (event: any) => void;
   onMouseOut?: (event: any) => void;
   onClick?: (event: any) => void;
@@ -53,11 +53,9 @@ const Input = ({
   charLimit,
   clickable = false,
 }: InputInterface) => {
-  const validNumberChars = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-
   const checkValidValue = (e) => {
-    const reg = new RegExp("^[0-9]+$");
     debugger;
+    const reg = new RegExp("^[0-9]+$");
     if (
       (reg.test(e.target.value) || e.target.value === "") &&
       type === "number"
@@ -66,6 +64,15 @@ const Input = ({
         setValue("");
       } else {
         setValue(Number(e.target.value));
+      }
+    } else if (type == "tel") {
+      const telReg = /^\+?[0-9]*$/;
+      if (telReg.test(e.target.value) || e.target.value === "") {
+        if (e.target.value === "") {
+          setValue("");
+        } else {
+          setValue(e.target.value);
+        }
       }
     } else if (type !== "number") {
       setValue(e.target.value);
