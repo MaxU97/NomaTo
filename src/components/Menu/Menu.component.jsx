@@ -179,28 +179,28 @@ const Menu = () => {
               </div>
             </Link>
           </div>
-          {localStorage.token && state.user ? (
-            <a
-              className="mobile-menu-log-button"
-              onClick={() => {
-                showMobileMenu(false);
-                setTimeout(() => {
-                  logout();
-                }, 300);
-              }}
-            >
-              {t("profile-menu.logout")}
-            </a>
-          ) : (
-            <Link
-              className="mobile-menu-log-button"
-              to="/login"
-              onClick={() => showMobileMenu(false)}
-            >
-              {t("header.login-signup")}
-            </Link>
-          )}
         </div>
+        {localStorage.token && state.user ? (
+          <a
+            className="mobile-menu-log-button"
+            onClick={() => {
+              showMobileMenu(false);
+              setTimeout(() => {
+                logout();
+              }, 300);
+            }}
+          >
+            {t("profile-menu.logout")}
+          </a>
+        ) : (
+          <Link
+            className="mobile-menu-log-button"
+            to="/login"
+            onClick={() => showMobileMenu(false)}
+          >
+            {t("header.login-signup")}
+          </Link>
+        )}
       </SideMenu>
     </div>
   ) : (
