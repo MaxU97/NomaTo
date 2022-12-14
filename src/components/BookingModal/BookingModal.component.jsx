@@ -189,10 +189,10 @@ export const BookingModal = ({
         } catch (err) {
           notification([err.message], true);
         }
-        setDates({ start: dateRange.from, end: dateRange.to });
         let start = moment(dateRange.from);
         let end = moment(dateRange.to);
         setDayCount(end.diff(start, "days"));
+        setDates({ start: dateRange.from, end: dateRange.to });
       } else {
         setDates({});
         setDayCount(0);
@@ -224,6 +224,7 @@ export const BookingModal = ({
   useEffect(() => {
     processFields();
   }, [dates, qtyWant]);
+
   const processFields = () => {
     if (
       !qtyError?.length &&
@@ -366,27 +367,27 @@ export const BookingModal = ({
                 <div className="summary">
                   {priceSummary && (
                     <div className="entry">
-                      <div className="calc">{priceSummary.title}</div>
-                      <div className="result">{priceSummary.result}</div>
+                      <span className="calc">{priceSummary.title}</span>
+                      <span className="result">{priceSummary.result}</span>
                     </div>
                   )}
                   {serviceSummary && (
                     <div className="entry">
-                      <div className="calc">{serviceSummary.title}</div>
-                      <div className="result">{serviceSummary.result}</div>
+                      <span className="calc">{serviceSummary.title}</span>
+                      <span className="result">{serviceSummary.result}</span>
                     </div>
                   )}
                   {discountSummary && (
                     <div className="entry">
-                      <div className="calc">{discountSummary.title}</div>
-                      <div className="result">{discountSummary.result}</div>
+                      <span className="calc">{discountSummary.title}</span>
+                      <span className="result">{discountSummary.result}</span>
                     </div>
                   )}
                 </div>
                 {totalSummary && (
                   <div className="total">
-                    <div className="calc">{totalSummary.title}</div>
-                    <div className="result">{totalSummary.result}</div>
+                    <span className="calc">{totalSummary.title}</span>
+                    <span className="result">{totalSummary.result}</span>
                   </div>
                 )}
               </div>

@@ -6,7 +6,9 @@ import {
 } from "../../api/news.api";
 import { useParams, Link } from "react-router-dom";
 import "./newspage.scss";
-import { formatDate } from "../../services/responsive.service";
+import useWindowDimensions, {
+  formatDate,
+} from "../../services/responsive.service";
 import { apiUrl } from "../../api/config";
 import { useUserContext } from "../../context/user";
 
@@ -20,6 +22,7 @@ import { useNotificationHandler } from "../../components/NotificationHandler/Not
 import classNames from "classnames";
 
 const NewsPage = () => {
+  const { isMobile } = useWindowDimensions();
   const { id } = useParams();
   const { state: userState } = useUserContext();
   const [news, setNews] = useState();
@@ -85,7 +88,9 @@ const NewsPage = () => {
             <div className="news-image">
               <img src={apiUrl + "/NewsImages/" + news.image}></img>
             </div>
-            <div className={classNames("news-text", news.template)}>
+            <div
+              className={classNames("news-text", isMobile ? "" : news.template)}
+            >
               {news.body}
             </div>
             <div className="news-date">

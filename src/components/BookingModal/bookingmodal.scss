@@ -103,6 +103,8 @@
             .entry {
               display: flex;
               justify-content: space-between;
+              gap: 60px;
+              text-align: left;
               margin-bottom: 10px;
               .result {
                 color: #3299de;
@@ -193,6 +195,10 @@
         transition: 0.1s;
       }
     }
+  }
+  .tc-error {
+    font-weight: bold;
+    color: rgb(180, 79, 79);
   }
   .booking-modal {
     h1 {
