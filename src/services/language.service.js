@@ -57,6 +57,10 @@ export const getLanguageList = () => {
   return returnLang;
 };
 
+export const titleCase = (input) => {
+  return input.charAt(0).toUpperCase() + input.substr(1).toLowerCase();
+};
+
 export const getCurrentLanguage = () => {
   return localStorage.getItem("language");
 };

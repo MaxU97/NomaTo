@@ -15,6 +15,7 @@ const Menu = () => {
   const { isMobile } = useWindowDimensions();
   const [mobileMenu, showMobileMenu] = useState(false);
   const { t } = useTranslation();
+  const location = useLocation();
   const { state, LOGOUT } = useUserContext();
   const options = { style: "currency", currency: "EUR" };
   const euroLocale = Intl.NumberFormat("lv-LV", options);
@@ -23,10 +24,13 @@ const Menu = () => {
   const ref = useRef();
 
   useEffect(() => {
-    if (mobileMenu) {
-      window.dispatchEvent(new Event("mobile_menu_opened"));
-    } else {
-      window.dispatchEvent(new Event("mobile_menu_closed"));
+    debugger;
+    if (location.pathname === "/") {
+      if (mobileMenu) {
+        window.dispatchEvent(new Event("mobile_menu_opened"));
+      } else {
+        window.dispatchEvent(new Event("mobile_menu_closed"));
+      }
     }
   }, [mobileMenu]);
 

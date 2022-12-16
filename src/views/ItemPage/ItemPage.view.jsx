@@ -298,7 +298,7 @@ export const ItemPage = () => {
                   </div>
                   <div className="price-price">
                     {euroLocale.format(item.rentPriceDay)}
-                    <a>/{t("item-page.day")}</a>
+                    <span>/{t("item-page.day")}</span>
                   </div>
                 </div>
                 <div className="price">
@@ -307,7 +307,7 @@ export const ItemPage = () => {
                   </div>
                   <div className="price-price">
                     {euroLocale.format(item.rentPriceWeek)}
-                    <a>/{t("item-page.day")}</a>
+                    <span>/{t("item-page.day")}</span>
                   </div>
                 </div>
                 <div className="price">
@@ -316,7 +316,7 @@ export const ItemPage = () => {
                   </div>
                   <div className="price-price">
                     {euroLocale.format(item.rentPriceMonth)}
-                    <a>/{t("item-page.day")}</a>
+                    <span>/{t("item-page.day")}</span>
                   </div>
                 </div>
               </div>
@@ -486,7 +486,7 @@ export const ItemPage = () => {
                       {t("item-page.price-daily")}
                     </div>
                     <div className="price-price">
-                      <a>/{t("item-page.day")}</a>
+                      <span>/{t("item-page.day")}</span>
                     </div>
                   </div>
                   <div className="price">
@@ -494,7 +494,7 @@ export const ItemPage = () => {
                       {t("item-page.price-weekly")}
                     </div>
                     <div className="price-price">
-                      <a>/{t("item-page.day")}</a>
+                      <span>/{t("item-page.day")}</span>
                     </div>
                   </div>
                   <div className="price">
@@ -502,7 +502,7 @@ export const ItemPage = () => {
                       {t("item-page.price-monthly")}
                     </div>
                     <div className="price-price">
-                      <a>/{t("item-page.day")}</a>
+                      <span>/{t("item-page.day")}</span>
                     </div>
                   </div>
                 </div>

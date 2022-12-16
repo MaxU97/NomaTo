@@ -7,6 +7,9 @@ import classNames from "classnames";
 import moment from "moment";
 import { isAfter, set } from "date-fns";
 import { useTranslation } from "react-i18next";
+import { enUS, lv, ru } from "date-fns/locale";
+import { format } from "date-fns";
+import { getCurrentLanguage, titleCase } from "../../services/language.service";
 const Calendar = ({
   setDateRange = () => {},
   dateRange,
@@ -17,6 +20,8 @@ const Calendar = ({
   calendarError,
   setCalendarError,
 }) => {
+  const locales = { en: enUS, lv: lv, ru: ru };
+
   const getViableToday = () => {
     var date = set(new Date(Date.now()), {
       hours: 12,
@@ -104,12 +109,25 @@ const Calendar = ({
   const [month, setMonth] = useState(
     dateRange ? dateRange["from"] : Date.now()
   );
+
+  const formatCaption = (month, options) => {
+    debugger;
+    console.log(month);
+    return (
+      <>
+        {titleCase(format(month, "LLLL", { locale: options?.locale }))}{" "}
+        {format(month, "uuuu", { locale: options?.locale })}
+      </>
+    );
+  };
   return (
     <>
       <div className={classNames("calendar", !!calendarError && "error")}>
         <DayPicker
           disabled={{ before: today }}
           modifiers={{ booked: bookedDates, today: [today] }}
+          locale={locales[getCurrentLanguage()]}
+          formatters={{ formatCaption }}
           modifiersClassNames={{
             booked: "booked-date",
             today: "today",

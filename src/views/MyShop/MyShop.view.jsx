@@ -19,7 +19,7 @@ const MyShop = () => {
   const { prompt } = usePromptHandler();
   const { t } = useTranslation();
   const { notification } = useNotificationHandler();
-  const tabs = [t("my-shop.my-items"), t("my-shop.income")];
+  const tabs = [t("my-shop.all"), t("my-shop.hidden")];
   const [activeTab, setActiveTab] = useState(0);
   const [items, setItems] = useState();
   const [reload, toggleReload] = useState(true);
@@ -61,6 +61,7 @@ const MyShop = () => {
     <div className="myshop">
       <div className="container-l">
         <div className="myshop-content">
+          {/* <h1>{t("my-shop.my-items")}</h1> */}
           <div className="menu-list">
             {tabs.map((cat, index) => (
               <div
@@ -80,49 +81,53 @@ const MyShop = () => {
             <div className="myshop-content-right">
               <div className="myshop-content-right-container">
                 {items ? (
-                  activeTab == 0 &&
-                  items.map((item, index) => (
-                    <div className="my-item">
-                      <img src={apiUrl + "/" + item.image}></img>
-                      <div className="my-item-bottom">
-                        <h3>
-                          <a href={`item/${item.id}`}>{item.title}</a>
-                        </h3>
-                        <div className="my-item-tools">
-                          <Link to={`/edit-item/${item.id}`}>
-                            <PencilIcon></PencilIcon>
-                          </Link>
-                          {item.status == "hidden" ? (
-                            <EyeClosedIcon
+                  items.map((item, index) => {
+                    if (activeTab == 1 && item.status !== "hidden") {
+                      return;
+                    }
+                    return (
+                      <div className="my-item">
+                        <img src={apiUrl + "/" + item.image}></img>
+                        <div className="my-item-bottom">
+                          <h3>
+                            <a href={`item/${item.id}`}>{item.title}</a>
+                          </h3>
+                          <div className="my-item-tools">
+                            <Link to={`/edit-item/${item.id}`}>
+                              <PencilIcon></PencilIcon>
+                            </Link>
+                            {item.status == "hidden" ? (
+                              <EyeClosedIcon
+                                onClick={() => {
+                                  toggleVisibility(item.id);
+                                }}
+                              ></EyeClosedIcon>
+                            ) : (
+                              <EyeOpenIcon
+                                onClick={() => {
+                                  toggleVisibility(item.id);
+                                }}
+                              ></EyeOpenIcon>
+                            )}
+                            <TrashIcon
+                              className="trash"
                               onClick={() => {
-                                toggleVisibility(item.id);
+                                prompt(
+                                  t("my-shop.delete-prompt", {
+                                    item_title: item.title,
+                                  }),
+                                  t("utility.prompt.irreversible"),
+                                  () => {
+                                    removeItem(item.id);
+                                  }
+                                );
                               }}
-                            ></EyeClosedIcon>
-                          ) : (
-                            <EyeOpenIcon
-                              onClick={() => {
-                                toggleVisibility(item.id);
-                              }}
-                            ></EyeOpenIcon>
-                          )}
-                          <TrashIcon
-                            className="trash"
-                            onClick={() => {
-                              prompt(
-                                t("my-shop.delete-prompt", {
-                                  item_title: item.title,
-                                }),
-                                t("utility.prompt.irreversible"),
-                                () => {
-                                  removeItem(item.id);
-                                }
-                              );
-                            }}
-                          ></TrashIcon>
+                            ></TrashIcon>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))
+                    );
+                  })
                 ) : (
                   <>
                     {[
@@ -132,7 +137,6 @@ const MyShop = () => {
                     })}
                   </>
                 )}
-                {activeTab == 1}
               </div>
             </div>
           </div>

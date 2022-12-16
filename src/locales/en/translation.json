@@ -141,7 +141,7 @@
     "loading": "Loading..."
   },
   "booking-modal": {
-    "quantity": "Quantity Needed",
+    "quantity": "Quantity",
     "comment": "Message for the owner (optional)",
     "price-breakdown": "Price Breakdown",
     "day-single": "Day",
@@ -306,6 +306,8 @@
   },
   "my-shop": {
     "my-items": "My Items",
+    "hidden": "Hidden",
+    "all": "All",
     "income": "Income",
     "delete-prompt": "Are you sure you want to delete {{item_title}}"
   },

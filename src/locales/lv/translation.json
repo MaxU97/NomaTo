@@ -140,7 +140,7 @@
     "review-tooltip": "Visas atsauksmes ir rakstījuši cilvēki, kuri ir nomājuši preci"
   },
   "booking-modal": {
-    "quantity": "Nepieciešamais daudzums",
+    "quantity": "Daudzums",
     "comment": "Ziņa īpašniekam (pēc izvēles)",
     "price-breakdown": "Cenas sadalijums",
     "day-single": "Diena",
@@ -412,5 +412,17 @@
   "not-found": {
     "text": "Ups. Jūs esat nokļuvusi neesošā lapā",
     "button": "Atgriezties galvenajā lapā"
+  },
+  "support": {
+    "contact": "Sazināties",
+    "send": "Sūtīt",
+    "let-us-know": "Pastāstiet, kā mēs varam palīdzēt :)",
+    "email": "Epasts",
+    "subject": "Temats",
+    "message": "Ziņa",
+    "valid-email": "Lūdzu, ievadiet derīgu epastu",
+    "valid-subject": "Please enter a subject",
+    "valid-message": "Lūdzu, ievadiet ziņu",
+    "sent": "Ziņa nosūtīta"
   }
 }
