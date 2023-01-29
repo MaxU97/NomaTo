@@ -30,11 +30,21 @@ const Checkout = ({
     }
 
     let error;
-    await recordBooking({
-      client_secret: state.clientSecret,
-      status: "unfinished",
-      itemData: data,
-    });
+    try {
+      await recordBooking({
+        client_secret: state.clientSecret,
+        status: "unfinished",
+        itemData: data,
+      });
+    } catch (err) {
+      debugger;
+      notification([err.response.data.message], true, 100);
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+      return;
+    }
 
     await stripe
       .confirmPayment({
@@ -47,7 +57,6 @@ const Checkout = ({
         if (result.error) {
           setPaymentLoading(false);
           notification([result.error.message], true, 100);
-        } else {
         }
       });
   };

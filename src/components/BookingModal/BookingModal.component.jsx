@@ -14,6 +14,7 @@ import {
   getTotalPrice,
   getNoDiscountPrice,
   getServiceCharge,
+  getExtrasPrice,
 } from "../../services/price.service";
 import { useUtilityContext } from "../../context/utility";
 import { getAvailableQuantity } from "../../api/booking";
@@ -21,7 +22,7 @@ import { useNotificationHandler } from "../NotificationHandler/NotificationHandl
 import CheckoutForm from "../CheckoutForm/CheckoutForm.component";
 import useWindowDimensions from "../../services/responsive.service";
 import SlideUpMenu from "../SlideUpMenu/SlideUpMenu.component";
-import { CloseIcon } from "../../assets/Icons";
+import { CloseIcon, QuestionIconCircle } from "../../assets/Icons";
 export const BookingModal = ({
   modalOpen,
   toggleModal,
@@ -31,6 +32,7 @@ export const BookingModal = ({
   rentPriceWeek,
   rentPriceMonth,
   itemID,
+  extras,
   euroLocale,
   bookedDates,
 }) => {
@@ -48,12 +50,14 @@ export const BookingModal = ({
   const [qtyWant, setQtyWant] = useState("");
   const [comment, setComment] = useState("");
   const [dayCount, setDayCount] = useState(0);
+  const [extrasList, setExtrasList] = useState([]);
 
   const [daySummary, setDaySummary] = useState("");
   const [priceSummary, setPriceSummary] = useState("");
   const [discountSummary, setDiscountSummary] = useState("");
   const [totalSummary, setTotalSummary] = useState("");
   const [serviceSummary, setServiceSummary] = useState("");
+  const [extrasSummary, setExtrasSummary] = useState("");
   const [step, setStep] = useState(0);
   const { t } = useTranslation();
 
@@ -63,6 +67,7 @@ export const BookingModal = ({
   const [qtyError, setQtyError] = useState("");
   const [tcError, setTCError] = useState("");
   const [calendarError, setCalendarError] = useState("");
+  const [extrasError, setExtrasError] = useState("");
 
   const defaultSummary = {
     day: { range: "", total: `0 ${t("booking-modal.day-multiple")}` },
@@ -73,7 +78,8 @@ export const BookingModal = ({
         ` x 0 ${t("booking-modal.day-multiple")}`,
       result: euroLocale.format(0),
     },
-    discount: {},
+    discount: "",
+    extras: "",
     total: {
       title: t("booking-modal.total"),
       result: euroLocale.format(0),
@@ -87,9 +93,9 @@ export const BookingModal = ({
     let total = {};
     let service = {};
     let day = {};
+    let extrasText = {};
 
     day = { range: getDateRange(), total: getDateCount() };
-
     const totalPrice = getTotalPrice(
       rentPriceDay,
       rentPriceWeek,
@@ -98,6 +104,8 @@ export const BookingModal = ({
       dates.end
     );
 
+    const extrasPrice = getExtrasPrice(extrasList);
+
     const noDiscountPrice = getNoDiscountPrice(
       rentPriceDay,
       dates.start,
@@ -105,7 +113,8 @@ export const BookingModal = ({
     );
     const serviceCharge = getServiceCharge(
       totalPrice,
-      utilityState.serviceCharge
+      utilityState.serviceCharge,
+      extrasPrice
     );
 
     price = {
@@ -125,8 +134,19 @@ export const BookingModal = ({
 
     total = {
       title: t("booking-modal.total"),
-      result: euroLocale.format((totalPrice + serviceCharge) * qtyWant),
+      result: euroLocale.format(
+        (totalPrice + serviceCharge) * qtyWant + extrasPrice
+      ),
     };
+
+    if (extrasList.length <= 0) {
+      extrasText = defaultSummary.extras;
+    } else {
+      extrasText = {
+        title: t("booking-modal.extras"),
+        result: euroLocale.format(extrasPrice),
+      };
+    }
 
     if (dayCount < 7) {
       discount = {};
@@ -142,7 +162,7 @@ export const BookingModal = ({
       };
     }
 
-    return { day, price, service, discount, total };
+    return { day, price, service, discount, total, extrasText };
   };
 
   const getDateCount = () => {
@@ -212,8 +232,18 @@ export const BookingModal = ({
         dateStart: dates["start"],
         dateEnd: dates["end"],
         qtyWant: qtyWant,
+        extrasList,
       });
       setStep(step + 1);
+
+      //defaulting the page
+      setComment("");
+      setItemQty("?");
+      setDates({});
+      setDateRange({});
+      setDayCount(0);
+      setQtyWant("");
+      setExtrasList([]);
     }
   };
 
@@ -223,7 +253,7 @@ export const BookingModal = ({
 
   useEffect(() => {
     processFields();
-  }, [dates, qtyWant]);
+  }, [dates, qtyWant, extrasList]);
 
   const processFields = () => {
     if (
@@ -232,18 +262,22 @@ export const BookingModal = ({
       qtyWant &&
       !_.isEmpty(dates)
     ) {
-      const { day, price, service, discount, total } = producePriceSummary();
+      debugger;
+      const { day, price, service, discount, total, extrasText } =
+        producePriceSummary();
       setDaySummary(day);
       setPriceSummary(price);
       setServiceSummary(service);
       setDiscountSummary(discount);
       setTotalSummary(total);
+      setExtrasSummary(extrasText);
     } else {
       setDaySummary(defaultSummary.day);
       setPriceSummary(defaultSummary.price);
       setDiscountSummary(defaultSummary.discount);
       setServiceSummary(defaultSummary.service);
       setTotalSummary(defaultSummary.total);
+      setExtrasSummary(defaultSummary.extras);
     }
   };
 
@@ -272,6 +306,19 @@ export const BookingModal = ({
     if (!tcCheck.current.checked) {
       returnBool = false;
       setTCError(true);
+    }
+
+    if (extras && extrasList.length <= 0) {
+      const allExtras = document.extras;
+
+      for (let i = 0; i < allExtras.length; i++) {
+        let val = allExtras[i];
+        if (val.name == "clearchecklist" && val.checked === false) {
+          returnBool = false;
+          setExtrasError(t("booking-modal.extras-error"));
+          return false;
+        }
+      }
     }
     return returnBool;
   };
@@ -306,6 +353,36 @@ export const BookingModal = ({
 
   const tcChecked = () => {
     resetTCValidation();
+  };
+
+  const handleExtras = (event) => {
+    debugger;
+    const value = event.target.value;
+    const isChecked = event.target.checked;
+    const allExtras = document.extras;
+    if (value == -1) {
+      setExtrasList([]);
+      for (let i = 0; i < allExtras.length; i++) {
+        if (allExtras[i].name == "checklist") {
+          allExtras[i].checked = false;
+        }
+      }
+    } else {
+      for (let i = 0; i < allExtras.length; i++) {
+        if (allExtras[i].name == "clearchecklist") {
+          allExtras[i].checked = false;
+        }
+      }
+      if (isChecked) {
+        setExtrasList([...extrasList, extras[value]]);
+      } else {
+        const filteredList = extrasList.filter(
+          (item) => !_.isEqual(item, extras[value])
+        );
+        setExtrasList([...filteredList]);
+      }
+    }
+    setExtrasError("");
   };
 
   const children = (
@@ -356,6 +433,69 @@ export const BookingModal = ({
             ></Input>
           </div>
           <div className="booking-modal-contents-right">
+            {extras && extras.length && (
+              <div
+                className={classNames("extras", _.isEmpty(dates) && "disabled")}
+              >
+                <h3>{t("booking-modal.extras")}</h3>
+                <form
+                  className={classNames(
+                    "extras-content",
+                    (_.isEmpty(dates) || !qtyWant) && "disabled",
+                    extrasError && "error"
+                  )}
+                  name="extras"
+                >
+                  {extras.map((value, index) => {
+                    return (
+                      <div key={value.id} className="extras-content-item">
+                        <input
+                          type="checkbox"
+                          name="checklist"
+                          disabled={_.isEmpty(dates) || !qtyWant}
+                          value={index}
+                          onChange={handleExtras}
+                        ></input>
+                        <label>{`${value.title} (+ ${euroLocale.format(
+                          value.price
+                        )})`}</label>
+                        {value.description && (
+                          <div className="extras-content-tooltip-container">
+                            <div className="extras-content-tooltip">
+                              <QuestionIconCircle></QuestionIconCircle>
+                            </div>
+                            <div className="extras-content-tooltip-content">
+                              <span>{value.description}</span>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                  <div key={-1} className="extras-content-item">
+                    <input
+                      type="checkbox"
+                      name="clearchecklist"
+                      disabled={_.isEmpty(dates) || !qtyWant}
+                      value={-1}
+                      onChange={handleExtras}
+                    ></input>
+                    <label>{t("booking-modal.no-extras")}</label>
+                  </div>
+                </form>
+                <div
+                  className={classNames(
+                    "extras-info",
+                    extrasError && "extras-error"
+                  )}
+                >
+                  {extrasError
+                    ? extrasError
+                    : t("booking-modal.select-dates-qty")}
+                </div>
+              </div>
+            )}
+
             <div className="price-summary">
               <div className="price-summary-dates">
                 {daySummary.range}
@@ -369,6 +509,12 @@ export const BookingModal = ({
                     <div className="entry">
                       <span className="calc">{priceSummary.title}</span>
                       <span className="result">{priceSummary.result}</span>
+                    </div>
+                  )}
+                  {extrasSummary && (
+                    <div className="entry">
+                      <span className="calc">{extrasSummary.title}</span>
+                      <span className="result">{extrasSummary.result}</span>
                     </div>
                   )}
                   {serviceSummary && (
@@ -410,11 +556,8 @@ export const BookingModal = ({
               onClick={async () => {
                 nextStep();
               }}
-              disabled={isIntentLoading}
             >
-              {isIntentLoading
-                ? t("booking-modal.loading")
-                : t("booking-modal.next")}
+              {t("booking-modal.next")}
             </a>
           </div>
         </div>
@@ -448,7 +591,10 @@ export const BookingModal = ({
     </SlideUpMenu>
   ) : (
     <Modal modalOpen={modalOpen} toggleModal={toggleModal}>
-      <div className="booking-modal">{children}</div>
+      <div className="booking-modal">
+        <h1>{title}</h1>
+        {children}
+      </div>
     </Modal>
   );
 };

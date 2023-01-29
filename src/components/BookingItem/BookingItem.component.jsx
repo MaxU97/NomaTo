@@ -1,18 +1,24 @@
 import React, { useEffect, useState } from "react";
 import "./bookingitem.scss";
 import { apiUrl } from "../../api/config";
-import { getServiceCharge, getTotalPrice } from "../../services/price.service";
+import {
+  getExtrasPrice,
+  getServiceCharge,
+  getTotalPrice,
+} from "../../services/price.service";
 import { getCurrentLanguage } from "../../services/language.service";
 import { Link, useLocation } from "react-router-dom";
 import { cancelBooking } from "../../api/booking";
 import { useUserContext } from "../../context/user";
-import { SpinnerAnimationIcon } from "../../assets/Icons";
+import { DownIcon, SpinnerAnimationIcon } from "../../assets/Icons";
 import { useUtilityContext } from "../../context/utility";
 import { t } from "i18next";
 import { set } from "date-fns";
 import BookingItemSkeleton from "../../skeletons/BookingItemSkeleton/BookingItemSkeleton.component";
 import SkeletonWrapper from "../../skeletons/SkeletonWrapper";
 import Shimmer from "../../skeletons/Shimmer";
+import { useTranslation } from "react-i18next";
+import { usePromptHandler } from "../Prompt/Prompt.component";
 const BookingItem = ({ item, status }) => {
   const dateNow = set(new Date(Date.now()), {
     hours: 0,
@@ -20,7 +26,8 @@ const BookingItem = ({ item, status }) => {
     seconds: 0,
     milliseconds: 0,
   });
-
+  const { prompt } = usePromptHandler();
+  const { t } = useTranslation();
   const { state: utilityState } = useUtilityContext();
 
   const { GET_BOOKING_HISTORY } = useUserContext();
@@ -51,14 +58,23 @@ const BookingItem = ({ item, status }) => {
         item.dateStart,
         item.dateEnd
       );
+      var extrasCharge = 0;
+      if (item.extras && item.extras.length) {
+        extrasCharge = getExtrasPrice(item.extras);
+      }
 
       totalPrice =
         (totalPrice +
-          getServiceCharge(totalPrice, utilityState.serviceCharge)) *
-        item.qtyWant;
+          getServiceCharge(
+            totalPrice,
+            utilityState.serviceCharge,
+            extrasCharge
+          )) *
+          item.qtyWant +
+        extrasCharge;
       setPrice(totalPrice);
     }
-  }, []);
+  }, [item]);
 
   const cancel = async (_id) => {
     const status = await cancelBooking(_id);
@@ -77,20 +93,38 @@ const BookingItem = ({ item, status }) => {
             {item.itemID.title} {status && `(${status})`}
           </div>
           <div className="booking-item-details-dates">
-            <strong>Dates: </strong>
+            <strong>{t("my-bookings.dates")} </strong>
             {date}
           </div>
           <div className="booking-item-details-price">
-            <strong>Price: </strong>
+            <strong>{t("my-bookings.price")} </strong>
             {euroLocale.format(price)}
           </div>
           <div className="booking-item-details-price">
-            <strong>Quantity: </strong>
+            <strong>{t("my-bookings.qty")}</strong>
             {item.qtyWant}
           </div>
+          {item.extras && item.extras.length && (
+            <div className="booking-item-details-extras">
+              <strong>{t("my-bookings.extras")}</strong>
+              <div className="booking-item-details-extras-content">
+                <DownIcon className="booking-item-details-extras-button"></DownIcon>
+                <div className="booking-item-details-extras-list">
+                  {item.extras.map((value, index) => {
+                    return (
+                      <span>{`${value.title} (+${euroLocale.format(
+                        value.price
+                      )})`}</span>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          )}
+
           {item.comment && (
             <div className="booking-item-details-comment">
-              <strong>Message:</strong>
+              <strong>{t("my-bookings.message")}</strong>
 
               <div className="booking-item-details-comment-container">
                 {item.comment}
@@ -105,7 +139,7 @@ const BookingItem = ({ item, status }) => {
           to={`/item/${item.itemID._id}`}
           className="booking-item-buttons-button"
         >
-          View Item Page
+          {t("my-bookings.item-page")}
         </Link>
         {["approved"].includes(item.status) && (
           <Link
@@ -136,8 +170,16 @@ const BookingItem = ({ item, status }) => {
           <a
             className="booking-item-buttons-button cancel"
             onClick={async () => {
-              setIsCanceling(true);
-              await cancel(item._id);
+              prompt(
+                t("my-bookings.cancel-prompt", {
+                  item_title: item.itemID.title,
+                }),
+                t("my-bookings.cancel-information"),
+                async () => {
+                  setIsCanceling(true);
+                  await cancel(item._id);
+                }
+              );
             }}
           >
             {isCanceling

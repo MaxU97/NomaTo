@@ -7,7 +7,7 @@ export const uploadItem = async (data) => {
       return data.message;
     })
     .catch((err) => {
-      console.log(err.response.data);
+      console.log(err);
     });
 };
 

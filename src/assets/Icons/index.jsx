@@ -24,6 +24,9 @@ import { ReactComponent as QuestionIconCircle } from "./question-circle.svg";
 import { ReactComponent as QuestionIcon } from "./question-icon.svg";
 import { ReactComponent as OptionsIcon } from "./options-icon.svg";
 import { ReactComponent as ConfusedSmileyIcon } from "./confused-smiley.svg";
+import { ReactComponent as FacebookIcon } from "./facebook.svg";
+import { ReactComponent as TwitterIcon } from "./twitter.svg";
+import { ReactComponent as InstagramIcon } from "./instagram.svg";
 import EnFlagIcon from "./fl-en.png";
 import LvFlagIcon from "./fl-lv.png";
 import RuFlagIcon from "./fl-ru.png";
@@ -82,4 +85,7 @@ export {
   QuestionIconCircle,
   OptionsIcon,
   ConfusedSmileyIcon,
+  FacebookIcon,
+  TwitterIcon,
+  InstagramIcon,
 };

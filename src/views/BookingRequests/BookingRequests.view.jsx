@@ -100,6 +100,7 @@ const BookingRequests = () => {
                 {requests ? (
                   <div className="booking-requests-content-right-container">
                     {requests.map((booking) => {
+                      debugger;
                       if (booking.status == bookingStatuses[activeTab]) {
                         return (
                           <Accordion

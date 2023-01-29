@@ -112,7 +112,7 @@ export const recordBooking = async (data) => {
       return data;
     })
     .catch((err) => {
-      console.log(err.response.data);
+      throw err;
     });
 };
 

@@ -16,6 +16,7 @@ import { useNotificationHandler } from "../../components/NotificationHandler/Not
 import { useUserContext } from "../../context/user";
 import useWindowDimensions from "../../services/responsive.service";
 import Places from "../../components/Map/Places.component";
+import { PlusIcon, TrashIcon } from "../../assets/Icons";
 
 const ListItem = () => {
   const location = useLocation();
@@ -34,6 +35,8 @@ const ListItem = () => {
   const [categoryText, setCategoryText] = useState("");
 
   const [description, setDescription] = useState("");
+
+  const [extras, setExtras] = useState([{}]);
 
   const [address, setAddress] = useState("");
   const [addressLatLng, setAddressLatLng] = useState();
@@ -138,9 +141,14 @@ const ListItem = () => {
       error.push(t("list-item.error.qty"));
       updateErrors = { ...updateErrors, itemQtyError: true };
     }
+    debugger;
+    if (checkExtrasForErrors()) {
+      error.push(t("list-item.extras-error"));
+    }
+
     setErrors(updateErrors);
     setValidationError(error);
-    return !!error;
+    return !error?.length;
   };
   const uploadItem = () => {
     if (validate()) {
@@ -171,6 +179,7 @@ const ListItem = () => {
         data.append("rentPriceDay", rentPriceDay);
         data.append("rentPriceWeek", rentPriceWeek);
         data.append("rentPriceMonth", rentPriceMonth);
+        data.append("extras", JSON.stringify(extras));
 
         data.append(
           "addressNatural",
@@ -192,6 +201,79 @@ const ListItem = () => {
     }
   };
 
+  const changeExtrasTitle = (index, title) => {
+    var newExtrasArray = extras;
+    newExtrasArray[index].title = title;
+    setExtras([...newExtrasArray]);
+  };
+
+  const changeExtrasPrice = (index, price) => {
+    var newExtrasArray = extras;
+    newExtrasArray[index].price = price;
+    setExtras([...newExtrasArray]);
+  };
+
+  const changeExtrasDescritption = (index, desc) => {
+    var newExtrasArray = extras;
+    newExtrasArray[index].description = desc;
+    setExtras([...newExtrasArray]);
+  };
+
+  const addExtra = () => {
+    var newExtrasArray = [...extras, {}];
+    if (newExtrasArray.length > 5) {
+      notification([t("list-item.only-5-extras")], true);
+      return;
+    } else {
+      setExtras(newExtrasArray);
+      setTimeout(() => {
+        document
+          .getElementById(`extra-${newExtrasArray.length - 1}`)
+          .scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+            inline: "nearest",
+          });
+      }, 50);
+    }
+  };
+
+  const removeExtra = (index) => {
+    debugger;
+    var newExtrasArray = extras;
+    newExtrasArray.splice(index, 1);
+    if (newExtrasArray.length == 0) {
+      setExtras([{}]);
+    } else {
+      setExtras([...newExtrasArray]);
+    }
+    setTimeout(() => {
+      document
+        .getElementById(`extra-${newExtrasArray.length - 1}`)
+        .scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+          inline: "nearest",
+        });
+    }, 50);
+  };
+
+  const checkExtrasForErrors = () => {
+    debugger;
+    var errored = false;
+    var newExtrasArray = extras.map((extra) => {
+      if (extra.title && !extra.price) {
+        extra.error = "price";
+        errored = true;
+      } else if (extra.price && !extra.title) {
+        extra.error = "title";
+        errored = true;
+      }
+      return extra;
+    });
+    setExtras(newExtrasArray);
+    return errored;
+  };
   return (
     <div className="add-listing">
       {userState.user.completionStatus && userState.user.sellerCompleted ? (
@@ -287,11 +369,10 @@ const ListItem = () => {
                 ></Input>
               </div>
 
-              <h4 className="rent-price">{t("list-item.price-per")}</h4>
+              <h4 className="sub-title">{t("list-item.price-per")}</h4>
 
               <div className="listing-form-multi">
                 <Input
-                  className={classNames("price-short")}
                   placeholder={t("list-item.day")}
                   value={rentPriceDay}
                   setValue={setRentPriceDay}
@@ -299,7 +380,6 @@ const ListItem = () => {
                   type="number"
                 ></Input>
                 <Input
-                  className={classNames("price-short")}
                   placeholder={t("list-item.week")}
                   value={rentPriceWeek}
                   setValue={setRentPriceWeek}
@@ -307,7 +387,6 @@ const ListItem = () => {
                   type="number"
                 ></Input>
                 <Input
-                  className={classNames("price-short")}
                   placeholder={t("list-item.month")}
                   value={rentPriceMonth}
                   setValue={setRentPriceMonth}
@@ -315,6 +394,58 @@ const ListItem = () => {
                   type="number"
                 ></Input>
               </div>
+              <h4 className="sub-title">{t("list-item.extras")}</h4>
+              <div className="listing-form-extras">
+                {extras.map((extra, index) => {
+                  return (
+                    <div
+                      className="listing-form-extras-container"
+                      id={`extra-${index}`}
+                    >
+                      <div className="listing-form-extras-controls">
+                        <PlusIcon
+                          className="listing-form-extras-controls-add"
+                          onClick={addExtra}
+                        ></PlusIcon>
+                        <TrashIcon
+                          className="listing-form-extras-controls-remove"
+                          onClick={() => {
+                            removeExtra(index);
+                          }}
+                        ></TrashIcon>
+                      </div>
+                      <div className="listing-form-extras-top">
+                        <Input
+                          charLimit={15}
+                          placeholder={t("list-item.set-title")}
+                          setValue={(event) => {
+                            changeExtrasTitle(index, event);
+                          }}
+                          error={extra.error == "title"}
+                          value={extra.title ? extra.title : ""}
+                        ></Input>
+                        <Input
+                          placeholder={t("list-item.price")}
+                          type="number"
+                          setValue={(event) => {
+                            changeExtrasPrice(index, event);
+                          }}
+                          error={extra.error == "price"}
+                          value={extra.price ? extra.price : ""}
+                        ></Input>
+                      </div>
+                      <Input
+                        placeholder={t("list-item.extras-description")}
+                        value={extra.description ? extra.description : ""}
+                        setValue={(event) => {
+                          changeExtrasDescritption(index, event);
+                        }}
+                      ></Input>
+                    </div>
+                  );
+                })}
+              </div>
+
               {!!validationError?.length && (
                 <>
                   <h2 className="error-title">Must include the following:</h2>

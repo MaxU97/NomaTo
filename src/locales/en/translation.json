@@ -40,6 +40,7 @@
     "password": "Password"
   },
   "register": {
+    "please-fill-fields": "Please fill all fields correctly",
     "fill-code": "Please enter a code",
     "email-code-1": "We have sent an email to",
     "email-code-2": "containing a confirmation code, please enter it below to confirm the email",
@@ -88,6 +89,11 @@
     "item-value": "Item Value (€)",
     "min-days": "Minimum rental days",
     "price-per": "Rent price (€) per:",
+    "price": "Price",
+    "extras": "Extras (optional):",
+    "extras-description": "Description (optional)",
+    "only-5-extras": "Only 5 Extras allowed",
+    "extras-error": "Title/Price for Extras",
     "qty": "Quantity",
     "day": "Day",
     "week": "Week",
@@ -159,7 +165,11 @@
     "dates-first": "Please select dates first",
     "t-c": "Agree to terms and conditions",
     "loading": "Loading",
-    "next": "Next Step"
+    "next": "Next Step",
+    "extras": "Extras",
+    "no-extras": "No Extras",
+    "select-dates-qty": "Please select dates and quantity first",
+    "extras-error": "If you do not want any extras, please select \"No Extras\""
   },
 
   "booking-requests": {
@@ -205,7 +215,15 @@
     "confirm-dropoff": "Confirm Drop-off",
     "leave-a-review": "Leave a review",
     "canceling": "Canceling...",
-    "cancel-booking": "Cancel Booking"
+    "cancel-booking": "Cancel Booking",
+    "dates": "Dates:",
+    "price": "Price:",
+    "qty": "Quantity:",
+    "extras": "Extras:",
+    "message": "Message:",
+    "item-page": "View Item Page",
+    "cancel-prompt": "Are you sure you want to cancel {{item_title}}",
+    "cancel-information": "You might be charged full price anyway, if canceled late"
   },
   "qr": {
     "show-owner": "Show this to the owner on pick up",
@@ -452,5 +470,14 @@
     "valid-subject": "Please enter a subject",
     "valid-message": "Please enter a message",
     "sent": "Message sent"
+  },
+  "footer": {
+    "login": "Login/sign up",
+    "browse": "Browse Items",
+    "guarantee": "Guarantee",
+    "works": "How it works",
+    "privacy": "Privacy Policy",
+    "tos": "Terms of Service",
+    "faq": "FAQs"
   }
 }

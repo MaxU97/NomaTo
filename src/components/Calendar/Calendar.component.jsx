@@ -111,8 +111,6 @@ const Calendar = ({
   );
 
   const formatCaption = (month, options) => {
-    debugger;
-    console.log(month);
     return (
       <>
         {titleCase(format(month, "LLLL", { locale: options?.locale }))}{" "}

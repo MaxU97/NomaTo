@@ -4,8 +4,10 @@ import { useState } from "react";
 import validator from "validator";
 import { preRegEmail } from "../../../api/auth";
 import { useTranslation } from "react-i18next";
+import { useNotificationHandler } from "../../../components/NotificationHandler/NotificationHandler.component";
 const StepOne = ({ nextStep = () => {}, setReturnEmail = () => {} }) => {
   const { t } = useTranslation();
+  const { notification } = useNotificationHandler();
   const [emailError, setEmailError] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -101,13 +103,14 @@ const StepOne = ({ nextStep = () => {}, setReturnEmail = () => {} }) => {
     var boolToReturn = true;
     const validatePW = validator.isStrongPassword(password);
 
-    if (!email) {
+    if (!email || !emailError) {
       boolToReturn = false;
     }
-    if (!password && !validatePW && !passwordError) {
+    debugger;
+    if (!password || !validatePW || !passwordError) {
       boolToReturn = false;
     }
-    if (!confirmPW && !confirmError) {
+    if (!confirmPW || !confirmError) {
       boolToReturn = false;
     }
 
@@ -124,10 +127,10 @@ const StepOne = ({ nextStep = () => {}, setReturnEmail = () => {} }) => {
         setReturnEmail(emailToReturn);
         nextStep();
       } else {
-        alert("Please fill all fields");
+        notification([t("register.please-fill-fields")], true);
       }
     } catch (err) {
-      alert(err.message);
+      notification([err.message], true);
     }
   };
   return (
@@ -139,6 +142,7 @@ const StepOne = ({ nextStep = () => {}, setReturnEmail = () => {} }) => {
         // containerClass={!emailError && "register-error"}
         error={!emailError}
         // className="register-form-field"
+        type="email"
         errorText={t("register.valid-email")}
       ></Input>
       <Input

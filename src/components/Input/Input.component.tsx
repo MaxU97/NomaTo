@@ -74,6 +74,8 @@ const Input = ({
           setValue(e.target.value);
         }
       }
+    } else if (type === "password" || type === "email") {
+      setValue(e.target.value.replace(/\s/g, ""));
     } else if (type !== "number") {
       setValue(e.target.value);
     }
@@ -96,7 +98,7 @@ const Input = ({
           className={classNames("custom-input", {
             clickable: clickable,
           })}
-          type={type == "number" ? "text" : type}
+          type={type == "number" || type == "email" ? "text" : type}
           ref={(el) => {
             if (inputRef) inputRef.current = el;
           }}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./bookingrequestsitem.scss";
 import { apiUrl } from "../../api/config";
-import { getTotalPrice } from "../../services/price.service";
+import { getExtrasPrice, getTotalPrice } from "../../services/price.service";
 import { getCurrentLanguage } from "../../services/language.service";
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -12,6 +12,7 @@ import { getApprovedUser, refuseBooking } from "../../api/booking";
 import { approveBooking } from "../../api/booking";
 import { useNotificationHandler } from "../NotificationHandler/NotificationHandler.component";
 import { set } from "date-fns/esm";
+import { DownIcon } from "../../assets/Icons";
 const BookingRequestsItem = ({ item, status }) => {
   const { t } = useTranslation();
   const options = { style: "currency", currency: "EUR" };
@@ -26,6 +27,7 @@ const BookingRequestsItem = ({ item, status }) => {
   const location = useLocation();
   const [price, setPrice] = useState(0);
 
+  debugger;
   const dateNow = set(new Date(Date.now()), {
     hours: 0,
     minutes: 0,
@@ -71,8 +73,12 @@ const BookingRequestsItem = ({ item, status }) => {
       item.dateStart,
       item.dateEnd
     );
+    var extrasCharge = 0;
+    if (item.extras && item.extras.length) {
+      extrasCharge = getExtrasPrice(item.extras);
+    }
 
-    setPrice(totalPrice * item.qtyWant);
+    setPrice(totalPrice * item.qtyWant + extrasCharge);
   }, []);
 
   return (
@@ -94,7 +100,7 @@ const BookingRequestsItem = ({ item, status }) => {
             </div>
             <div className="booking-request-item-details-field">
               <strong>{t("booking-requests.prefered-languages")}</strong>
-              {item.userID.preferedLanguage}
+              {item.userID.languages[0]}
             </div>
             <div className="booking-request-item-details-field price">
               <strong>{t("booking-requests.price")}: </strong>
@@ -106,6 +112,28 @@ const BookingRequestsItem = ({ item, status }) => {
             </div>
           </div>
 
+          {item.extras && item.extras.length && (
+            <div className="booking-request-item-extras">
+              <div className="booking-request-item-extras-wrapper">
+                <strong>{t("my-bookings.extras")}</strong>
+                <div
+                  className="booking-request-item-extras-content"
+                  style={{ height: "fit-content" }}
+                >
+                  <DownIcon className="booking-request-item-extras-button"></DownIcon>
+                  <div className="booking-request-item-extras-list">
+                    {item.extras.map((value, index) => {
+                      return (
+                        <span>{`${value.title} (+${euroLocale.format(
+                          value.price
+                        )})`}</span>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
           <div className="booking-request-item-message">
             <strong>{t("booking-requests.message")}:</strong>
             <div className="booking-request-item-message-scroll">
@@ -159,7 +187,7 @@ const BookingRequestsItem = ({ item, status }) => {
               >
                 {t("booking-requests.view-details")}
               </a>
-              {item.dateStart === dateNow && (
+              {new Date(item.dateStart).getTime() === dateNow.getTime() && (
                 <Link
                   className="booking-request-item-actions-button"
                   to={{
@@ -225,11 +253,12 @@ const BookingRequestsItem = ({ item, status }) => {
               <div className="item-a">
                 <strong>{t("booking-requests.number")}</strong>
               </div>
-              <div className="item-b">{approvedUser["number"]}</div>
+              <div className="item-b">+{approvedUser["phone"]}</div>
+
               <div className="item-a">
                 <strong>{t("booking-requests.prefered-languages")}</strong>
               </div>
-              <div className="item-b">{item.userID.preferedLanguage}</div>
+              <div className="item-b">{item.userID.languages[0]}</div>
               <div className="item-c">
                 <em>{t("booking-requests.language-advise")}</em>
               </div>

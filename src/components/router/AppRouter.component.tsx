@@ -39,6 +39,7 @@ import "./router.scss";
 import { SpinnerAnimationIcon } from "../../assets/Icons";
 import { CSSTransition } from "react-transition-group";
 import ContactSupport from "../ContactSupport/ContactSupport.component";
+import Footer from "../Footer/Footer.component";
 export const AppRouter = () => {
   const { state, LOGOUT } = useUserContext();
   const [loading, setLoading] = useState(true);
@@ -150,7 +151,7 @@ export const AppRouter = () => {
           <Route component={() => <NotFound />} />
         </Switch>
         <ContactSupport></ContactSupport>
-        {/* <Footer /> */}
+        <Footer />
       </Router>
     </>
   );

@@ -13,7 +13,6 @@ import { useNotificationHandler } from "../NotificationHandler/NotificationHandl
 const ContactSupport = () => {
   const location = useLocation();
   const { t } = useTranslation();
-  const { notification } = useNotificationHandler();
   const [open, toggleOpen] = useState(false);
   const [question, toggleQuestion] = useState(true);
   const [formOpen, toggleFormOpen] = useState(false);

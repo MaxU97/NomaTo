@@ -426,6 +426,7 @@ export const ItemPage = () => {
           rentPriceWeek={item.rentPriceWeek}
           rentPriceMonth={item.rentPriceMonth}
           euroLocale={euroLocale}
+          extras={item.extras}
           itemID={id}
           bookedDates={item.bookedDates}
         ></BookingModal>

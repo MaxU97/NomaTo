@@ -177,7 +177,8 @@ const EditItem = () => {
     }
     setErrors(updateErrors);
     setValidationError(error);
-    return !!validationError;
+    debugger;
+    return !error?.length;
   };
   const uploadItem = () => {
     if (validate()) {

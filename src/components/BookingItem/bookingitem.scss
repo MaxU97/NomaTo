@@ -1,4 +1,5 @@
 .booking-item {
+  padding: 20px 0;
   width: 100%;
   background-color: #ebebeb;
   display: flex;
@@ -40,6 +41,61 @@
     &-price {
       color: #3299de;
       margin-bottom: 5px;
+    }
+    &-extras {
+      color: #3299de;
+      margin-bottom: 5px;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      &-content {
+        position: relative;
+        margin-left: 5px;
+      }
+      &-button {
+        display: flex;
+        justify-self: center;
+        align-self: center;
+        background: #8d8d8d;
+        fill: white;
+        height: 10px;
+        width: 10px;
+        padding: 2px;
+        border-radius: 3px;
+        transition: 0.2s;
+        &:hover {
+          transition: 0.2s;
+          border-bottom-left-radius: 0;
+          border-bottom-right-radius: 0;
+          & ~ .booking-item-details-extras-list {
+            opacity: 1;
+            visibility: visible;
+            transition: 0.3s;
+          }
+        }
+      }
+      &-list {
+        transform: translateY(100%);
+        left: 0;
+        bottom: 0;
+        visibility: hidden;
+        transition: 0.3s;
+        opacity: 0;
+        position: absolute;
+        font-size: 14px;
+        border-radius: 5px;
+        border-top-left-radius: 0;
+        background-color: #8d8d8d;
+        padding: 5px;
+        color: white;
+        width: max-content;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        span: {
+          width: max-content;
+        }
+      }
     }
     &-comment {
       display: flex;

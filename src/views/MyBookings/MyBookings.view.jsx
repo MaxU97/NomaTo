@@ -25,6 +25,7 @@ const MyBookings = () => {
   const [dropdown, toggleDropdown] = useState(false);
   const { isMobile } = useWindowDimensions();
   useEffect(() => {
+    debugger;
     GET_BOOKING_HISTORY();
   }, []);
 
@@ -92,9 +93,12 @@ const MyBookings = () => {
                 {state.bookingHistoryLoaded ? (
                   <div className="bookings-content-right-container">
                     {state.bookingHistory.map((booking) => {
+                      debugger;
                       if (booking.status == bookingStatuses[activeTab]) {
+                        debugger;
                         return <BookingItem item={booking}></BookingItem>;
                       } else if (bookingStatuses[activeTab] == "all") {
+                        debugger;
                         return (
                           <BookingItem
                             item={booking}
