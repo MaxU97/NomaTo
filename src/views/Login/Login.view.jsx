@@ -60,6 +60,7 @@ const Login = () => {
           <Input
             placeholder={t("login.email")}
             value={email}
+            type="email"
             setValue={setEmail}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
