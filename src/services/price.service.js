@@ -7,7 +7,6 @@ export const getTotalPrice = (
   dateStart,
   dateEnd
 ) => {
-  debugger;
   const start = moment(dateStart);
   const end = moment(dateEnd);
   const dayCount = end.diff(start, "days");
@@ -21,7 +20,6 @@ export const getTotalPrice = (
 };
 
 export const getExtrasPrice = (extras) => {
-  debugger;
   var extrasCharge = 0;
   extras.map((value, index) => {
     extrasCharge += value.price;
@@ -37,6 +35,5 @@ export const getNoDiscountPrice = (rentPriceDay, dateStart, dateEnd) => {
 };
 
 export const getServiceCharge = (totalPrice, serviceCharge, extrasCharge) => {
-  debugger;
   return (totalPrice + extrasCharge) * serviceCharge;
 };

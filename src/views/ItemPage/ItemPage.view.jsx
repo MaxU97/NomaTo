@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useParams, Link, useHistory } from "react-router-dom";
-import { apiUrl } from "../../api/config";
+import { apiUrl, websitUrl } from "../../api/config";
 import { useItemContext } from "../../context/item";
 
 import "./itempage.scss";
@@ -74,6 +74,9 @@ export const ItemPage = () => {
     itemState.cachedItems.forEach((item) => {
       if (id == item._id) {
         setItem(item);
+        if (item.translationError) {
+          notification([item.translationError], true);
+        }
         itemSet = true;
         return;
       }
@@ -83,6 +86,9 @@ export const ItemPage = () => {
       try {
         const item = await GET_ITEM(id);
         setItem(item);
+        if (item.translationError) {
+          notification([item.translationError], true);
+        }
       } catch (err) {
         window.location.href = "/";
         //ADDD ITEM NOT FOUND PAGE
@@ -265,13 +271,19 @@ export const ItemPage = () => {
               className="item-page-left-gallery"
               images={item.images}
             ></ImageGallery>
-            <div className="title-margin">{t("item-page.location")}</div>
+            {!isMobile && (
+              <>
+                <div className="title-margin">
+                  {t("item-page.location")}: {item.location}
+                </div>
 
-            <Map
-              className="item-page-left-map"
-              searchable={false}
-              areaCenter={item.address}
-            ></Map>
+                <Map
+                  className="item-page-left-map"
+                  searchable={false}
+                  areaCenter={item.address}
+                ></Map>
+              </>
+            )}
           </div>
           <div className="item-page-right">
             <div className="item-page-right-field">
@@ -289,7 +301,6 @@ export const ItemPage = () => {
                 </div>
               )}
             </div>
-            <div className="title-margin">{t("item-page.prices")}</div>
             <div className="item-page-right-field center">
               <div className="item-page-right-prices">
                 <div className="price">
@@ -343,6 +354,19 @@ export const ItemPage = () => {
                 {original ? item["originalDescription"] : item["description"]}
               </div>
             </div>
+            {isMobile && (
+              <>
+                <div className="title-margin">
+                  {t("item-page.location")}: {item.location}
+                </div>
+
+                <Map
+                  className="item-page-left-map"
+                  searchable={false}
+                  areaCenter={item.address}
+                ></Map>
+              </>
+            )}
             <div
               className={classNames(
                 "item-page-right-field",
@@ -351,7 +375,16 @@ export const ItemPage = () => {
             >
               <div className="item-page-right-owner">
                 <div className="title-minor">{t("item-page.owner")}</div>
-                <div className="item-page-right-owner-contents">
+                <div
+                  className="item-page-right-owner-contents"
+                  style={{ cursor: userState.user.admin && "pointer" }}
+                  onClick={() => {
+                    if (userState.user.admin) {
+                      window.location.href =
+                        websitUrl + "/user/" + item.user.id;
+                    }
+                  }}
+                >
                   <img src={apiUrl + "/" + item.user.profileImage}></img>
                   <div className="item-page-right-owner-name">
                     {item.user.name}

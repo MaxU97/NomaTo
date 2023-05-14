@@ -12,6 +12,9 @@
   &-content {
     margin-bottom: 20px;
     font-family: Gilroy-SemiBold;
+    &.textfield {
+      margin-bottom: 0;
+    }
   }
   &-actions {
     display: flex;

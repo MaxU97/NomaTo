@@ -2,6 +2,7 @@ import classNames from "classnames";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { CSSTransition } from "react-transition-group";
+import Input from "../Input/Input.component";
 import "./prompt.scss";
 export const Context = createContext(false);
 
@@ -9,15 +10,21 @@ export const Prompt = ({ children }) => {
   const { t } = useTranslation();
   const [title, setTitle] = useState(false);
   const [description, setDescription] = useState(false);
+  const [textfield, setTextfield] = useState(false);
   const [show, setShow] = useState(false);
   const [finalFunction, setFinalFunction] = useState(() => {});
 
-  const prompt = (text, description, fn) => {
+  const [inputValue, setInputValue] = useState();
+  const [inputError, setInputError] = useState();
+  const [inputType, setInputType] = useState();
+  const prompt = (text, description, textfield, fn, type) => {
     setTitle(text);
     setDescription(description);
-    setFinalFunction(() => () => {
-      fn();
+    setFinalFunction((e) => (e) => {
+      fn(e);
     });
+    setTextfield(textfield);
+    setInputType(type);
     setShow(true);
   };
 
@@ -27,9 +34,18 @@ export const Prompt = ({ children }) => {
   };
 
   const Confirm = () => {
+    if (textfield && !inputValue) {
+      setInputError(t("utility.prompt.fill-field"));
+      return;
+    }
     setShow(false);
-    finalFunction();
+    finalFunction(inputValue);
     resetOptions();
+  };
+
+  const changeInputValue = (e) => {
+    setInputValue(e);
+    setInputError();
   };
 
   const resetOptions = async () => {
@@ -37,6 +53,9 @@ export const Prompt = ({ children }) => {
       setFinalFunction(() => {});
       setTitle(false);
       setDescription(false);
+      setTextfield(false);
+      setInputValue();
+      setInputError();
     }, 500);
   };
 
@@ -50,9 +69,20 @@ export const Prompt = ({ children }) => {
       >
         <div className={classNames("prompt-container", show && "active")}>
           <div className="prompt">
-            <div className="prompt-content">
+            <div
+              className={classNames("prompt-content", textfield && "textfield")}
+            >
               {title}
               <p>{description}</p>
+              {textfield && (
+                <Input
+                  value={inputValue}
+                  setValue={changeInputValue}
+                  error={inputError}
+                  errorText={inputError}
+                  type={inputType}
+                ></Input>
+              )}
             </div>
 
             <div className="prompt-actions">

@@ -103,6 +103,9 @@ const ProfileMenu = () => {
               <Link to="/add-categories" className="profile-item">
                 {t("profile-menu.admin.add-categories")}
               </Link>
+              <Link to="/user-search" className="profile-item">
+                {t("profile-menu.admin.user-search")}
+              </Link>
             </>
           )}
           <hr />

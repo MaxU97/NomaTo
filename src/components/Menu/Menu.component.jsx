@@ -24,7 +24,6 @@ const Menu = () => {
   const ref = useRef();
 
   useEffect(() => {
-    debugger;
     if (location.pathname === "/") {
       if (mobileMenu) {
         window.dispatchEvent(new Event("mobile_menu_opened"));
@@ -165,6 +164,13 @@ const Menu = () => {
                         onClick={() => showMobileMenu(false)}
                       >
                         {t("profile-menu.admin.add-news")}
+                      </Link>
+                      <Link
+                        to="/user-search"
+                        className="mobile-menu-item"
+                        onClick={() => showMobileMenu(false)}
+                      >
+                        {t("profile-menu.admin.user-search")}
                       </Link>
                     </>
                   )}

@@ -8,6 +8,18 @@ export const bookingStatuses = [
   "returned",
 ];
 
+export const BookingStatusesMapping = (t) => {
+  return {
+    all: t("my-bookings.all"),
+    approval_required: t("my-bookings.approval-required"),
+    approved: t("my-bookings.approved"),
+    with_customer: t("my-bookings.with-customer"),
+    canceled: t("my-bookings.canceled"),
+    refused: t("my-bookings.declined"),
+    returned: t("my-bookings.returned"),
+  };
+};
+
 export const NewsTemplates = {
   OneColumn: { value: "one-column", label: "add-news.one-column" },
   TwoColumns: { value: "two-columns", label: "add-news.two-columns" },

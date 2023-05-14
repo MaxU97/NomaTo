@@ -15,7 +15,19 @@ export const PrivateRoute = ({ children, admin = false, ...props }) => {
             state.user.admin ? (
               children
             ) : (
-              <NotFound />
+              () => {
+                const adminTimeout = setTimeout(
+                  () => (
+                    <Redirect
+                      to={{ pathname: "/not-found", state: { from: location } }}
+                    />
+                  ),
+                  1000
+                );
+                if (state.user.admin) {
+                  clearTimeout(adminTimeout);
+                }
+              }
             )
           ) : state.user ? (
             children

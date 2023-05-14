@@ -40,6 +40,8 @@ import { SpinnerAnimationIcon } from "../../assets/Icons";
 import { CSSTransition } from "react-transition-group";
 import ContactSupport from "../ContactSupport/ContactSupport.component";
 import Footer from "../Footer/Footer.component";
+import UserPage from "../../views/UserPage/UserPage.view";
+import UserSearch from "../../views/UserSearch/UserSearch.view";
 export const AppRouter = () => {
   const { state, LOGOUT } = useUserContext();
   const [loading, setLoading] = useState(true);
@@ -101,6 +103,12 @@ export const AppRouter = () => {
           <PrivateRoute path={["/add-categories"]} exact admin>
             <AddCategories />
           </PrivateRoute>
+          <PrivateRoute path={["/user/:id"]} exact admin>
+            <UserPage />
+          </PrivateRoute>
+          <PrivateRoute path={["/user-search/"]} exact admin>
+            <UserSearch />
+          </PrivateRoute>
           {/* Private Routes */}
           <PrivateRoute path={["/payment-details"]}>
             <PaymentRegister></PaymentRegister>
@@ -149,6 +157,12 @@ export const AppRouter = () => {
         ></Route> */}
           {/* 404 */}
           <Route component={() => <NotFound />} />
+          <Route
+            path={["/not-found"]}
+            component={() => {
+              <NotFound />;
+            }}
+          />
         </Switch>
         <ContactSupport></ContactSupport>
         <Footer />

@@ -27,7 +27,8 @@ const BookingRequestsItem = ({ item, status }) => {
   const location = useLocation();
   const [price, setPrice] = useState(0);
 
-  debugger;
+  const [showExtras, setShowExtras] = useState(false);
+
   const dateNow = set(new Date(Date.now()), {
     hours: 0,
     minutes: 0,
@@ -115,18 +116,34 @@ const BookingRequestsItem = ({ item, status }) => {
           {item.extras && item.extras.length && (
             <div className="booking-request-item-extras">
               <div className="booking-request-item-extras-wrapper">
-                <strong>{t("my-bookings.extras")}</strong>
+                <div className="booking-request-item-extras-top">
+                  <strong>{t("my-bookings.extras")}</strong>
+                  <DownIcon
+                    onMouseEnter={() => {
+                      setShowExtras(true);
+                    }}
+                    onMouseLeave={() => {
+                      setShowExtras(false);
+                    }}
+                    className="booking-request-item-extras-button"
+                  ></DownIcon>
+                </div>
                 <div
-                  className="booking-request-item-extras-content"
-                  style={{ height: "fit-content" }}
+                  on
+                  className="booking-request-item-extras-list"
+                  aria-expanded={showExtras}
                 >
-                  <DownIcon className="booking-request-item-extras-button"></DownIcon>
-                  <div className="booking-request-item-extras-list">
+                  <div className="booking-request-item-extras-list-container">
                     {item.extras.map((value, index) => {
                       return (
-                        <span>{`${value.title} (+${euroLocale.format(
-                          value.price
-                        )})`}</span>
+                        <>
+                          <span>
+                            <span className="extra-title">
+                              {value.title} dsadsa d sadsa d as das dsa d asd as
+                            </span>
+                            <span> (+{euroLocale.format(value.price)})</span>
+                          </span>
+                        </>
                       );
                     })}
                   </div>
@@ -187,7 +204,8 @@ const BookingRequestsItem = ({ item, status }) => {
               >
                 {t("booking-requests.view-details")}
               </a>
-              {new Date(item.dateStart).getTime() === dateNow.getTime() && (
+              {new Date(item.dateStart).toDateString() ===
+                dateNow.toDateString() && (
                 <Link
                   className="booking-request-item-actions-button"
                   to={{

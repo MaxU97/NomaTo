@@ -18,7 +18,6 @@ const Carousel = ({
   className = "",
   infinite = false,
 }) => {
-  debugger;
   return items.length ? (
     <CarouselProvider
       naturalSlideWidth={200}

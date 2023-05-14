@@ -20,7 +20,6 @@ const StepFour = ({ email = "", phone = "" }) => {
   };
 
   const sendConfirmation = async () => {
-    debugger;
     if (code) {
       const props = { email: email, phone: phone, code: code };
       try {

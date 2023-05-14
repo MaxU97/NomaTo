@@ -20,6 +20,7 @@ import {
 } from "../../services/item.service";
 import { useUserContext } from "../../context/user";
 import { patchItem } from "../../api/item";
+import { PlusIcon, SpinnerAnimationIcon, TrashIcon } from "../../assets/Icons";
 
 const EditItem = () => {
   const { state: userState } = useUserContext();
@@ -38,6 +39,8 @@ const EditItem = () => {
   const [categoryText, setCategoryText] = useState("");
 
   const [description, setDescription] = useState("");
+
+  const [extras, setExtras] = useState([{}]);
 
   const [address, setAddress] = useState("");
   const [addressLatLng, setAddressLatLng] = useState();
@@ -63,6 +66,8 @@ const EditItem = () => {
 
   const titleLanguage = `title${getCurrentLanguage().toUpperCase()}`;
 
+  const [imagesChanged, setImagesChanged] = useState(false);
+
   const [item, setItem] = useState();
   const { state: itemState, GET_ITEM } = useItemContext();
   useEffect(async () => {
@@ -70,20 +75,28 @@ const EditItem = () => {
     itemState.cachedItems.forEach((item) => {
       if (id == item._id) {
         setItem(item);
+
+        if (item.extras.length) {
+          setExtras(item.extras);
+        }
         itemSet = true;
         return;
       }
     });
     if (!itemSet) {
       const item = await GET_ITEM(id);
+
       setItem(item);
+      if (item.extras.length) {
+        setExtras(item.extras);
+      }
     }
   }, []);
 
   useEffect(() => {
     const settingItem = async () => {
       if (item) {
-        if (!(item.user.id == userState.user.id)) {
+        if (!(item.user.id == userState.user.id) && !userState.user.admin) {
           window.location.href = "/";
         }
         setCategory(item.category);
@@ -175,9 +188,13 @@ const EditItem = () => {
       error.push(t("list-item.error.qty"));
       updateErrors = { ...updateErrors, itemQtyError: true };
     }
+
+    if (checkExtrasForErrors()) {
+      error.push(t("list-item.extras-error"));
+    }
     setErrors(updateErrors);
     setValidationError(error);
-    debugger;
+
     return !error?.length;
   };
   const uploadItem = () => {
@@ -189,12 +206,14 @@ const EditItem = () => {
         promises.push(fetch(blob).then((r) => r.blob()));
       });
       Promise.all(promises).then(async (results) => {
-        results.forEach((image) => {
-          data.append(
-            "images",
-            new File([image], Date.now(), { type: image.type })
-          );
-        });
+        if (imagesChanged) {
+          results.forEach((image) => {
+            data.append(
+              "images",
+              new File([image], Date.now(), { type: image.type })
+            );
+          });
+        }
         data.append("itemId", id);
         data.append("title", title);
 
@@ -217,6 +236,7 @@ const EditItem = () => {
         data.append("rentPriceDay", rentPriceDay);
         data.append("rentPriceWeek", rentPriceWeek);
         data.append("rentPriceMonth", rentPriceMonth);
+        data.append("extras", JSON.stringify(extras));
         data.append(
           "addressNatural",
           JSON.stringify(address.address_components)
@@ -239,13 +259,85 @@ const EditItem = () => {
     }
   };
 
+  const changeExtrasTitle = (index, title) => {
+    var newExtrasArray = extras;
+    newExtrasArray[index].title = title;
+    setExtras([...newExtrasArray]);
+  };
+
+  const changeExtrasPrice = (index, price) => {
+    var newExtrasArray = extras;
+    newExtrasArray[index].price = price;
+    setExtras([...newExtrasArray]);
+  };
+
+  const changeExtrasDescritption = (index, desc) => {
+    var newExtrasArray = extras;
+    newExtrasArray[index].description = desc;
+    setExtras([...newExtrasArray]);
+  };
+
+  const addExtra = () => {
+    var newExtrasArray = [...extras, {}];
+    if (newExtrasArray.length > 5) {
+      notification([t("list-item.only-5-extras")], true);
+      return;
+    } else {
+      setExtras(newExtrasArray);
+      setTimeout(() => {
+        document
+          .getElementById(`extra-${newExtrasArray.length - 1}`)
+          .scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+            inline: "nearest",
+          });
+      }, 50);
+    }
+  };
+
+  const removeExtra = (index) => {
+    var newExtrasArray = extras;
+    newExtrasArray.splice(index, 1);
+    if (newExtrasArray.length == 0) {
+      setExtras([{}]);
+    } else {
+      setExtras([...newExtrasArray]);
+    }
+    setTimeout(() => {
+      document
+        .getElementById(`extra-${newExtrasArray.length - 1}`)
+        .scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+          inline: "nearest",
+        });
+    }, 50);
+  };
+
+  const checkExtrasForErrors = () => {
+    var errored = false;
+    var newExtrasArray = extras.map((extra) => {
+      if (extra.title && !extra.price) {
+        extra.error = "price";
+        errored = true;
+      } else if (extra.price && !extra.title) {
+        extra.error = "title";
+        errored = true;
+      }
+      return extra;
+    });
+    setExtras(newExtrasArray);
+    return errored;
+  };
+
   return (
     <div className="add-listing">
-      {category && (
-        <div
-          className="container-m"
-          style={{ paddingTop: "140px", paddingBottom: "100px" }}
-        >
+      <div
+        className="container-m"
+        style={{ paddingTop: "140px", paddingBottom: "100px" }}
+      >
+        {category ? (
           <div className="listing-form">
             <h1>{t("edit-item.title")}</h1>
             <MultiImagePicker
@@ -255,7 +347,10 @@ const EditItem = () => {
               )}
               toggleModal={toggleImageUpload}
               imageList={uploadImages}
-              setImages={setUploadImages}
+              setImages={(event) => {
+                setUploadImages(event);
+                setImagesChanged(true);
+              }}
             ></MultiImagePicker>
             <Input
               placeholder={t("list-item.set-title")}
@@ -356,6 +451,59 @@ const EditItem = () => {
                 type="number"
               ></Input>
             </div>
+
+            <h4 className="sub-title">{t("list-item.extras")}</h4>
+            <div className="listing-form-extras">
+              {extras.map((extra, index) => {
+                return (
+                  <div
+                    className="listing-form-extras-container"
+                    id={`extra-${index}`}
+                  >
+                    <div className="listing-form-extras-controls">
+                      <PlusIcon
+                        className="listing-form-extras-controls-add"
+                        onClick={addExtra}
+                      ></PlusIcon>
+                      <TrashIcon
+                        className="listing-form-extras-controls-remove"
+                        onClick={() => {
+                          removeExtra(index);
+                        }}
+                      ></TrashIcon>
+                    </div>
+                    <div className="listing-form-extras-top">
+                      <Input
+                        charLimit={15}
+                        placeholder={t("list-item.set-title")}
+                        setValue={(event) => {
+                          changeExtrasTitle(index, event);
+                        }}
+                        error={extra.error == "title"}
+                        value={extra.title ? extra.title : ""}
+                      ></Input>
+                      <Input
+                        placeholder={t("list-item.price")}
+                        type="number"
+                        setValue={(event) => {
+                          changeExtrasPrice(index, event);
+                        }}
+                        error={extra.error == "price"}
+                        value={extra.price ? extra.price : ""}
+                      ></Input>
+                    </div>
+                    <Input
+                      placeholder={t("list-item.extras-description")}
+                      value={extra.description ? extra.description : ""}
+                      setValue={(event) => {
+                        changeExtrasDescritption(index, event);
+                      }}
+                    ></Input>
+                  </div>
+                );
+              })}
+            </div>
+
             {!!validationError?.length && (
               <>
                 <h2 className="error-title">{t("list-item.must-include")}:</h2>
@@ -386,8 +534,12 @@ const EditItem = () => {
               </a>
             </div>
           </div>
-        </div>
-      )}
+        ) : (
+          <div className="add-listing-spinner">
+            <SpinnerAnimationIcon scale={5}></SpinnerAnimationIcon>
+          </div>
+        )}
+      </div>
 
       <CategoryModal
         modalOpen={categoryModal}
@@ -400,7 +552,10 @@ const EditItem = () => {
       <ImageEditorModal
         modalOpen={imageUploadModal}
         toggleModal={toggleImageUpload}
-        setUploadImages={setUploadImages}
+        setUploadImages={(event) => {
+          setUploadImages(event);
+          setImagesChanged(true);
+        }}
         uploadImages={uploadImages}
       ></ImageEditorModal>
     </div>

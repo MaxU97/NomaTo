@@ -54,7 +54,6 @@ const Input = ({
   clickable = false,
 }: InputInterface) => {
   const checkValidValue = (e) => {
-    debugger;
     const reg = new RegExp("^[0-9]+$");
     if (
       (reg.test(e.target.value) || e.target.value === "") &&

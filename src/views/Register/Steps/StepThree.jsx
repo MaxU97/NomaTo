@@ -65,7 +65,7 @@ const StepThree = ({
         nextStep();
       }
     } catch (err) {
-      notification([err.message]);
+      notification([err.message], true);
     }
   };
   return (

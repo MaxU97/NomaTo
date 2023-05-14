@@ -32,7 +32,7 @@ const Footer = () => {
                 <Link to="/search">{t("footer.browse")}</Link>
                 <Link to="/guarantee">{t("footer.guarantee")}</Link>
                 <Link to="/how-it-works">{t("footer.works")}</Link>
-                <Link to="/privacy-policy">{t("footer.privace")}</Link>
+                <Link to="/privacy-policy">{t("footer.privacy")}</Link>
                 <Link to="/terms-of-service">{t("footer.tos")}</Link>
                 <Link to="/faq">{t("footer.faq")}</Link>
               </div>

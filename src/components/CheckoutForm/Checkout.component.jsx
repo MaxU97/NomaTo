@@ -37,7 +37,6 @@ const Checkout = ({
         itemData: data,
       });
     } catch (err) {
-      debugger;
       notification([err.response.data.message], true, 100);
 
       setTimeout(() => {

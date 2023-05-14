@@ -238,3 +238,36 @@ export const createStripe = async (props) => {
       throw err.response.data;
     });
 };
+
+export const getUserId = async (id) => {
+  return await api
+    .get(`/auth/getUser`, { params: { id: id } })
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => {
+      throw err.response.data.message;
+    });
+};
+
+export const getUserReviews = async (id) => {
+  return await api
+    .get(`/auth/getUserReviews`, { params: { id: id } })
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => {
+      throw err.response.data;
+    });
+};
+
+export const getUserBookings = async (id) => {
+  return await api
+    .get(`/auth/getUserBookings`, { params: { id: id } })
+    .then(({ data }) => {
+      return data.message;
+    })
+    .catch((err) => {
+      throw err.response.data;
+    });
+};

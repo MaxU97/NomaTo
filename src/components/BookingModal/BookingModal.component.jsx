@@ -262,7 +262,6 @@ export const BookingModal = ({
       qtyWant &&
       !_.isEmpty(dates)
     ) {
-      debugger;
       const { day, price, service, discount, total, extrasText } =
         producePriceSummary();
       setDaySummary(day);
@@ -356,7 +355,6 @@ export const BookingModal = ({
   };
 
   const handleExtras = (event) => {
-    debugger;
     const value = event.target.value;
     const isChecked = event.target.checked;
     const allExtras = document.extras;

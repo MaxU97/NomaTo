@@ -108,7 +108,7 @@ const Profile = () => {
   const [name, setName] = useState(state.user.name);
   const [surname, setSurname] = useState(state.user.surname);
   const [email, setEmail] = useState(state.user.email);
-  const [phone, setPhone] = useState("+" + state.user.phone);
+  const [phone, setPhone] = useState(state.user.phone);
   const [address, setAddress] = useState(state.user.address);
 
   const [phoneError, setPhoneError] = useState("");

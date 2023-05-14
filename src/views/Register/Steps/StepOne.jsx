@@ -106,7 +106,7 @@ const StepOne = ({ nextStep = () => {}, setReturnEmail = () => {} }) => {
     if (!email || !emailError) {
       boolToReturn = false;
     }
-    debugger;
+
     if (!password || !validatePW || !passwordError) {
       boolToReturn = false;
     }

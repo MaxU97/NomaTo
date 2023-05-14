@@ -277,7 +277,6 @@ const AddCategories = () => {
 
   const imgRegEx = /image\/(svg)/;
   const onSelectIcon = (e) => {
-    debugger;
     e.stopPropagation();
     e.preventDefault();
     if (e) {

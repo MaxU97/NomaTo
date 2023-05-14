@@ -141,7 +141,7 @@ const ListItem = () => {
       error.push(t("list-item.error.qty"));
       updateErrors = { ...updateErrors, itemQtyError: true };
     }
-    debugger;
+
     if (checkExtrasForErrors()) {
       error.push(t("list-item.extras-error"));
     }
@@ -239,7 +239,6 @@ const ListItem = () => {
   };
 
   const removeExtra = (index) => {
-    debugger;
     var newExtrasArray = extras;
     newExtrasArray.splice(index, 1);
     if (newExtrasArray.length == 0) {
@@ -259,7 +258,6 @@ const ListItem = () => {
   };
 
   const checkExtrasForErrors = () => {
-    debugger;
     var errored = false;
     var newExtrasArray = extras.map((extra) => {
       if (extra.title && !extra.price) {
@@ -274,6 +272,7 @@ const ListItem = () => {
     setExtras(newExtrasArray);
     return errored;
   };
+
   return (
     <div className="add-listing">
       {userState.user.completionStatus && userState.user.sellerCompleted ? (

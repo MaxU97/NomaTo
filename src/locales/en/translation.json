@@ -16,6 +16,10 @@
       "view-more": "View More"
     }
   },
+  "user-search": {
+    "title": "User Search",
+    "placeholder": "Enter Name, Surname, or Email"
+  },
   "search": {
     "placeholder": "Bike, camera, drone...",
     "button": "Search",
@@ -69,7 +73,11 @@
     "myshop": "My Shop",
     "list-item": "List an item",
     "booking-requests": "Booking Requests",
-    "admin": { "add-news": "Add News", "add-categories": "Edit Categories" },
+    "admin": {
+      "add-news": "Add News",
+      "add-categories": "Edit Categories",
+      "user-search": "Search for User"
+    },
     "logout": "Logout",
     "support": "Contact us"
   },
@@ -118,6 +126,23 @@
       "min-rent": "Minimum rent duration",
       "qty": "Quantity of items"
     }
+  },
+  "user-details": {
+    "sure-ban": "Are you sure you want to ban {{user_name}}?",
+    "sure-pardon": "Are you sure you want to pardon {{user_name}}?",
+    "sure-warn": "Are you sure you want to warn {{user_name}}?",
+    "remove-warnings-for": "Removing warnings for {{user_name}}",
+    "number-of-warnings": "Current warnings: {{warnings}}. Please enter how many to remove:",
+    "warn-desc": "Current warnings: {{warnings}}. If there is 3 or more warnings user automatically gets banned. \n Please state a reason for the warning/ban:",
+    "provide-reason": "Please provide a reason:",
+    "pardon": "Pardon",
+    "warn": "Warn",
+    "remove-warnings": "Remove Warnings",
+    "ban": "Ban",
+    "promote-admin": "Promote Admin",
+    "remove-admin": "Remove Admin",
+    "make-admin": "Are you sure you want to make {{user_name}} an admin?",
+    "demote-admin": "Are you sure you want to demote {{user_name}}"
   },
   "item-page": {
     "prices": "Pricelist:",
@@ -415,6 +440,7 @@
     "prompt": {
       "confirm": "Confirm",
       "irreversible": "This action is irrevirsible",
+      "fill-field": "Please fill this field",
       "cancel": "Cancel"
     }
   },
