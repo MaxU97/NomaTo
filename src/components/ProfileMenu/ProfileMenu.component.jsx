@@ -106,6 +106,9 @@ const ProfileMenu = () => {
               <Link to="/user-search" className="profile-item">
                 {t("profile-menu.admin.user-search")}
               </Link>
+              <Link to="/all-news" className="profile-item">
+                {t("profile-menu.admin.all-news")}
+              </Link>
             </>
           )}
           <hr />

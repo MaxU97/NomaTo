@@ -42,6 +42,7 @@ import ContactSupport from "../ContactSupport/ContactSupport.component";
 import Footer from "../Footer/Footer.component";
 import UserPage from "../../views/UserPage/UserPage.view";
 import UserSearch from "../../views/UserSearch/UserSearch.view";
+import AllNews from "../../views/AllNews/AllNews.view";
 export const AppRouter = () => {
   const { state, LOGOUT } = useUserContext();
   const [loading, setLoading] = useState(true);
@@ -94,6 +95,9 @@ export const AppRouter = () => {
             <ForgotPassword />
           </PublicRoute>
           {/* Admin routes */}
+          <PrivateRoute path={["/all-news"]}>
+            <AllNews></AllNews>
+          </PrivateRoute>
           <PrivateRoute path={["/add-news"]} exact admin>
             <AddNews />
           </PrivateRoute>

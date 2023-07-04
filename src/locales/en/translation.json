@@ -76,7 +76,8 @@
     "admin": {
       "add-news": "Add News",
       "add-categories": "Edit Categories",
-      "user-search": "Search for User"
+      "user-search": "Search for User",
+      "all-news": "All News"
     },
     "logout": "Logout",
     "support": "Contact us"
@@ -505,5 +506,9 @@
     "privacy": "Privacy Policy",
     "tos": "Terms of Service",
     "faq": "FAQs"
+  },
+  "all-news": {
+    "title": "All News",
+    "placeholder": "Enter title"
   }
 }

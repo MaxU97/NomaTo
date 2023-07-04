@@ -1,18 +1,20 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import "./usersearch.scss";
 import Input from "../../components/Input/Input.component";
-import UserCard from "./UserCard";
-import { SpinnerAnimationIcon } from "../../assets/Icons";
-import { getUserList } from "../../api/admin";
+import "./allnews.scss";
 import { useNotificationHandler } from "../../components/NotificationHandler/NotificationHandler.component";
-const UserSearch = () => {
-  const { notification } = useNotificationHandler();
+import { SpinnerAnimationIcon } from "../../assets/Icons";
+import NewsCard from "./NewsCard";
+import { getNewsList } from "../../api/admin";
+const AllNews = () => {
   const { t } = useTranslation();
+  const { notification } = useNotificationHandler();
   const [searchTerm, setSearchTerm] = useState("");
   const [step, setStep] = useState(0);
-  const [userList, setUserList] = useState([]);
   const [totalItems, setTotalItems] = useState(0);
+  const [newsList, setNewsList] = useState([]);
+  const scrollRef = useRef();
+
   useEffect(() => {
     var getData;
     getData = setTimeout(() => {
@@ -29,49 +31,44 @@ const UserSearch = () => {
   }, [step]);
 
   const refreshSearchWindow = async (searchTerm, step) => {
-    debugger;
     try {
-      const data = await getUserList({
+      debugger;
+      const data = await getNewsList({
         searchTerm: searchTerm,
         step: step,
       });
       setTotalItems(data.totalCount);
-      setUserList(data.users);
+      setNewsList(data.news);
     } catch (e) {
       notification([e], true);
     }
   };
 
-  const scrollRef = useRef();
   const onScroll = (event) => {
     if (scrollRef.current) {
       const { scrollTop, scrollHeight, clientHeight } = scrollRef.current;
       if (scrollTop + clientHeight === scrollHeight) {
-        setStep(step + 12);
+        setStep(step + 6);
       }
     }
   };
   return (
-    <div className="user-search">
-      <div className="container-m">
-        <div className="user-search-container">
-          <h2>{t("user-search.title")}</h2>
+    <div className="all-news">
+      <div className="container-l">
+        <div className="all-news-container">
+          <h2>{t("all-news.title")}</h2>
           <Input
-            placeholder={t("user-search.placeholder")}
+            placeholder={t("all-news.placeholder")}
             animatePlaceholder={false}
             value={searchTerm}
             setValue={setSearchTerm}
           ></Input>
-          <div
-            className="user-search-results"
-            onScroll={onScroll}
-            ref={scrollRef}
-          >
-            {userList.map((user, index) => (
-              <UserCard user={user}></UserCard>
+          <div className="all-news-results" onScroll={onScroll} ref={scrollRef}>
+            {newsList.map((news, index) => (
+              <NewsCard news={news}></NewsCard>
             ))}
-            {userList.length < totalItems && (
-              <div className="user-search-results-loading">
+            {newsList.length < totalItems && (
+              <div className="all-news-results-loading">
                 <SpinnerAnimationIcon scale={0.5}></SpinnerAnimationIcon>
               </div>
             )}
@@ -82,4 +79,4 @@ const UserSearch = () => {
   );
 };
 
-export default UserSearch;
+export default AllNews;

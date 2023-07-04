@@ -32,7 +32,6 @@ const UserPage = () => {
     loadDetails();
     loadRequests();
     loadBookings();
-    loadReviews();
   }, []);
 
   const loadDetails = async () => {
@@ -63,7 +62,6 @@ const UserPage = () => {
       notification([e], true);
     }
   };
-  const loadReviews = async () => {};
   return (
     <div className="user-overview">
       <div className="container-xl">
@@ -87,9 +85,6 @@ const UserPage = () => {
           <ActionBar details={details}></ActionBar>
           <div className="user-overview-top">
             <DetailsBlock details={details}></DetailsBlock>
-            <div className="user-overview-field user-reviews">
-              <h2>User Left Reviews</h2>
-            </div>
           </div>
           <div className="user-overview-bottom">
             <BookingRequestsBlock requests={requests}></BookingRequestsBlock>

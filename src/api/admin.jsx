@@ -76,3 +76,14 @@ export const getUserList = async (params) => {
       throw err.response.data;
     });
 };
+
+export const getNewsList = async (params) => {
+  return await api
+    .get(`/admin/getNewsList`, { params: params })
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => {
+      throw err.response.data;
+    });
+};
