@@ -28,6 +28,8 @@ const MyBookings = () => {
     GET_BOOKING_HISTORY();
   }, []);
 
+  console.log(bookingCategories)
+
   return (
     <div className="bookings">
       <div className="container-l">
@@ -74,6 +76,7 @@ const MyBookings = () => {
                   <div className="menu-list">
                     {bookingCategories.map((cat, index) => (
                       <div
+                        key={cat}
                         className={classNames(
                           "menu-list-item",
                           activeTab == index && "active"

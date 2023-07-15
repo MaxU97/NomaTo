@@ -661,7 +661,7 @@ const SearchPage = () => {
               <div className="search-content-results">
                 <div className="search-content-results-grid">
                   {itemState.searchedItems.map((item, index) => (
-                    <ItemThumbnail key={index} item={item}></ItemThumbnail>
+                    <ItemThumbnail key={index} item={item} showName></ItemThumbnail>
                   ))}
                 </div>
               </div>

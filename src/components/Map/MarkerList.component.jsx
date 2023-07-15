@@ -46,7 +46,7 @@ const MarkerList = ({ markers, markerIndex, setMarkerIndex = () => {} }) => {
               }}
             >
               <div className="item-info">
-                <ItemThumbnail item={value}></ItemThumbnail>
+                <ItemThumbnail item={value} showName></ItemThumbnail>
               </div>
             </InfoWindow>
           )}

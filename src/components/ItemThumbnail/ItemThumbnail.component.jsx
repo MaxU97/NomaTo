@@ -1,12 +1,10 @@
-import React from "react";
 import { useTranslation } from "react-i18next";
 import "./itemthumbnail.scss";
-import { StarIcon } from "../../assets/Icons";
 import { apiUrl } from "../../api/config";
 import { ThumbUpIcon } from "../../assets/Icons";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
-const ItemThumbnail = ({ className, item }) => {
+const ItemThumbnail = ({ className, item, showName }) => {
   const { t } = useTranslation();
   return (
     <Link to={`/item/${item.id}`}>
@@ -14,7 +12,7 @@ const ItemThumbnail = ({ className, item }) => {
         <img className="item-image" src={apiUrl + `/${item.imageURL}`} />
         <div className="item-details">
           <div className="item-details-minor">
-            <div className="item-details-name">{item.username}</div>
+            {showName && <div className="item-details-name">{item.username}</div>}
             <div className="item-rating">
               {item.likes}
               <ThumbUpIcon className="star" />
