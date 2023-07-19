@@ -134,18 +134,14 @@ const BookingRequestsItem = ({ item, status }) => {
                   aria-expanded={showExtras}
                 >
                   <div className="booking-request-item-extras-list-container">
-                    {item.extras.map((value, index) => {
-                      return (
-                        <>
-                          <span>
-                            <span className="extra-title">
-                              {value.title} dsadsa d sadsa d as das dsa d asd as
-                            </span>
-                            <span> (+{euroLocale.format(value.price)})</span>
-                          </span>
-                        </>
-                      );
-                    })}
+                    {item.extras.map((value, index) => 
+                      <span key={index}>
+                        <span className="extra-title">
+                          {value.title} dsadsa d sadsa d as das dsa d asd as
+                        </span>
+                        <span> (+{euroLocale.format(value.price)})</span>
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>

@@ -23,6 +23,8 @@ const Menu = () => {
   const [isOpen, setOpen] = useState(false);
   const ref = useRef();
 
+  const isAuthorized = localStorage.token && state.user;
+
   useEffect(() => {
     if (location.pathname === "/") {
       if (mobileMenu) {
@@ -76,7 +78,7 @@ const Menu = () => {
         <div className="mobile-menu-content">
           <div>
             <div className="mobile-menu-account">
-              {localStorage.token && state.user && (
+              {isAuthorized && (
                 <>
                   <div className="mobile-menu-account-block">
                     <div className="mobile-menu-account-block-icon">
@@ -190,7 +192,7 @@ const Menu = () => {
             </Link>
           </div>
         </div>
-        {localStorage.token && state.user ? (
+        {isAuthorized ? (
           <a
             className="mobile-menu-log-button"
             onClick={() => {

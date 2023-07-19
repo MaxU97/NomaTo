@@ -20,7 +20,7 @@ const NewsBlock = ({}) => {
   return news.length ? (
     <div className="news-block">
       {news.map((n) => (
-        <a className="news-item" href={websitUrl + "/news/" + n._id}>
+        <a key={n._id} className="news-item" href={websitUrl + "/news/" + n._id}>
           <div className="news-item-image">
             <img src={apiUrl + "/NewsImages/" + n.image}></img>
           </div>

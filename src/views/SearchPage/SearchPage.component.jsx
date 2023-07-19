@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { set } from "lodash";
 import { Slider } from "@mui/material";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
@@ -483,6 +483,9 @@ const SearchPage = () => {
     }
     return stringToReturn;
   };
+
+  const pages = useMemo(createPages, [maxPages, page]);
+
   return (
     <>
       <div className="search">
@@ -599,7 +602,7 @@ const SearchPage = () => {
                     }}
                     disabled={page <= 0}
                   ></MoveIcon>
-                  {createPages()}
+                  {pages}
                   <MoveIcon
                     className="arrow"
                     onClick={() => {
@@ -661,7 +664,7 @@ const SearchPage = () => {
               <div className="search-content-results">
                 <div className="search-content-results-grid">
                   {itemState.searchedItems.map((item, index) => (
-                    <ItemThumbnail key={index} item={item} showName></ItemThumbnail>
+                    <ItemThumbnail key={item._id} item={item} showName></ItemThumbnail>
                   ))}
                 </div>
               </div>

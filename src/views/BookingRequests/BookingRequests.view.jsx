@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getBookingRequests } from "../../api/auth";
+import { getBookingRequests, setAsSeen } from "../../api/booking";
 import { bookingStatuses } from "../../services/nomato.constants";
 import BookingRequestsItem from "../../components/BookingRequestsItem/BookingRequestsItem.component";
 import classNames from "classnames";
@@ -27,11 +27,17 @@ const BookingRequests = () => {
     t("booking-requests.returned"),
   ];
 
-  useEffect(async () => {
+  useEffect(() => {
+    async function markBookingsAsSeen(bookings) {
+      const filteredBookings = bookings.filter(({ status, seen }) => !seen && ["canceled"].includes(status));
+      filteredBookings.forEach((booking) => {
+        setAsSeen(booking._id);
+      });
+    }
     async function fetchBookings() {
       const bookingRequests = await getBookingRequests();
-
       setRequests(bookingRequests);
+      markBookingsAsSeen(bookingRequests);
     }
     fetchBookings();
   }, []);
@@ -82,12 +88,13 @@ const BookingRequests = () => {
                   <div className="menu-list">
                     {bookingCategories.map((cat, index) => (
                       <div
+                      key={index}
                         className={classNames(
                           "menu-list-item",
                           activeTab == index && "active"
                         )}
                         onClick={() => {
-                          !(activeTab == index) && setActiveTab(index);
+                          activeTab !== index && setActiveTab(index);
                         }}
                       >
                         {cat}
@@ -103,6 +110,7 @@ const BookingRequests = () => {
                       if (booking.status == bookingStatuses[activeTab]) {
                         return (
                           <Accordion
+                            key={booking._id}
                             header_children={
                               <BookingRequestsHeader
                                 booking={booking}
@@ -123,6 +131,7 @@ const BookingRequests = () => {
                       } else if (bookingStatuses[activeTab] == "all") {
                         return (
                           <Accordion
+                            key={booking._id}
                             header_children={
                               <BookingRequestsHeader
                                 booking={booking}
@@ -150,8 +159,8 @@ const BookingRequests = () => {
                   </div>
                 ) : (
                   <div className="booking-requests-content-right-container">
-                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14].map(() => {
-                      return <Accordion header_children={false}></Accordion>;
+                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14].map((v) => {
+                      return <Accordion key={v} header_children={false}></Accordion>;
                     })}
                   </div>
                 )}

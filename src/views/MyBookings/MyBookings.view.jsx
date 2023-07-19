@@ -8,6 +8,7 @@ import { bookingStatuses } from "../../services/nomato.constants";
 import { useTranslation } from "react-i18next";
 import useWindowDimensions from "../../services/responsive.service";
 import { SpinnerAnimationIcon } from "../../assets/Icons";
+import { setAsSeen } from "../../api/booking";
 const MyBookings = () => {
   const { t } = useTranslation();
 
@@ -28,7 +29,18 @@ const MyBookings = () => {
     GET_BOOKING_HISTORY();
   }, []);
 
-  console.log(bookingCategories)
+  useEffect(() => {
+    if (state.bookingHistory.length) {
+      async function markBookingsAsSeen(bookings) {
+        const filteredBookings = bookings.filter(({ status, seen }) => !seen && ["refused", "approved"].includes(status));
+        filteredBookings.forEach((booking) => {
+          setAsSeen(booking._id);
+        });
+      }
+
+      markBookingsAsSeen(state.bookingHistory);
+    }
+  }, [state.bookingHistory]);
 
   return (
     <div className="bookings">
@@ -96,10 +108,11 @@ const MyBookings = () => {
                   <div className="bookings-content-right-container">
                     {state.bookingHistory.map((booking) => {
                       if (booking.status == bookingStatuses[activeTab]) {
-                        return <BookingItem item={booking}></BookingItem>;
+                        return <BookingItem key={booking._id} item={booking}></BookingItem>;
                       } else if (bookingStatuses[activeTab] == "all") {
                         return (
                           <BookingItem
+                            key={booking._id}
                             item={booking}
                             status={
                               bookingCategories[

@@ -31,6 +31,7 @@
 }
 
 .profile-item {
+  position: relative;
   text-align: left;
   margin-bottom: 5px;
   transition: 0.3s;
@@ -55,4 +56,9 @@
     border-radius: 50%;
     overflow: hidden;
   }
+}
+
+.profile-name {
+  position: relative;
+  margin-right: 5px;
 }

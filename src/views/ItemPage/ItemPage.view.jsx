@@ -170,9 +170,9 @@ export const ItemPage = () => {
         return returnedA;
       } else {
         returnedA = (
-          <a className="availablity-button booked">
+          <Link to="/profile" className="availablity-button">
             {t("item-page.need-completed-profile")}
-          </a>
+          </Link>
         );
         return returnedA;
       }

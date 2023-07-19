@@ -49,6 +49,39 @@ export const approveBooking = async (_id) => {
     });
 };
 
+export const getBookingRequests = async () => {
+  return await api
+    .get("/booking/getRequests")
+    .then(({ data }) => {
+      return data.bookingRequests;
+    })
+    .catch((err) => {
+      throw err.response.data;
+    });
+};
+
+export const getUnseenRequestCount = async () => {
+  return await api
+    .get("/booking/getUnseenRequestCount")
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => {
+      throw err.response.data;
+    });
+};
+
+export const setAsSeen = async (_id) => {
+  return await api
+    .post("/booking/setAsSeen", { booking_id: _id })
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => {
+      throw err.response.data;
+    });
+};
+
 export const getApprovedUser = async (_id, booking_id) => {
   return await api
     .post(`/booking/getApprovedUser`, { userID: _id, booking_id: booking_id })

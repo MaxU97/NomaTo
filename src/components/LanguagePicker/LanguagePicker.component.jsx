@@ -81,6 +81,7 @@ const LanguagePicker = () => {
         <div className="lp-wrapper-dropdown">
           {lang.map((language) => (
             <div
+              key={language.key}
               className="lp-item"
               onClick={() => selectLanguage(language.key)}
             >

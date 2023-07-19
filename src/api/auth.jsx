@@ -152,17 +152,6 @@ export const getBookingHistory = async () => {
     });
 };
 
-export const getBookingRequests = async () => {
-  return await api
-    .get("/booking/getRequests")
-    .then(({ data }) => {
-      return data.bookingRequests;
-    })
-    .catch((err) => {
-      throw err.response.data;
-    });
-};
-
 export const sendForgetEmail = async (props) => {
   return await api
     .post("/auth/sendForgetEmail", props)
