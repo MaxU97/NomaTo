@@ -14,9 +14,9 @@ export const sendBookingToOwner = async (payment_intent, intentID) => {
     });
 };
 
-export const cancelBooking = async (id) => {
+export const cancelBooking = async (id, cancelReason) => {
   return await api
-    .post(`/booking/cancelBooking`, { booking_id: id })
+    .post(`/booking/cancelBooking`, { booking_id: id, cancelReason })
     .then((data) => {
       return true;
     })

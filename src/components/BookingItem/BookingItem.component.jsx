@@ -76,8 +76,22 @@ const BookingItem = ({ item, status }) => {
     }
   }, [item]);
 
-  const cancel = async (_id) => {
-    const status = await cancelBooking(_id);
+  const onCancelBooking = () => {
+    prompt(
+      t("my-bookings.cancel-prompt", {
+        item_title: item.itemID.title,
+      }),
+      t("my-bookings.cancel-information"),
+      true,
+      async (cancellationReason) => {
+        setIsCanceling(true);
+        await cancel(item._id, cancellationReason);
+      }
+    );
+  }
+
+  const cancel = async (_id, cancelReason) => {
+    const status = await cancelBooking(_id, cancelReason);
     await GET_BOOKING_HISTORY();
   };
 
@@ -110,13 +124,11 @@ const BookingItem = ({ item, status }) => {
               <div className="booking-item-details-extras-content">
                 <DownIcon className="booking-item-details-extras-button"></DownIcon>
                 <div className="booking-item-details-extras-list">
-                  {item.extras.map((value, index) => {
-                    return (
-                      <span>{`${value.title} (+${euroLocale.format(
-                        value.price
-                      )})`}</span>
-                    );
-                  })}
+                  {item.extras.map((value, index) => 
+                    <span key={value.id}>
+                      {`${value.title} (+${euroLocale.format(value.price)})`}
+                    </span>
+                  )}
                 </div>
               </div>
             </div>
@@ -167,25 +179,14 @@ const BookingItem = ({ item, status }) => {
           "returned",
           "refused",
         ].includes(item.status) && (
-          <a
+          <button
             className="booking-item-buttons-button cancel"
-            onClick={async () => {
-              prompt(
-                t("my-bookings.cancel-prompt", {
-                  item_title: item.itemID.title,
-                }),
-                t("my-bookings.cancel-information"),
-                async () => {
-                  setIsCanceling(true);
-                  await cancel(item._id);
-                }
-              );
-            }}
+            onClick={onCancelBooking}
           >
             {isCanceling
               ? t("my-bookings.canceling")
               : t("my-bookings.cancel-booking")}
-          </a>
+          </button>
         )}
         {(item.reviewed != undefined || item.reviewed != null) &&
           !item.reviewed && (

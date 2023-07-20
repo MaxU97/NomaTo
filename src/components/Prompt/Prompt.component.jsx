@@ -34,7 +34,7 @@ export const Prompt = ({ children }) => {
   };
 
   const Confirm = () => {
-    if (textfield && !inputValue) {
+    if (textfield && !inputValue.trim()) {
       setInputError(t("utility.prompt.fill-field"));
       return;
     }
